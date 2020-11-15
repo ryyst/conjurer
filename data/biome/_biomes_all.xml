@@ -1,0 +1,16 @@
+<BiomesToLoad
+  biome_image_map="data/biome_impl/biome_map.png"
+  biome_offset_y="0"
+>
+  <Biome
+    biome_filename="mods/luoja/files/biomes/takapiha.xml"
+    height_index="0"
+    color="ffc0ff33"
+  ></Biome>
+
+  <Biome
+    biome_filename="data/biome/solid_wall.xml"
+    height_index="10"
+    color="ff3d3d3d"
+  ></Biome>
+</BiomesToLoad>
