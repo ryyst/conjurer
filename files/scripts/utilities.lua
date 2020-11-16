@@ -14,8 +14,28 @@ function get_player()
     return players[1]
   end
 
-  -- TODO: What does this mean anyway? Player is dead..?
+  -- Player is dead
   return nil
+end
+
+function is_holding_m1()
+  local player = get_player()
+  if not player then return false end
+
+  return ComponentGetValue2(
+    EntityGetFirstComponentIncludingDisabled(player, "ControlsComponent"),
+    "mButtonDownFire"
+  )
+end
+
+function is_holding_m2()
+  local player = get_player()
+  if not player then return false end
+
+  return ComponentGetValue2(
+    EntityGetFirstComponentIncludingDisabled(player, "ControlsComponent"),
+    "mButtonDownRightClick"
+  )
 end
 
 
@@ -25,24 +45,6 @@ function get_frames_in_air(player)
     "CharacterPlatformingComponent",
     "mFramesInAirCounter"
   )
-end
-
-
-function get_active_wand()
-  local players = get_players()
-  if not players then
-    return nil
-  end
-
-  local inv_comp = EntityGetFirstComponentIncludingDisabled(
-    players[1], "Inventory2Component"
-  )
-
-  if not inv_comp then
-    return nil
-  end
-
-  return ComponentGetValue2(inv_comp, "mActiveItem")
 end
 
 

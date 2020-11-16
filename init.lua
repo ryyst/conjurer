@@ -3,6 +3,7 @@ ModMagicNumbersFileAdd("mods/luoja/files/magic_numbers.xml")
 
 dofile_once("mods/luoja/files/scripts/utilities.lua")
 
+
 function OnWorldPostUpdate()
   --ComponentSetValue2(
   --  EntityGetFirstComponent(GameGetWorldStateEntity(), "WorldStateComponent"),
@@ -13,6 +14,7 @@ end
 
 function handle_inventory(player)
   local ITEMS_QUICK = {
+    "mods/luoja/files/guns/matgun/entity.xml",
   }
   local ITEMS_FULL = {
   }
