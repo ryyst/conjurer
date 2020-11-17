@@ -34,14 +34,20 @@ end
 
 
 function OnPlayerSpawned(player)
-  if (GlobalsGetValue("FIRST_LOAD_DONE") == "1") then
+  if (GlobalsGetValue("LUOJA_FIRST_LOAD_DONE") == "1") then
     return
   end
+
+  EntityAddComponent2( player, "LuaComponent", {
+    execute_every_n_frame=1,
+    script_source_file="mods/luoja/files/gui/layout.lua"
+  });
+
   handle_inventory(player)
   player_overrides(player)
 
   local x, y = EntityGetTransform(player)
   set_time_of_day(0.4)
 
-  GlobalsSetValue("FIRST_LOAD_DONE", "1")
+  GlobalsSetValue("LUOJA_FIRST_LOAD_DONE", "1")
 end

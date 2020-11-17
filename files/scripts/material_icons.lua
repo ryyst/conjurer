@@ -1,4 +1,4 @@
-local material_icons = {
+MATERIAL_ICONS = {
   ["acid"] = "mods/luoja/files/material_icons/acid_colorgen.png",
   ["acid_gas"] = "mods/luoja/files/material_icons/acid_gas_colorgen.png",
   ["acid_gas_static"] = "mods/luoja/files/material_icons/acid_gas_static_colorgen.png",

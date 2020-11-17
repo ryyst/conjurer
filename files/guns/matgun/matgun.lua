@@ -1,6 +1,8 @@
 dofile_once("data/scripts/lib/utilities.lua")
 dofile_once("mods/luoja/files/scripts/utilities.lua")
 
+dofile_once("mods/luoja/files/gui/base.lua");
+
 
 -- Brush reticle mouse follow
 local x, y = DEBUG_GetMouseWorld()
@@ -51,12 +53,20 @@ function erase(size, x, y)
   EntityKill(eraser)
 end
 
+function is_blocked()
+  return GlobalsGetValue("is_drawing_blocked", "0" ) == "1";
+end
 
 if is_holding_m1() then
-  draw("wood_tree", 1)
+  if is_blocked() then return end
+
+  local material = GlobalsGetValue("luoja_selected_material", "soil")
+  draw(material, 1)
 end
 
 
 if is_holding_m2() then
+  if is_blocked() then return end
+
   erase(2, x, y)
 end
