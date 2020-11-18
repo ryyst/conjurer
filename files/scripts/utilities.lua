@@ -1,9 +1,9 @@
 dofile_once("data/scripts/lib/utilities.lua")
 
 -- Include this file with:
--- dofile_once("mods/luoja/files/scripts/utilities.lua")
+-- dofile_once("mods/raksa/files/scripts/utilities.lua")
 
-MOD_PATH = "mods/luoja/files/"
+MOD_PATH = "mods/raksa/files/"
 
 ---------------------------
 -- General utilities
@@ -132,7 +132,7 @@ end
 function teleport_player_safely(player, x, y)
   -- Spawn on top of player
   local px, py = EntityGetTransform(player)
-  local tp = EntityLoad("mods/luoja/files/biomes/objects/safe_teleport.xml", px, py)
+  local tp = EntityLoad("mods/raksa/files/biomes/objects/safe_teleport.xml", px, py)
   EntitySetTransform(player, x, y)
 
   -- Set actual teleportation target

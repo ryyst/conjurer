@@ -1,7 +1,7 @@
 dofile_once("data/scripts/lib/utilities.lua")
-dofile_once("mods/luoja/files/scripts/utilities.lua")
+dofile_once("mods/raksa/files/scripts/utilities.lua")
 
-dofile_once("mods/luoja/files/gui/base.lua");
+dofile_once("mods/raksa/files/gui/base.lua");
 
 
 -- Brush reticle mouse follow
@@ -30,7 +30,7 @@ function draw(material, size)
     emission_interval_min_frames=1,
     emission_interval_max_frames=1,
     emit_cosmetic_particles=false,
-    image_animation_file="mods/luoja/files/guns/matgun/brushes/draw_".. size ..".png",
+    image_animation_file="mods/raksa/files/guns/matgun/brushes/draw_".. size ..".png",
     image_animation_speed=1,
     image_animation_loop=false,
     image_animation_raytrace_from_center=true,
@@ -60,7 +60,7 @@ end
 if is_holding_m1() then
   if is_blocked() then return end
 
-  local material = GlobalsGetValue("luoja_selected_material", "soil")
+  local material = GlobalsGetValue("raksa_selected_material", "soil")
   draw(material, 1)
 end
 

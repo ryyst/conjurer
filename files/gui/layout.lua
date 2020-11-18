@@ -1,8 +1,8 @@
 local t = GameGetRealWorldTimeSinceStarted();
 
-dofile_once( "mods/luoja/files/gui/base.lua" );
-dofile_once( "mods/luoja/files/gui/helper.lua" );
-dofile_once( "mods/luoja/files/scripts/material_icons.lua" );
+dofile_once( "mods/raksa/files/gui/base.lua" );
+dofile_once( "mods/raksa/files/gui/helper.lua" );
+dofile_once( "mods/raksa/files/scripts/material_icons.lua" );
 
 
 dofile_once( "data/scripts/gun/gun_enums.lua" );
@@ -79,7 +79,7 @@ if selected_acton_index == nil then selected_acton_index = 0 end
 if first_refresh == nil then first_refresh = false end
 
 local font = {
-  sprite_filepath = "mods/luoja/files/font/small_font.xml",
+  sprite_filepath = "mods/raksa/files/font/small_font.xml",
   character_width = 11,
   character_height = 12,
   character_spacing = -7,
@@ -102,7 +102,7 @@ function draw_action_list( actions, x, y, scale_x, scale_y )
     local action = action_data[action_id];
     local ax = x + action_spacing_x * ( i - 1 ) - (action_spacing_x * (#actions - 1)) * 0.5;
     local ay = y;
-    draw_sprite( "mods/luoja/files/gui/sheet.xml", ax - 2 * action_scale, ay - 2 * action_scale, 0, 0, action_scale, action_scale, 0, 1.0, true, 0, "spell_box_"..action.type );
+    draw_sprite( "mods/raksa/files/gui/sheet.xml", ax - 2 * action_scale, ay - 2 * action_scale, 0, 0, action_scale, action_scale, 0, 1.0, true, 0, "spell_box_"..action.type );
     draw_sprite( action.sprite, ax, ay, 0, 0, action_scale, action_scale, 0, 1.0, true, -1 );
   end
 end
@@ -129,7 +129,7 @@ end
 
 local OVERLAYS = {
   None = nil,
-  MaterialPicker = "luoja_material_picker",
+  MaterialPicker = "raksa_material_picker",
   ChallengePicker = "spell_lab_challenge_picker",
   WandPicker = "spell_lab_wand_picker",
 };
@@ -172,19 +172,19 @@ function material_button( material, x, y, width, height, scale, selected, perman
         action_alpha = 0.6;
       end
       if material_path then
-        draw_sprite( "mods/luoja/files/gui/sheet.xml", x - 2 * scale, y - 2 * scale, 0, 0, scale, scale, 0, 1.0, true, 0, "spell_box_0" );
+        draw_sprite( "mods/raksa/files/gui/sheet.xml", x - 2 * scale, y - 2 * scale, 0, 0, scale, scale, 0, 1.0, true, 0, "spell_box_0" );
         draw_sprite( material_path, x, y, -2, -2, scale*0.45, scale*0.45, 0, action_alpha, true, -3 );
       else
-        draw_sprite( "mods/luoja/files/gui/sheet.xml", x - 2 * scale, y - 2 * scale, 0, 0, scale, scale, 0, 1.0, true, 0, "spell_box" );
+        draw_sprite( "mods/raksa/files/gui/sheet.xml", x - 2 * scale, y - 2 * scale, 0, 0, scale, scale, 0, 1.0, true, 0, "spell_box" );
       end
       if hover then
         if action_data then
           draw_text( font, material, x + 2, y - 6, 1, 1, 1, true, -2 );
           --draw_text( font, type_text[ action_data.type ], x + 4, y - 14, 0.67, 0.67, 1, true, -2 );
         end
-        draw_sprite( "mods/luoja/files/gui/sheet.xml", x -2 * scale, y -2 * scale, 0, 0, scale, scale, 0, 1.0, true, 0, "spell_box_hover" );
+        draw_sprite( "mods/raksa/files/gui/sheet.xml", x -2 * scale, y -2 * scale, 0, 0, scale, scale, 0, 1.0, true, 0, "spell_box_hover" );
       elseif selected then
-        draw_sprite( "mods/luoja/files/gui/sheet.xml", x -2 * scale, y -2 * scale, 0, 0, scale, scale, 0, 1.0, true, 0, "spell_box_active" );
+        draw_sprite( "mods/raksa/files/gui/sheet.xml", x -2 * scale, y -2 * scale, 0, 0, scale, scale, 0, 1.0, true, 0, "spell_box_active" );
       end
     end,
     click_callback
@@ -200,13 +200,13 @@ ui_button( -40 * ui_buttons_scale, -110, 20 * ui_buttons_scale, 20 * ui_buttons_
       if hover then
         draw_text( font, "Close Material Picker", x, y - 6 * ui_buttons_scale, ui_buttons_scale, ui_buttons_scale, 1, true, -2 );
       end
-      draw_sprite( "mods/luoja/files/gui/sheet.xml", x, y, 0, 0, ui_buttons_scale, ui_buttons_scale, 0, 1, true, 0, "edit_wands" );
+      draw_sprite( "mods/raksa/files/gui/sheet.xml", x, y, 0, 0, ui_buttons_scale, ui_buttons_scale, 0, 1, true, 0, "edit_wands" );
     else
       if hover then
         draw_text( font, "Material Picker", x, y - 6 * ui_buttons_scale, ui_buttons_scale, ui_buttons_scale, 1, true, -2 );
-        draw_sprite( "mods/luoja/files/gui/sheet.xml", x, y, 0, 0, ui_buttons_scale, ui_buttons_scale, 0, 1.0, true, 0, "edit_wands" );
+        draw_sprite( "mods/raksa/files/gui/sheet.xml", x, y, 0, 0, ui_buttons_scale, ui_buttons_scale, 0, 1.0, true, 0, "edit_wands" );
       else
-        draw_sprite( "mods/luoja/files/gui/sheet.xml", x, y, 0, 0, ui_buttons_scale, ui_buttons_scale, 0, 0.5, true, 0, "edit_wands" );
+        draw_sprite( "mods/raksa/files/gui/sheet.xml", x, y, 0, 0, ui_buttons_scale, ui_buttons_scale, 0, 0.5, true, 0, "edit_wands" );
       end
     end
   end,
@@ -279,7 +279,7 @@ if GameIsInventoryOpen() == false then
       material_button(
         material, -190 + action_x, -75 + action_y, action_width, action_height, 2/3, false, false, false,
         function( left_click, right_click )
-          GlobalsSetValue("luoja_selected_material", material)
+          GlobalsSetValue("raksa_selected_material", material)
           GamePrint("Selected " .. material)
         end
       );
@@ -292,9 +292,9 @@ if GameIsInventoryOpen() == false then
       ui_button( -210, i * 20 * ui_buttons_scale - 80, 20 * ui_buttons_scale, 20 * ui_buttons_scale,
         function( x, y, hover )
           if filter_type == i then
-            draw_sprite( "mods/luoja/files/gui/sheet.xml", x, y, 0, 0, ui_buttons_scale, ui_buttons_scale, 0, 1.0, true, 0, "type_filter_"..i );
+            draw_sprite( "mods/raksa/files/gui/sheet.xml", x, y, 0, 0, ui_buttons_scale, ui_buttons_scale, 0, 1.0, true, 0, "type_filter_"..i );
           else
-            draw_sprite( "mods/luoja/files/gui/sheet.xml", x, y, 0, 0, ui_buttons_scale, ui_buttons_scale, 0, 0.5, true, 0, "type_filter_"..i );
+            draw_sprite( "mods/raksa/files/gui/sheet.xml", x, y, 0, 0, ui_buttons_scale, ui_buttons_scale, 0, 0.5, true, 0, "type_filter_"..i );
           end
           if hover then
             draw_text( font, type_text[i], x, y - 10 * ui_buttons_scale, ui_buttons_scale, ui_buttons_scale, 1, true, -2 );

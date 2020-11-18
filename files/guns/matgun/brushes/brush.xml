@@ -1,7 +1,7 @@
 <Entity name="brush_reticle">
   <SpriteComponent
     _enabled="1"
-    image_file="mods/luoja/files/guns/matgun/brushes/brush.png"
+    image_file="mods/raksa/files/guns/matgun/brushes/brush.png"
     offset_x="5"
     offset_y="5"
     z_index="80"

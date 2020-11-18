@@ -3,7 +3,7 @@
   biome_offset_y="0"
 >
   <Biome
-    biome_filename="mods/luoja/files/biomes/takapiha.xml"
+    biome_filename="mods/raksa/files/biomes/takapiha.xml"
     height_index="0"
     color="ffc0ff33"
   ></Biome>

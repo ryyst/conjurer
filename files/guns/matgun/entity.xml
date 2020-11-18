@@ -1,7 +1,7 @@
 <Entity name="matgun" tags="custom_wand,GUN">
   <AbilityComponent
     _tags="item,disabled_at_start"
-    sprite_file="mods/luoja/files/guns/matgun/matgun.png"
+    sprite_file="mods/raksa/files/guns/matgun/matgun.png"
     ui_name="Material Painter"
     drop_as_item_on_death="1"
     add_these_child_actions="MATGUN"
@@ -40,7 +40,7 @@
   <SpriteComponent
     _tags="item,enabled_in_hand,enabled_in_world"
     _enabled="0"
-    image_file="mods/luoja/files/guns/matgun/matgun.png"
+    image_file="mods/raksa/files/guns/matgun/matgun.png"
     offset_x="6"
     offset_y="3.5"
     z_index="-1.5"
@@ -79,12 +79,12 @@
 
   <LuaComponent
     _tags="enabled_in_hand"
-    script_enabled_changed="mods/luoja/files/guns/matgun/toggle_brush.lua"
+    script_enabled_changed="mods/raksa/files/guns/matgun/toggle_brush.lua"
   ></LuaComponent>
 
   <LuaComponent
     _tags="enabled_in_hand"
-    script_source_file="mods/luoja/files/guns/matgun/matgun.lua"
+    script_source_file="mods/raksa/files/guns/matgun/matgun.lua"
     execute_every_n_frame="1"
   ></LuaComponent>
 </Entity>

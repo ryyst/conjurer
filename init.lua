@@ -1,7 +1,7 @@
-ModMagicNumbersFileAdd("mods/luoja/files/magic_numbers.xml")
---ModLuaFileAppend("data/scripts/gun/gun_actions.lua", "mods/luoja/files/actions.lua")
+ModMagicNumbersFileAdd("mods/raksa/files/magic_numbers.xml")
+--ModLuaFileAppend("data/scripts/gun/gun_actions.lua", "mods/raksa/files/actions.lua")
 
-dofile_once("mods/luoja/files/scripts/utilities.lua")
+dofile_once("mods/raksa/files/scripts/utilities.lua")
 
 
 function OnWorldPostUpdate()
@@ -14,7 +14,7 @@ end
 
 function handle_inventory(player)
   local ITEMS_QUICK = {
-    "mods/luoja/files/guns/matgun/entity.xml",
+    "mods/raksa/files/guns/matgun/entity.xml",
   }
   local ITEMS_FULL = {
   }
@@ -34,13 +34,13 @@ end
 
 
 function OnPlayerSpawned(player)
-  if (GlobalsGetValue("LUOJA_FIRST_LOAD_DONE") == "1") then
+  if (GlobalsGetValue("RAKSA_FIRST_LOAD_DONE") == "1") then
     return
   end
 
   EntityAddComponent2( player, "LuaComponent", {
     execute_every_n_frame=1,
-    script_source_file="mods/luoja/files/gui/layout.lua"
+    script_source_file="mods/raksa/files/gui/layout.lua"
   });
 
   handle_inventory(player)
@@ -49,5 +49,5 @@ function OnPlayerSpawned(player)
   local x, y = EntityGetTransform(player)
   set_time_of_day(0.4)
 
-  GlobalsSetValue("LUOJA_FIRST_LOAD_DONE", "1")
+  GlobalsSetValue("RAKSA_FIRST_LOAD_DONE", "1")
 end
