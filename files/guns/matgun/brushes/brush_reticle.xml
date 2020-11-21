@@ -1,10 +1,11 @@
 <Entity name="brush_reticle">
-  <!-- Default brush -->
+  <!-- Default brush graphics -->
   <SpriteComponent
-    _enabled="1"
     image_file="mods/raksa/files/guns/matgun/brushes/5_reticle.png"
     offset_x="11"
     offset_y="11"
+
+    emissive="1"
     has_special_scale="1"
     special_scale_x="0.333"
     special_scale_y="0.333"

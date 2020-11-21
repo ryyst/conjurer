@@ -12,8 +12,6 @@ end
 
 
 function draw(material, size)
-  local default_brush = "mods/raksa/files/guns/matgun/brushes/5_brush.png"
-
   local brush_reticle = EntityGetWithName("brush_reticle")
   local brush = get_active_brush()
 

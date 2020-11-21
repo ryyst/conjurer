@@ -15,9 +15,6 @@ local main_menu_pos_y = 18
 local sub_menu_pos_x = main_menu_pos_x+3
 local sub_menu_pos_y = main_menu_pos_y-5.3
 
-local BUTTON_SIZE = 16
-local PADDING = 2
-
 local active_material_type = MATERIAL_TYPES[1]
 
 
