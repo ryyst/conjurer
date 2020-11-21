@@ -1,9 +1,13 @@
 <Entity name="brush_reticle">
+  <!-- Default brush -->
   <SpriteComponent
     _enabled="1"
-    image_file="mods/raksa/files/guns/matgun/brushes/brush.png"
-    offset_x="5"
-    offset_y="5"
+    image_file="mods/raksa/files/guns/matgun/brushes/5_reticle.png"
+    offset_x="11"
+    offset_y="11"
+    has_special_scale="1"
+    special_scale_x="0.333"
+    special_scale_y="0.333"
     z_index="80"
   ></SpriteComponent>
 </Entity>

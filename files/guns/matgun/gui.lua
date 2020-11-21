@@ -2,6 +2,9 @@ dofile("data/scripts/lib/coroutines.lua")
 dofile("data/scripts/lib/utilities.lua")
 
 dofile_once("mods/raksa/files/scripts/material_icons.lua");
+dofile_once("mods/raksa/files/guns/matgun/brushes/list.lua");
+dofile_once("mods/raksa/files/guns/matgun/helpers.lua");
+
 dofile_once("mods/raksa/files/scripts/utilities.lua")
 
 local render_active_overlay = nil
@@ -9,43 +12,13 @@ local GUI = GuiCreate()
 local main_menu_items = {}
 local main_menu_pos_x = 1
 local main_menu_pos_y = 18
+local sub_menu_pos_x = main_menu_pos_x+3
+local sub_menu_pos_y = main_menu_pos_y-5.3
 
 local BUTTON_SIZE = 16
 local PADDING = 2
 
-local all_materials = {Solids={}};
-local all_material_types = {"Solids", "Sands", "Liquids", "Gases", "Fires"};
-local active_material_type = all_material_types[1]
-
-function id_to_name(id)
-  id = id:gsub("_",' ')
-  id = id:gsub("(%l)(%w*)", function(a,b) return string.upper(a)..b end)
-  return id
-end
-
-function check_static(str)
-  if string.match(str, "static") then return true else return false end
-end
-
-for i,cat in ipairs(all_material_types) do
-  local temp = {}
-  local mats = getfenv()["CellFactory_GetAll"..cat]()
-  table.sort(mats)
-
-  for i,x in ipairs(mats)
-  do
-    if check_static(x) then
-      table.insert(all_materials.Solids, {id=x, name=id_to_name(x), image=MATERIAL_ICONS[x]})
-    else
-      table.insert(temp, {id=x, name=id_to_name(x), image=MATERIAL_ICONS[x]})
-    end
-  end
-  if cat ~= "Solids" then
-    all_materials[cat] = temp
-  end
-end
-
-print(str(all_materials))
+local active_material_type = MATERIAL_TYPES[1]
 
 
 function GuiHorizontal(gui, x, y, func)
@@ -54,19 +27,39 @@ function GuiHorizontal(gui, x, y, func)
   GuiLayoutEnd(gui)
 end
 
+function GuiVertical(gui, x, y, func)
+  GuiLayoutBeginVertical(gui, x, y)
+  func()
+  GuiLayoutEnd(gui)
+end
+
+
+function render_grid(items, callback)
+  local row_length = math.max( 6, math.min( (#items) ^ 0.5, 12 ) );
+  local row_count = math.ceil(#items / row_length)
+
+  local item_pos = 1
+  for row=1, row_count do
+    if not items[item_pos] then break end
+
+    GuiHorizontal(GUI, 1, 2, function()
+      for col = 1, row_length do
+        if not items[item_pos] then break end
+        callback(items[item_pos], item_pos)
+        item_pos = item_pos + 1
+      end
+    end)
+  end
+end
+
 
 function render_material_picker()
   local btn_id = 200
+  local active_materials = ALL_MATERIALS[active_material_type]
 
-  GuiLayoutBeginVertical( GUI, main_menu_pos_x+3, main_menu_pos_y-5.3)
-
-  local active_materials = all_materials[active_material_type]
-  local row_length = math.max( 6, math.min( (#active_materials) ^ 0.5, 12 ) );
-  local row_count = math.ceil(#active_materials / row_length)
-
-  -- Render mat type buttons
+  -- Render material type buttons
   GuiHorizontal(GUI, 1, 1, function()
-    for i, cat in ipairs(all_material_types) do
+    for i, cat in ipairs(MATERIAL_TYPES) do
       name = (cat == active_material_type) and string.upper(cat) or cat
 
       if GuiButton( GUI, btn_id, 0, 0, name) then
@@ -77,35 +70,30 @@ function render_material_picker()
     end
   end)
 
-
   -- Render material buttons
-  local opt_pos = 1
-  for row=1, row_count do
-    if not active_materials[opt_pos] then break end
-
-    GuiHorizontal(GUI, 1, 2, function()
-      for col = 1, row_length do
-        if not active_materials[opt_pos] then break end
-
-        local mat = active_materials[opt_pos]
-
-        if GuiImageButton(GUI, btn_id, 0, 0, "", mat.image) then --, MATERIAL_ICONS[mat.id]) then
-          GlobalsSetValue("raksa_selected_material", mat.id)
-        end
-        GuiTooltip(GUI, mat.name, "")
-        opt_pos = opt_pos + 1
-        btn_id = btn_id + 1
-      end
-    end)
-
-  end
-
-  GuiLayoutEnd(GUI)
+  render_grid(active_materials, function(material)
+    if GuiImageButton(GUI, btn_id, 0, 0, "", material.image) then
+      GlobalsSetValue("raksa_selected_material", material.id)
+    end
+    GuiTooltip(GUI, material.name, "")
+    btn_id = btn_id + 1
+  end)
 end
 
 function render_brush_picker()
   local btn_id = 300
-  GamePrint("brush picker active")
+
+  GuiHorizontal(GUI, 1, 1, function()
+    GuiText(GUI, 0, 0, "Select a brush shape")
+  end)
+
+  render_grid(BRUSHES, function(brush, i)
+    if GuiImageButton(GUI, btn_id, 0, 0, "", brush.icon_file) then
+      change_active_brush(brush, i)
+    end
+    GuiTooltip(GUI, brush.name, "")
+    btn_id = btn_id + 1
+  end)
 end
 
 function render_eraser_picker()
@@ -113,9 +101,9 @@ function render_eraser_picker()
   GamePrint("eraser picker active")
 end
 
+
 function render_main_buttons()
   local btn_id = 100
-  GuiLayoutBeginVertical( GUI, main_menu_pos_x, main_menu_pos_y )
 
   for i,item in ipairs(main_menu_items) do
     local image = item.image or item.image_func()
@@ -126,14 +114,6 @@ function render_main_buttons()
     GuiLayoutAddVerticalSpacing(GUI, 2)
     btn_id = btn_id + 1
   end
-
-  GuiLayoutEnd( GUI )
-end
-
-
-function get_active_material_image()
-  local material = GlobalsGetValue("raksa_selected_material", "soil")
-  return MATERIAL_ICONS[material]
 end
 
 
@@ -152,7 +132,7 @@ main_menu_items =
   {
     ui_name="Brush Picker",
     ui_description="",
-    image = get_active_material_image(),
+    image_func = function() return get_active_brush().icon_file end,
     action = function() toggle_active_overlay(render_brush_picker) end,
   },
   {
@@ -164,16 +144,24 @@ main_menu_items =
 }
 
 
+generate_all_materials()
+
 async_loop(function()
 
   if GUI ~= nil then
-    GuiStartFrame( GUI )
+    GuiStartFrame(GUI)
   end
 
   if GameIsInventoryOpen() == false then
-    render_main_buttons()
+
+    GuiVertical(GUI, main_menu_pos_x, main_menu_pos_y, function()
+      render_main_buttons()
+    end)
+
     if render_active_overlay ~= nil then
-      render_active_overlay()
+      GuiVertical(GUI, sub_menu_pos_x, sub_menu_pos_y, function()
+        render_active_overlay()
+      end)
     end
   end
 

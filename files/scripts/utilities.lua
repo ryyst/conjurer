@@ -115,14 +115,19 @@ function EntityGetValue(entity, component_name, attr_name)
     EntityGetFirstComponentIncludingDisabled(entity, component_name), attr_name
   )
 end
+
 function EntitySetValue(entity, component_name, attr_name, value)
   return ComponentSetValue2(
     EntityGetFirstComponentIncludingDisabled(entity, component_name), attr_name, value
   )
 end
 
+function EntitySetValues(entity, component_name, values)
+  local comp = EntityGetFirstComponentIncludingDisabled(entity, component_name)
+  ComponentSetValues(comp, values)
+end
 
-function ComponentSetMultiValue(component, values)
+function ComponentSetValues(component, values)
   for key, value in pairs(values) do
     ComponentSetValue(component, key, value)
   end

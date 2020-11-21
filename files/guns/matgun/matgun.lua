@@ -1,21 +1,26 @@
 dofile_once("data/scripts/lib/utilities.lua")
 dofile_once("mods/raksa/files/scripts/utilities.lua")
+dofile_once("mods/raksa/files/guns/matgun/helpers.lua");
 
-dofile_once("mods/raksa/files/gui/base.lua");
 
-
--- Brush reticle mouse follow
-local x, y = DEBUG_GetMouseWorld()
-local brush_reticle = EntityGetWithName("brush_reticle")
-if brush_reticle then
-  EntitySetTransform(brush_reticle, x, y)
+function brush_reticle_follow_mouse(x, y)
+  local brush_reticle = EntityGetWithName("brush_reticle")
+  if brush_reticle then
+    EntitySetTransform(brush_reticle, x, y)
+  end
 end
 
 
 function draw(material, size)
+  local default_brush = "mods/raksa/files/guns/matgun/brushes/5_brush.png"
+
   local brush_reticle = EntityGetWithName("brush_reticle")
+  local brush = get_active_brush()
+
   EntityAddComponent2(brush_reticle, "ParticleEmitterComponent", {
     emitted_material_name=material,
+    image_animation_file=brush.brush_file,
+
     create_real_particles=true,
     lifetime_min=1,
     lifetime_max=1,
@@ -24,13 +29,9 @@ function draw(material, size)
     render_on_grid=true,
     fade_based_on_lifetime=true,
     cosmetic_force_create=false,
-    airflow_force=0.251,
-    airflow_time=1.01,
-    airflow_scale=0.05,
     emission_interval_min_frames=1,
     emission_interval_max_frames=1,
     emit_cosmetic_particles=false,
-    image_animation_file="mods/raksa/files/guns/matgun/brushes/draw_".. size ..".png",
     image_animation_speed=1,
     image_animation_loop=false,
     image_animation_raytrace_from_center=true,
@@ -53,20 +54,18 @@ function erase(size, x, y)
   EntityKill(eraser)
 end
 
-function is_blocked()
-  return GlobalsGetValue("is_drawing_blocked", "0" ) == "1";
-end
+
+local x, y = DEBUG_GetMouseWorld()
+
+brush_reticle_follow_mouse(x, y)
+
 
 if is_holding_m1() then
-  if is_blocked() then return end
-
   local material = GlobalsGetValue("raksa_selected_material", "soil")
   draw(material, 1)
 end
 
 
 if is_holding_m2() then
-  if is_blocked() then return end
-
   erase(2, x, y)
 end
