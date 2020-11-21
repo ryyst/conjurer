@@ -15,7 +15,8 @@ end
 
 function handle_inventory(player)
   local ITEMS_QUICK = {
-    "mods/raksa/files/guns/matgun/entity.xml",
+    "mods/raksa/files/wands/matwand/entity.xml",
+    "data/entities/items/starting_wand_rng.xml",
   }
   local ITEMS_FULL = {
   }

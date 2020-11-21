@@ -1,6 +1,6 @@
 dofile_once("data/scripts/lib/utilities.lua")
 dofile_once("mods/raksa/files/scripts/utilities.lua")
-dofile_once("mods/raksa/files/guns/matgun/helpers.lua");
+dofile_once("mods/raksa/files/wands/matwand/helpers.lua");
 
 
 function brush_reticle_follow_mouse(x, y)

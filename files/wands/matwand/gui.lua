@@ -2,8 +2,8 @@ dofile("data/scripts/lib/coroutines.lua")
 dofile("data/scripts/lib/utilities.lua")
 
 dofile_once("mods/raksa/files/scripts/material_icons.lua");
-dofile_once("mods/raksa/files/guns/matgun/brushes/list.lua");
-dofile_once("mods/raksa/files/guns/matgun/helpers.lua");
+dofile_once("mods/raksa/files/wands/matwand/brushes/list.lua");
+dofile_once("mods/raksa/files/wands/matwand/helpers.lua");
 
 dofile_once("mods/raksa/files/scripts/utilities.lua")
 
@@ -132,12 +132,12 @@ main_menu_items =
     image_func = function() return get_active_brush().icon_file end,
     action = function() toggle_active_overlay(render_brush_picker) end,
   },
-  {
-    ui_name="Eraser Size",
-    ui_description="",
-    image = get_active_material_image(),
-    action = function() toggle_active_overlay(render_eraser_picker) end,
-  },
+  --{
+  --  ui_name="Eraser Size",
+  --  ui_description="",
+  --  image = get_active_material_image(),
+  --  action = function() toggle_active_overlay(render_eraser_picker) end,
+  --},
 }
 
 

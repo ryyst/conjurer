@@ -1,8 +1,8 @@
-dofile_once("mods/raksa/files/guns/matgun/brushes/list.lua");
+dofile_once("mods/raksa/files/wands/matwand/brushes/list.lua");
 dofile_once("mods/raksa/files/scripts/material_icons.lua");
 
 -----------------------------
--- Matgun-specific helpers --
+-- Matwand-specific helpers --
 -----------------------------
 MATERIAL_TYPES = {"Solids", "Sands", "Liquids", "Gases", "Fires"};
 ALL_MATERIALS = {Solids={}};
@@ -50,6 +50,7 @@ function is_static(str)
 end
 
 
+-- TODO: This is a bit ugly, needs cleanup.
 function generate_all_materials()
   for i,cat in ipairs(MATERIAL_TYPES) do
     local temp = {}

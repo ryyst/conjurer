@@ -6,10 +6,10 @@ end
 
 table.insert( actions,
 {
-  id                = "MATGUN",
+  id                = "MATWAND",
   name              = "Paint any materials",
   description       = "Left mouse to paint and right mouse to erase.",
-  sprite            = MOD_PATH .. "guns/matgun/matgun.png",
+  sprite            = MOD_PATH .. "wands/matwand/matwand.png",
   type              = ACTION_TYPE_PROJECTILE,
   spawn_level       = "",
   spawn_probability = "",

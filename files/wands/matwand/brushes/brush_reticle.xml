@@ -1,7 +1,7 @@
 <Entity name="brush_reticle">
   <!-- Default brush graphics -->
   <SpriteComponent
-    image_file="mods/raksa/files/guns/matgun/brushes/5_reticle.png"
+    image_file="mods/raksa/files/wands/matwand/brushes/5_reticle.png"
     offset_x="11"
     offset_y="11"
 

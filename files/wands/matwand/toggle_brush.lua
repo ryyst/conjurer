@@ -5,7 +5,7 @@ dofile_once("mods/raksa/files/scripts/utilities.lua")
 function enabled_changed(entity, is_enabled)
   if is_enabled then
     local x, y = DEBUG_GetMouseWorld()
-    EntityLoad("mods/raksa/files/guns/matgun/brushes/brush_reticle.xml", x, y)
+    EntityLoad("mods/raksa/files/wands/matwand/brushes/brush_reticle.xml", x, y)
     return
   end
 

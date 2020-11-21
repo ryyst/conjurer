@@ -1,8 +1,8 @@
 <Mod
-  name="BuildMOD"
+  name="Builder"
   description="Build & create."
   is_game_mode="1"
-  ui_newgame_name="BuildMOD"
+  ui_newgame_name="Builder"
   ui_newgame_description="Build & create."
   ui_newgame_gfx_banner_bg="mods/raksa/files/gfx/menu_banner_background.png"
   ui_newgame_gfx_banner_fg="mods/raksa/files/gfx/menu_banner_overlay.png"
