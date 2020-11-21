@@ -2,6 +2,7 @@ ModMagicNumbersFileAdd("mods/raksa/files/magic_numbers.xml")
 --ModLuaFileAppend("data/scripts/gun/gun_actions.lua", "mods/raksa/files/actions.lua")
 
 dofile_once("mods/raksa/files/scripts/utilities.lua")
+--dofile_once("mods/raksa/files/lib/gui.lua")
 
 
 function OnWorldPostUpdate()
@@ -33,21 +34,27 @@ function player_overrides(player)
 end
 
 
+function OnPausedChanged( is_paused, is_inventory_pause )
+  if is_paused then
+    print("Paused!")
+    GlobalsSetValue("raksa_is_paused", "1")
+  else
+    GlobalsSetValue("raksa_is_paused", "0")
+  end
+end
+
+
 function OnPlayerSpawned(player)
   if (GlobalsGetValue("RAKSA_FIRST_LOAD_DONE") == "1") then
     return
   end
-
-  EntityAddComponent2( player, "LuaComponent", {
-    execute_every_n_frame=1,
-    script_source_file="mods/raksa/files/gui/layout.lua"
-  });
 
   handle_inventory(player)
   player_overrides(player)
 
   local x, y = EntityGetTransform(player)
   set_time_of_day(0.4)
+
 
   GlobalsSetValue("RAKSA_FIRST_LOAD_DONE", "1")
 end

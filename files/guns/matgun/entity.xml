@@ -2,7 +2,7 @@
   <AbilityComponent
     _tags="item,disabled_at_start"
     sprite_file="mods/raksa/files/guns/matgun/matgun.png"
-    ui_name="Material Painter"
+    ui_name="Material Painter Wand"
     drop_as_item_on_death="1"
     add_these_child_actions="MATGUN"
     entity_count="1"
@@ -86,5 +86,15 @@
     _tags="enabled_in_hand"
     script_source_file="mods/raksa/files/guns/matgun/matgun.lua"
     execute_every_n_frame="1"
+  ></LuaComponent>
+
+  <LuaComponent
+    _tags="enabled_in_hand"
+    script_source_file="mods/raksa/files/guns/matgun/gui.lua"
+    vm_type="ONE_PER_COMPONENT_INSTANCE"
+    enable_coroutines="1"
+    execute_on_added="1"
+    execute_every_n_frame="-1"
+    execute_times="1"
   ></LuaComponent>
 </Entity>
