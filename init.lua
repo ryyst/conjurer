@@ -46,7 +46,7 @@ end
 
 
 function OnPlayerSpawned(player)
-  if (GlobalsGetValue("RAKSA_FIRST_LOAD_DONE") == "1") then
+  if (GlobalsGetValue("RAKSA_FIRST_LOAD_DONE") == "1") and (GlobalsGetValue("RAKSA_DIED") == "0") then
     return
   end
 
@@ -58,4 +58,11 @@ function OnPlayerSpawned(player)
 
 
   GlobalsSetValue("RAKSA_FIRST_LOAD_DONE", "1")
+  GlobalsSetValue("RAKSA_DIED", "0")
+end
+
+
+function OnPlayerDied(player)
+  GlobalsSetValue("RAKSA_DIED", "1")
+  GamePrintImportant("You managed to die", "[Save & Quit] and [Continue] to keep your progress")
 end

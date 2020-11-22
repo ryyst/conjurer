@@ -84,7 +84,7 @@
 
   <LuaComponent
     _tags="enabled_in_hand"
-    script_source_file="mods/raksa/files/wands/matwand/matwand.lua"
+    script_source_file="mods/raksa/files/wands/matwand/drawing.lua"
     execute_every_n_frame="1"
   ></LuaComponent>
 
