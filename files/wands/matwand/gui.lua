@@ -5,6 +5,7 @@ dofile_once("mods/raksa/files/scripts/material_icons.lua");
 dofile_once("mods/raksa/files/wands/matwand/brushes/list.lua");
 dofile_once("mods/raksa/files/wands/matwand/helpers.lua");
 
+dofile_once("mods/raksa/files/lib/gui.lua")
 dofile_once("mods/raksa/files/scripts/utilities.lua")
 
 local render_active_overlay = nil
@@ -18,98 +19,60 @@ local sub_menu_pos_y = main_menu_pos_y-5.3
 local active_material_type = MATERIAL_TYPES[1]
 
 
-function GuiHorizontal(gui, x, y, func)
-  GuiLayoutBeginHorizontal(gui, x, y)
-  func()
-  GuiLayoutEnd(gui)
-end
-
-function GuiVertical(gui, x, y, func)
-  GuiLayoutBeginVertical(gui, x, y)
-  func()
-  GuiLayoutEnd(gui)
-end
-
-
-function render_grid(items, callback)
-  local row_length = math.max( 6, math.min( (#items) ^ 0.5, 12 ) );
-  local row_count = math.ceil(#items / row_length)
-
-  local item_pos = 1
-  for row=1, row_count do
-    if not items[item_pos] then break end
-
-    GuiHorizontal(GUI, 1, 2, function()
-      for col = 1, row_length do
-        if not items[item_pos] then break end
-        callback(items[item_pos], item_pos)
-        item_pos = item_pos + 1
-      end
-    end)
-  end
-end
-
-
 function render_material_picker()
-  local btn_id = 200
+  local bid = 200
   local active_materials = ALL_MATERIALS[active_material_type]
 
   -- Render material type buttons
-  GuiHorizontal(GUI, 1, 1, function()
+  Horizontal(GUI, 1, 1, function()
     for i, cat in ipairs(MATERIAL_TYPES) do
       name = (cat == active_material_type) and string.upper(cat) or cat
 
-      if GuiButton( GUI, btn_id, 0, 0, name) then
+      bid = Button(GUI, bid, {text=name}, function()
         active_material_type = cat
-      end
+      end)
       GuiLayoutAddHorizontalSpacing(GUI, 3)
-      btn_id = btn_id + 1
     end
   end)
 
   -- Render material buttons
-  render_grid(active_materials, function(material)
-    if GuiImageButton(GUI, btn_id, 0, 0, "", material.image) then
+  Grid(GUI, active_materials, function(material)
+    bid = Button(GUI, bid, {image=material.image, tooltip=material.name}, function()
       GlobalsSetValue("raksa_selected_material", material.id)
-    end
-    GuiTooltip(GUI, material.name, "")
-    btn_id = btn_id + 1
+    end)
   end)
 end
 
-function render_brush_picker()
-  local btn_id = 300
 
-  GuiHorizontal(GUI, 1, 1, function()
+function render_brush_picker()
+  local bid = 300
+
+  Horizontal(GUI, 1, 1, function()
     GuiText(GUI, 0, 0, "Select a brush shape")
   end)
 
-  render_grid(BRUSHES, function(brush, i)
-    if GuiImageButton(GUI, btn_id, 0, 0, "", brush.icon_file) then
-      change_active_brush(brush, i)
-    end
-    GuiTooltip(GUI, brush.name, "")
-    btn_id = btn_id + 1
+  Grid(GUI, BRUSHES, function(brush, i)
+    bid = Button(GUI, bid, {image=brush.icon_file, tooltip=brush.name}, function()
+        change_active_brush(brush, i)
+    end)
   end)
 end
 
+
 function render_eraser_picker()
-  local btn_id = 400
+  local bid = 400
   GamePrint("eraser picker active")
 end
 
 
 function render_main_buttons()
-  local btn_id = 100
+  local bid = 100
 
   for i,item in ipairs(main_menu_items) do
     local image = item.image or item.image_func()
-    if GuiImageButton(GUI, btn_id, 0, 0, "", image) then
-      item.action()
-    end
-    GuiTooltip(GUI, item.ui_name, item.ui_description)
+    local vars = {image=image, tooltip=item.ui_name, tooltip_desc=item.ui_description}
+    bid = Button(GUI, bid, vars, item.action)
     GuiLayoutAddVerticalSpacing(GUI, 2)
-    btn_id = btn_id + 1
   end
 end
 
@@ -117,6 +80,7 @@ end
 function toggle_active_overlay(func)
   render_active_overlay = (render_active_overlay ~= func) and func or nil
 end
+
 
 main_menu_items =
 {
@@ -151,12 +115,12 @@ async_loop(function()
 
   if GameIsInventoryOpen() == false then
 
-    GuiVertical(GUI, main_menu_pos_x, main_menu_pos_y, function()
+    Vertical(GUI, main_menu_pos_x, main_menu_pos_y, function()
       render_main_buttons()
     end)
 
     if render_active_overlay ~= nil then
-      GuiVertical(GUI, sub_menu_pos_x, sub_menu_pos_y, function()
+      Vertical(GUI, sub_menu_pos_x, sub_menu_pos_y, function()
         render_active_overlay()
       end)
     end
