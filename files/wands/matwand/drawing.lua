@@ -80,7 +80,7 @@ brush_reticle_follow_mouse(x, y)
 
 
 if is_holding_m1() then
-  local material = GlobalsGetValue("raksa_selected_material", "soil")
+  local material = GlobalsGetValue(SELECTED_MATERIAL, SELECTED_MATERIAL_DEFAULT)
   draw(material)
 end
 

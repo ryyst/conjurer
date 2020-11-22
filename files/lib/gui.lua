@@ -36,7 +36,7 @@ function Grid(gui, items, callback)
 end
 
 
-function Button(gui, bid, vars, click_action)
+function Button(gui, bid, vars, click_action, right_click_action)
   local x = vars.x or 0
   local y = vars.y or 0
   local image = vars.image

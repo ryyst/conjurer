@@ -1,4 +1,13 @@
 
+SELECTED_BRUSH = "RAKSA_SELECTED_BRUSH"
+DEFAULT_BRUSH = "3" -- 5px brush
+-- NOTE: The reticle entity file has the actual default brush image defined
+-- TODO: Dynamic first load?
+
+
+SELECTED_MATERIAL = "RAKSA_SELECTED_MATERIAL"
+SELECTED_MATERIAL_DEFAULT = "soil"
+
 ERASER_MODE = "RAKSA_ERASER_MODE"
 ERASER_MODE_SOLIDS = "solids"
 ERASER_MODE_LIQUIDS = "liquids"

@@ -18,6 +18,20 @@ local sub_menu_pos_x = main_menu_pos_x+3
 local sub_menu_pos_y = main_menu_pos_y-5.3
 
 local active_material_type = MATERIAL_TYPES[1]
+local favorites = {}
+
+
+function remove_from_favorites(i)
+  return function()
+    table.remove(favorites, i)
+  end
+end
+
+function add_to_favorites(vars, click)
+  return function()
+    table.insert(favorites, { vars=vars, click=click })
+  end
+end
 
 
 function render_material_picker()
@@ -38,9 +52,10 @@ function render_material_picker()
 
   -- Render material buttons
   Grid(GUI, active_materials, function(material)
-    bid = Button(GUI, bid, {image=material.image, tooltip=material.name}, function()
-      GlobalsSetValue("raksa_selected_material", material.id)
-    end)
+    local vars = { image=material.image, tooltip=material.name }
+    local click = function() GlobalsSetValue(SELECTED_MATERIAL, material.id) end
+    local right_click = add_to_favorites(vars, click)
+    bid = Button(GUI, bid, vars, click, right_click)
   end)
 end
 
@@ -52,10 +67,12 @@ function render_brush_picker()
     GuiText(GUI, 0, 0, "Select a brush shape")
   end)
 
+  -- Render brushes
   Grid(GUI, BRUSHES, function(brush, i)
-    bid = Button(GUI, bid, {image=brush.icon_file, tooltip=brush.name}, function()
-        change_active_brush(brush, i)
-    end)
+    local vars = { image=brush.icon_file, tooltip=brush.name }
+    local click = function() change_active_brush(brush, i) end
+    local right_click = add_to_favorites(vars, click)
+    bid = Button(GUI, bid, vars, click, right_click)
   end)
 end
 
@@ -75,21 +92,27 @@ function render_eraser_picker()
   end)
 
   Vertical(GUI, 1, 2, function()
+
+    -- Render erasers
     Horizontal(GUI, 0, 0, function()
       for i, item in ipairs(eraser_buttons) do
-        bid = Button(GUI, bid, {tooltip=item.text, image=item.image}, function()
-          GlobalsSetValue(ERASER_MODE, item.mode)
-        end)
+        local vars = { tooltip=item.text, image=item.image }
+        local click = function() GlobalsSetValue(ERASER_MODE, item.mode) end
+        local right_click = add_to_favorites(vars, click)
+        bid = Button(GUI, bid, vars, click, right_click)
       end
     end)
 
+    -- Render extra size slider, if using solids eraser.
     if current_eraser == ERASER_MODE_SOLIDS then
+      GuiLayoutAddVerticalSpacing(GUI, 2)
+
       local value = GlobalsGetValue(ERASER_SIZE, ERASER_SIZE_DEFAULT)
       local repr = tostring(value)
       local default = tonumber(ERASER_SIZE_DEFAULT)
 
       local new_val = GuiSlider(GUI, bid, -2, 0, "", value, 1, 8, default, 1, repr, 60 )
-      GuiTooltip(GUI, "Size", "Works unfortunately only with the Solids Eraser")
+      GuiTooltip(GUI, "Size", "Unfortunately this works only with the Solids Eraser")
       GlobalsSetValue(ERASER_SIZE, math.ceil(new_val))
     end
   end)
@@ -102,27 +125,38 @@ function render_main_buttons()
   local main_menu_items = {
     {
       name="Material Picker",
-      desc="Mouse1 to draw",
       image_func = get_active_material_image,
       action = function() toggle_active_overlay(render_material_picker) end
     },
     {
       name="Brush Picker",
-      desc="Mouse1 to draw",
       image_func = function() return get_active_brush().icon_file end,
       action = function() toggle_active_overlay(render_brush_picker) end,
     },
     {
       name="Eraser Picker",
-      desc="Mouse2 to erase",
       image_func = get_active_eraser_image,
       action = function() toggle_active_overlay(render_eraser_picker) end,
     },
   };
 
-  for i,item in ipairs(main_menu_items) do
-    local image = item.image or item.image_func()
-    bid = Button(GUI, bid, {image=image, tooltip=item.name, tooltip_desc=item.desc}, item.action)
+  -- Render picker buttons
+  for i, item in ipairs(main_menu_items) do
+    bid = Button(
+      GUI, bid,
+      {image=item.image_func(), tooltip=item.name},
+      item.action
+    )
+    GuiLayoutAddVerticalSpacing(GUI, 2)
+  end
+
+  GuiLayoutAddVerticalSpacing(GUI, 2)
+  GuiText(GUI, 1, 0, "fav.")
+  GuiTooltip(GUI, "Add favorites by right-clicking on individual mats/brushes/erasers", "")
+
+  -- Render favorite buttons
+  for i, fav in ipairs(favorites) do
+    bid = Button(GUI, bid, fav.vars, fav.click, remove_from_favorites(i))
     GuiLayoutAddVerticalSpacing(GUI, 2)
   end
 end

@@ -3,13 +3,11 @@ dofile_once("mods/raksa/files/wands/matwand/brushes/list.lua");
 dofile_once("mods/raksa/files/scripts/material_icons.lua");
 dofile_once("mods/raksa/files/scripts/enums.lua")
 
------------------------------
+------------------------------
 -- Matwand-specific helpers --
------------------------------
+------------------------------
 MATERIAL_TYPES = {"Solids", "Sands", "Liquids", "Gases", "Fires"};
 ALL_MATERIALS = {Solids={}};
-
-BRUSH_GLOBAL = "raksa_selected_brush"
 
 
 function change_active_brush(brush, brush_index)
@@ -22,19 +20,19 @@ function change_active_brush(brush, brush_index)
   })
 
   -- Change drawing brush shape
-  GlobalsSetValue(BRUSH_GLOBAL, tostring(brush_index))
+  GlobalsSetValue(SELECTED_BRUSH, tostring(brush_index))
 end
 
 
 function get_active_material_image()
-  local material = GlobalsGetValue("raksa_selected_material", "soil")
+  local material = GlobalsGetValue(SELECTED_MATERIAL, SELECTED_MATERIAL_DEFAULT)
   return MATERIAL_ICONS[material]
 end
 
 
 function get_active_brush()
   local brush_index = tonumber(
-    GlobalsGetValue(BRUSH_GLOBAL, tostring(DEFAULT_BRUSH))
+    GlobalsGetValue(SELECTED_BRUSH, tostring(DEFAULT_BRUSH))
   )
   return BRUSHES[brush_index]
 end

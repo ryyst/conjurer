@@ -1,6 +1,3 @@
--- NOTICE: The reticle entity file has the actual default image defined
-DEFAULT_BRUSH = "3" -- 5px brush
-
 BRUSHES = {
   {
     name="1px brush",
