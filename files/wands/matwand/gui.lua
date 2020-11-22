@@ -7,10 +7,11 @@ dofile_once("mods/raksa/files/wands/matwand/helpers.lua");
 
 dofile_once("mods/raksa/files/lib/gui.lua")
 dofile_once("mods/raksa/files/scripts/utilities.lua")
+dofile_once("mods/raksa/files/scripts/enums.lua")
+
 
 local render_active_overlay = nil
 local GUI = GuiCreate()
-local main_menu_items = {}
 local main_menu_pos_x = 1
 local main_menu_pos_y = 18
 local sub_menu_pos_x = main_menu_pos_x+3
@@ -61,17 +62,67 @@ end
 
 function render_eraser_picker()
   local bid = 400
-  GamePrint("eraser picker active")
+  local path = "mods/raksa/files/wands/matwand/erasers/"
+
+  local eraser_buttons = {
+    { text="Solids Eraser", mode=ERASER_MODE_SOLIDS, image=path.."solids.png" },
+    { text="Liquids Sucker", mode=ERASER_MODE_LIQUIDS, image=path.."liquids.png" },
+  }
+  local current_eraser = GlobalsGetValue(ERASER_MODE, ERASER_MODE_DEFAULT)
+
+  Horizontal(GUI, 1, 1, function()
+    GuiText(GUI, 0, 0, "Eraser options")
+  end)
+
+  Vertical(GUI, 1, 2, function()
+    Horizontal(GUI, 0, 0, function()
+      for i, item in ipairs(eraser_buttons) do
+        bid = Button(GUI, bid, {tooltip=item.text, image=item.image}, function()
+          GlobalsSetValue(ERASER_MODE, item.mode)
+        end)
+      end
+    end)
+
+    if current_eraser == ERASER_MODE_SOLIDS then
+      local value = GlobalsGetValue(ERASER_SIZE, ERASER_SIZE_DEFAULT)
+      local repr = tostring(value)
+      local default = tonumber(ERASER_SIZE_DEFAULT)
+
+      local new_val = GuiSlider(GUI, bid, -2, 0, "", value, 1, 8, default, 1, repr, 60 )
+      GuiTooltip(GUI, "Size", "Works unfortunately only with the Solids Eraser")
+      GlobalsSetValue(ERASER_SIZE, math.ceil(new_val))
+    end
+  end)
 end
 
 
 function render_main_buttons()
   local bid = 100
 
+  local main_menu_items = {
+    {
+      name="Material Picker",
+      desc="Mouse1 to draw",
+      image_func = get_active_material_image,
+      action = function() toggle_active_overlay(render_material_picker) end
+    },
+    {
+      name="Brush Picker",
+      desc="Mouse1 to draw",
+      image_func = function() return get_active_brush().icon_file end,
+      action = function() toggle_active_overlay(render_brush_picker) end,
+    },
+    {
+      name="Eraser Picker",
+      desc="Mouse2 to erase",
+      image_func = get_active_eraser_image,
+      action = function() toggle_active_overlay(render_eraser_picker) end,
+    },
+  };
+
   for i,item in ipairs(main_menu_items) do
     local image = item.image or item.image_func()
-    local vars = {image=image, tooltip=item.ui_name, tooltip_desc=item.ui_description}
-    bid = Button(GUI, bid, vars, item.action)
+    bid = Button(GUI, bid, {image=image, tooltip=item.name, tooltip_desc=item.desc}, item.action)
     GuiLayoutAddVerticalSpacing(GUI, 2)
   end
 end
@@ -80,29 +131,6 @@ end
 function toggle_active_overlay(func)
   render_active_overlay = (render_active_overlay ~= func) and func or nil
 end
-
-
-main_menu_items =
-{
-  {
-    ui_name="Material Picker",
-    ui_description="",
-    image_func = get_active_material_image,
-    action = function() toggle_active_overlay(render_material_picker) end
-  },
-  {
-    ui_name="Brush Picker",
-    ui_description="",
-    image_func = function() return get_active_brush().icon_file end,
-    action = function() toggle_active_overlay(render_brush_picker) end,
-  },
-  --{
-  --  ui_name="Eraser Size",
-  --  ui_description="",
-  --  image = get_active_material_image(),
-  --  action = function() toggle_active_overlay(render_eraser_picker) end,
-  --},
-}
 
 
 generate_all_materials()

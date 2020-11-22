@@ -1,6 +1,8 @@
 dofile_once("data/scripts/lib/utilities.lua")
+
 dofile_once("mods/raksa/files/scripts/utilities.lua")
 dofile_once("mods/raksa/files/wands/matwand/helpers.lua");
+dofile_once("mods/raksa/files/scripts/enums.lua")
 
 
 function brush_reticle_follow_mouse(x, y)
@@ -11,7 +13,7 @@ function brush_reticle_follow_mouse(x, y)
 end
 
 
-function draw(material, size)
+function draw(material)
   local brush_reticle = EntityGetWithName("brush_reticle")
   local brush = get_active_brush()
 
@@ -40,16 +42,35 @@ function draw(material, size)
 end
 
 
-function erase(size, x, y)
-  local eraser = EntityCreateNew()
+function erase(x, y)
+  local size = tonumber(GlobalsGetValue(ERASER_SIZE, ERASER_SIZE_DEFAULT))
+  local eraser_mode = GlobalsGetValue(ERASER_MODE, ERASER_MODE_DEFAULT)
 
+  local eraser = EntityCreateNew()
   EntitySetTransform(eraser, x, y)
-  EntityAddComponent(eraser, "CellEaterComponent",{
-    eat_probability="100",
-    radius=size*4,
-    limited_materials="0"
-  })
-  EntityKill(eraser)
+
+  -- TODO:
+  -- * Make ERASER_MODE_BOTH work properly.
+  -- * Figure out why liquid eraser is not affected by size
+
+  if eraser_mode == ERASER_MODE_LIQUIDS then
+    EntityAddComponent(eraser, "MaterialSuckerComponent", {
+      num_cells_sucked_per_frame=size*10000,
+      material_type=0,
+      barrel_size=1000000,
+    })
+  end
+
+  if eraser_mode == ERASER_MODE_SOLIDS then
+    EntityAddComponent(eraser, "CellEaterComponent",{
+      radius=size*4,
+      eat_probability="100",
+      limited_materials="0"
+    })
+  end
+
+  EntityAddComponent(eraser, "LifetimeComponent", { lifetime=2 })
+  --EntityKill(eraser)
 end
 
 
@@ -60,10 +81,10 @@ brush_reticle_follow_mouse(x, y)
 
 if is_holding_m1() then
   local material = GlobalsGetValue("raksa_selected_material", "soil")
-  draw(material, 1)
+  draw(material)
 end
 
 
 if is_holding_m2() then
-  erase(2, x, y)
+  erase(x, y)
 end

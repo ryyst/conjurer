@@ -1,5 +1,7 @@
 dofile_once("mods/raksa/files/wands/matwand/brushes/list.lua");
+
 dofile_once("mods/raksa/files/scripts/material_icons.lua");
+dofile_once("mods/raksa/files/scripts/enums.lua")
 
 -----------------------------
 -- Matwand-specific helpers --
@@ -72,3 +74,13 @@ function generate_all_materials()
 end
 
 
+function get_active_eraser_image()
+  local current_eraser = GlobalsGetValue(ERASER_MODE, ERASER_MODE_DEFAULT)
+  local path = "mods/raksa/files/wands/matwand/erasers/"
+
+  if current_eraser == ERASER_MODE_SOLIDS then
+    return path.."solids.png"
+  end
+
+  return path.."liquids.png"
+end
