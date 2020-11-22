@@ -2,11 +2,9 @@
   <AbilityComponent
     _tags="item,disabled_at_start"
     sprite_file="mods/raksa/files/wands/matwand/matwand.png"
-    ui_name="Material Painter"
+    ui_name="Staff of Material Mastery"
     drop_as_item_on_death="1"
     add_these_child_actions="MATWAND"
-    entity_count="1"
-    entity_file=""
     mana="100"
     mana_max="100"
     max_amount_in_inventory="1"
@@ -34,7 +32,7 @@
     play_spinning_animation="1"
     is_pickable="1"
     is_equipable_forced="1"
-    is_frozen="0"
+    is_frozen="1"
   ></ItemComponent>
 
   <SpriteComponent

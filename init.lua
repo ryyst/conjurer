@@ -1,5 +1,5 @@
 ModMagicNumbersFileAdd("mods/raksa/files/magic_numbers.xml")
---ModLuaFileAppend("data/scripts/gun/gun_actions.lua", "mods/raksa/files/actions.lua")
+ModLuaFileAppend("data/scripts/gun/gun_actions.lua", "mods/raksa/files/actions.lua")
 
 dofile_once("mods/raksa/files/scripts/utilities.lua")
 --dofile_once("mods/raksa/files/lib/gui.lua")
