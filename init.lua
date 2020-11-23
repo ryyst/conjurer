@@ -31,7 +31,11 @@ end
 
 
 function player_overrides(player)
+  -- Camera follow sucks hard when building stuff
   EntitySetValue(player, "PlatformShooterPlayerComponent", "move_camera_with_aim", false)
+
+  -- Endless flight
+  EntitySetValue(player, "CharacterDataComponent", "flying_needs_recharge", false)
 end
 
 
