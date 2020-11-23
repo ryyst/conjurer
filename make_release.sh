@@ -1,6 +1,6 @@
 #!/bin/sh
 
-OUTPUT="RAKSA_$(date -I)_$(git rev-parse --short HEAD).ZIP"
+OUTPUT="raksa_$(date -I)_$(git rev-parse --short HEAD).zip"
 
 echo "Zipping HEAD to archive $OUTPUT..."
 
