@@ -1,0 +1,14 @@
+<Entity name="brush_reticle">
+  <!-- Default brush graphics -->
+  <SpriteComponent
+    image_file="mods/raksa/files/wands/entwand/brushes/5_reticle.png"
+    offset_x="11"
+    offset_y="11"
+
+    emissive="1"
+    has_special_scale="1"
+    special_scale_x="0.333"
+    special_scale_y="0.333"
+    z_index="80"
+  ></SpriteComponent>
+</Entity>
