@@ -10,7 +10,7 @@
     noise_type="SIN_CAPPED_SIMPLEX"
 
     mGradientEndY="580"
-    mGradientStartY="0" 
+    mGradientStartY="-400"
 
     mInsidePerlinClamped="0"
     mInsidePerlinScaleMax="1"
@@ -56,11 +56,11 @@
     <MaterialComponent
       _enabled="1"
       is_rare="0"
-      limit_max_y="424.229"
+      limit_max_y="600"
       limit_min_y="-1024"
       limit_y="1"
       material_index="10"
-      material_max="0.53"
+      material_max="0.83"
       material_min="0.45"
       material_name="soil"
       rare_polka_is_boxed="1"
