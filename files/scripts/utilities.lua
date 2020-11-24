@@ -41,6 +41,22 @@ function is_holding_m2()
 end
 
 
+function has_clicked_m1()
+  local click_frame = EntityGetValue(
+    get_player(), "ControlsComponent", "mButtonFrameFire"
+  )
+  return click_frame == GameGetFrameNum()
+end
+
+
+function has_clicked_m2()
+  local click_frame = EntityGetValue(
+    get_player(), "ControlsComponent", "mButtonFrameRightClick"
+  )
+  return click_frame == GameGetFrameNum()
+end
+
+
 function get_frames_in_air(player)
   return EntityGetValue(
     player or get_player(),

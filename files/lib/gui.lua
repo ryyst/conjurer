@@ -39,12 +39,12 @@ end
 function Button(gui, bid, vars, click_action, right_click_action)
   local x = vars.x or 0
   local y = vars.y or 0
-  local image = vars.image
+  local image = vars.image or ICON_UNKNOWN
   local text = vars.text or ""
   local tooltip = vars.tooltip
   local tooltip_desc = vars.tooltip_desc or ""
 
-  local ButtonType = image and GuiImageButton or GuiButton
+  local ButtonType = vars.text and GuiButton or GuiImageButton
 
   local click, right_click = ButtonType(gui, bid, x, y, text, image)
 

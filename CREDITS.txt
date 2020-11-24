@@ -1,0 +1,5 @@
+- Everfades, for his Cheat Menu mod
+- JessaTehCrow, for the original sandbox_menu mod
+  https://github.com/JessaTehCrow/sandbox_menu
+
+- Goki, for the original GUI library and inspiration, before the official Noita Lua GUI API

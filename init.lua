@@ -58,6 +58,13 @@ function OnPlayerSpawned(player)
   handle_inventory(player)
   player_overrides(player)
 
+
+  local world_state_entity = GameGetWorldStateEntity()
+  edit_component( world_state_entity, "WorldStateComponent", function(comp,vars)
+    vars.fog_target_extra = 0
+    vars.rain_target_extra = 0
+  end)
+
   local x, y = EntityGetTransform(player)
   set_time_of_day(0.4)
 

@@ -1,8 +1,6 @@
 dofile("data/scripts/lib/coroutines.lua")
 dofile("data/scripts/lib/utilities.lua")
 
-dofile_once("mods/raksa/files/scripts/material_icons.lua");
-dofile_once("mods/raksa/files/wands/entwand/brushes/list.lua");
 dofile_once("mods/raksa/files/wands/entwand/helpers.lua");
 
 dofile_once("mods/raksa/files/lib/gui.lua")
@@ -17,7 +15,7 @@ local main_menu_pos_y = 18
 local sub_menu_pos_x = main_menu_pos_x+3
 local sub_menu_pos_y = main_menu_pos_y-5.3
 
-local active_entity_type = ENTITY_TYPES[1]
+local active_entity_tab = SELECTED_ENTITY_TYPE_DEFAULT
 local favorites = {}
 
 
@@ -36,6 +34,27 @@ end
 
 function render_entity_picker()
   local bid = 200
+  local active_entities = ALL_ENTITIES[active_entity_tab]
+
+  Horizontal(GUI, 1, 1, function()
+    for i, cat in ipairs(ENTITY_TYPES) do
+      name = (cat == active_entity_tab) and string.upper(cat) or cat
+
+      bid = Button(GUI, bid, {text=name}, function()
+        active_entity_tab = cat
+      end)
+      GuiLayoutAddHorizontalSpacing(GUI, 3)
+    end
+  end)
+
+  -- Render entities
+  -- TODO: Make sure active_entity_tab reference is not lost when working with favorites
+  Grid(GUI, active_entities, function(entity, i)
+    local vars = { tooltip=entity.name }
+    local click = function() change_active_entity(i, active_entity_tab) end
+    local right_click = add_to_favorites(vars, click)
+    bid = Button(GUI, bid, vars, click, right_click)
+  end)
 end
 
 

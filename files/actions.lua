@@ -24,7 +24,7 @@ table.insert( actions,
 {
   id                = "ENTWAND",
   name              = "Illusion Shard",
-  description       = "Create and manipulate the most convincing illusions",
+  description       = "Conjure and manipulate the most convincing illusions",
   sprite            = MOD_PATH .. "wands/entwand/spell.png",
   type              = ACTION_TYPE_PROJECTILE,
   spawn_level       = "",

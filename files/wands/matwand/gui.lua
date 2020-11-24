@@ -1,7 +1,7 @@
 dofile("data/scripts/lib/coroutines.lua")
 dofile("data/scripts/lib/utilities.lua")
 
-dofile_once("mods/raksa/files/scripts/material_icons.lua");
+dofile_once("mods/raksa/files/scripts/lists/materials.lua");
 dofile_once("mods/raksa/files/wands/matwand/brushes/list.lua");
 dofile_once("mods/raksa/files/wands/matwand/helpers.lua");
 
