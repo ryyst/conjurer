@@ -1,0 +1,13 @@
+<Entity name="entwand_cursor">
+  <SpriteComponent
+    image_file="mods/raksa/files/wands/entwand/cursor.png"
+    offset_x="15"
+    offset_y="20"
+    emissive="1"
+  ></SpriteComponent>
+
+  <InheritTransformComponent
+    only_position="1"
+  ></InheritTransformComponent>
+</Entity>
+

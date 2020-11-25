@@ -14,9 +14,6 @@ ALL_ENTITIES = {Enemies=ANIMALS, Props=PROPS, Pickups=PICKUPS};
 function change_active_entity(index, etype)
   GlobalsSetValue(SELECTED_ENTITY_INDEX, tostring(index))
   GlobalsSetValue(SELECTED_ENTITY_TYPE, tostring(etype))
-  print("setting:")
-  print(str(index))
-  print(str(etype))
 end
 
 

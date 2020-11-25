@@ -6,32 +6,87 @@ dofile_once("mods/raksa/files/scripts/utilities.lua")
 dofile_once("mods/raksa/files/scripts/enums.lua")
 
 
+local HOVERED_ENTITY = nil
+local SCAN_RADIUS = 32
+
+function get_or_create_cursor(x, y)
+  local cursor = EntityGetWithName("entwand_cursor")
+  if cursor and cursor ~= 0 then
+    return cursor
+  end
+
+  -- Offset initial load by *many pixels* from cursor position, because
+  -- the engine insists on rendering it for 1 frame at the spawn position, no matter
+  -- what hiding tricks we do. The positioning is immediately overtaken by
+  -- InheritTransformComponent anyway.
+  return EntityLoad("mods/raksa/files/wands/entwand/cursor.xml", x+1000, y+1000)
+end
+
+function hide_cursor()
+  local cursor = EntityGetWithName("entwand_cursor")
+  EntityKill(cursor)
+
+end
+
+function show_cursor(entity, x, y)
+  local cursor = get_or_create_cursor(x, y)
+
+  if EntityGetParent(cursor) ~= entity then
+    if EntityGetParent(cursor) ~= cursor then
+      EntityRemoveFromParent(cursor)
+    end
+    EntityAddChild(entity, cursor)
+  end
+end
+
+
+function scan_entity(x, y)
+  local entities = EntityGetInRadius(x, y, SCAN_RADIUS)
+
+  local entity = (#entities > 1) and EntityGetClosest(x, y) or entities[1]
+
+  if entity then
+    local root = EntityGetRootEntity(entity)
+    if is_valid_entity(root) then
+      show_cursor(root, x, y)
+      HOVERED_ENTITY = root
+      return
+    end
+  end
+
+  -- Nothing found
+  hide_cursor()
+  HOVERED_ENTITY = nil
+end
+
+
+function is_valid_entity(entity)
+  return (
+    entity ~= nil and
+    entity ~= 0 and
+    EntityGetName(entity) ~= "entwand_cursor" and
+    not IsPlayer(entity) and
+    entity ~= GameGetWorldStateEntity() and
+    -- This is something that always exists in 0,0.
+    EntityGetName(entity) ~= "example_container"
+  )
+end
+
+
+function delete_entity(x, y)
+  --hide_cursor()
+  EntityKill(HOVERED_ENTITY)
+  HOVERED_ENTITY = nil
+end
+
+
 function spawn_entity(x, y)
   EntityLoad(get_active_entity(), x, y)
 end
 
 
-function delete_entity(x, y)
-  local radius = 50
-  -- tags: sheep, rat, prop,
-  -- mortal, if not IsPlayer()
-  local entities = EntityGetInRadiusWithTag(x, y, radius, "enemy")
-  local props = EntityGetInRadiusWithTag(x, y, radius, "prop")
-
-  -- Or delete any entity that is not the player, or world? Ie. blacklist instead of tag whitelist
-  GamePrint("Trying kill??")
-  if entities then
-    local root = EntityGetRootEntity(entities[1])
-    debug_entity(root)
-    --EntityKill(entities[1])
-    EntityKill(root)
-
-  end
-  GamePrint("Entity should be deleted here")
-end
-
-
 local x, y = DEBUG_GetMouseWorld()
+scan_entity(x, y)
 
 
 if has_clicked_m1() then

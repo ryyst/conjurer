@@ -18,7 +18,7 @@ end
 
 
 function Grid(gui, items, callback)
-  local row_length = math.max( 6, math.min( (#items) ^ 0.5, 12 ) );
+  local row_length = math.max( 6, math.min( (#items) ^ 0.5, 14 ) );
   local row_count = math.ceil(#items / row_length)
 
   local item_pos = 1

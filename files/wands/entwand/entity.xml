@@ -77,6 +77,11 @@
 
   <LuaComponent
     _tags="enabled_in_hand"
+    script_enabled_changed="mods/raksa/files/wands/entwand/hide_cursor.lua"
+  ></LuaComponent>
+
+  <LuaComponent
+    _tags="enabled_in_hand"
     script_source_file="mods/raksa/files/wands/entwand/drawing.lua"
     execute_every_n_frame="1"
   ></LuaComponent>
