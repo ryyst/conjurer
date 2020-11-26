@@ -88,6 +88,7 @@
 
   <LuaComponent
     _tags="enabled_in_hand"
+    _enabled="0"
     script_source_file="mods/raksa/files/wands/entwand/gui.lua"
     vm_type="ONE_PER_COMPONENT_INSTANCE"
     enable_coroutines="1"
