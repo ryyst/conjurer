@@ -50,8 +50,9 @@ function render_entity_picker()
   -- Render entities
   -- TODO: Make sure active_entity_tab reference is not lost when working with favorites
   Grid(GUI, active_entities, function(entity, i)
-    local vars = { tooltip=entity.name }
-    local click = function() change_active_entity(i, active_entity_tab) end
+    local vars = { tooltip=entity.name, image=entity.image }
+    local tab_copy = active_entity_tab  -- For favorites
+    local click = function() change_active_entity(i, tab_copy) end
     local right_click = add_to_favorites(vars, click)
     bid = Button(GUI, bid, vars, click, right_click)
   end)
@@ -63,13 +64,16 @@ function render_main_buttons()
 
   local main_menu_items = {
     {
-      name="Entity Picker",
-      image=ICON_UNKNOWN,
+      name = "Entity Picker",
+      image_func = function()
+        local entity = get_active_entity();
+        return entity.image
+      end,
       action = function() toggle_active_overlay(render_entity_picker) end
     },
     {
-      name="Secondary Action",
-      image=ICON_UNKNOWN,
+      name = "Secondary Action",
+      image = ICON_UNKNOWN,
       action = function() GamePrint("haloo") end,
     },
   };
@@ -78,7 +82,7 @@ function render_main_buttons()
   for i, item in ipairs(main_menu_items) do
     bid = Button(
       GUI, bid,
-      {image=item.image, tooltip=item.name},
+      {image=item.image or item.image_func(), tooltip=item.name},
       item.action
     )
     GuiLayoutAddVerticalSpacing(GUI, 2)

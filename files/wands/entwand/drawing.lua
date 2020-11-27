@@ -81,7 +81,8 @@ end
 
 
 function spawn_entity(x, y)
-  EntityLoad(get_active_entity(), x, y)
+  local entity = get_active_entity()
+  EntityLoad(entity.path, x, y)
 end
 
 

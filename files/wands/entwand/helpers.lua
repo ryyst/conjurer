@@ -22,5 +22,5 @@ function get_active_entity()
   local etype = GlobalsGetValue(SELECTED_ENTITY_TYPE, SELECTED_ENTITY_TYPE_DEFAULT)
 
   local entity = ALL_ENTITIES[etype][index]
-  return entity.path
+  return entity
 end
