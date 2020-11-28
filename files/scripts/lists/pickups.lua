@@ -2,27 +2,27 @@ PICKUPS = {
   {
     name="Bloodmoney 10",
     path="data/entities/items/pickup/bloodmoney_10.xml",
-    image=nil,
+    image="mods/raksa/files/gfx/pickup_icons/bloodnugget_6px.png",
   },
   {
     name="Bloodmoney 50",
     path="data/entities/items/pickup/bloodmoney_50.xml",
-    image=nil,
+    image="mods/raksa/files/gfx/pickup_icons/bloodnugget_9px.png",
   },
   {
     name="Bloodmoney 200",
     path="data/entities/items/pickup/bloodmoney_200.xml",
-    image=nil,
+    image="mods/raksa/files/gfx/pickup_icons/bloodnugget_12px.png",
   },
   {
     name="Bloodmoney 1000",
     path="data/entities/items/pickup/bloodmoney_1000.xml",
-    image=nil,
+    image="mods/raksa/files/gfx/pickup_icons/bloodnugget_20px.png",
   },
   {
     name="Bloodmoney 10000",
     path="data/entities/items/pickup/bloodmoney_10000.xml",
-    image=nil,
+    image="mods/raksa/files/gfx/pickup_icons/blood_idol.png",
   },
   {
     name="Goldnugget 10",

@@ -87,27 +87,27 @@ PROPS = {
   {
     name="Dripping acid gas",
     path="data/entities/props/dripping_acid_gas.xml",
-    image=nil,
+    image="mods/raksa/files/gfx/prop_icons/dripping_acid_gas.png",
   },
   {
     name="Dripping oil",
     path="data/entities/props/dripping_oil.xml",
-    image=nil,
+    image="mods/raksa/files/gfx/prop_icons/dripping_oil.png",
   },
   {
     name="Dripping radioactive",
     path="data/entities/props/dripping_radioactive.xml",
-    image=nil,
+    image="mods/raksa/files/gfx/prop_icons/dripping_radioactive.png",
   },
   {
     name="Dripping water",
     path="data/entities/props/dripping_water.xml",
-    image=nil,
+    image="mods/raksa/files/gfx/prop_icons/dripping_water.png",
   },
   {
     name="Dripping water heavy",
     path="data/entities/props/dripping_water_heavy.xml",
-    image=nil,
+    image="mods/raksa/files/gfx/prop_icons/dripping_water_heavy.png",
   },
   {
     name="Dummy target",
