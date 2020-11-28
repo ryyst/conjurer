@@ -10,7 +10,7 @@ from PIL import ImageFont
 from PIL import ImageDraw
 
 
-IMAGE_SIZE = (15, 15)
+IMAGE_SIZE = (16, 16)
 
 
 def lua_path(filename):
@@ -70,7 +70,6 @@ def _generate_simple_texture(color, name):
 
 
 def _replace_stem(name):
-    """Return the filename in a "human readable" format."""
     return lua_path(Path(name).name)
 
 

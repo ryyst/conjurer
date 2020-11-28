@@ -1,4 +1,4 @@
-PICKUPS = {
+_GENERATED = {
   {
     name="Bloodmoney 10",
     path="data/entities/items/pickup/bloodmoney_10.xml",
@@ -23,31 +23,6 @@ PICKUPS = {
     name="Bloodmoney 10000",
     path="data/entities/items/pickup/bloodmoney_10000.xml",
     image=nil,
-  },
-  {
-    name="Goldnugget 10",
-    path="data/entities/items/pickup/goldnugget_10.xml",
-    image="mods/raksa/files/gfx/pickup_icons/goldnugget_6px.png",
-  },
-  {
-    name="Goldnugget 50",
-    path="data/entities/items/pickup/goldnugget_50.xml",
-    image="mods/raksa/files/gfx/pickup_icons/goldnugget_9px.png",
-  },
-  {
-    name="Goldnugget 200",
-    path="data/entities/items/pickup/goldnugget_200.xml",
-    image="mods/raksa/files/gfx/pickup_icons/goldnugget_12px.png",
-  },
-  {
-    name="Goldnugget 1000",
-    path="data/entities/items/pickup/goldnugget_1000.xml",
-    image="mods/raksa/files/gfx/pickup_icons/goldnugget_20px.png",
-  },
-  {
-    name="Goldnugget 10000",
-    path="data/entities/items/pickup/goldnugget_10000.xml",
-    image="mods/raksa/files/gfx/pickup_icons/golden_idol.png",
   },
   {
     name="Summon portal broken",
@@ -150,14 +125,34 @@ PICKUPS = {
     image="mods/raksa/files/gfx/pickup_icons/essence_water.png",
   },
   {
+    name="Goldnugget 10",
+    path="data/entities/items/pickup/goldnugget_10.xml",
+    image="mods/raksa/files/gfx/pickup_icons/goldnugget_6px.png",
+  },
+  {
+    name="Goldnugget 50",
+    path="data/entities/items/pickup/goldnugget_50.xml",
+    image="mods/raksa/files/gfx/pickup_icons/goldnugget_9px.png",
+  },
+  {
+    name="Goldnugget 200",
+    path="data/entities/items/pickup/goldnugget_200.xml",
+    image="mods/raksa/files/gfx/pickup_icons/goldnugget_12px.png",
+  },
+  {
+    name="Goldnugget 1000",
+    path="data/entities/items/pickup/goldnugget_1000.xml",
+    image="mods/raksa/files/gfx/pickup_icons/goldnugget_20px.png",
+  },
+  {
+    name="Goldnugget 10000",
+    path="data/entities/items/pickup/goldnugget_10000.xml",
+    image="mods/raksa/files/gfx/pickup_icons/golden_idol.png",
+  },
+  {
     name="Gourd",
     path="data/entities/items/pickup/gourd.xml",
     image="mods/raksa/files/gfx/pickup_icons/gourd_in_hand.png",
-  },
-  {
-    name="Spell refresh",
-    path="data/entities/items/pickup/spell_refresh.xml",
-    image="mods/raksa/files/gfx/pickup_icons/spell_refresh.png",
   },
   {
     name="Heart",
@@ -182,7 +177,7 @@ PICKUPS = {
   {
     name="Heart fullhp temple",
     path="data/entities/items/pickup/heart_fullhp_temple.xml",
-    image="mods/raksa/files/gfx/pickup_icons/heart.png",
+    image=nil,
   },
   {
     name="Flute",
@@ -200,6 +195,11 @@ PICKUPS = {
     image="mods/raksa/files/gfx/pickup_icons/jar.png",
   },
   {
+    name="Jar of urine",
+    path="data/entities/items/pickup/jar_of_urine.xml",
+    image=nil,
+  },
+  {
     name="Physics die",
     path="data/entities/items/pickup/physics_die.xml",
     image="mods/raksa/files/gfx/pickup_icons/die_pips.png",
@@ -212,32 +212,32 @@ PICKUPS = {
   {
     name="Potion aggressive",
     path="data/entities/items/pickup/potion_aggressive.xml",
-    image="mods/raksa/files/gfx/pickup_icons/potion.png",
+    image=nil,
   },
   {
     name="Potion alcohol",
     path="data/entities/items/pickup/potion_alcohol.xml",
-    image="mods/raksa/files/gfx/pickup_icons/potion.png",
+    image=nil,
   },
   {
     name="Potion random material",
     path="data/entities/items/pickup/potion_random_material.xml",
-    image="mods/raksa/files/gfx/pickup_icons/potion.png",
+    image=nil,
   },
   {
     name="Potion secret",
     path="data/entities/items/pickup/potion_secret.xml",
-    image="mods/raksa/files/gfx/pickup_icons/potion.png",
+    image=nil,
   },
   {
     name="Potion starting",
     path="data/entities/items/pickup/potion_starting.xml",
-    image="mods/raksa/files/gfx/pickup_icons/potion.png",
+    image=nil,
   },
   {
     name="Potion water",
     path="data/entities/items/pickup/potion_water.xml",
-    image="mods/raksa/files/gfx/pickup_icons/potion.png",
+    image=nil,
   },
   {
     name="Runestone disc",
@@ -275,6 +275,11 @@ PICKUPS = {
     image="mods/raksa/files/gfx/pickup_icons/sampo.png",
   },
   {
+    name="Spell refresh",
+    path="data/entities/items/pickup/spell_refresh.xml",
+    image="mods/raksa/files/gfx/pickup_icons/spell_refresh.png",
+  },
+  {
     name="Brimstone",
     path="data/entities/items/pickup/brimstone.xml",
     image="mods/raksa/files/gfx/pickup_icons/brimstone.png",
@@ -283,11 +288,6 @@ PICKUPS = {
     name="Moon",
     path="data/entities/items/pickup/moon.xml",
     image="mods/raksa/files/gfx/pickup_icons/moon.png",
-  },
-  {
-    name="Poopstone",
-    path="data/entities/items/pickup/poopstone.xml",
-    image="mods/raksa/files/gfx/pickup_icons/kakke_in_hand.png",
   },
   {
     name="Safe haven",
@@ -303,6 +303,11 @@ PICKUPS = {
     name="Waterstone",
     path="data/entities/items/pickup/waterstone.xml",
     image="mods/raksa/files/gfx/pickup_icons/waterstone.png",
+  },
+  {
+    name="Poopstone",
+    path="data/entities/items/pickup/poopstone.xml",
+    image="mods/raksa/files/gfx/pickup_icons/kakke_in_hand.png",
   },
   {
     name="Druidsoccer ball",

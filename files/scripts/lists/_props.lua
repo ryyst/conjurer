@@ -1,4 +1,4 @@
-PROPS = {
+_GENERATED = {
   {
     name="Altar torch",
     path="data/entities/props/altar_torch.xml",
@@ -13,6 +13,11 @@ PROPS = {
     name="Banner",
     path="data/entities/props/banner.xml",
     image="mods/raksa/files/gfx/prop_icons/banner.png",
+  },
+  {
+    name="Base coalmine structure",
+    path="data/entities/props/base_coalmine_structure.xml",
+    image="mods/raksa/files/gfx/prop_icons/coalmine_structure_background_02.png",
   },
   {
     name="Boss arena statue 1",
@@ -48,11 +53,6 @@ PROPS = {
     name="Candle 3",
     path="data/entities/props/candle_3.xml",
     image="mods/raksa/files/gfx/prop_icons/candle_3.png",
-  },
-  {
-    name="Base coalmine structure",
-    path="data/entities/props/base_coalmine_structure.xml",
-    image="mods/raksa/files/gfx/prop_icons/coalmine_structure_background_02.png",
   },
   {
     name="Coalmine i structure 01",
@@ -234,39 +234,35 @@ PROPS = {
     path="data/entities/props/ladder_long.xml",
     image="mods/raksa/files/gfx/prop_icons/ladder_long.png",
   },
-  --[[ This is probably wayyy too specific entity for any general sandbox fun
   {
     name="Mountain left entrance grass",
     path="data/entities/props/mountain_left_entrance_grass.xml",
     image="mods/raksa/files/gfx/prop_icons/left_entrance_grass.png",
   },
-  ]]--
-  --[[ This one doesn't actually work
   {
     name="Music machine",
     path="data/entities/props/music_machine.xml",
     image="mods/raksa/files/gfx/prop_icons/music_machine.png",
   },
-  ]]--
   {
     name="Music machine 00",
     path="data/entities/props/music_machines/music_machine_00.xml",
-    image="mods/raksa/files/gfx/prop_icons/music_machine.png",
+    image=nil,
   },
   {
     name="Music machine 01",
     path="data/entities/props/music_machines/music_machine_01.xml",
-    image="mods/raksa/files/gfx/prop_icons/music_machine.png",
+    image=nil,
   },
   {
     name="Music machine 02",
     path="data/entities/props/music_machines/music_machine_02.xml",
-    image="mods/raksa/files/gfx/prop_icons/music_machine.png",
+    image=nil,
   },
   {
     name="Music machine 03",
     path="data/entities/props/music_machines/music_machine_03.xml",
-    image="mods/raksa/files/gfx/prop_icons/music_machine.png",
+    image=nil,
   },
   {
     name="Physics barrel burning",
@@ -363,13 +359,11 @@ PROPS = {
     path="data/entities/props/physics_bucket.xml",
     image="mods/raksa/files/gfx/prop_icons/bucket.png",
   },
-  --[[ Broken?
   {
     name="Physics campfire",
     path="data/entities/props/physics_campfire.xml",
     image="mods/raksa/files/gfx/prop_icons/campfire.png",
   },
-  ]]--
   {
     name="Physics candle 1",
     path="data/entities/props/physics_candle_1.xml",
@@ -384,6 +378,11 @@ PROPS = {
     name="Physics candle 3",
     path="data/entities/props/physics_candle_3.xml",
     image="mods/raksa/files/gfx/prop_icons/physics_candle_3.png",
+  },
+  {
+    name="Physics cart",
+    path="data/entities/props/physics_cart.xml",
+    image="mods/raksa/files/gfx/prop_icons/cart_top.png",
   },
   {
     name="Physics chain torch",
@@ -481,6 +480,11 @@ PROPS = {
     image="mods/raksa/files/gfx/prop_icons/logo_3.png",
   },
   {
+    name="Physics minecart",
+    path="data/entities/props/physics_minecart.xml",
+    image="mods/raksa/files/gfx/prop_icons/minecart.png",
+  },
+  {
     name="Physics mining lamp",
     path="data/entities/props/physics_mining_lamp.xml",
     image="mods/raksa/files/gfx/prop_icons/minelamp.png",
@@ -509,16 +513,6 @@ PROPS = {
     name="Physics skateboard",
     path="data/entities/props/physics_skateboard.xml",
     image="mods/raksa/files/gfx/prop_icons/skateboard.png",
-  },
-  {
-    name="Physics cart",
-    path="data/entities/props/physics_cart.xml",
-    image="mods/raksa/files/gfx/prop_icons/cart_top.png",
-  },
-  {
-    name="Physics minecart",
-    path="data/entities/props/physics_minecart.xml",
-    image="mods/raksa/files/gfx/prop_icons/minecart.png",
   },
   {
     name="Physics skull 01",
@@ -561,22 +555,15 @@ PROPS = {
     image="mods/raksa/files/gfx/prop_icons/stone_04.png",
   },
   {
-    name="Stonepile",
-    path="data/entities/props/stonepile.xml",
-    image="mods/raksa/files/gfx/prop_icons/stone_03.png",
-  },
-  {
     name="Physics table",
     path="data/entities/props/physics_table.xml",
     image="mods/raksa/files/gfx/prop_icons/table.png",
   },
-  --[[ Seemingly broken/wip entity
   {
     name="Physics templedoor",
     path="data/entities/props/physics_templedoor.xml",
     image="mods/raksa/files/gfx/prop_icons/temple_door.png",
   },
-  ]]--
   {
     name="Physics templedoor2",
     path="data/entities/props/physics_templedoor2.xml",
@@ -633,31 +620,6 @@ PROPS = {
     image="mods/raksa/files/gfx/prop_icons/trap_ignite_a.png",
   },
   {
-    name="Trap laser",
-    path="data/entities/props/physics/trap_laser.xml",
-    image="mods/raksa/files/gfx/prop_icons/trap_laser.png",
-  },
-  {
-    name="Trap laser enabled",
-    path="data/entities/props/physics/trap_laser_enabled.xml",
-    image="mods/raksa/files/gfx/prop_icons/trap_laser.png",
-  },
-  {
-    name="Trap laser enabled left",
-    path="data/entities/props/physics/trap_laser_enabled_left.xml",
-    image="mods/raksa/files/gfx/prop_icons/trap_laser_left.png",
-  },
-  {
-    name="Trap laser toggling",
-    path="data/entities/props/physics/trap_laser_toggling.xml",
-    image="mods/raksa/files/gfx/prop_icons/trap_laser_small_overlay.png",
-  },
-  {
-    name="Trap laser toggling left",
-    path="data/entities/props/physics/trap_laser_toggling_left.xml",
-    image="mods/raksa/files/gfx/prop_icons/trap_laser_small_b_overlay.png",
-  },
-  {
     name="Physics tubelamp",
     path="data/entities/props/physics_tubelamp.xml",
     image="mods/raksa/files/gfx/prop_icons/tubelamp.png",
@@ -702,47 +664,20 @@ PROPS = {
     path="data/entities/props/physics_wheel_tiny.xml",
     image="mods/raksa/files/gfx/prop_icons/wheel_tiny.png",
   },
-  --[[ Not really interesting/functional. Spams terminal.
   {
     name="Pressure plate",
     path="data/entities/props/pressure_plate.xml",
     image="mods/raksa/files/gfx/prop_icons/pressure_plate.png",
   },
-  ]]--
-  {
-    name="Pumpkin 01",
-    path="data/entities/props/pumpkin_01.xml",
-    image="mods/raksa/files/gfx/prop_icons/pumpkin_01.png",
-  },
-  {
-    name="Pumpkin 02",
-    path="data/entities/props/pumpkin_02.xml",
-    image="mods/raksa/files/gfx/prop_icons/pumpkin_02.png",
-  },
-  {
-    name="Pumpkin 03",
-    path="data/entities/props/pumpkin_03.xml",
-    image="mods/raksa/files/gfx/prop_icons/pumpkin_03.png",
-  },
-  {
-    name="Pumpkin 04",
-    path="data/entities/props/pumpkin_04.xml",
-    image="mods/raksa/files/gfx/prop_icons/pumpkin_04.png",
-  },
-  {
-    name="Pumpkin 05",
-    path="data/entities/props/pumpkin_05.xml",
-    image="mods/raksa/files/gfx/prop_icons/pumpkin_05.png",
-  },
   {
     name="Root grower",
     path="data/entities/props/root_grower.xml",
-    image="mods/raksa/files/gfx/prop_icons/root_grower_fruit.png",
+    image=nil,
   },
   {
     name="Root grower branch",
     path="data/entities/props/root_grower_branch.xml",
-    image="mods/raksa/files/gfx/prop_icons/root_grower_leaf.png",
+    image=nil,
   },
   {
     name="Root grower fruit",
@@ -779,13 +714,16 @@ PROPS = {
     path="data/entities/buildings/statue_hand_1.xml",
     image="mods/raksa/files/gfx/prop_icons/statue_hand_3.png",
   },
-  --[[ Not really interesting/functional
+  {
+    name="Stonepile",
+    path="data/entities/props/stonepile.xml",
+    image=nil,
+  },
   {
     name="Temple pressure plate",
     path="data/entities/props/temple_pressure_plate.xml",
     image="mods/raksa/files/gfx/prop_icons/pressure_plate.png",
   },
-  ]]--
   {
     name="Vault apparatus 01",
     path="data/entities/props/vault_apparatus_01.xml",
@@ -832,8 +770,58 @@ PROPS = {
     image="mods/raksa/files/gfx/prop_icons/worm_deflector_crystal.png",
   },
   {
+    name="Pumpkin 01",
+    path="data/entities/props/pumpkin_01.xml",
+    image="mods/raksa/files/gfx/prop_icons/pumpkin_01.png",
+  },
+  {
+    name="Pumpkin 02",
+    path="data/entities/props/pumpkin_02.xml",
+    image="mods/raksa/files/gfx/prop_icons/pumpkin_02.png",
+  },
+  {
+    name="Pumpkin 03",
+    path="data/entities/props/pumpkin_03.xml",
+    image="mods/raksa/files/gfx/prop_icons/pumpkin_03.png",
+  },
+  {
+    name="Pumpkin 04",
+    path="data/entities/props/pumpkin_04.xml",
+    image="mods/raksa/files/gfx/prop_icons/pumpkin_04.png",
+  },
+  {
+    name="Pumpkin 05",
+    path="data/entities/props/pumpkin_05.xml",
+    image="mods/raksa/files/gfx/prop_icons/pumpkin_05.png",
+  },
+  {
+    name="Trap laser",
+    path="data/entities/props/physics/trap_laser.xml",
+    image="mods/raksa/files/gfx/prop_icons/trap_laser.png",
+  },
+  {
+    name="Trap laser enabled",
+    path="data/entities/props/physics/trap_laser_enabled.xml",
+    image="mods/raksa/files/gfx/prop_icons/trap_laser.png",
+  },
+  {
+    name="Trap laser enabled left",
+    path="data/entities/props/physics/trap_laser_enabled_left.xml",
+    image="mods/raksa/files/gfx/prop_icons/trap_laser_left.png",
+  },
+  {
+    name="Trap laser toggling",
+    path="data/entities/props/physics/trap_laser_toggling.xml",
+    image="mods/raksa/files/gfx/prop_icons/trap_laser_small_overlay.png",
+  },
+  {
+    name="Trap laser toggling left",
+    path="data/entities/props/physics/trap_laser_toggling_left.xml",
+    image="mods/raksa/files/gfx/prop_icons/trap_laser_small_b_overlay.png",
+  },
+  {
     name="Bridge spawner",
     path="data/entities/props/physics/bridge_spawner.xml",
-    image="mods/raksa/files/gfx/prop_icons/pressure_plate.png",
+    image=nil,
   },
 }
