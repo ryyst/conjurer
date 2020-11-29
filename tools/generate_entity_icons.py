@@ -9,9 +9,9 @@ from PIL import Image
 from PIL import ImageFont
 from PIL import ImageDraw
 
-from lists.pickups import PICKUPS
-from lists.props import PROPS
-from lists.animals import CUSTOM_ANIMALS
+from inputs.pickups import PICKUPS
+from inputs.props import PROPS
+from inputs.animals import CUSTOM_ANIMALS
 
 
 IMAGE_SIZE = (16, 16)
