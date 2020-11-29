@@ -1,18 +1,19 @@
 dofile("data/scripts/lib/coroutines.lua")
 
 dofile_once("mods/raksa/files/scripts/utilities.lua")
+dofile_once("mods/raksa/files/scripts/enums.lua")
 
 
 function Horizontal(gui, x, y, callback)
   GuiLayoutBeginHorizontal(gui, x, y)
-  callback()
+    callback()
   GuiLayoutEnd(gui)
 end
 
 
 function Vertical(gui, x, y, callback)
   GuiLayoutBeginVertical(gui, x, y)
-  callback()
+    callback()
   GuiLayoutEnd(gui)
 end
 
@@ -63,4 +64,24 @@ function Button(gui, bid, vars, click_action, right_click_action)
   -- Return the next button ID. Purposefully hiding the ugly incrementation
   -- logic from every single button loop.
   return bid + 1
+end
+
+
+NPBG_STYLES = {
+  [NPBG_DEFAULT]="data/ui_gfx/decorations/9piece0_gray.png",
+  [NPBG_GOLD]="data/ui_gfx/decorations/9piece0.png",
+  [NPBG_TAB]="mods/raksa/files/gfx/9piece_tab.png",
+}
+
+function Background(gui, margin, style, z_index, callback)
+  GuiBeginAutoBox(gui)
+    callback()
+  GuiZSetForNextWidget(gui, z_index)
+
+  if style then
+    local sprite = NPBG_STYLES[style]
+    GuiEndAutoBoxNinePiece(gui, margin, 5, 5, false, 0, sprite, sprite)
+  else
+    GuiEndAutoBoxNinePiece(gui, margin, 5, 5, false, 0)
+  end
 end

@@ -9,6 +9,26 @@ dofile_once("mods/raksa/files/scripts/enums.lua")
 MATERIAL_TYPES = {"Solids", "Sands", "Liquids", "Gases", "Fires"};
 ALL_MATERIALS = {Solids={}};
 
+MATERIAL_TYPE_ICONS = {
+  Solids="mods/raksa/files/gfx/icon_solid.png",
+  Sands="mods/raksa/files/gfx/icon_sand.png",
+  Liquids="mods/raksa/files/gfx/icon_liquid.png",
+  Gases="mods/raksa/files/gfx/icon_gas.png",
+  Fires="mods/raksa/files/gfx/icon_fire.png",
+}
+
+MATERIAL_TYPE_ICONS_OFF = {
+  Solids="mods/raksa/files/gfx/icon_solid_off.png",
+  Sands="mods/raksa/files/gfx/icon_sand_off.png",
+  Liquids="mods/raksa/files/gfx/icon_liquid_off.png",
+  Gases="mods/raksa/files/gfx/icon_gas_off.png",
+  Fires="mods/raksa/files/gfx/icon_fire_off.png",
+}
+
+function get_material_type_icon(category, enabled)
+  local icon_table = enabled and MATERIAL_TYPE_ICONS or MATERIAL_TYPE_ICONS_OFF
+  return icon_table[category]
+end
 
 function change_active_brush(brush, brush_index)
   -- Change reticle

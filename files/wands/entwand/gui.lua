@@ -38,23 +38,29 @@ function render_entity_picker()
 
   Horizontal(GUI, 1, 1, function()
     for i, cat in ipairs(ENTITY_TYPES) do
-      name = (cat == active_entity_tab) and string.upper(cat) or cat
+      local is_selected = (cat == active_entity_tab)
+      local image = get_entity_type_icon(cat, is_selected)
+      local y_override = -0.3
+      local style = is_selected and NPBG_TAB or nil
 
-      bid = Button(GUI, bid, {text=name}, function()
-        active_entity_tab = cat
+      Background(GUI, 0, style, 100, function()
+        bid = Button(GUI, bid, {tooltip=cat, image=image, y=y_override}, function()
+          active_entity_tab = cat
+        end)
       end)
       GuiLayoutAddHorizontalSpacing(GUI, 3)
     end
   end)
 
   -- Render entities
-  -- TODO: Make sure active_entity_tab reference is not lost when working with favorites
-  Grid(GUI, active_entities, function(entity, i)
-    local vars = { tooltip=entity.name, image=entity.image }
-    local tab_copy = active_entity_tab  -- For favorites
-    local click = function() change_active_entity(i, tab_copy) end
-    local right_click = add_to_favorites(vars, click)
-    bid = Button(GUI, bid, vars, click, right_click)
+  Background(GUI, 3, nil, 200, function()
+    Grid(GUI, active_entities, function(entity, i)
+      local vars = { tooltip=entity.name, image=entity.image }
+      local tab_copy = active_entity_tab  -- For favorites
+      local click = function() change_active_entity(i, tab_copy) end
+      local right_click = add_to_favorites(vars, click)
+      bid = Button(GUI, bid, vars, click, right_click)
+    end)
   end)
 end
 
@@ -72,9 +78,9 @@ function render_main_buttons()
       action = function() toggle_active_overlay(render_entity_picker) end
     },
     {
-      name = "Secondary Action",
-      image = ICON_UNKNOWN,
-      action = function() GamePrint("haloo") end,
+      name = "Delete Entity",
+      image = ICON_DELETE_ENTITY,
+      action = function() return end,
     },
   };
 
@@ -89,14 +95,16 @@ function render_main_buttons()
   end
 
   GuiLayoutAddVerticalSpacing(GUI, 2)
-  GuiText(GUI, 1, 0, "fav.")
-  GuiTooltip(GUI, "Add favorites by right-clicking on individual entities", "")
+  Background(GUI, 1, nil, 200, function()
+    GuiText(GUI, 1, 0, "fav.")
+    GuiTooltip(GUI, "Add favorites by right-clicking on individual entities", "")
 
-  -- Render favorite buttons
-  for i, fav in ipairs(favorites) do
-    bid = Button(GUI, bid, fav.vars, fav.click, remove_from_favorites(i))
-    GuiLayoutAddVerticalSpacing(GUI, 2)
-  end
+    -- Render favorite buttons
+    for i, fav in ipairs(favorites) do
+      bid = Button(GUI, bid, fav.vars, fav.click, remove_from_favorites(i))
+      GuiLayoutAddVerticalSpacing(GUI, 2)
+    end
+  end)
 end
 
 
