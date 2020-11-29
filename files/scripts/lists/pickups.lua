@@ -80,6 +80,16 @@ PICKUPS = {
     image="mods/raksa/files/gfx/pickup_icons/chest_random_super.png",
   },
   {
+    name="Chest steel",
+    path="data/entities/buildings/chest_steel.xml",
+    image="mods/raksa/files/gfx/pickup_icons/chest_steel.png",
+  },
+  {
+    name="Chest dark",
+    path="data/entities/buildings/chest_dark.xml",
+    image="mods/raksa/files/gfx/pickup_icons/chest_dark.png",
+  },
+  {
     name="Key",
     path="data/entities/animals/boss_alchemist/key.xml",
     image="mods/raksa/files/gfx/pickup_icons/key.png",
@@ -197,6 +207,11 @@ PICKUPS = {
   {
     name="Jar",
     path="data/entities/items/pickup/jar.xml",
+    image="mods/raksa/files/gfx/pickup_icons/jar.png",
+  },
+  {
+    name="Jar of urine",
+    path="data/entities/items/pickup/jar_of_urine.xml",
     image="mods/raksa/files/gfx/pickup_icons/jar.png",
   },
   {

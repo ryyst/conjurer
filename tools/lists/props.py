@@ -164,4 +164,8 @@ PROPS = [
     {"path": "entities/props/physics/trap_laser_toggling.xml"},
     {"path": "entities/props/physics/trap_laser_toggling_left.xml"},
     {"path": "entities/props/physics/bridge_spawner.xml"},
+    #
+    {"path": "entities/buildings/spike.xml"},
+    {"path": "entities/buildings/biome_modifiers/drain_pipe.xml"},
+    {"path": "entities/buildings/cloud_trap.xml"},
 ]

@@ -824,4 +824,19 @@ _GENERATED = {
     path="data/entities/props/physics/bridge_spawner.xml",
     image=nil,
   },
+  {
+    name="Spike",
+    path="data/entities/buildings/spike.xml",
+    image="mods/raksa/files/gfx/prop_icons/spike.png",
+  },
+  {
+    name="Drain pipe",
+    path="data/entities/buildings/biome_modifiers/drain_pipe.xml",
+    image="mods/raksa/files/gfx/prop_icons/drain_pipe.png",
+  },
+  {
+    name="Cloud trap",
+    path="data/entities/buildings/cloud_trap.xml",
+    image=nil,
+  },
 }

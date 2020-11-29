@@ -10,6 +10,8 @@ PICKUPS = [
     {"path": "entities/items/pickup/chest_leggy.xml"},
     {"path": "entities/items/pickup/chest_random.xml"},
     {"path": "entities/items/pickup/chest_random_super.xml"},
+    {"path": "entities/buildings/chest_steel.xml"},
+    {"path": "entities/buildings/chest_dark.xml"},
     {"path": "entities/animals/boss_alchemist/key.xml"},
     {"path": "entities/items/pickup/egg_fire.xml"},
     {"path": "entities/items/pickup/egg_hollow.xml"},

@@ -71,7 +71,7 @@ ANIMALS = {
   animal('lukki/lukki_creepy_long', 'Lukki creepy', 'lukki_longleg'),  -- Missing own image
   animal('lukki/lukki_longleg', 'Lukki longleg', 'lukki_longleg'),
   animal('lukki/lukki_tiny', 'Lukki tiny', 'lukki_tiny'),
-  {path='data/entities/animals/lurker', name='Lurker', image="mods/raksa/files/gfx/animal_icons/lurker.png"},
+  {path='data/entities/animals/lurker.xml', name='Lurker', image="mods/raksa/files/gfx/animal_icons/lurker.png"},
   animal('maggot', 'Maggot'),
   animal('miner', 'Miner'),
   animal('miner_fire', 'Miner fire'),
@@ -148,9 +148,45 @@ ANIMALS = {
   animal('wraith_storm', 'Wraith storm'),
   animal('zombie', 'Zombie'),
   animal('zombie_weak', 'Zombie weak'),
-  {path='data/entities/buildings/darkghost_crystal.xml', name='Darkghost'},
-  {path='data/entities/buildings/ghost_crystal.xml', name='Ghost'},
-  {path='data/entities/buildings/lasergun.xml', name='Lasergun'},
-  {path='data/entities/buildings/lukki_eggs.xml', name='Lukki egg'},
-  {path='data/entities/buildings/spidernest.xml', name='Spidernest'},
+  { -- Spawn via building, because without it the ghost dies instantly.
+    name="Darkghost",
+    path="data/entities/buildings/darkghost_crystal.xml",
+    image="mods/raksa/files/gfx/animal_icons/darkghost.png",
+  },
+  { -- Spawn via building, because without it the ghost dies instantly.
+    name="Ghost",
+    path="data/entities/buildings/ghost_crystal.xml",
+    image="mods/raksa/files/gfx/animal_icons/ghost.png",
+  },
+  {
+    name="Lasergun",
+    path="data/entities/buildings/lasergun.xml",
+    image="mods/raksa/files/gfx/animal_icons/lasergun.png",
+  },
+  {
+    name="Lukki eggs",
+    path="data/entities/buildings/lukki_eggs.xml",
+    image="mods/raksa/files/gfx/animal_icons/lukki_eggs.png",
+  },
+  {
+    name="Spidernest",
+    path="data/entities/buildings/spidernest.xml",
+    image="mods/raksa/files/gfx/animal_icons/spidernest.png",
+  },
+  {
+    name="Firebugnest",
+    path="data/entities/buildings/firebugnest.xml",
+    image="mods/raksa/files/gfx/animal_icons/nest_yellow.png",
+  },
+  {
+    name="Flynest",
+    path="data/entities/buildings/flynest.xml",
+    image="mods/raksa/files/gfx/animal_icons/flynest.png",
+  },
+  {
+    name="Physics cocoon",
+    path="data/entities/buildings/physics_cocoon.xml",
+    image="mods/raksa/files/gfx/animal_icons/cocoon.png",
+  },
+
 }

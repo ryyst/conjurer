@@ -55,6 +55,16 @@ _GENERATED = {
     image="mods/raksa/files/gfx/pickup_icons/chest_random_super.png",
   },
   {
+    name="Chest steel",
+    path="data/entities/buildings/chest_steel.xml",
+    image="mods/raksa/files/gfx/pickup_icons/chest_steel.png",
+  },
+  {
+    name="Chest dark",
+    path="data/entities/buildings/chest_dark.xml",
+    image="mods/raksa/files/gfx/pickup_icons/chest_dark.png",
+  },
+  {
     name="Key",
     path="data/entities/animals/boss_alchemist/key.xml",
     image="mods/raksa/files/gfx/pickup_icons/key.png",
@@ -212,12 +222,12 @@ _GENERATED = {
   {
     name="Potion aggressive",
     path="data/entities/items/pickup/potion_aggressive.xml",
-    image=nil,
+    image="mods/raksa/files/gfx/pickup_icons/potion.png",
   },
   {
     name="Potion alcohol",
     path="data/entities/items/pickup/potion_alcohol.xml",
-    image=nil,
+    image="mods/raksa/files/gfx/pickup_icons/potion.png",
   },
   {
     name="Potion random material",
@@ -237,7 +247,7 @@ _GENERATED = {
   {
     name="Potion water",
     path="data/entities/items/pickup/potion_water.xml",
-    image=nil,
+    image="mods/raksa/files/gfx/pickup_icons/potion.png",
   },
   {
     name="Runestone disc",

@@ -11,6 +11,7 @@ from PIL import ImageDraw
 
 from lists.pickups import PICKUPS
 from lists.props import PROPS
+from lists.animals import CUSTOM_ANIMALS
 
 
 IMAGE_SIZE = (16, 16)
@@ -183,6 +184,12 @@ def main(args):
     images = [parse_entity_xmls(entity["path"], data_path) for entity in PROPS]
     generate_icons_from_sprites(images, "../files/gfx/prop_icons")
     render_list_to_lua(images, "../files/scripts/lists/_props.lua", "prop_icons")
+
+    print("\nGenerating animals...")
+    images = [parse_entity_xmls(entity["path"], data_path) for entity in CUSTOM_ANIMALS]
+    generate_icons_from_sprites(images, "../files/gfx/animal_icons")
+    render_list_to_lua(images, "../files/scripts/lists/_animals.lua", "animal_icons")
+
     print("Done.")
 
 

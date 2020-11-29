@@ -598,6 +598,11 @@ PROPS = {
     image="mods/raksa/files/gfx/prop_icons/torch_stand_base.png",
   },
   {
+    name="Cloud trap",
+    path="data/entities/buildings/cloud_trap.xml",
+    image="mods/raksa/files/gfx/prop_icons/dripping_acid_gas.png",
+  },
+  {
     name="Physics trap circle acid",
     path="data/entities/props/physics_trap_circle_acid.xml",
     image="mods/raksa/files/gfx/prop_icons/trap_acid.png",
@@ -835,5 +840,15 @@ PROPS = {
     name="Bridge spawner",
     path="data/entities/props/physics/bridge_spawner.xml",
     image="mods/raksa/files/gfx/prop_icons/pressure_plate.png",
+  },
+  {
+    name="Spike",
+    path="data/entities/buildings/spike.xml",
+    image="mods/raksa/files/gfx/prop_icons/spike.png",
+  },
+  {
+    name="Drain pipe",
+    path="data/entities/buildings/biome_modifiers/drain_pipe.xml",
+    image="mods/raksa/files/gfx/prop_icons/drain_pipe.png",
   },
 }
