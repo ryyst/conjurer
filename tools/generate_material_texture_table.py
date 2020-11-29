@@ -18,7 +18,7 @@ def lua_path(filename):
 
 
 def save_path(filename):
-    return "material_icons/%s" % filename
+    return "../files/gfx/material_icons/%s" % filename
 
 
 def _to_lua(val):

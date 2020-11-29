@@ -231,6 +231,7 @@ MATERIAL_ICONS = {
   ["poison"] = "mods/raksa/files/gfx/material_icons/poison_colorgen.png",
   ["poison_gas"] = "mods/raksa/files/gfx/material_icons/poison_gas_colorgen.png",
   ["poo"] = "mods/raksa/files/gfx/material_icons/soil.png",
+  ["poop_box2d_hard"] = "mods/raksa/files/gfx/material_icons/earth_alt.png",
   ["potion_glass_box2d"] = "mods/raksa/files/gfx/material_icons/crystal.png",
   ["purifying_powder"] = "mods/raksa/files/gfx/material_icons/purifying_powder_colorgen.png",
   ["radioactive_gas"] = "mods/raksa/files/gfx/material_icons/radioactive_gas_colorgen.png",
