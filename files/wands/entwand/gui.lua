@@ -41,7 +41,7 @@ function render_entity_picker()
       local is_selected = (cat == active_entity_tab)
       local image = get_entity_type_icon(cat, is_selected)
       local y_override = -0.3
-      local style = is_selected and NPBG_TAB or nil
+      local style = is_selected and NPBG_BLUE_TAB or NPBG_BLUE
 
       Background(GUI, 0, style, 100, function()
         bid = Button(GUI, bid, {tooltip=cat, image=image, y=y_override}, function()
@@ -53,7 +53,7 @@ function render_entity_picker()
   end)
 
   -- Render entities
-  Background(GUI, 3, nil, 200, function()
+  Background(GUI, 3, NPBG_BLUE, 200, function()
     Grid(GUI, active_entities, function(entity, i)
       local vars = { tooltip=entity.name, image=entity.image }
       local tab_copy = active_entity_tab  -- For favorites
@@ -85,20 +85,23 @@ function render_main_buttons()
   };
 
   -- Render picker buttons
-  for i, item in ipairs(main_menu_items) do
-    bid = Button(
-      GUI, bid,
-      {image=item.image or item.image_func(), tooltip=item.name},
-      item.action
-    )
-    GuiLayoutAddVerticalSpacing(GUI, 2)
-  end
+  Background(GUI, 1, NPBG_BLUE, 200, function()
+    for i, item in ipairs(main_menu_items) do
+      bid = Button(
+        GUI, bid,
+        {image=item.image or item.image_func(), tooltip=item.name},
+        item.action
+      )
+      GuiLayoutAddVerticalSpacing(GUI, 2)
+    end
+  end)
 
   GuiLayoutAddVerticalSpacing(GUI, 2)
-  Background(GUI, 1, nil, 200, function()
-    GuiText(GUI, 1, 0, "fav.")
-    GuiTooltip(GUI, "Add favorites by right-clicking on individual entities", "")
+  GuiText(GUI, 1, 0, "fav.")
+  GuiTooltip(GUI, "Add favorites by right-clicking on individual entities", "")
+  GuiLayoutAddVerticalSpacing(GUI, 1)
 
+  Background(GUI, 1, NPBG_BLUE, 200, function()
     -- Render favorite buttons
     for i, fav in ipairs(favorites) do
       bid = Button(GUI, bid, fav.vars, fav.click, remove_from_favorites(i))

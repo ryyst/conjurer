@@ -44,7 +44,7 @@ function render_material_picker()
       local is_selected = (cat == active_material_type)
       local image = get_material_type_icon(cat, is_selected)
       local y_override = -0.3
-      local style = is_selected and NPBG_TAB or nil
+      local style = is_selected and NPBG_BROWN_TAB or NPBG_BROWN
 
       Background(GUI, 0, style, 100, function()
         bid = Button(GUI, bid, {tooltip=cat, image=image, y=y_override}, function()
@@ -56,7 +56,7 @@ function render_material_picker()
   end)
 
   -- Render material buttons
-  Background(GUI, 3, nil, 200, function()
+  Background(GUI, 3, NPBG_BROWN, 200, function()
     Grid(GUI, active_materials, function(material)
       local vars = { image=material.image, tooltip=material.name }
       local click = function() GlobalsSetValue(SELECTED_MATERIAL, material.id) end
@@ -75,7 +75,7 @@ function render_brush_picker()
   end)
 
   -- Render brushes
-  Background(GUI, 3, nil, 200, function()
+  Background(GUI, 3, NPBG_BROWN, 200, function()
     Grid(GUI, BRUSHES, function(brush, i)
       local vars = { image=brush.icon_file, tooltip=brush.name }
       local click = function() change_active_brush(brush, i) end
@@ -88,11 +88,10 @@ end
 
 function render_eraser_picker()
   local bid = 400
-  local path = "mods/raksa/files/wands/matwand/erasers/"
 
   local eraser_buttons = {
-    { text="Solids Eraser", mode=ERASER_MODE_SOLIDS, image=path.."solids.png" },
-    { text="Liquids Sucker", mode=ERASER_MODE_LIQUIDS, image=path.."liquids.png" },
+    { text="Solids Eraser", mode=ERASER_MODE_SOLIDS, image=ERASER_ICONS[ERASER_MODE_SOLIDS] },
+    { text="Liquids Sucker", mode=ERASER_MODE_LIQUIDS, image=ERASER_ICONS[ERASER_MODE_LIQUIDS] },
   }
   local current_eraser = GlobalsGetValue(ERASER_MODE, ERASER_MODE_DEFAULT)
 
@@ -100,7 +99,7 @@ function render_eraser_picker()
     GuiText(GUI, 0, 0, "Eraser options")
   end)
 
-  Background(GUI, 3, nil, 200, function()
+  Background(GUI, 3, NPBG_BROWN, 200, function()
     Vertical(GUI, 1, 2, function()
 
       -- Render erasers
@@ -113,7 +112,7 @@ function render_eraser_picker()
         end
       end)
 
-      -- Render extra size slider, if using solids eraser.
+      -- Render extra slider for size, if using solids eraser.
       if current_eraser == ERASER_MODE_SOLIDS then
         GuiLayoutAddVerticalSpacing(GUI, 2)
 
@@ -121,8 +120,8 @@ function render_eraser_picker()
         local repr = tostring(value)
         local default = tonumber(ERASER_SIZE_DEFAULT)
 
-        local new_val = GuiSlider(GUI, bid, -2, 0, "", value, 1, 8, default, 1, repr, 60 )
-        GuiTooltip(GUI, "Size", "Unfortunately this works only with the Solids Eraser")
+        local new_val = GuiSlider(GUI, bid, 2, 0, "Size", value, 1, 8, default, 1, repr, 30 )
+        GuiTooltip(GUI, "Unfortunately this works only with the Solids Eraser", "")
         GlobalsSetValue(ERASER_SIZE, math.ceil(new_val))
       end
     end)
@@ -152,20 +151,23 @@ function render_main_buttons()
   };
 
   -- Render picker buttons
-  for i, item in ipairs(main_menu_items) do
-    bid = Button(
-      GUI, bid,
-      {image=item.image_func(), tooltip=item.name},
-      item.action
-    )
-    GuiLayoutAddVerticalSpacing(GUI, 2)
-  end
+  Background(GUI, 1, NPBG_BROWN, 100, function()
+    for i, item in ipairs(main_menu_items) do
+      bid = Button(
+        GUI, bid,
+        {image=item.image_func(), tooltip=item.name},
+        item.action
+      )
+      GuiLayoutAddVerticalSpacing(GUI, 2)
+    end
+  end)
 
   GuiLayoutAddVerticalSpacing(GUI, 2)
-  Background(GUI, 1, nil, 200, function()
-    GuiText(GUI, 1, 0, "fav.")
-    GuiTooltip(GUI, "Add favorites by right-clicking on individual mats/brushes/erasers", "")
+  GuiText(GUI, 1, 0, "fav.")
+  GuiTooltip(GUI, "Add favorites by right-clicking on individual mats/brushes/erasers", "")
+  GuiLayoutAddVerticalSpacing(GUI, 1)
 
+  Background(GUI, 1, NPBG_BROWN, 200, function()
     -- Render favorite buttons
     for i, fav in ipairs(favorites) do
       bid = Button(GUI, bid, fav.vars, fav.click, remove_from_favorites(i))

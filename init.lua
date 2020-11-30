@@ -76,5 +76,5 @@ end
 
 function OnPlayerDied(player)
   GlobalsSetValue("RAKSA_DIED", "1")
-  GamePrintImportant("You managed to die", "[Save & Quit] and [Continue] to keep your progress")
+  GamePrintImportant("You managed to die", "[Save & Quit] and [Continue] to keep your progress and respawn")
 end

@@ -71,17 +71,18 @@ NPBG_STYLES = {
   [NPBG_DEFAULT]="data/ui_gfx/decorations/9piece0_gray.png",
   [NPBG_GOLD]="data/ui_gfx/decorations/9piece0.png",
   [NPBG_TAB]="mods/raksa/files/gfx/9piece_tab.png",
+  [NPBG_BLUE]="mods/raksa/files/gfx/9piece_blue.png",
+  [NPBG_BLUE_TAB]="mods/raksa/files/gfx/9piece_blue_tab.png",
+  [NPBG_BROWN]="mods/raksa/files/gfx/9piece_brown.png",
+  [NPBG_BROWN_TAB]="mods/raksa/files/gfx/9piece_brown_tab.png",
 }
 
 function Background(gui, margin, style, z_index, callback)
+  if not style then style = NPBG_DEFAULT end
+  local sprite = NPBG_STYLES[style]
+
   GuiBeginAutoBox(gui)
     callback()
   GuiZSetForNextWidget(gui, z_index)
-
-  if style then
-    local sprite = NPBG_STYLES[style]
-    GuiEndAutoBoxNinePiece(gui, margin, 5, 5, false, 0, sprite, sprite)
-  else
-    GuiEndAutoBoxNinePiece(gui, margin, 5, 5, false, 0)
-  end
+  GuiEndAutoBoxNinePiece(gui, margin, 5, 5, false, 0, sprite, sprite)
 end

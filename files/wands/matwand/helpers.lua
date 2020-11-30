@@ -25,6 +25,12 @@ MATERIAL_TYPE_ICONS_OFF = {
   Fires="mods/raksa/files/gfx/icon_fire_off.png",
 }
 
+ERASER_ICONS = {
+  [ERASER_MODE_SOLIDS]="mods/raksa/files/wands/matwand/erasers/solids.png" ,
+  [ERASER_MODE_LIQUIDS]="mods/raksa/files/wands/matwand/erasers/liquids.png" ,
+}
+
+
 function get_material_type_icon(category, enabled)
   local icon_table = enabled and MATERIAL_TYPE_ICONS or MATERIAL_TYPE_ICONS_OFF
   return icon_table[category]
@@ -94,11 +100,5 @@ end
 
 function get_active_eraser_image()
   local current_eraser = GlobalsGetValue(ERASER_MODE, ERASER_MODE_DEFAULT)
-  local path = "mods/raksa/files/wands/matwand/erasers/"
-
-  if current_eraser == ERASER_MODE_SOLIDS then
-    return path.."solids.png"
-  end
-
-  return path.."liquids.png"
+  return ERASER_ICONS[current_eraser]
 end
