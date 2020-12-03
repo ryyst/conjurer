@@ -3,9 +3,10 @@
   description="Freeform sandbox builder."
   is_game_mode="1"
   ui_newgame_name="Conjurer"
-  ui_newgame_description="Stranded on a barren world, with nothing
-but the tools of a conjurer at your disposal.
--
+  ui_newgame_description="Stranded on a barren world, with seemingly nothing
+around you - it's time to conjure something up.
+_
+
 Freeform sandbox builder."
   ui_newgame_gfx_banner_bg="mods/raksa/files/gfx/menu_banner_background.png"
   ui_newgame_gfx_banner_fg="mods/raksa/files/gfx/menu_banner_overlay.png"
