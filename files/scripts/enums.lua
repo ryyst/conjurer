@@ -42,3 +42,9 @@ NPBG_BLUE = 3
 NPBG_BLUE_TAB = 4
 NPBG_BROWN = 5
 NPBG_BROWN_TAB = 6
+
+
+-- PERSISTENT FLAGS
+--
+-- NOTE: These must be lowercase
+SPEED_FLAG = "raksa_is_using_speed"

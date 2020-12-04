@@ -147,7 +147,7 @@ end
 
 function ComponentSetValues(component, values)
   for key, value in pairs(values) do
-    ComponentSetValue(component, key, value)
+    ComponentSetValue2(component, key, value)
   end
 end
 

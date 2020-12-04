@@ -2,7 +2,7 @@ ModMagicNumbersFileAdd("mods/raksa/files/magic_numbers.xml")
 ModLuaFileAppend("data/scripts/gun/gun_actions.lua", "mods/raksa/files/actions.lua")
 
 dofile_once("mods/raksa/files/scripts/utilities.lua")
---dofile_once("mods/raksa/files/lib/gui.lua")
+dofile_once("mods/raksa/files/powers/gui.lua")
 
 
 function OnWorldPostUpdate()
@@ -51,7 +51,16 @@ end
 
 
 function OnPlayerSpawned(player)
-  if (GlobalsGetValue("RAKSA_FIRST_LOAD_DONE") == "1") and (GlobalsGetValue("RAKSA_DIED") == "0") then
+  RemoveFlagPersistent(SPEED_FLAG)
+
+  -- The global GUI. Otherwise we use wands for specific tool GUIs.
+  if #(EntityGetWithTag("raksa_powers_gui") or {}) == 0 then
+    EntityLoad('mods/raksa/files/powers/gui_container.xml' );
+  end
+
+  local has_loaded_once = GlobalsGetValue("RAKSA_FIRST_LOAD_DONE") == "1"
+  local has_not_died = GlobalsGetValue("RAKSA_DIED") == "0"
+  if (has_loaded_once and has_not_died) then
     return
   end
 
