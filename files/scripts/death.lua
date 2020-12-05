@@ -20,5 +20,8 @@ function damage_received(damage, message, entity_thats_responsible, is_fatal)
     local dmgComponent = EntityGetFirstComponentIncludingDisabled(player, "DamageModelComponent")
     local max_health = tonumber(ComponentGetValue(dmgComponent, "max_hp"))
     ComponentSetValue2(dmgComponent, "hp", max_health)
+
+    --
+    GamePrintImportant("You died", "No rest for the wicked")
   end
 end

@@ -2,7 +2,7 @@
 -- MATWAND
 --
 SELECTED_BRUSH = "RAKSA_SELECTED_BRUSH"
-DEFAULT_BRUSH = "3" -- 5px brush
+DEFAULT_BRUSH = "4" -- 5px brush
 -- NOTE: The reticle entity file has the actual default brush image defined
 -- TODO: Dynamic first load?
 

@@ -1,5 +1,14 @@
 BRUSHES = {
   {
+    name="Fill area",
+    offset_x=22,
+    offset_y=21,
+    reticle_file="mods/raksa/files/wands/matwand/brushes/fill_reticle.png",
+    brush_file="mods/raksa/files/wands/matwand/brushes/fill_brush.png",
+    icon_file="mods/raksa/files/wands/matwand/brushes/fill_icon.png",
+    is_filler_tool=true,
+  },
+  {
     name="1px brush",
     offset_x=3,
     offset_y=3,

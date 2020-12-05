@@ -13,32 +13,22 @@ function brush_reticle_follow_mouse(x, y)
 end
 
 
-function draw(material)
-  local brush_reticle = EntityGetWithName("brush_reticle")
-  local brush = get_active_brush()
+function draw(material, brush, draw_vars)
+  local reticle = EntityGetWithName("brush_reticle")
+  local x, y = EntityGetTransform(reticle)
 
-  EntityAddComponent2(brush_reticle, "ParticleEmitterComponent", {
-    emitted_material_name=material,
-    image_animation_file=brush.brush_file,
+  EntityAddComponent2(reticle, "ParticleEmitterComponent", draw_vars)
+end
 
-    create_real_particles=true,
-    lifetime_min=1,
-    lifetime_max=1,
-    count_min=1,
-    count_max=1,
-    render_on_grid=true,
-    fade_based_on_lifetime=true,
-    cosmetic_force_create=false,
-    emission_interval_min_frames=1,
-    emission_interval_max_frames=1,
-    emit_cosmetic_particles=false,
-    image_animation_speed=1,
-    image_animation_loop=false,
-    image_animation_raytrace_from_center=true,
-    collide_with_gas_and_fire=false,
-    set_magic_creation=true,
-    is_emitting=true
-  })
+
+function draw_filler(material, brush, draw_vars, x, y)
+  local filler = EntityCreateNew()
+
+  -- The lifetime might not be enough for whole 1024px² sprite to render entirely,
+  -- but it should strike a good balance between performance & most common usecases.
+  EntityAddComponent2(filler, "LifetimeComponent", { lifetime=90 })
+  EntityAddComponent2(filler, "ParticleEmitterComponent", draw_vars)
+  EntitySetTransform(filler, x, y)
 end
 
 
@@ -70,18 +60,45 @@ function erase(x, y)
   end
 
   EntityAddComponent(eraser, "LifetimeComponent", { lifetime=2 })
-  --EntityKill(eraser)
 end
 
 
 local x, y = DEBUG_GetMouseWorld()
+local brush = get_active_brush()
+local material = GlobalsGetValue(SELECTED_MATERIAL, SELECTED_MATERIAL_DEFAULT)
+local draw_vars = {
+  emitted_material_name=material,
+  image_animation_file=brush.brush_file,
+
+  create_real_particles=true,
+  lifetime_min=1,
+  lifetime_max=1,
+  count_min=1,
+  count_max=1,
+  render_on_grid=true,
+  fade_based_on_lifetime=true,
+  cosmetic_force_create=false,
+  emission_interval_min_frames=1,
+  emission_interval_max_frames=1,
+  emit_cosmetic_particles=false,
+  image_animation_speed=2,
+  image_animation_loop=false,
+  image_animation_raytrace_from_center=true,
+  collide_with_gas_and_fire=false,
+  set_magic_creation=true,
+  is_emitting=true
+}
 
 brush_reticle_follow_mouse(x, y)
 
 
-if is_holding_m1() then
-  local material = GlobalsGetValue(SELECTED_MATERIAL, SELECTED_MATERIAL_DEFAULT)
-  draw(material)
+if is_holding_m1() and not brush.is_filler_tool then
+  draw(material, brush, draw_vars)
+end
+
+
+if has_clicked_m1() and brush.is_filler_tool then
+  draw_filler(material, brush, draw_vars, x, y)
 end
 
 

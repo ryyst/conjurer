@@ -77,7 +77,7 @@ function render_brush_picker()
   -- Render brushes
   Background(GUI, 3, NPBG_BROWN, 200, function()
     Grid(GUI, BRUSHES, function(brush, i)
-      local vars = { image=brush.icon_file, tooltip=brush.name }
+      local vars = { image=brush.icon_file, tooltip=brush.name, tooltip_desc=brush.desc }
       local click = function() change_active_brush(brush, i) end
       local right_click = add_to_favorites(vars, click)
       bid = Button(GUI, bid, vars, click, right_click)
