@@ -44,6 +44,14 @@ NPBG_BROWN = 5
 NPBG_BROWN_TAB = 6
 
 
+-- TIME OF DAY
+DAWN = 0.73
+NOON = 0
+DUSK = 0.47
+MIDNIGHT = 0.6
+
+
+
 -- PERSISTENT FLAGS
 --
 -- NOTE: These must be lowercase

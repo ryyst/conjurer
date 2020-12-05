@@ -18,15 +18,18 @@ function Vertical(gui, x, y, callback)
 end
 
 
-function Grid(gui, items, callback)
-  local row_length = math.max( 6, math.min( (#items) ^ 0.75, 12 ) );
+function Grid(gui, items, callback, x, y, size)
+  local row_length = size or math.max(6, math.min((#items) ^ 0.75, 12));
   local row_count = math.ceil(#items / row_length)
+
+  x = x or 0
+  y = y or 0
 
   local item_pos = 1
   for row=1, row_count do
     if not items[item_pos] then break end
 
-    Horizontal(gui, 1, 2, function()
+    Horizontal(gui, x, y, function()
       for col = 1, row_length do
         if not items[item_pos] then break end
         callback(items[item_pos], item_pos)

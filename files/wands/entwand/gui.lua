@@ -60,7 +60,7 @@ function render_entity_picker()
       local click = function() change_active_entity(i, tab_copy) end
       local right_click = add_to_favorites(vars, click)
       bid = Button(GUI, bid, vars, click, right_click)
-    end)
+    end, 1, 2)
   end)
 end
 

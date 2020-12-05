@@ -73,14 +73,19 @@ function OnPlayerSpawned(player)
     player_overrides(player)
 
 
-  local world_state_entity = GameGetWorldStateEntity()
-  edit_component( world_state_entity, "WorldStateComponent", function(comp,vars)
-    vars.fog_target_extra = 0
-    vars.rain_target_extra = 0
-  end)
+    local world_state_entity = GameGetWorldStateEntity()
+    EntitySetValues(world_state_entity, "WorldStateComponent", {
+      -- MAYBE SOME OF THESE COULD WORK, PLEASE?!
+      fog=0, rain=0,
+      fog_target=0, rain_target=0,
+      fog_target_extra=0, rain_target_extra=0,
+    })
 
-    local x, y = EntityGetTransform(player)
-    set_time_of_day(0.4)
+    local defaultttt = EntityGetValue(world_state_entity, "WorldStateComponent", "time_dt")
+    GamePrint(str(defaultttt))
+
+    -- Always start on noon
+    set_time_of_day(NOON)
 
 
     GlobalsSetValue("RAKSA_FIRST_LOAD_DONE", "1")

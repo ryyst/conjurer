@@ -151,16 +151,12 @@ function ComponentSetValues(component, values)
   end
 end
 
-
-function teleport_player_safely(player, x, y)
+function teleport_player(x, y)
   -- Spawn on top of player
-  local px, py = EntityGetTransform(player)
-  local tp = EntityLoad("mods/raksa/files/biomes/objects/safe_teleport.xml", px, py)
-  EntitySetTransform(player, x, y)
+  local player = get_player()
+  if not player then return end
 
-  -- Set actual teleportation target
-  --local teleComponent = EntityGetFirstComponentIncludingDisabled(tp, "TeleportComponent")
-  --ComponentSetValue2(teleComponent, "target", x, y)
+  EntitySetTransform(player, x, y)
 end
 
 

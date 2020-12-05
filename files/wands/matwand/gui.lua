@@ -62,7 +62,7 @@ function render_material_picker()
       local click = function() GlobalsSetValue(SELECTED_MATERIAL, material.id) end
       local right_click = add_to_favorites(vars, click)
       bid = Button(GUI, bid, vars, click, right_click)
-    end)
+    end, 1, 2)
   end)
 end
 
@@ -81,7 +81,7 @@ function render_brush_picker()
       local click = function() change_active_brush(brush, i) end
       local right_click = add_to_favorites(vars, click)
       bid = Button(GUI, bid, vars, click, right_click)
-    end)
+    end, 1, 2)
   end)
 end
 
