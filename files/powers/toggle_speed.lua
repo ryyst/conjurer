@@ -26,14 +26,15 @@ end
 
 function toggle_speed()
   local player = get_player()
-  GamePrint("Swoooosh!")
 
   -- TODO: Control with a simple particle entity on a player
   if HasFlagPersistent(SPEED_FLAG) then
     EntitySetValues(player, "CharacterPlatformingComponent", player_defaults)
     RemoveFlagPersistent(SPEED_FLAG)
+    GamePrint("The nimble magic wears off.")
   else
     EntitySetValues(player, "CharacterPlatformingComponent", speedy_vars)
     AddFlagPersistent(SPEED_FLAG)
+    GamePrint("You're feeling light!")
   end
 end

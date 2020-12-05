@@ -63,22 +63,22 @@ function render_time_menu()
   local time_of_day_buttons = {
     {
       name="Dawn",
-      image = ICON_UNKNOWN,
+      image = "mods/raksa/files/gfx/power_icons/dawn.png",
       action = function() set_time_of_day(DAWN) end,
     },
     {
       name="Noon",
-      image = ICON_UNKNOWN,
+      image = "mods/raksa/files/gfx/power_icons/noon.png",
       action = function() set_time_of_day(NOON) end,
     },
     {
       name="Dusk",
-      image = ICON_UNKNOWN,
+      image = "mods/raksa/files/gfx/power_icons/dusk.png",
       action = function() set_time_of_day(DUSK) end,
     },
     {
       name="Midnight",
-      image = ICON_UNKNOWN,
+      image = "mods/raksa/files/gfx/power_icons/midnight.png",
       action = function() set_time_of_day(MIDNIGHT) end,
     },
   };
@@ -97,7 +97,7 @@ function render_time_menu()
   local value = EntityGetValue(world, "WorldStateComponent", "time_dt")
   value = to_slider_log_value(value)
 
-  local new_val = GuiSlider(GUI, bid, -2, 0, "", value, 0, 4, default, 1, string.format("%.2f", value), 50 )
+  local new_val = GuiSlider(GUI, bid, -2, 0, "", value, 0, 3, default, 1, string.format("%.2f", value), 50 )
   GuiTooltip(GUI, "Rotational Velocity", "Right-click to reset back to natural order")
 
   new_val = to_worldstate_value(new_val)
@@ -111,24 +111,24 @@ function render_main_buttons()
   local main_menu_items = {
     {
       name="Return to Tower",
-      image = ICON_UNKNOWN,
+      image = "mods/raksa/files/gfx/power_icons/tower.png",
       action = function() teleport_player(400, -410) end,
       -- TODO: Return to the waypoint system sometime later
       --action = function() toggle_active_overlay(render_teleport_menu) end,
     },
     {
       name="Toggle Kalma's Call",
-      image = ICON_UNKNOWN,
+      image = "mods/raksa/files/gfx/power_icons/kalma.png",
       action = toggle_kalma,
     },
     {
       name="Toggle Viima's Howl",
-      image = ICON_UNKNOWN,
+      image = "mods/raksa/files/gfx/power_icons/viima.png",
       action = toggle_speed,
     },
     {
       name="Control Planetary Rotation",
-      image = ICON_UNKNOWN,
+      image = "mods/raksa/files/gfx/power_icons/planetary_controls.png",
       action = function() toggle_active_overlay(render_time_menu) end,
     },
   };
