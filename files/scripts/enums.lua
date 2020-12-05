@@ -48,3 +48,4 @@ NPBG_BROWN_TAB = 6
 --
 -- NOTE: These must be lowercase
 SPEED_FLAG = "raksa_is_using_speed"
+KALMA_RECALL_FLAG = "raksa_use_mortal_recall"

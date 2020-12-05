@@ -37,6 +37,12 @@ function player_overrides(player)
 
   -- Endless flight
   EntitySetValue(player, "CharacterDataComponent", "flying_needs_recharge", false)
+
+  -- Never die
+  EntitySetValue(player, "DamageModelComponent", "wait_for_kill_flag_on_death", true)
+  EntityAddComponent(player, "LuaComponent", {
+    script_damage_received="mods/raksa/files/scripts/death.lua",
+  })
 end
 
 
@@ -58,14 +64,13 @@ function OnPlayerSpawned(player)
     EntityLoad('mods/raksa/files/powers/gui_container.xml' );
   end
 
-  local has_loaded_once = GlobalsGetValue("RAKSA_FIRST_LOAD_DONE") == "1"
-  local has_not_died = GlobalsGetValue("RAKSA_DIED") == "0"
-  if (has_loaded_once and has_not_died) then
-    return
-  end
+  local is_first_load = GlobalsGetValue("RAKSA_FIRST_LOAD_DONE", "0") == "0"
+  local has_died = GlobalsGetValue("RAKSA_DIED", "0") == "1"
+  if (is_first_load or has_died) then
+    AddFlagPersistent(KALMA_RECALL_FLAG)
 
-  handle_inventory(player)
-  player_overrides(player)
+    handle_inventory(player)
+    player_overrides(player)
 
 
   local world_state_entity = GameGetWorldStateEntity()
@@ -74,12 +79,13 @@ function OnPlayerSpawned(player)
     vars.rain_target_extra = 0
   end)
 
-  local x, y = EntityGetTransform(player)
-  set_time_of_day(0.4)
+    local x, y = EntityGetTransform(player)
+    set_time_of_day(0.4)
 
 
-  GlobalsSetValue("RAKSA_FIRST_LOAD_DONE", "1")
-  GlobalsSetValue("RAKSA_DIED", "0")
+    GlobalsSetValue("RAKSA_FIRST_LOAD_DONE", "1")
+    GlobalsSetValue("RAKSA_DIED", "0")
+  end
 end
 
 

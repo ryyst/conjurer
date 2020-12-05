@@ -6,6 +6,7 @@ dofile_once("mods/raksa/files/scripts/utilities.lua")
 dofile_once("mods/raksa/files/scripts/enums.lua")
 
 dofile_once("mods/raksa/files/powers/toggle_speed.lua")
+dofile_once("mods/raksa/files/powers/toggle_kalma.lua")
 
 
 local render_active_overlay = nil
@@ -21,12 +22,12 @@ function render_main_buttons()
 
   local main_menu_items = {
     {
-      name="Toggle Mortality",
+      name="Kalma Recall",
       image = ICON_UNKNOWN,
-      action = function() GamePrint("Mortality achieved") end
+      action = toggle_kalma,
     },
     {
-      name="Toggle Speed",
+      name="Windseeker",
       image = ICON_UNKNOWN,
       action = toggle_speed,
     },
