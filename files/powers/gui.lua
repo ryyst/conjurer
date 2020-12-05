@@ -7,15 +7,27 @@ dofile_once("mods/raksa/files/scripts/enums.lua")
 
 dofile_once("mods/raksa/files/powers/toggle_speed.lua")
 dofile_once("mods/raksa/files/powers/toggle_kalma.lua")
+dofile_once("mods/raksa/files/powers/change_herd.lua")
 
 
 local render_active_overlay = nil
 local GUI = GuiCreate()
-local main_menu_pos_x = 88
+local main_menu_pos_x = 85
 local main_menu_pos_y = 94
 local sub_menu_pos_x = main_menu_pos_x
 local sub_menu_pos_y = main_menu_pos_y-15
 
+function render_herd_menu()
+  local bid = 400
+
+  Grid(GUI, HERDS, function(item)
+    bid = Button(
+      GUI, bid,
+      {image=ICON_UNKNOWN, tooltip=item},
+      function() change_player_herd(item) end
+    )
+  end, 0, -22, 5)
+end
 
 function render_teleport_menu()
   local bid = 300
@@ -109,6 +121,11 @@ function render_main_buttons()
   local bid = 100
 
   local main_menu_items = {
+    {
+      name="Change Herd",
+      image = ICON_UNKNOWN,
+      action = function() toggle_active_overlay(render_herd_menu) end,
+    },
     {
       name="Return to Tower",
       image = "mods/raksa/files/gfx/power_icons/tower.png",
