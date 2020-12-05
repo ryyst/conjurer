@@ -17,7 +17,6 @@ local sub_menu_pos_x = main_menu_pos_x
 local sub_menu_pos_y = main_menu_pos_y-15
 
 
-
 function render_teleport_menu()
   local bid = 300
   local teleport_buttons = {
@@ -41,6 +40,7 @@ function render_teleport_menu()
     )
   end, 0, 0, 2)
 end
+
 
 local MULTIPLIER = 10
 function to_worldstate_value(val)
@@ -91,7 +91,7 @@ function render_time_menu()
     )
   end, 0, 0, 2)
 
-
+  -- time_dt slider
   local default = to_slider_log_value(1)
   local world = GameGetWorldStateEntity()
   local value = EntityGetValue(world, "WorldStateComponent", "time_dt")

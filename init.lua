@@ -5,14 +5,6 @@ dofile_once("mods/raksa/files/scripts/utilities.lua")
 dofile_once("mods/raksa/files/powers/gui.lua")
 
 
-function OnWorldPostUpdate()
-  --ComponentSetValue2(
-  --  EntityGetFirstComponent(GameGetWorldStateEntity(), "WorldStateComponent"),
-  --  "time", 0
-  --)
-end
-
-
 function handle_inventory(player)
   local ITEMS_QUICK = {
     "mods/raksa/files/wands/matwand/entity.xml",
@@ -46,16 +38,6 @@ function player_overrides(player)
 end
 
 
-function OnPausedChanged( is_paused, is_inventory_pause )
-  if is_paused then
-    print("Paused!")
-    GlobalsSetValue("raksa_is_paused", "1")
-  else
-    GlobalsSetValue("raksa_is_paused", "0")
-  end
-end
-
-
 function OnPlayerSpawned(player)
   RemoveFlagPersistent(SPEED_FLAG)
 
@@ -72,7 +54,6 @@ function OnPlayerSpawned(player)
     handle_inventory(player)
     player_overrides(player)
 
-
     local world_state_entity = GameGetWorldStateEntity()
     EntitySetValues(world_state_entity, "WorldStateComponent", {
       -- MAYBE SOME OF THESE COULD WORK, PLEASE?!
@@ -81,12 +62,8 @@ function OnPlayerSpawned(player)
       fog_target_extra=0, rain_target_extra=0,
     })
 
-    local defaultttt = EntityGetValue(world_state_entity, "WorldStateComponent", "time_dt")
-    GamePrint(str(defaultttt))
-
     -- Always start on noon
     set_time_of_day(NOON)
-
 
     GlobalsSetValue("RAKSA_FIRST_LOAD_DONE", "1")
     GlobalsSetValue("RAKSA_DIED", "0")
