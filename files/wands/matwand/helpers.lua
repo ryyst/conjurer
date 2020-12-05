@@ -10,24 +10,24 @@ MATERIAL_TYPES = {"Solids", "Sands", "Liquids", "Gases", "Fires"};
 ALL_MATERIALS = {Solids={}};
 
 MATERIAL_TYPE_ICONS = {
-  Solids="mods/raksa/files/gfx/icon_solid.png",
-  Sands="mods/raksa/files/gfx/icon_sand.png",
-  Liquids="mods/raksa/files/gfx/icon_liquid.png",
-  Gases="mods/raksa/files/gfx/icon_gas.png",
-  Fires="mods/raksa/files/gfx/icon_fire.png",
+  Solids="mods/raksa/files/gfx/matwand_icons/icon_solid.png",
+  Sands="mods/raksa/files/gfx/matwand_icons/icon_sand.png",
+  Liquids="mods/raksa/files/gfx/matwand_icons/icon_liquid.png",
+  Gases="mods/raksa/files/gfx/matwand_icons/icon_gas.png",
+  Fires="mods/raksa/files/gfx/matwand_icons/icon_fire.png",
 }
 
 MATERIAL_TYPE_ICONS_OFF = {
-  Solids="mods/raksa/files/gfx/icon_solid_off.png",
-  Sands="mods/raksa/files/gfx/icon_sand_off.png",
-  Liquids="mods/raksa/files/gfx/icon_liquid_off.png",
-  Gases="mods/raksa/files/gfx/icon_gas_off.png",
-  Fires="mods/raksa/files/gfx/icon_fire_off.png",
+  Solids="mods/raksa/files/gfx/matwand_icons/icon_solid_off.png",
+  Sands="mods/raksa/files/gfx/matwand_icons/icon_sand_off.png",
+  Liquids="mods/raksa/files/gfx/matwand_icons/icon_liquid_off.png",
+  Gases="mods/raksa/files/gfx/matwand_icons/icon_gas_off.png",
+  Fires="mods/raksa/files/gfx/matwand_icons/icon_fire_off.png",
 }
 
 ERASER_ICONS = {
-  [ERASER_MODE_SOLIDS]="mods/raksa/files/wands/matwand/erasers/solids.png" ,
-  [ERASER_MODE_LIQUIDS]="mods/raksa/files/wands/matwand/erasers/liquids.png" ,
+  [ERASER_MODE_SOLIDS]="mods/raksa/files/gfx/matwand_icons/icon_erase_solids.png" ,
+  [ERASER_MODE_LIQUIDS]="mods/raksa/files/gfx/matwand_icons/icon_suck_liquids.png" ,
 }
 
 

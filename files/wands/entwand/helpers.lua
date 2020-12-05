@@ -10,18 +10,18 @@ dofile_once("mods/raksa/files/scripts/enums.lua")
 ENTITY_TYPES = {"Animals", "Props", "Pickups"}
 ALL_ENTITIES = {Animals=ANIMALS, Props=PROPS, Pickups=PICKUPS};
 
-ICON_DELETE_ENTITY = "mods/raksa/files/gfx/icon_delete_entity.png"
+ICON_DELETE_ENTITY = "mods/raksa/files/gfx/entwand_icons/icon_delete_entity.png"
 
 ENTITY_TYPE_ICONS = {
-  Animals="mods/raksa/files/gfx/icon_animals.png",
-  Props="mods/raksa/files/gfx/icon_props.png",
-  Pickups="mods/raksa/files/gfx/icon_pickups.png",
+  Animals="mods/raksa/files/gfx/entwand_icons/icon_animals.png",
+  Props="mods/raksa/files/gfx/entwand_icons/icon_props.png",
+  Pickups="mods/raksa/files/gfx/entwand_icons/icon_pickups.png",
 }
 
 ENTITY_TYPE_ICONS_OFF = {
-  Animals="mods/raksa/files/gfx/icon_animals_off.png",
-  Props="mods/raksa/files/gfx/icon_props_off.png",
-  Pickups="mods/raksa/files/gfx/icon_pickups_off.png",
+  Animals="mods/raksa/files/gfx/entwand_icons/icon_animals_off.png",
+  Props="mods/raksa/files/gfx/entwand_icons/icon_props_off.png",
+  Pickups="mods/raksa/files/gfx/entwand_icons/icon_pickups_off.png",
 }
 
 function get_entity_type_icon(category, enabled)
