@@ -53,7 +53,7 @@ function render_entity_picker(GUI, BID_SPACE)
   -- Render entities
   Background(GUI, 3, NPBG_BLUE, 200, function()
     Grid(GUI, active_entities, function(entity, i)
-      local vars = { tooltip=entity.name, image=entity.image }
+      local vars = { tooltip=entity.name, image=entity.image, tooltip_desc=entity.desc}
       local tab_copy = active_entity_tab  -- For favorites
       local click = function() change_active_entity(i, tab_copy) end
       local right_click = add_entity_to_favorites(vars, click)
