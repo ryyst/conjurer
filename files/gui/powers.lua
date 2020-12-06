@@ -1,4 +1,3 @@
-dofile("data/scripts/lib/coroutines.lua")
 dofile("data/scripts/lib/utilities.lua")
 
 dofile_once("mods/raksa/files/lib/gui.lua")
@@ -10,8 +9,7 @@ dofile_once("mods/raksa/files/powers/toggle_kalma.lua")
 dofile_once("mods/raksa/files/powers/change_herd.lua")
 
 
-local render_active_overlay = nil
-local GUI = GuiCreate()
+local render_active_powers_overlay = nil
 local main_menu_pos_x = 85
 local main_menu_pos_y = 94
 local sub_menu_pos_x = main_menu_pos_x
@@ -26,8 +24,8 @@ if ACTIVE_HERD == nil then
 end
 
 
-function render_herd_menu()
-  local bid = 400
+function render_herd_menu(GUI, BID_SPACE)
+  local bid = BID_SPACE + 400
 
   Background(GUI, 1, nil, 100, function()
     Grid(GUI, HERDS, function(herd)
@@ -44,8 +42,8 @@ function render_herd_menu()
 end
 
 
-function render_teleport_menu()
-  local bid = 300
+function render_teleport_menu(GUI, BID_SPACE)
+  local bid = BID_SPACE + 300
   local teleport_buttons = {
     {
       name="Tower",
@@ -69,8 +67,8 @@ function render_teleport_menu()
 end
 
 
-function render_time_menu()
-  local bid = 200
+function render_time_menu(GUI, BID_SPACE)
+  local bid = BID_SPACE + 200
   local MULTIPLIER = 10
 
   function to_worldstate_value(val)
@@ -128,8 +126,8 @@ function render_time_menu()
 end
 
 
-function render_main_buttons()
-  local bid = 100
+function render_power_buttons(GUI, BID_SPACE)
+  local bid = BID_SPACE + 100
 
   local main_menu_items = {
     {
@@ -175,29 +173,18 @@ end
 
 
 function toggle_active_overlay(func)
-  render_active_overlay = (render_active_overlay ~= func) and func or nil
+  render_active_powers_overlay = (render_active_powers_overlay ~= func) and func or nil
 end
 
 
-async_loop(function()
+function render_powers(GUI, BID_SPACE)
+  Horizontal(GUI, main_menu_pos_x, main_menu_pos_y, function()
+    render_power_buttons(GUI, BID_SPACE)
+  end)
 
-  if GUI ~= nil then
-    GuiStartFrame(GUI)
-    GuiOptionsAdd(GUI, GUI_OPTION.NoPositionTween)
-  end
-
-  if GameIsInventoryOpen() == false then
-
-    Horizontal(GUI, main_menu_pos_x, main_menu_pos_y, function()
-      render_main_buttons()
+  if render_active_powers_overlay ~= nil then
+    Vertical(GUI, sub_menu_pos_x, sub_menu_pos_y, function()
+      render_active_powers_overlay(GUI, BID_SPACE)
     end)
-
-    if render_active_overlay ~= nil then
-      Vertical(GUI, sub_menu_pos_x, sub_menu_pos_y, function()
-        render_active_overlay()
-      end)
-    end
   end
-
-  wait(0)
-end)
+end

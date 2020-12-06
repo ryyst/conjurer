@@ -1,6 +1,6 @@
-<Entity tags="raksa_powers_gui">
+<Entity tags="raksa_gui_container">
   <LuaComponent
-    script_source_file="mods/raksa/files/powers/gui.lua"
+    script_source_file="mods/raksa/files/gui/main.lua"
     vm_type="ONE_PER_COMPONENT_INSTANCE"
     enable_coroutines="1"
     execute_on_added="1"

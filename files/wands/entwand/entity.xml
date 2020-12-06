@@ -85,15 +85,4 @@
     script_source_file="mods/raksa/files/wands/entwand/drawing.lua"
     execute_every_n_frame="1"
   ></LuaComponent>
-
-  <LuaComponent
-    _tags="enabled_in_hand"
-    _enabled="0"
-    script_source_file="mods/raksa/files/wands/entwand/gui.lua"
-    vm_type="ONE_PER_COMPONENT_INSTANCE"
-    enable_coroutines="1"
-    execute_on_added="1"
-    execute_every_n_frame="-1"
-    execute_times="1"
-  ></LuaComponent>
 </Entity>

@@ -1,4 +1,3 @@
-dofile("data/scripts/lib/coroutines.lua")
 dofile("data/scripts/lib/utilities.lua")
 
 dofile_once("mods/raksa/files/wands/entwand/helpers.lua");
@@ -8,8 +7,7 @@ dofile_once("mods/raksa/files/scripts/utilities.lua")
 dofile_once("mods/raksa/files/scripts/enums.lua")
 
 
-local render_active_overlay = nil
-local GUI = GuiCreate()
+local render_active_entwand_overlay = nil
 local main_menu_pos_x = 1
 local main_menu_pos_y = 18
 local sub_menu_pos_x = main_menu_pos_x+3
@@ -19,21 +17,21 @@ local active_entity_tab = SELECTED_ENTITY_TYPE_DEFAULT
 local favorites = {}
 
 
-function remove_from_favorites(i)
+function remove_entity_from_favorites(i)
   return function()
     table.remove(favorites, i)
   end
 end
 
-function add_to_favorites(vars, click)
+function add_entity_to_favorites(vars, click)
   return function()
     table.insert(favorites, { vars=vars, click=click })
   end
 end
 
 
-function render_entity_picker()
-  local bid = 200
+function render_entity_picker(GUI, BID_SPACE)
+  local bid = BID_SPACE + 200
   local active_entities = ALL_ENTITIES[active_entity_tab]
 
   Horizontal(GUI, 1, 1, function()
@@ -58,15 +56,15 @@ function render_entity_picker()
       local vars = { tooltip=entity.name, image=entity.image }
       local tab_copy = active_entity_tab  -- For favorites
       local click = function() change_active_entity(i, tab_copy) end
-      local right_click = add_to_favorites(vars, click)
+      local right_click = add_entity_to_favorites(vars, click)
       bid = Button(GUI, bid, vars, click, right_click)
     end, 1, 2)
   end)
 end
 
 
-function render_main_buttons()
-  local bid = 100
+function render_entwand_buttons(GUI, BID_SPACE)
+  local bid = BID_SPACE + 100
 
   local main_menu_items = {
     {
@@ -75,7 +73,7 @@ function render_main_buttons()
         local entity = get_active_entity();
         return entity.image
       end,
-      action = function() toggle_active_overlay(render_entity_picker) end
+      action = function() toggle_active_entwand_overlay(render_entity_picker) end
     },
     {
       name = "Delete Entity",
@@ -104,36 +102,26 @@ function render_main_buttons()
   Background(GUI, 1, NPBG_BLUE, 200, function()
     -- Render favorite buttons
     for i, fav in ipairs(favorites) do
-      bid = Button(GUI, bid, fav.vars, fav.click, remove_from_favorites(i))
+      bid = Button(GUI, bid, fav.vars, fav.click, remove_entity_from_favorites(i))
       GuiLayoutAddVerticalSpacing(GUI, 2)
     end
   end)
 end
 
 
-function toggle_active_overlay(func)
-  render_active_overlay = (render_active_overlay ~= func) and func or nil
+function toggle_active_entwand_overlay(func)
+  render_active_entwand_overlay = (render_active_entwand_overlay ~= func) and func or nil
 end
 
 
-async_loop(function()
+function render_entwand(GUI, BID_SPACE)
+  Vertical(GUI, main_menu_pos_x, main_menu_pos_y, function()
+    render_entwand_buttons(GUI, BID_SPACE)
+  end)
 
-  if GUI ~= nil then
-    GuiStartFrame(GUI)
-  end
-
-  if GameIsInventoryOpen() == false then
-
-    Vertical(GUI, main_menu_pos_x, main_menu_pos_y, function()
-      render_main_buttons()
+  if render_active_entwand_overlay ~= nil then
+    Vertical(GUI, sub_menu_pos_x, sub_menu_pos_y, function()
+      render_active_entwand_overlay(GUI, BID_SPACE)
     end)
-
-    if render_active_overlay ~= nil then
-      Vertical(GUI, sub_menu_pos_x, sub_menu_pos_y, function()
-        render_active_overlay()
-      end)
-    end
   end
-
-  wait(0)
-end)
+end

@@ -66,12 +66,11 @@ function get_frames_in_air(player)
 end
 
 
-function get_active_gun(player)
-  return EntityGetValue(
-    player or get_player(),
-    "Inventory2Component",
-    "mActiveItem"
-  )
+function get_active_wand()
+  local player = get_player()
+  if not player then return nil end
+
+  return EntityGetValue(player, "Inventory2Component", "mActiveItem")
 end
 
 

@@ -2,7 +2,7 @@ ModMagicNumbersFileAdd("mods/raksa/files/magic_numbers.xml")
 ModLuaFileAppend("data/scripts/gun/gun_actions.lua", "mods/raksa/files/actions.lua")
 
 dofile_once("mods/raksa/files/scripts/utilities.lua")
-dofile_once("mods/raksa/files/powers/gui.lua")
+dofile_once("mods/raksa/files/scripts/enums.lua")
 
 
 function handle_inventory(player)
@@ -41,9 +41,9 @@ end
 function OnPlayerSpawned(player)
   RemoveFlagPersistent(SPEED_FLAG)
 
-  -- The global GUI. Otherwise we use wands for specific tool GUIs.
-  if #(EntityGetWithTag("raksa_powers_gui") or {}) == 0 then
-    EntityLoad('mods/raksa/files/powers/gui_container.xml' );
+  -- Make real sure the global GUI container is loaded.
+  if #(EntityGetWithTag("raksa_gui_container") or {}) == 0 then
+    EntityLoad('mods/raksa/files/gui/gui_container.xml' );
   end
 
   local is_first_load = GlobalsGetValue("RAKSA_FIRST_LOAD_DONE", "0") == "0"
@@ -73,5 +73,8 @@ end
 
 function OnPlayerDied(player)
   GlobalsSetValue("RAKSA_DIED", "1")
-  GamePrintImportant("You managed to die", "[Save & Quit] and [Continue] to keep your progress and respawn")
+  GamePrintImportant(
+    "Somehow you managed to die for real",
+    "[Save & Quit] and [Continue] to keep your progress and respawn"
+  )
 end
