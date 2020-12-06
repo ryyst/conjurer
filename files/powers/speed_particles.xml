@@ -1,0 +1,27 @@
+<Entity name="raksa_speed_particles">
+  <InheritTransformComponent
+  ></InheritTransformComponent>
+
+  <ParticleEmitterComponent
+    emitted_material_name="spark_white"
+    gravity.y="-4.0"
+    lifetime_min="0.3"
+    lifetime_max="0.9"
+    y_pos_offset_min="-2"
+    y_pos_offset_max="-1"
+    count_min="10"
+    count_max="20"
+    render_on_grid="1"
+    fade_based_on_lifetime="1"
+    cosmetic_force_create="0"
+    airflow_force="2.5"
+    airflow_time="0.85"
+    airflow_scale="0.02"
+    emission_interval_min_frames="0"
+    emission_interval_max_frames="0"
+    emit_cosmetic_particles="1"
+    is_emitting="1"
+
+    is_trail="1"
+  ></ParticleEmitterComponent>
+</Entity>
