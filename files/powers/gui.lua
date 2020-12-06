@@ -17,17 +17,33 @@ local main_menu_pos_y = 94
 local sub_menu_pos_x = main_menu_pos_x
 local sub_menu_pos_y = main_menu_pos_y-15
 
+
+if ACTIVE_HERD == nil then
+  local player = get_player()
+  if player then
+    ACTIVE_HERD = get_active_herd(EntityGetValue(player, "GenomeDataComponent", "herd_id"))
+  end
+end
+
+
 function render_herd_menu()
   local bid = 400
 
-  Grid(GUI, HERDS, function(item)
-    bid = Button(
-      GUI, bid,
-      {image=ICON_UNKNOWN, tooltip=item},
-      function() change_player_herd(item) end
-    )
-  end, 0, -22, 5)
+
+  Background(GUI, 1, nil, 100, function()
+    Grid(GUI, HERDS, function(herd)
+        bid = Button(
+        GUI, bid,
+        {image=ICON_UNKNOWN, tooltip=herd.display, image=herd.image},
+        function()
+            change_player_herd(herd.name)
+            ACTIVE_HERD = herd
+        end
+        )
+    end, 0, -17, 5)
+  end)
 end
+
 
 function render_teleport_menu()
   local bid = 300
@@ -123,7 +139,7 @@ function render_main_buttons()
   local main_menu_items = {
     {
       name="Change Herd",
-      image = ICON_UNKNOWN,
+      image = ACTIVE_HERD.image,
       action = function() toggle_active_overlay(render_herd_menu) end,
     },
     {
