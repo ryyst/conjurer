@@ -31,4 +31,11 @@ function toggle_electricity(switch)
 
   EntitySetComponentIsEnabled(generator, eChargeComp, not is_enabled)
   EntitySetComponentIsEnabled(generator, eSourceComp, not is_enabled)
+
+  -- Visual electricity effect
+  local partComps = EntityGetComponentIncludingDisabled(generator, "SpriteParticleEmitterComponent")
+
+  for i, ParticleComponent in ipairs(partComps) do
+    ComponentSetValue2(ParticleComponent, "is_emitting", not is_enabled)
+  end
 end

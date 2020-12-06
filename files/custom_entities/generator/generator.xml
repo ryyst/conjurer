@@ -20,13 +20,13 @@
   <SpriteComponent
     offset_x="4"
     offset_y="4"
-    image_file="data/items_gfx/thunderstone.png"
+    image_file="mods/raksa/files/custom_entities/generator/generator.png"
   ></SpriteComponent>
 
   <UIInfoComponent
     _tags="enabled_in_world"
-    name="Broken wire...">
-  </UIInfoComponent>
+    name="Chained Thunderstone"
+  ></UIInfoComponent>
 
   <SpriteParticleEmitterComponent
     sprite_file="data/particles/ray.xml"

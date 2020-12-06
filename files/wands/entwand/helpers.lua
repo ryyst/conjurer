@@ -17,14 +17,14 @@ ENTITY_TYPE_ICONS = {
   Animals="mods/raksa/files/gfx/entwand_icons/icon_animals.png",
   Props="mods/raksa/files/gfx/entwand_icons/icon_props.png",
   Pickups="mods/raksa/files/gfx/entwand_icons/icon_pickups.png",
-  Custom="mods/raksa/files/gfx/entwand_icons/icon_pickups.png",
+  Custom="mods/raksa/files/gfx/entwand_icons/icon_custom.png",
 }
 
 ENTITY_TYPE_ICONS_OFF = {
   Animals="mods/raksa/files/gfx/entwand_icons/icon_animals_off.png",
   Props="mods/raksa/files/gfx/entwand_icons/icon_props_off.png",
   Pickups="mods/raksa/files/gfx/entwand_icons/icon_pickups_off.png",
-  Custom="mods/raksa/files/gfx/entwand_icons/icon_pickups_off.png",
+  Custom="mods/raksa/files/gfx/entwand_icons/icon_custom_off.png",
 }
 
 function get_entity_type_icon(category, enabled)
