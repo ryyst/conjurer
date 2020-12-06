@@ -22,7 +22,7 @@ HERDS = {
   { display="Ghoul", name="ghoul", image=icon("ghoul") },
   { display="Giant", name="giant", image=icon("giant") },
   { display="Iceskull", name="ice", image=icon("iceskull") },
-  { display="Spider & lukki", name="spider", image=icon("longleg") },
+  { display="Spider & Lukki", name="spider", image=icon("longleg") },
   { display="Hiisi", name="orcs", image=icon("shotgunner_weak") },
   { display="Rat", name="rat", image=icon("rat") },
   -- Apparently not used by any entity, so no point including it it.

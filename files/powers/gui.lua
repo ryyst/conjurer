@@ -29,7 +29,6 @@ end
 function render_herd_menu()
   local bid = 400
 
-
   Background(GUI, 1, nil, 100, function()
     Grid(GUI, HERDS, function(herd)
         bid = Button(
@@ -70,23 +69,19 @@ function render_teleport_menu()
 end
 
 
-local MULTIPLIER = 10
-function to_worldstate_value(val)
-  if val <= 0.1 then
-    return 0
-  end
-
-  return math.max(10 ^ val / MULTIPLIER)
-end
-
-
-function to_slider_log_value(val)
-  return math.max(math.log10(val*MULTIPLIER), 0)
-end
-
-
 function render_time_menu()
   local bid = 200
+  local MULTIPLIER = 10
+
+  function to_worldstate_value(val)
+    if val <= 0.1 then return 0 end
+    return math.max(10 ^ val / MULTIPLIER)
+  end
+
+  function to_slider_log_value(val)
+    return math.max(math.log10(val*MULTIPLIER), 0)
+  end
+
 
   local time_of_day_buttons = {
     {
@@ -125,7 +120,7 @@ function render_time_menu()
   local value = EntityGetValue(world, "WorldStateComponent", "time_dt")
   value = to_slider_log_value(value)
 
-  local new_val = GuiSlider(GUI, bid, -2, 0, "", value, 0, 3, default, 1, string.format("%.2f", value), 50 )
+  local new_val = GuiSlider(GUI, bid, -2, 0, "", value, 0, 3.5, default, 1, string.format("%.2f", value), 50 )
   GuiTooltip(GUI, "Rotational Velocity", "Right-click to reset back to natural order")
 
   new_val = to_worldstate_value(new_val)
