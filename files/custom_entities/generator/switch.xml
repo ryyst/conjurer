@@ -1,0 +1,36 @@
+<Entity>
+  <!-- Switch ON -->
+  <SpriteComponent
+    _tags="enabled_in_world,switch_on"
+    _enabled="0"
+    alpha="1"
+    image_file="mods/raksa/files/custom_entities/generator/switch_on.png"
+    offset_x="5"
+    offset_y="5"
+  ></SpriteComponent>
+
+  <!-- Switch OFF -->
+  <SpriteComponent
+    _tags="enabled_in_world,switch_off"
+    _enabled="1"
+    alpha="1"
+    image_file="mods/raksa/files/custom_entities/generator/switch_off.png"
+    offset_x="5"
+    offset_y="5"
+  ></SpriteComponent>
+
+  <InteractableComponent
+    radius="15"
+    ui_text="Press $0 to toggle power"
+    name="switch"
+  ></InteractableComponent>
+
+  <UIInfoComponent
+    _tags="enabled_in_world"
+    name="Switch">
+  </UIInfoComponent>
+
+  <LuaComponent
+    script_interacting="mods/raksa/files/custom_entities/generator/toggle.lua"
+  ></LuaComponent>
+</Entity>

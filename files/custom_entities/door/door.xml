@@ -1,0 +1,74 @@
+<Entity>
+  <PhysicsBodyComponent
+    _tags="enabled_in_world"
+    is_bullet="1"
+    allow_sleep="1"
+    angular_damping="0"
+    fixed_rotation="0"
+    linear_damping="0"
+    on_death_really_leave_body="0"
+    hax_wait_till_pixel_scenes_loaded="0"
+    go_through_sand="0"
+  ></PhysicsBodyComponent>
+
+  <PhysicsImageShapeComponent
+    material="wood_prop"
+    image_file="mods/raksa/files/custom_entities/door/door.png"
+    use_sprite="0"
+    offset_x="2"
+  ></PhysicsImageShapeComponent>
+
+  <PhysicsJointComponent
+    nail_to_wall="1"
+    breakable="1"
+    grid_joint="1"
+    pos_x="0"
+    pos_y="4"
+  ></PhysicsJointComponent>
+
+  <PhysicsJointComponent
+    nail_to_wall="1"
+    grid_joint="1"
+    breakable="1"
+    pos_x="0"
+    pos_y="15"
+  ></PhysicsJointComponent>
+
+  <!-- The main sprite when door is open -->
+  <SpriteComponent
+    _tags="enabled_in_world,door_open_sprite"
+    _enabled="0"
+    alpha="1"
+    image_file="mods/raksa/files/custom_entities/door/door_opened_bg.png"
+    offset_x="0"
+    offset_y="0"
+  ></SpriteComponent>
+
+  <!-- The door has to have gaps on top and bottom, this sprite's job
+       is mostly to make those look nice, opened or closed. -->
+  <SpriteComponent
+    _tags="enabled_in_world,door_bg_sprite"
+    _enabled="1"
+    alpha="1"
+    image_file="mods/raksa/files/custom_entities/door/door_bg.png"
+    offset_x="1"
+    offset_y="1"
+  ></SpriteComponent>
+
+  <VelocityComponent
+    _tags="enabled_in_world"
+  ></VelocityComponent>
+
+  <InteractableComponent
+    radius="25"
+    ui_text="Press $0 to operate the door"
+    name="door"
+  ></InteractableComponent>
+
+  <LuaComponent
+    script_interacting="mods/raksa/files/custom_entities/door/door.lua"
+    script_physics_body_modified="mods/raksa/files/custom_entities/door/door.lua"
+  ></LuaComponent>
+
+</Entity>
+

@@ -1,0 +1,49 @@
+<Entity>
+  <PhysicsBodyComponent
+    _tags="enabled_in_world"
+    is_bullet="1"
+    allow_sleep="1"
+    angular_damping="0"
+    fixed_rotation="0"
+    linear_damping="0"
+    on_death_really_leave_body="0"
+  ></PhysicsBodyComponent>
+
+  <PhysicsImageShapeComponent
+    material="wood_prop"
+    image_file="mods/raksa/files/custom_entities/hatch/hatch.png"
+    use_sprite="0"
+  ></PhysicsImageShapeComponent>
+
+  <PhysicsJointComponent
+    nail_to_wall="1"
+    breakable="0"
+    pos_x="0"
+    pos_y="2" >
+  </PhysicsJointComponent>
+
+  <!-- Just a non-physics sprite, for the joint to look a bit nicer -->
+  <SpriteComponent
+    _tags="enabled_in_world"
+    alpha="1"
+    image_file="mods/raksa/files/custom_entities/hatch/hatch_joint.png"
+    offset_x="1"
+    offset_y="0"
+  ></SpriteComponent>
+
+  <VelocityComponent
+    _tags="enabled_in_world"
+  ></VelocityComponent>
+
+  <InteractableComponent
+    radius="33"
+    ui_text="Press $0 to operate hatch"
+    name="Hatch"
+  ></InteractableComponent>
+
+  <LuaComponent
+    script_interacting="mods/raksa/files/custom_entities/hatch/hatch.lua"
+  ></LuaComponent>
+
+</Entity>
+

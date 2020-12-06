@@ -1,0 +1,32 @@
+<Entity>
+  <Base file="mods/raksa/files/custom_entities/door/door.xml">
+    <PhysicsImageShapeComponent
+      material="steel"
+      image_file="mods/raksa/files/custom_entities/door_metal/door.png"
+    ></PhysicsImageShapeComponent>
+
+    <SpriteComponent
+      image_file="mods/raksa/files/custom_entities/door_metal/door_opened_bg.png"
+    ></SpriteComponent>
+
+    <SpriteComponent
+      image_file="mods/raksa/files/custom_entities/door_metal/door_bg.png"
+    ></SpriteComponent>
+  </Base>
+
+  <!--TODO:
+    This keeps flipping every `active_time_frames`.
+    Figure out something to make this smooth.
+  -->
+  <ElectricityReceiverComponent
+    offset_x="0"
+    offset_y="8"
+    radius="9"
+    active_time_frames="120"
+  ></ElectricityReceiverComponent>
+
+  <LuaComponent
+    script_electricity_receiver_switched="mods/raksa/files/custom_entities/door_metal/power.lua"
+  ></LuaComponent>
+</Entity>
+
