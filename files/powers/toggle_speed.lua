@@ -26,24 +26,21 @@ end
 
 function toggle_speed()
   local player = get_player()
+  local particles = EntityGetWithName("raksa_speed_particles")
 
-  -- TODO: Control with a simple particle entity on a player
-  if HasFlagPersistent(SPEED_FLAG) then
+  if particles == 0 or particles == nil then
+    EntitySetValues(player, "CharacterPlatformingComponent", speedy_vars)
+
+    local new_particles = EntityLoad("mods/raksa/files/powers/speed_particles.xml")
+    EntityAddChild(player, new_particles)
+
+    GamePrint("You're feeling light!")
+  else
     EntitySetValues(player, "CharacterPlatformingComponent", player_defaults)
 
-    local particles = EntityGetWithName("raksa_speed_particles")
     EntityRemoveFromParent(particles)
     EntityKill(particles)
 
-    RemoveFlagPersistent(SPEED_FLAG)
     GamePrint("The nimble magic wears off.")
-  else
-    EntitySetValues(player, "CharacterPlatformingComponent", speedy_vars)
-
-    local particles = EntityLoad("mods/raksa/files/powers/speed_particles.xml")
-    EntityAddChild(player, particles)
-
-    AddFlagPersistent(SPEED_FLAG)
-    GamePrint("You're feeling light!")
   end
 end

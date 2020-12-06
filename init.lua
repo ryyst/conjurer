@@ -39,8 +39,6 @@ end
 
 
 function OnPlayerSpawned(player)
-  RemoveFlagPersistent(SPEED_FLAG)
-
   -- Make real sure the global GUI container is loaded.
   if #(EntityGetWithTag("raksa_gui_container") or {}) == 0 then
     EntityLoad('mods/raksa/files/gui/gui_container.xml' );
@@ -49,8 +47,6 @@ function OnPlayerSpawned(player)
   local is_first_load = GlobalsGetValue("RAKSA_FIRST_LOAD_DONE", "0") == "0"
   local has_died = GlobalsGetValue("RAKSA_DIED", "0") == "1"
   if (is_first_load or has_died) then
-    AddFlagPersistent(KALMA_RECALL_FLAG)
-
     handle_inventory(player)
     player_overrides(player)
 

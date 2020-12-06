@@ -2,7 +2,7 @@ dofile_once("mods/raksa/files/scripts/enums.lua")
 
 
 function damage_received(damage, message, entity_thats_responsible, is_fatal)
-  if is_fatal and HasFlagPersistent(KALMA_RECALL_FLAG) then
+  if is_fatal and GlobalsGetValue(KALMA_IS_IMMORTAL, "0") == "0" then
     local player = GetUpdatedEntityID()
 
     -- Momentary blindness

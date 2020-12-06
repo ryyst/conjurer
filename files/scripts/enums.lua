@@ -51,9 +51,5 @@ DUSK = 0.47
 MIDNIGHT = 0.6
 
 
-
--- PERSISTENT FLAGS
---
--- NOTE: These must be lowercase
-SPEED_FLAG = "raksa_is_using_speed"
-KALMA_RECALL_FLAG = "raksa_use_mortal_recall"
+-- POWERS
+KALMA_IS_IMMORTAL = "RAKSA_IMMORTALITY"

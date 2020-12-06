@@ -2,11 +2,11 @@ dofile_once("mods/raksa/files/scripts/enums.lua")
 
 
 function toggle_kalma()
-  if HasFlagPersistent(KALMA_RECALL_FLAG) then
-    RemoveFlagPersistent(KALMA_RECALL_FLAG)
-    GamePrint("You gained immortality.")
+  if GlobalsGetValue(KALMA_IS_IMMORTAL, "0") == "1" then
+    GlobalsSetValue(KALMA_IS_IMMORTAL, "0")
+    GamePrint("You feel small and frail once again.")
   else
-    AddFlagPersistent(KALMA_RECALL_FLAG)
-    GamePrint("You abandoned your immortality.")
+    GlobalsSetValue(KALMA_IS_IMMORTAL, "1")
+    GamePrint("You're feeling indestructible!")
   end
 end
