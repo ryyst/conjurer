@@ -1,0 +1,13 @@
+<Entity>
+  <!-- effects -->
+  <SpriteComponent
+    offset_x="7"
+    offset_y="10"
+    image_file="mods/raksa/files/custom_entities/grid/grid.png"
+  ></SpriteComponent>
+
+  <UIInfoComponent
+    _tags="enabled_in_world"
+    name="Very Technical 10x10 Grid"
+  ></UIInfoComponent>
+</Entity>

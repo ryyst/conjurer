@@ -27,4 +27,9 @@ CUSTOM_ENTITIES = {
     path="mods/raksa/files/custom_entities/hatch/hatch.xml",
     image="mods/raksa/files/custom_entities/hatch/icon_hatch.png",
   },
+  {
+    name="Grid",
+    path="mods/raksa/files/custom_entities/grid/grid.xml",
+    image="mods/raksa/files/custom_entities/grid/icon_grid.png",
+  },
 }
