@@ -2,6 +2,6 @@
 
 echo "-- BUILDING ALL LEVELS"
 
-source files/biomes/spliced/generate_splices.sh prison -512 -1024
+source files/biomes/spliced/generate_splices.sh prison -512 -2048
 
 echo "-- All done!"

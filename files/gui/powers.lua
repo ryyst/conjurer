@@ -48,7 +48,7 @@ function render_teleport_menu(GUI, BID_SPACE)
     {
       name="Tower",
       image = ICON_UNKNOWN,
-      action = function() teleport_player(400, -410) end,
+      action = function() teleport_player(SPAWN_X, SPAWN_Y) end,
     },
     {
       name="Set Waypoint",
@@ -138,7 +138,7 @@ function render_power_buttons(GUI, BID_SPACE)
     {
       name="Return to Tower",
       image = "mods/raksa/files/gfx/power_icons/tower.png",
-      action = function() teleport_player(400, -410) end,
+      action = function() teleport_player(SPAWN_X, SPAWN_Y) end,
       -- TODO: Return to the waypoint system sometime later
       --action = function() toggle_active_overlay(render_teleport_menu) end,
     },

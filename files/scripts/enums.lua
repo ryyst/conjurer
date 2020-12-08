@@ -1,3 +1,7 @@
+-- Synced with magic numbers. Location for respawn & tower return.
+SPAWN_X = 400
+SPAWN_Y = -1815
+
 --
 -- MATWAND
 --

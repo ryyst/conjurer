@@ -50,8 +50,8 @@ function OnPlayerSpawned(player)
     handle_inventory(player)
     player_overrides(player)
 
-    local world_state_entity = GameGetWorldStateEntity()
-    EntitySetValues(world_state_entity, "WorldStateComponent", {
+    local world = GameGetWorldStateEntity()
+    EntitySetValues(world, "WorldStateComponent", {
       -- MAYBE SOME OF THESE COULD WORK, PLEASE?!
       fog=0, rain=0,
       fog_target=0, rain_target=0,

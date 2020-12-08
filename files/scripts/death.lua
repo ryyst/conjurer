@@ -14,7 +14,7 @@ function damage_received(damage, message, entity_thats_responsible, is_fatal)
     EntityAddChild(player, blindness)
 
     -- Teleport to spawn
-    EntitySetTransform(player, 400, -410)
+    EntitySetTransform(player, SPAWN_X, SPAWN_Y)
 
     -- Refresh health
     local dmgComponent = EntityGetFirstComponentIncludingDisabled(player, "DamageModelComponent")

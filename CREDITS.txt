@@ -3,3 +3,10 @@
   https://github.com/JessaTehCrow/sandbox_menu
 
 - Goki, for the original GUI library and inspiration, before the official Noita Lua GUI API
+
+Testers & Support:
+- BigChumbo
+- UkkoBot
+- ToxicG
+- SpazProjects
+- Veeyu
