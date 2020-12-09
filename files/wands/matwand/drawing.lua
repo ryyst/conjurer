@@ -8,7 +8,13 @@ dofile_once("mods/raksa/files/scripts/enums.lua")
 function brush_reticle_follow_mouse(x, y)
   local brush_reticle = EntityGetWithName("brush_reticle")
   if brush_reticle then
-    EntitySetTransform(brush_reticle, x, y)
+    local grid_size = get_brush_grid_size()
+    EntitySetTransform(
+      brush_reticle,
+      -- Calculate +offset for cursor to always be in the middle.
+      x - x % grid_size + grid_size/2,
+      y - y % grid_size + grid_size/2
+    )
   end
 end
 
@@ -23,6 +29,8 @@ end
 
 function draw_filler(material, brush, draw_vars, x, y)
   local filler = EntityCreateNew()
+
+  draw_vars["image_animation_raytrace_from_center"] = true
 
   -- The lifetime might not be enough for whole 1024px² sprite to render entirely,
   -- but it should strike a good balance between performance & most common usecases.
@@ -83,7 +91,7 @@ local draw_vars = {
   emit_cosmetic_particles=false,
   image_animation_speed=2,
   image_animation_loop=false,
-  image_animation_raytrace_from_center=true,
+  image_animation_raytrace_from_center=false,
   collide_with_gas_and_fire=false,
   set_magic_creation=true,
   is_emitting=true

@@ -22,11 +22,12 @@ function get_or_create_cursor(x, y)
   return EntityLoad("mods/raksa/files/wands/entwand/cursor.xml", x+1000, y+1000)
 end
 
+
 function hide_cursor()
   local cursor = EntityGetWithName("entwand_cursor")
   EntityKill(cursor)
-
 end
+
 
 function show_cursor(entity, x, y)
   local cursor = get_or_create_cursor(x, y)

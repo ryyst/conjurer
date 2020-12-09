@@ -10,6 +10,8 @@ DEFAULT_BRUSH = "4" -- 5px brush
 -- NOTE: The reticle entity file has the actual default brush image defined
 -- TODO: Dynamic first load?
 
+BRUSH_GRID_SIZE = "RAKSA_BRUSH_GRID_SIZE"
+BRUSH_DEFAULT_GRID_SIZE = "1"
 
 SELECTED_MATERIAL = "RAKSA_SELECTED_MATERIAL"
 SELECTED_MATERIAL_DEFAULT = "soil"

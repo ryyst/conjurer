@@ -36,6 +36,12 @@ function get_material_type_icon(category, enabled)
   return icon_table[category]
 end
 
+
+function get_brush_grid_size()
+  return tonumber(GlobalsGetValue(BRUSH_GRID_SIZE, BRUSH_DEFAULT_GRID_SIZE))
+end
+
+
 function change_active_brush(brush, brush_index)
   -- Change reticle
   local brush_reticle = EntityGetWithName("brush_reticle")

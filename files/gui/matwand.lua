@@ -70,7 +70,7 @@ function render_brush_picker(GUI, BID_SPACE)
   local bid = BID_SPACE + 300
 
   Horizontal(GUI, 1, 1, function()
-    GuiText(GUI, 0, 0, "Select a brush shape")
+    GuiText(GUI, 0, 0, "Brush Options")
   end)
 
   -- Render brushes
@@ -81,6 +81,16 @@ function render_brush_picker(GUI, BID_SPACE)
       local right_click = add_mat_to_favorites(vars, click)
       bid = Button(GUI, bid, vars, click, right_click)
     end, 1, 2)
+
+    Horizontal(GUI, 1, 3, function()
+      local value = get_brush_grid_size()
+      local repr = tostring(value)
+      local default = tonumber(BRUSH_DEFAULT_GRID_SIZE)
+
+      local new_val = GuiSlider(GUI, bid, 3, 0, "Grid", value, 1, 100, default, 1, repr, 100)
+      GuiTooltip(GUI, "Brush snapping grid size", "")
+      GlobalsSetValue(BRUSH_GRID_SIZE, math.ceil(new_val))
+    end)
   end)
 end
 
@@ -138,12 +148,12 @@ function render_matwand_buttons(GUI, BID_SPACE)
       action = function() toggle_active_matwand_overlay(render_material_picker) end
     },
     {
-      name="Brush Picker",
+      name="Brush Options",
       image_func = function() return get_active_brush().icon_file end,
       action = function() toggle_active_matwand_overlay(render_brush_picker) end,
     },
     {
-      name="Eraser Picker",
+      name="Eraser Options",
       image_func = get_active_eraser_image,
       action = function() toggle_active_matwand_overlay(render_eraser_picker) end,
     },
