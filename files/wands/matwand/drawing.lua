@@ -5,16 +5,22 @@ dofile_once("mods/raksa/files/wands/matwand/helpers.lua");
 dofile_once("mods/raksa/files/scripts/enums.lua")
 
 
-function brush_reticle_follow_mouse(x, y)
+--
+-- TODO: THIS THING????
+-- MagicConvertMaterialComponent
+--
+
+
+function brush_reticle_follow_mouse(x, y, is_filler_tool)
   local brush_reticle = EntityGetWithName("brush_reticle")
   if brush_reticle then
     local grid_size = get_brush_grid_size()
-    EntitySetTransform(
-      brush_reticle,
-      -- Calculate +offset for cursor to always be in the middle.
-      x - x % grid_size + grid_size/2,
-      y - y % grid_size + grid_size/2
-    )
+    if not is_filler_tool then
+      -- Calculate offset for cursor to always be in the middle.
+      x = math.floor(x - x % grid_size + grid_size/2)
+      y = math.floor(y - y % grid_size + grid_size/2)
+    end
+    EntitySetTransform(brush_reticle, math.floor(x), math.floor(y))
   end
 end
 
@@ -97,7 +103,7 @@ local draw_vars = {
   is_emitting=true
 }
 
-brush_reticle_follow_mouse(x, y)
+brush_reticle_follow_mouse(x, y, brush.is_filler_tool)
 
 
 if is_holding_m1() and not brush.is_filler_tool then

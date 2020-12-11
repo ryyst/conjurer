@@ -80,7 +80,7 @@ function render_brush_picker(GUI, BID_SPACE)
       local click = function() change_active_brush(brush, i) end
       local right_click = add_mat_to_favorites(vars, click)
       bid = Button(GUI, bid, vars, click, right_click)
-    end, 1, 2)
+    end, 1, 2, 7)
 
     Horizontal(GUI, 1, 3, function()
       local value = get_brush_grid_size()

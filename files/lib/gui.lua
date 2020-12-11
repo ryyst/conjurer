@@ -19,7 +19,7 @@ end
 
 
 function Grid(gui, items, callback, x, y, size)
-  local row_length = size or math.max(6, math.min((#items) ^ 0.75, 12));
+  local row_length = math.ceil(size or math.max(6, math.min((#items) ^ 0.75, 12)));
   local row_count = math.ceil(#items / row_length)
 
   x = x or 0

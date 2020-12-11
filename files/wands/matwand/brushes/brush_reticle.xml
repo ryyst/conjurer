@@ -1,14 +1,15 @@
 <Entity name="brush_reticle">
-  <!-- Default brush graphics -->
+  <!-- Default brush graphics.
+    TODO: Seek to somehow make this dynamic and get rid of this whole thing.
+  -->
   <SpriteComponent
-    image_file="mods/raksa/files/wands/matwand/brushes/5_reticle.png"
-    offset_x="11"
-    offset_y="11"
+    image_file="mods/raksa/files/wands/matwand/brushes/10_reticle.png"
+    offset_x="5"
+    offset_y="5"
 
+    alpha="0.1"
+    additive="1"
     emissive="1"
-    has_special_scale="1"
-    special_scale_x="0.333"
-    special_scale_y="0.333"
     z_index="80"
   ></SpriteComponent>
 </Entity>
