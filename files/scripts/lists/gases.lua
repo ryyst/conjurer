@@ -73,6 +73,28 @@ GASES = {
     ["image"] = "mods/raksa/files/gfx/material_icons/steam_trailer_colorgen.png",
     ["name"] = "Steam Trailer",
     ["id"] = "steam_trailer"
-  }
+  },
+  {
+    ["image"] = "mods/raksa/files/gfx/material_icons/wood_static_gas_colorgen.png",
+    ["name"] = "Wood Static Gas",
+    ["id"] = "wood_static_gas"
+  },
+  {
+    ["image"] = "mods/raksa/files/gfx/material_icons/acid_gas_static_colorgen.png",
+    ["name"] = "Acid Gas Static",
+    ["id"] = "acid_gas_static"
+  },
+  {
+    ["image"] = "mods/raksa/files/gfx/material_icons/radioactive_gas_static_colorgen.png",
+    ["name"] = "Radioactive Gas Static",
+    ["id"] = "radioactive_gas_static"
+  },
+
+  {
+    ["image"] = "mods/raksa/files/gfx/material_icons/smoke_static_colorgen.png",
+    ["name"] = "Smoke Static",
+    ["id"] = "smoke_static"
+  },
+
 }
 

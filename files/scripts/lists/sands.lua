@@ -1,10 +1,5 @@
 SANDS = {
   {
-    ["image"] = "mods/raksa/files/gfx/material_icons/blood_thick_colorgen.png",
-    ["name"] = "Blood Thick",
-    ["id"] = "blood_thick"
-  },
-  {
     ["image"] = "mods/raksa/files/gfx/material_icons/bone.png",
     ["name"] = "Bone",
     ["id"] = "bone"
@@ -45,19 +40,9 @@ SANDS = {
     ["id"] = "copper"
   },
   {
-    ["image"] = "mods/raksa/files/gfx/material_icons/templebrick_alt.png",
-    ["name"] = "Creepy Liquid Emitter",
-    ["id"] = "creepy_liquid_emitter"
-  },
-  {
     ["image"] = "mods/raksa/files/gfx/material_icons/diamond.png",
     ["name"] = "Diamond",
     ["id"] = "diamond"
-  },
-  {
-    ["image"] = "mods/raksa/files/gfx/material_icons/endslime.png",
-    ["name"] = "Endslime",
-    ["id"] = "endslime"
   },
   {
     ["image"] = "mods/raksa/files/gfx/material_icons/endslime.png",
@@ -103,26 +88,6 @@ SANDS = {
     ["image"] = "mods/raksa/files/gfx/material_icons/glowshroom_colorgen.png",
     ["name"] = "Glowshroom",
     ["id"] = "glowshroom"
-  },
-  {
-    ["image"] = "mods/raksa/files/gfx/material_icons/templebrick_alt.png",
-    ["name"] = "Glowstone",
-    ["id"] = "glowstone"
-  },
-  {
-    ["image"] = "mods/raksa/files/gfx/material_icons/glowstone_altar_colorgen.png",
-    ["name"] = "Glowstone Altar",
-    ["id"] = "glowstone_altar"
-  },
-  {
-    ["image"] = "mods/raksa/files/gfx/material_icons/glowstone_altar_hdr_colorgen.png",
-    ["name"] = "Glowstone Altar Hdr",
-    ["id"] = "glowstone_altar_hdr"
-  },
-  {
-    ["image"] = "mods/raksa/files/gfx/material_icons/templebrick_alt.png",
-    ["name"] = "Glowstone Potion",
-    ["id"] = "glowstone_potion"
   },
   {
     ["image"] = "mods/raksa/files/gfx/material_icons/gold.png",
@@ -193,11 +158,6 @@ SANDS = {
     ["image"] = "mods/raksa/files/gfx/material_icons/meat_rotten.png",
     ["name"] = "Meat Slime Sand",
     ["id"] = "meat_slime_sand"
-  },
-  {
-    ["image"] = "mods/raksa/files/gfx/material_icons/gunpowder.png",
-    ["name"] = "Monster Powder Test",
-    ["id"] = "monster_powder_test"
   },
   {
     ["image"] = "mods/raksa/files/gfx/material_icons/moss.png",
@@ -275,41 +235,6 @@ SANDS = {
     ["id"] = "purifying_powder"
   },
   {
-    ["image"] = "mods/raksa/files/gfx/material_icons/rock_hard.png",
-    ["name"] = "Rock Hard",
-    ["id"] = "rock_hard"
-  },
-  {
-    ["image"] = "mods/raksa/files/gfx/material_icons/rock_hard_border.png",
-    ["name"] = "Rock Hard Border",
-    ["id"] = "rock_hard_border"
-  },
-  {
-    ["image"] = "mods/raksa/files/gfx/material_icons/magic_gate.png",
-    ["name"] = "Rock Magic Bottom",
-    ["id"] = "rock_magic_bottom"
-  },
-  {
-    ["image"] = "mods/raksa/files/gfx/material_icons/rock_hard.png",
-    ["name"] = "Rock Magic Gate",
-    ["id"] = "rock_magic_gate"
-  },
-  {
-    ["image"] = "mods/raksa/files/gfx/material_icons/vaultrock.png",
-    ["name"] = "Rock Vault",
-    ["id"] = "rock_vault"
-  },
-  {
-    ["image"] = "mods/raksa/files/gfx/material_icons/test_vine.png",
-    ["name"] = "Root",
-    ["id"] = "root"
-  },
-  {
-    ["image"] = "mods/raksa/files/gfx/material_icons/root_growth.png",
-    ["name"] = "Root Growth",
-    ["id"] = "root_growth"
-  },
-  {
     ["image"] = "mods/raksa/files/gfx/material_icons/meat_rotten.png",
     ["name"] = "Rotten Meat",
     ["id"] = "rotten_meat"
@@ -360,11 +285,6 @@ SANDS = {
     ["id"] = "silver"
   },
   {
-    ["image"] = "mods/raksa/files/gfx/material_icons/skullrock.png",
-    ["name"] = "Skullrock",
-    ["id"] = "skullrock"
-  },
-  {
     ["image"] = "mods/raksa/files/gfx/material_icons/snow.png",
     ["name"] = "Snow",
     ["id"] = "snow"
@@ -410,69 +330,9 @@ SANDS = {
     ["id"] = "steel_sand"
   },
   {
-    ["image"] = "mods/raksa/files/gfx/material_icons/steelpanelmoss.png",
-    ["name"] = "Steelmoss Slanted",
-    ["id"] = "steelmoss_slanted"
-  },
-  {
     ["image"] = "mods/raksa/files/gfx/material_icons/sulphur.png",
     ["name"] = "Sulphur",
     ["id"] = "sulphur"
   },
-  {
-    ["image"] = "mods/raksa/files/gfx/material_icons/templebrick_red.png",
-    ["name"] = "Templebrick Red",
-    ["id"] = "templebrick_red"
-  },
-  {
-    ["image"] = "mods/raksa/files/gfx/material_icons/templerock.png",
-    ["name"] = "Templerock Soft",
-    ["id"] = "templerock_soft"
-  },
-  {
-    ["image"] = "mods/raksa/files/gfx/material_icons/the_end.png",
-    ["name"] = "The End",
-    ["id"] = "the_end"
-  },
-  {
-    ["image"] = "mods/raksa/files/gfx/material_icons/trailer_text_colorgen.png",
-    ["name"] = "Trailer Text",
-    ["id"] = "trailer_text"
-  },
-  {
-    ["image"] = "mods/raksa/files/gfx/material_icons/ice.png",
-    ["name"] = "Tubematerial",
-    ["id"] = "tubematerial"
-  },
-  {
-    ["image"] = "mods/raksa/files/gfx/material_icons/test_vine.png",
-    ["name"] = "Vine",
-    ["id"] = "vine"
-  },
-  {
-    ["image"] = "mods/raksa/files/gfx/material_icons/wax.png",
-    ["name"] = "Wax",
-    ["id"] = "wax"
-  },
-  {
-    ["image"] = "mods/raksa/files/gfx/material_icons/wizardstone.png",
-    ["name"] = "Wizardstone",
-    ["id"] = "wizardstone"
-  },
-  {
-    ["image"] = "mods/raksa/files/gfx/material_icons/wood_burns_forever_colorgen.png",
-    ["name"] = "Wood Burns Forever",
-    ["id"] = "wood_burns_forever"
-  },
-  {
-    ["image"] = "mods/raksa/files/gfx/material_icons/wood.png",
-    ["name"] = "Wood Player",
-    ["id"] = "wood_player"
-  },
-  {
-    ["image"] = "mods/raksa/files/gfx/material_icons/wood_vertical.png",
-    ["name"] = "Wood Tree",
-    ["id"] = "wood_tree"
-  }
 }
 

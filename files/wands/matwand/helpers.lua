@@ -45,8 +45,8 @@ ALL_MATERIALS = {
   },
   {
     name="Dangerous",
-    icon="mods/raksa/files/gfx/matwand_icons/icon_fire.png",
-    icon_off="mods/raksa/files/gfx/matwand_icons/icon_fire_off.png",
+    icon="mods/raksa/files/gfx/matwand_icons/icon_dangerous.png",
+    icon_off="mods/raksa/files/gfx/matwand_icons/icon_dangerous_off.png",
     materials=DANGEROUS,
   }
 };
