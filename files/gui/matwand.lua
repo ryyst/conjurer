@@ -148,6 +148,7 @@ function render_matwand_buttons(GUI, BID_SPACE)
       name="Material Picker",
       image_func = get_active_material_image,
       action = function() toggle_active_matwand_overlay(render_material_picker) end,
+      desc="Left-click to draw materials"
     },
     {
       name="Brush Options",
@@ -158,6 +159,7 @@ function render_matwand_buttons(GUI, BID_SPACE)
       name="Eraser Options",
       image_func = get_active_eraser_image,
       action = function() toggle_active_matwand_overlay(render_eraser_picker) end,
+      desc="Right-click to erase materials"
     },
   };
 
@@ -166,7 +168,7 @@ function render_matwand_buttons(GUI, BID_SPACE)
     for i, item in ipairs(main_menu_items) do
       bid = Button(
         GUI, bid,
-        {image=item.image_func(), tooltip=item.name},
+        {image=item.image_func(), tooltip=item.name, tooltip_desc=item.desc},
         item.action
       )
       GuiLayoutAddVerticalSpacing(GUI, 2)

@@ -380,6 +380,11 @@ SOLIDS = {
     ["id"] = "wood_static"
   },
   {
+    ["image"] = "mods/raksa/files/gfx/material_icons/wood_static_gas_colorgen.png",
+    ["name"] = "Wood Static Gas",
+    ["id"] = "wood_static_gas"
+  },
+  {
     ["image"] = "mods/raksa/files/gfx/material_icons/wood_vertical.png",
     ["name"] = "Wood Static Vertical",
     ["id"] = "wood_static_vertical"

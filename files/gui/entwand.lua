@@ -73,12 +73,14 @@ function render_entwand_buttons(GUI, BID_SPACE)
         local entity = get_active_entity();
         return entity.image
       end,
-      action = function() toggle_active_entwand_overlay(render_entity_picker) end
+      action = function() toggle_active_entwand_overlay(render_entity_picker) end,
+      desc="Left-click to conjure entities"
     },
     {
       name = "Delete Entity",
       image = ICON_DELETE_ENTITY,
       action = function() return end,
+      desc="Right-click to delete entities"
     },
   };
 
@@ -87,7 +89,10 @@ function render_entwand_buttons(GUI, BID_SPACE)
     for i, item in ipairs(main_menu_items) do
       bid = Button(
         GUI, bid,
-        {image=item.image or item.image_func(), tooltip=item.name},
+        {
+          image=item.image or item.image_func(),
+          tooltip=item.name, tooltip_desc=item.desc
+        },
         item.action
       )
       GuiLayoutAddVerticalSpacing(GUI, 2)
