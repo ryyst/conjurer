@@ -255,10 +255,17 @@ function str(var)
   if type(var) == 'table' then
     local s = '{ '
     for k,v in pairs(var) do
-      if type(k) ~= 'number' then k = '"'..k..'"' end
-      s = s .. '['..k..'] = ' .. str(v) .. ','
+      if type(k) ~= 'number' then
+        k = '["'..k..'"] = '
+      else
+        k = ""
+      end
+      s = s .. k .. str(v) .. ','
     end
     return s .. '} '
+  end
+  if type(var) == 'string' then
+    return tostring('"' .. var .. '"')
   end
   return tostring(var)
 end

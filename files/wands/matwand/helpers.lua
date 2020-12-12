@@ -1,29 +1,55 @@
+dofile_once("mods/raksa/files/scripts/enums.lua")
+
 dofile_once("mods/raksa/files/wands/matwand/brushes/list.lua");
 
-dofile_once("mods/raksa/files/scripts/lists/materials.lua");
-dofile_once("mods/raksa/files/scripts/enums.lua")
+dofile_once("mods/raksa/files/scripts/lists/solids.lua");
+dofile_once("mods/raksa/files/scripts/lists/sands.lua");
+dofile_once("mods/raksa/files/scripts/lists/liquids.lua");
+dofile_once("mods/raksa/files/scripts/lists/gases.lua");
+dofile_once("mods/raksa/files/scripts/lists/fires.lua");
+dofile_once("mods/raksa/files/scripts/lists/dangerous_materials.lua");
 
 ------------------------------
 -- Matwand-specific helpers --
 ------------------------------
-MATERIAL_TYPES = {"Solids", "Sands", "Liquids", "Gases", "Fires"};
-ALL_MATERIALS = {Solids={}};
-
-MATERIAL_TYPE_ICONS = {
-  Solids="mods/raksa/files/gfx/matwand_icons/icon_solid.png",
-  Sands="mods/raksa/files/gfx/matwand_icons/icon_sand.png",
-  Liquids="mods/raksa/files/gfx/matwand_icons/icon_liquid.png",
-  Gases="mods/raksa/files/gfx/matwand_icons/icon_gas.png",
-  Fires="mods/raksa/files/gfx/matwand_icons/icon_fire.png",
-}
-
-MATERIAL_TYPE_ICONS_OFF = {
-  Solids="mods/raksa/files/gfx/matwand_icons/icon_solid_off.png",
-  Sands="mods/raksa/files/gfx/matwand_icons/icon_sand_off.png",
-  Liquids="mods/raksa/files/gfx/matwand_icons/icon_liquid_off.png",
-  Gases="mods/raksa/files/gfx/matwand_icons/icon_gas_off.png",
-  Fires="mods/raksa/files/gfx/matwand_icons/icon_fire_off.png",
-}
+ALL_MATERIALS = {
+  {
+    name="Solids",
+    icon="mods/raksa/files/gfx/matwand_icons/icon_solid.png",
+    icon_off="mods/raksa/files/gfx/matwand_icons/icon_solid_off.png",
+    materials=SOLIDS,
+  },
+  {
+    name="Liquids",
+    icon="mods/raksa/files/gfx/matwand_icons/icon_liquid.png",
+    icon_off="mods/raksa/files/gfx/matwand_icons/icon_liquid_off.png",
+    materials=LIQUIDS,
+  },
+  {
+    name="Sands",
+    icon="mods/raksa/files/gfx/matwand_icons/icon_sand.png",
+    icon_off="mods/raksa/files/gfx/matwand_icons/icon_sand_off.png",
+    materials=SANDS,
+  },
+  {
+    name="Gases",
+    materials=GASES,
+    icon="mods/raksa/files/gfx/matwand_icons/icon_gas.png",
+    icon_off="mods/raksa/files/gfx/matwand_icons/icon_gas_off.png",
+  },
+  {
+    name="Fires & other",
+    icon="mods/raksa/files/gfx/matwand_icons/icon_fire.png",
+    icon_off="mods/raksa/files/gfx/matwand_icons/icon_fire_off.png",
+    materials=FIRES,
+  },
+  {
+    name="Dangerous",
+    icon="mods/raksa/files/gfx/matwand_icons/icon_fire.png",
+    icon_off="mods/raksa/files/gfx/matwand_icons/icon_fire_off.png",
+    materials=DANGEROUS,
+  }
+};
 
 ERASER_ICONS = {
   [ERASER_MODE_SOLIDS]="mods/raksa/files/gfx/matwand_icons/icon_erase_solids.png" ,
@@ -31,9 +57,8 @@ ERASER_ICONS = {
 }
 
 
-function get_material_type_icon(category, enabled)
-  local icon_table = enabled and MATERIAL_TYPE_ICONS or MATERIAL_TYPE_ICONS_OFF
-  return icon_table[category]
+function get_active_material_image()
+  return GlobalsGetValue(SELECTED_MATERIAL_ICON, SELECTED_MATERIAL_ICON_DEFAULT)
 end
 
 
@@ -56,12 +81,6 @@ function change_active_brush(brush, brush_index)
 end
 
 
-function get_active_material_image()
-  local material = GlobalsGetValue(SELECTED_MATERIAL, SELECTED_MATERIAL_DEFAULT)
-  return MATERIAL_ICONS[material]
-end
-
-
 function get_active_brush()
   local brush_index = tonumber(
     GlobalsGetValue(SELECTED_BRUSH, tostring(DEFAULT_BRUSH))
@@ -70,20 +89,28 @@ function get_active_brush()
 end
 
 
+function get_active_eraser_image()
+  local current_eraser = GlobalsGetValue(ERASER_MODE, ERASER_MODE_DEFAULT)
+  return ERASER_ICONS[current_eraser]
+end
+
+
+
+-------------------------------------------------------------------------------
+-- Deprecated functions from old material table generation system.
+-- TODO: Return to these later for uncategorized material detection system.
 function material_to_name(id)
   id = id:gsub("_",' ')
   id = id:gsub("(%l)(%w*)", function(a,b) return string.upper(a)..b end)
   return id
 end
 
-
 function is_static(str)
   if string.match(str, "static") then return true else return false end
 end
 
-
--- TODO: This is a bit ugly, needs cleanup.
 function generate_all_materials()
+  MATERIAL_TYPES = {"Solids", "Sands", "Liquids", "Gases", "Fires"};
   for i,cat in ipairs(MATERIAL_TYPES) do
     local temp = {}
     local mats = getfenv()["CellFactory_GetAll"..cat]()
@@ -101,10 +128,4 @@ function generate_all_materials()
       ALL_MATERIALS[cat] = temp
     end
   end
-end
-
-
-function get_active_eraser_image()
-  local current_eraser = GlobalsGetValue(ERASER_MODE, ERASER_MODE_DEFAULT)
-  return ERASER_ICONS[current_eraser]
 end

@@ -15,7 +15,7 @@ local main_menu_pos_y = 18
 local sub_menu_pos_x = main_menu_pos_x+3
 local sub_menu_pos_y = main_menu_pos_y-5.3
 
-local active_material_type = MATERIAL_TYPES[1]
+local active_material_type = 1
 local favorites = {}
 
 
@@ -35,19 +35,19 @@ end
 
 function render_material_picker(GUI, BID_SPACE)
   local bid = BID_SPACE + 200
-  local active_materials = ALL_MATERIALS[active_material_type]
+  local active_category = ALL_MATERIALS[active_material_type]
 
   -- Render material type buttons
   Horizontal(GUI, 1, 1, function()
-    for i, cat in ipairs(MATERIAL_TYPES) do
-      local is_selected = (cat == active_material_type)
-      local image = get_material_type_icon(cat, is_selected)
-      local y_override = -0.3
+    for i, category in ipairs(ALL_MATERIALS) do
+      local is_selected = (i == active_material_type)
+      local image = is_selected and category.icon or category.icon_off
       local style = is_selected and NPBG_BROWN_TAB or NPBG_BROWN
+      local y_override = -0.3
 
       Background(GUI, 0, style, 100, function()
-        bid = Button(GUI, bid, {tooltip=cat, image=image, y=y_override}, function()
-          active_material_type = cat
+        bid = Button(GUI, bid, {tooltip=category.name, image=image, y=y_override}, function()
+          active_material_type = i
         end)
       end)
       GuiLayoutAddHorizontalSpacing(GUI, 3)
@@ -56,12 +56,15 @@ function render_material_picker(GUI, BID_SPACE)
 
   -- Render material buttons
   Background(GUI, 3, NPBG_BROWN, 200, function()
-    Grid(GUI, active_materials, function(material)
+    Grid(GUI, active_category.materials, function(material)
       local vars = { image=material.image, tooltip=material.name }
-      local click = function() GlobalsSetValue(SELECTED_MATERIAL, material.id) end
+      local click = function()
+        GlobalsSetValue(SELECTED_MATERIAL, material.id)
+        GlobalsSetValue(SELECTED_MATERIAL_ICON, material.image)
+      end
       local right_click = add_mat_to_favorites(vars, click)
       bid = Button(GUI, bid, vars, click, right_click)
-    end, 1, 2)
+    end, 1, 2, 8)
   end)
 end
 
@@ -192,8 +195,8 @@ end
 
 
 -- Do this once.
-print("Generating materials table")
-generate_all_materials()
+--print("Generating materials table")
+--generate_all_materials()
 
 
 function render_matwand(GUI, BID_SPACE)
