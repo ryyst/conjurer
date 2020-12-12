@@ -51,6 +51,8 @@ NPBG_BLUE_TAB = 4
 NPBG_BROWN = 5
 NPBG_BROWN_TAB = 6
 
+ICON_MOUSE_LEFT = "mods/raksa/files/gfx/mouse_left.png"
+ICON_MOUSE_RIGHT = "mods/raksa/files/gfx/mouse_right.png"
 
 -- TIME OF DAY
 DAWN = 0.73

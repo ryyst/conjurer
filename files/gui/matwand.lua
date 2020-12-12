@@ -148,7 +148,7 @@ function render_matwand_buttons(GUI, BID_SPACE)
     {
       name="Material Picker",
       image_func = get_active_material_image,
-      action = function() toggle_active_matwand_overlay(render_material_picker) end
+      action = function() toggle_active_matwand_overlay(render_material_picker) end,
     },
     {
       name="Brush Options",

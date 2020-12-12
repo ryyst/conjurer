@@ -1,0 +1,75 @@
+<Entity tags="hittable,teleportable_NOT,item_physics">
+
+  <!-- physical presence -->
+
+  <PhysicsThrowableComponent
+    max_throw_speed="520"
+    throw_force_coeff="2"
+    min_torque="-8"
+    max_torque="8"
+  ></PhysicsThrowableComponent>
+
+  <ProjectileComponent
+    _tags="enabled_in_world"
+    speed_min="80"
+    speed_max="140"
+    lifetime="-1"
+    penetrate_entities="0"
+    velocity_sets_rotation="0"
+    angular_velocity="3"
+    bounce_energy="0.85"
+    bounces_left="2000"
+    bounce_always="1"
+    bounce_at_any_angle="1"
+    bounces_left="250"
+    on_collision_die="0"
+    on_collision_remove_projectile="0"
+  ></ProjectileComponent>
+
+  <VelocityComponent
+    _tags="enabled_in_world"
+    mass="0.005"
+    air_friction="0.05"
+    gravity_y="150"
+    gravity_x="0"
+  ></VelocityComponent>
+
+  <!-- item -->
+
+  <SpriteComponent
+    _tags="enabled_in_hand,enabled_in_world"
+    _enabled="1"
+    offset_x="3.5"
+    offset_y="3.5"
+    has_special_scale="1"
+    special_scale_x="0.65"
+    special_scale_y="0.65"
+    image_file="mods/raksa/files/custom_entities/ball/item_gfx.png"
+  ></SpriteComponent>
+
+  <ItemComponent
+    _tags="enabled_in_world"
+    item_name="Ball"
+    max_child_items="0"
+    is_pickable="1"
+    is_equipable_forced="1"
+    ui_sprite="mods/raksa/files/custom_entities/ball/ui_gfx.png"
+    ui_description="A nice round ball."
+    preferred_inventory="QUICK"
+  ></ItemComponent>
+
+  <UIInfoComponent
+    _tags="enabled_in_world"
+    name="Ball"
+  ></UIInfoComponent>
+
+  <AbilityComponent
+    ui_name="Ball"
+    throw_as_item="1"
+    mana_max="0"
+    >
+    <gun_config
+      deck_capacity="0"
+    ></gun_config>
+  </AbilityComponent>
+</Entity>

@@ -1,0 +1,44 @@
+<Entity tags="hittable,teleportable_NOT,item_physics">
+  <!-- -->
+  <VelocityComponent
+    _tags="enabled_in_world"
+  ></VelocityComponent>
+
+  <SimplePhysicsComponent
+    _tags="enabled_in_world"
+  ></SimplePhysicsComponent>
+
+  <!-- item -->
+  <SpriteComponent
+    _tags="enabled_in_world"
+    _enabled="1"
+    offset_x="3.5"
+    offset_y="3.5"
+    z_index="100"
+    has_special_scale="1"
+    special_scale_x="0.65"
+    special_scale_y="0.65"
+    image_file="mods/raksa/files/custom_entities/ball/item_gfx.png"
+  ></SpriteComponent>
+
+  <ItemComponent
+    _tags="enabled_in_world"
+    item_name="Ball"
+    is_pickable="1"
+    is_equipable_forced="1"
+    play_spinning_animation="0"
+    ui_sprite="mods/raksa/files/custom_entities/ball/ui_gfx.png"
+    ui_description="A nice round ball."
+    preferred_inventory="QUICK"
+  ></ItemComponent>
+
+  <UIInfoComponent
+    _tags="enabled_in_world"
+    name="Ball"
+  ></UIInfoComponent>
+
+  <LuaComponent
+    script_item_picked_up="mods/raksa/files/custom_entities/ball/pickup.lua"
+  ></LuaComponent>
+</Entity>
+

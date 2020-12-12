@@ -32,4 +32,9 @@ CUSTOM_ENTITIES = {
     path="mods/raksa/files/custom_entities/grid/grid.xml",
     image="mods/raksa/files/custom_entities/grid/icon_grid.png",
   },
+  {
+    name="Ball",
+    path="mods/raksa/files/custom_entities/ball/ball.xml",
+    image="mods/raksa/files/custom_entities/ball/ui_gfx.png",
+  },
 }
