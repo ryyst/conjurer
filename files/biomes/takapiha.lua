@@ -51,5 +51,4 @@ end
 --
 -- Everything else.
 --
-
 function spawn_eel(x, y)EntityLoad("data/entities/animals/eel.xml", x, y) end
