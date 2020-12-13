@@ -11,8 +11,6 @@ potions = {
   "bone",
   "meat",
   "pea_soup",
-  "pea_soup",
-  "pea_soup",
   "honey",
   "honey",
   "honey",
@@ -36,10 +34,9 @@ potions = {
 
 
 function init( entity_id )
-  local x,y = EntityGetTransform( entity_id )
+  local x,y = EntityGetTransform(entity_id)
   SetRandomSeed( x, y )
-  -- so that all the potions will be the same in every position with the same seed
-  local potion = random_from_array( potions )
+  local potion = random_from_array(potions)
 
-  AddMaterialInventoryMaterial( entity_id, potion, 500 )
+  AddMaterialInventoryMaterial(entity_id, potion, 75)
 end

@@ -6,8 +6,13 @@
       call_init_function="1"
       script_source_file="mods/raksa/files/custom_entities/potion_food/pickup.lua"
     ></LuaComponent>
+
     <SpriteParticleEmitterComponent
       is_emitting="0"
     ></SpriteParticleEmitterComponent>
+
+    <MaterialSuckerComponent
+      barrel_size="75"
+    ></MaterialSuckerComponent>
    </Base>
 </Entity>
