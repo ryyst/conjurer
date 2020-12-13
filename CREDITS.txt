@@ -6,7 +6,7 @@
 
 Testers & Support:
 - BigChumbo
-- UkkoBot
 - ToxicG
-- SpazProjects
 - Veeyu
+- SpazProjects
+- UkkoBot
