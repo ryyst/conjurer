@@ -37,4 +37,29 @@ CUSTOM_ENTITIES = {
     path="mods/raksa/files/custom_entities/ball/ball.xml",
     image="mods/raksa/files/custom_entities/ball/ui_gfx.png",
   },
+  {
+    name="Background 20px - Windowed",
+    path="mods/raksa/files/custom_entities/backgrounds/bg_20_window.xml",
+    image="mods/raksa/files/custom_entities/backgrounds/icon_bg_window.png",
+  },
+  {
+    name="Background 20px",
+    path="mods/raksa/files/custom_entities/backgrounds/bg_20.xml",
+    image="mods/raksa/files/custom_entities/backgrounds/icon_bg.png",
+  },
+  {
+    name="Background 40px",
+    path="mods/raksa/files/custom_entities/backgrounds/bg_40.xml",
+    image="mods/raksa/files/custom_entities/backgrounds/icon_bg.png",
+  },
+  {
+    name="Background 80px",
+    path="mods/raksa/files/custom_entities/backgrounds/bg_80.xml",
+    image="mods/raksa/files/custom_entities/backgrounds/icon_bg.png",
+  },
+  {
+    name="Background 160px",
+    path="mods/raksa/files/custom_entities/backgrounds/bg_160.xml",
+    image="mods/raksa/files/custom_entities/backgrounds/icon_bg.png",
+  },
 }
