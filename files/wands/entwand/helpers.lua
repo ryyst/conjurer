@@ -3,10 +3,11 @@ dofile_once("mods/raksa/files/scripts/lists/props.lua")
 dofile_once("mods/raksa/files/scripts/lists/pickups.lua")
 dofile_once("mods/raksa/files/scripts/lists/custom_entities.lua")
 
+dofile_once("mods/raksa/files/wands/entwand/processors.lua")
 dofile_once("mods/raksa/files/scripts/enums.lua")
 
 ------------------------------
--- Matwand-specific helpers --
+-- Entwand-specific helpers --
 ------------------------------
 ENTITY_TYPES = {"Animals", "Props", "Pickups", "Custom"}
 ALL_ENTITIES = {Animals=ANIMALS, Props=PROPS, Pickups=PICKUPS, Custom=CUSTOM_ENTITIES};
@@ -26,6 +27,12 @@ ENTITY_TYPE_ICONS_OFF = {
   Pickups="mods/raksa/files/gfx/entwand_icons/icon_pickups_off.png",
   Custom="mods/raksa/files/gfx/entwand_icons/icon_custom_off.png",
 }
+
+ENTITY_POST_PROCESSORS = {
+  disable_new_physicsbody_optimizations,
+  remove_spawn_limits_set_by_camerabound,
+}
+
 
 function get_entity_type_icon(category, enabled)
   local icon_table = enabled and ENTITY_TYPE_ICONS or ENTITY_TYPE_ICONS_OFF

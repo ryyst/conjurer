@@ -564,6 +564,7 @@ PROPS = {
     name="Stonepile",
     path="data/entities/props/stonepile.xml",
     image="mods/raksa/files/gfx/prop_icons/stone_03.png",
+    desc="Note: This loses the entity ID, can only be deleted with the Staff of Material Mastery"
   },
   {
     name="Physics table",
@@ -622,6 +623,9 @@ PROPS = {
     path="data/entities/props/physics_trap_ignite.xml",
     image="mods/raksa/files/gfx/prop_icons/trap_ignite_a.png",
   },
+  --[[ These two are broken for some reason.
+  -- Spawn seemingly "empty entities, but can still be deleted.
+  -- Haven't investigated, not important yet.
   {
     name="Physics trap ignite a",
     path="data/entities/props/physics_trap_ignite_a.xml",
@@ -632,6 +636,7 @@ PROPS = {
     path="data/entities/props/physics_trap_ignite_b.xml",
     image="mods/raksa/files/gfx/prop_icons/trap_ignite_b.png",
   },
+  ]]--
   {
     name="Physics trap ignite enabled",
     path="data/entities/props/physics_trap_ignite_enabled.xml",
