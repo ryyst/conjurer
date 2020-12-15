@@ -38,9 +38,7 @@ function draw_filler(material, brush, draw_vars, x, y)
 
   draw_vars["image_animation_raytrace_from_center"] = true
 
-  -- The lifetime might not be enough for whole 1024px² sprite to render entirely,
-  -- but it should strike a good balance between performance & most common usecases.
-  EntityAddComponent2(filler, "LifetimeComponent", { lifetime=90 })
+  EntityAddComponent2(filler, "LifetimeComponent", { lifetime=200 })
   EntityAddComponent2(filler, "ParticleEmitterComponent", draw_vars)
   EntitySetTransform(filler, x, y)
 end
