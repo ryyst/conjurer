@@ -1,6 +1,7 @@
 dofile("data/scripts/lib/utilities.lua")
 
 dofile_once("mods/raksa/files/wands/entwand/helpers.lua");
+dofile_once("mods/raksa/files/scripts/lists/entity_categories.lua");
 
 dofile_once("mods/raksa/files/lib/gui.lua")
 dofile_once("mods/raksa/files/scripts/utilities.lua")
@@ -35,15 +36,15 @@ function render_entity_picker(GUI, BID_SPACE)
   local active_entities = ALL_ENTITIES[active_entity_tab]
 
   Horizontal(GUI, 1, 1, function()
-    for i, cat in ipairs(ENTITY_TYPES) do
-      local is_selected = (cat == active_entity_tab)
-      local image = get_entity_type_icon(cat, is_selected)
-      local y_override = -0.3
+    for i, category in ipairs(ALL_ENTITIES) do
+      local is_selected = (i == active_entity_tab)
+      local image = is_selected and category.icon or category.icon_off
       local style = is_selected and NPBG_BLUE_TAB or NPBG_BLUE
+      local y_override = -0.3
 
       Background(GUI, 0, style, 100, function()
-        bid = Button(GUI, bid, {tooltip=cat, image=image, y=y_override}, function()
-          active_entity_tab = cat
+        bid = Button(GUI, bid, {tooltip=category.name, image=image, y=y_override}, function()
+          active_entity_tab = i
         end)
       end)
       GuiLayoutAddHorizontalSpacing(GUI, 3)
@@ -52,8 +53,8 @@ function render_entity_picker(GUI, BID_SPACE)
 
   -- Render entities
   Background(GUI, 3, NPBG_BLUE, 200, function()
-    Grid(GUI, active_entities, function(entity, i)
-      local vars = { tooltip=entity.name, image=entity.image, tooltip_desc=entity.desc}
+    Grid(GUI, active_entities.entities, function(entity, i)
+      local vars = {tooltip=entity.name, image=entity.image, tooltip_desc=entity.desc}
       local tab_copy = active_entity_tab  -- For favorites
       local click = function() change_active_entity(i, tab_copy) end
       local right_click = add_entity_to_favorites(vars, click)

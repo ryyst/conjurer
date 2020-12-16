@@ -2,6 +2,7 @@
 SPAWN_X = 490
 SPAWN_Y = -1815
 
+
 --
 -- MATWAND
 --
@@ -36,7 +37,7 @@ SELECTED_ENTITY_INDEX = "RAKSA_SELECTED_ENTITY_INDEX"
 SELECTED_ENTITY_TYPE = "RAKSA_SELECTED_ENTITY_TYPE"
 
 SELECTED_ENTITY_INDEX_DEFAULT = "93"  -- Sheep.
-SELECTED_ENTITY_TYPE_DEFAULT = "Animals"
+SELECTED_ENTITY_TYPE_DEFAULT = 1 -- Animals / Creatures
 
 
 --
@@ -53,6 +54,7 @@ NPBG_BROWN_TAB = 6
 
 ICON_MOUSE_LEFT = "mods/raksa/files/gfx/mouse_left.png"
 ICON_MOUSE_RIGHT = "mods/raksa/files/gfx/mouse_right.png"
+
 
 -- TIME OF DAY
 DAWN = 0.73

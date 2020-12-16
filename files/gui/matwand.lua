@@ -1,7 +1,8 @@
 dofile("data/scripts/lib/utilities.lua")
 
-dofile_once("mods/raksa/files/wands/matwand/brushes/list.lua");
+dofile_once("mods/raksa/files/scripts/lists/brushes.lua");
 dofile_once("mods/raksa/files/wands/matwand/helpers.lua");
+dofile_once("mods/raksa/files/scripts/lists/material_categories.lua");
 
 dofile_once("mods/raksa/files/lib/gui.lua")
 dofile_once("mods/raksa/files/scripts/utilities.lua")

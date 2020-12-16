@@ -1,4 +1,4 @@
-_radial_warning="---\nWARNING: Test before applying!\n- Goes through same material\n- Can easily ruin things when not careful\n- Heavy on performance\n- But really fun to use when you get the hang of it!"
+local _radial_warning="---\nWARNING: Test before applying!\n- Goes through same material\n- Can easily ruin things when not careful\n- Heavy on performance\n- But really fun to use when you get the hang of it!"
 
 BRUSHES = {
   {
