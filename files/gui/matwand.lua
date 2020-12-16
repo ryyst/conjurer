@@ -45,8 +45,9 @@ function render_material_picker(GUI, BID_SPACE)
       local style = is_selected and NPBG_BROWN_TAB or NPBG_BROWN
       local y_override = -0.3
 
+      local vars = {tooltip=category.name, image=image, y=y_override, tooltip_desc=category.desc}
       Background(GUI, 0, style, 100, function()
-        bid = Button(GUI, bid, {tooltip=category.name, image=image, y=y_override}, function()
+        bid = Button(GUI, bid, vars, function()
           active_material_type = i
         end)
       end)
