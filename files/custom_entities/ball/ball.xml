@@ -14,6 +14,7 @@
     speed_min="80"
     speed_max="140"
     lifetime="-1"
+    damage="0"
     penetrate_entities="0"
     velocity_sets_rotation="0"
     angular_velocity="3"
