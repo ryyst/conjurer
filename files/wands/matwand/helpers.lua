@@ -17,16 +17,40 @@ ERASER_ICONS = {
   [ERASER_MODE_FIRE]="mods/raksa/files/gfx/matwand_icons/icon_fire.png",
 }
 
+ERASER_CHUNK_SIZE = 5  -- pixels, with a radius of 3
+ERASER_CHUNK_RADIUS = 3  -- Creates a square 5px hole
+
+
+function get_active_material()
+  return GlobalsGetValue(SELECTED_MATERIAL, SELECTED_MATERIAL_DEFAULT)
+end
 
 function get_active_material_image()
   return GlobalsGetValue(SELECTED_MATERIAL_ICON, SELECTED_MATERIAL_ICON_DEFAULT)
+end
+
+function get_eraser_mode()
+  return GlobalsGetValue(ERASER_MODE, ERASER_MODE_DEFAULT)
+end
+
+function get_eraser_size()
+  -- Eraser sizes with chunk_count multiplier:
+  -- 1: 5px
+  -- 2: 10px
+  -- 3: 15px
+  -- ...
+
+  local chunk_size = ERASER_CHUNK_SIZE
+  local chunk_count = tonumber(GlobalsGetValue(ERASER_SIZE, ERASER_SIZE_DEFAULT))
+  local total_size = chunk_count * chunk_size
+  return chunk_count, chunk_size, total_size
 end
 
 function eraser_use_brush_grid()
   return GlobalsGetValue(ERASER_SHARED_GRID, ERASER_SHARED_GRID_DEFAULT) == "1"
 end
 
-function eraser_user_replacer()
+function eraser_use_replacer()
   return GlobalsGetValue(ERASER_REPLACE, ERASER_REPLACE_DEFAULT) == "1"
 end
 
@@ -40,29 +64,25 @@ end
 
 
 function change_eraser_reticle()
-  -- TODO: DIFFERENT PIXELS FOR THE REPLACE MODE!!
-  local PIXELS = 5  -- with a radius of 3
-  local multiplier = tonumber(GlobalsGetValue(ERASER_SIZE, ERASER_SIZE_DEFAULT))
-  local size = multiplier * PIXELS
-
+  local chunk_count, chunk_size, total_size = get_eraser_size()
   local reticle = EntityGetWithName("eraser_reticle")
 
   local corners = {
     { -- Topleft
-      math.floor(size / 2),
-      math.floor(size / 2)
+      math.floor(total_size / 2),
+      math.floor(total_size / 2)
     },
     { -- Topright
-      math.floor(-size / 2) + 1,
-      math.floor(size / 2)
+      math.floor(-total_size / 2) + 1,
+      math.floor(total_size / 2)
     },
     { -- Bottomleft
-      math.floor(size / 2),
-      math.floor(-size / 2) + 1
+      math.floor(total_size / 2),
+      math.floor(-total_size / 2) + 1
     },
     { -- Bottomright
-      math.floor(-size / 2) + 1,
-      math.floor(-size / 2) + 1
+      math.floor(-total_size / 2) + 1,
+      math.floor(-total_size / 2) + 1
     },
   }
 
@@ -71,7 +91,7 @@ function change_eraser_reticle()
 
   for i, SpriteComponent in ipairs(EntityGetComponent(reticle, "SpriteComponent")) do
     -- The odd sizes (15, 25, ...) require their own offset
-    local offset = multiplier % 2
+    local offset = chunk_count % 2
 
     local corner = corners[i]
     ComponentSetValue2(SpriteComponent, "offset_x", corner[1] + offset)

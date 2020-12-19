@@ -105,18 +105,26 @@ function render_eraser_picker(GUI, BID_SPACE)
   local eraser_categories = {
     {
       { text="All materials", mode=ERASER_MODE_ALL, image=ERASER_ICONS[ERASER_MODE_ALL] },
-      { text="Selected material", mode=ERASER_MODE_SELECTED, image=get_active_material_image() },
+      { text="Selected material", mode=ERASER_MODE_SELECTED, image=get_active_material_image(),
+        desc="Erase ONLY the currently active material in material picker."
+      },
     },
     {
-      { text="Solid", mode=ERASER_MODE_SOLIDS, image=ERASER_ICONS[ERASER_MODE_SOLIDS], desc="Statics + Sands" },
+      { text="Solid", mode=ERASER_MODE_SOLIDS, image=ERASER_ICONS[ERASER_MODE_SOLIDS],
+        desc="Statics + Sands"
+      },
       { text="Liquid", mode=ERASER_MODE_LIQUIDS, image=ERASER_ICONS[ERASER_MODE_LIQUIDS] },
-      { text="Sand", mode=ERASER_MODE_SANDS, image=ERASER_ICONS[ERASER_MODE_SANDS] },
+      { text="Sand", mode=ERASER_MODE_SANDS, image=ERASER_ICONS[ERASER_MODE_SANDS],
+        desc="NOTE: Some of the more specialized sands are not caught by this\nfilter, due to the way Noita's materials are tagged.\nFor fine-grained work, use the 'selected material' filter."
+      },
       { text="Gas", mode=ERASER_MODE_GASES, image=ERASER_ICONS[ERASER_MODE_GASES] },
-      { text="Fire", mode=ERASER_MODE_FIRE, image=ERASER_ICONS[ERASER_MODE_FIRE] },
+      { text="Fire", mode=ERASER_MODE_FIRE, image=ERASER_ICONS[ERASER_MODE_FIRE],
+        desc="Extinguish fires, assuming it's not too late..."
+      },
     }
   };
 
-  local current_eraser = GlobalsGetValue(ERASER_MODE, ERASER_MODE_DEFAULT)
+  local current_eraser = get_eraser_mode()
 
   Horizontal(GUI, 1, 1, function()
     GuiText(GUI, 0, 0, "Eraser Options")
@@ -127,7 +135,7 @@ function render_eraser_picker(GUI, BID_SPACE)
   Background(GUI, 3, NPBG_BROWN, 200, function()
     Vertical(GUI, 1, 2, function()
 
-      GuiText(GUI, 0, 0, "Material filter")
+      GuiText(GUI, 0, 0, "Material filters")
       GuiTooltip(GUI, "Choose which material types to erase/replace", "")
 
       -- Render eraser filters
@@ -145,7 +153,7 @@ function render_eraser_picker(GUI, BID_SPACE)
       GuiLayoutAddVerticalSpacing(GUI, 4)
 
       -- TOGGLE MATERIAL REPLACEMENT
-      local is_replacer_active = eraser_user_replacer()
+      local is_replacer_active = eraser_use_replacer()
       local new_replace = is_replacer_active and "0" or "1"
       local replacer_vars = {
         text=is_replacer_active and "[*] Replace mode" or "[ ] Replace mode",
@@ -185,7 +193,7 @@ function render_eraser_picker(GUI, BID_SPACE)
       end
 
       -- SIZE BAR
-      local value = GlobalsGetValue(ERASER_SIZE, ERASER_SIZE_DEFAULT)
+      local value = get_eraser_size()
       local repr = tostring(value*5) .. "px"
       local default = tonumber(ERASER_SIZE_DEFAULT)
 

@@ -5,12 +5,6 @@ dofile_once("mods/raksa/files/wands/matwand/helpers.lua");
 dofile_once("mods/raksa/files/scripts/enums.lua")
 
 
---
--- TODO: THIS THING????
--- MagicConvertMaterialComponent
---
-
-
 function eraser_reticle_follow_mouse(x, y)
   local eraser_reticle = EntityGetWithName("eraser_reticle")
   if eraser_reticle then
@@ -20,6 +14,7 @@ function eraser_reticle_follow_mouse(x, y)
     EntitySetTransform(eraser_reticle, math.floor(x), math.floor(y))
   end
 end
+
 
 function brush_reticle_follow_mouse(x, y, is_filler_tool)
   local brush_reticle = EntityGetWithName("brush_reticle")
@@ -53,46 +48,39 @@ end
 
 
 function erase(material)
-  local PIXELS = 5  -- with a radius of 3
-  local multiplier = tonumber(GlobalsGetValue(ERASER_SIZE, ERASER_SIZE_DEFAULT))
-  local size = multiplier * PIXELS
-  local eraser_mode = GlobalsGetValue(ERASER_MODE, ERASER_MODE_DEFAULT)
+  local chunk_count, chunk_size, total_size = get_eraser_size()
+  local eraser_mode = get_eraser_mode()
+  local eraser_replace = eraser_use_replacer()
 
-  local eraser_replace = GlobalsGetValue(ERASER_REPLACE, ERASER_REPLACE_DEFAULT) == "1"
+  local from_any_material = (eraser_mode == ERASER_MODE_ALL)
+  local from_selected = (eraser_mode == ERASER_MODE_SELECTED)
 
-  -- Eraser sizes with multiplier:
-  -- 1: 5px
-  -- 2: 10px
-  -- 3: 15px
-  -- ...
+  local from_tag = from_any_material and "" or eraser_mode
+  local from_material = from_selected and CellFactory_GetType(material) or 0
+  local to_material = eraser_replace and material or "air"
 
   local reticle = EntityGetWithName("eraser_reticle")
   local x, y = EntityGetTransform(reticle)
 
   -- Start from the top left corner of the reticle
-  x = math.floor(x - size / 2) + 2
-  y = math.floor(y - size / 2) + 2
+  x = math.floor(x - total_size / 2) + 2
+  y = math.floor(y - total_size / 2) + 2
 
-  for row=0, multiplier-1, 1 do
-    for col=0, multiplier-1, 1 do
+
+  -- Create 5x5px rectangular erasers in a grid shape.
+  -- This is done *only* because making even-sized erasers witha radius seems
+  -- impossible.  Eg. no radius will allow for an exactly 10px eraser.
+  for row=0, chunk_count-1, 1 do
+    for col=0, chunk_count-1, 1 do
+
       local eraser = EntityCreateNew()
 
-      -- offset each entity
       EntitySetTransform(eraser,
-        math.floor(x + col * PIXELS),
-        math.floor(y + row * PIXELS)
+        math.floor(x + col * chunk_size),
+        math.floor(y + row * chunk_size)
       )
-
-      local from_any_material = (eraser_mode == ERASER_MODE_ALL)
-      local from_selected = (eraser_mode == ERASER_MODE_SELECTED)
-
-      local from_tag = from_any_material and "" or eraser_mode
-      local from_material = from_selected and CellFactory_GetType(material) or 0
-
-      local to_material = eraser_replace and material or "air"
-
-      EntityAddComponent2(eraser, "MagicConvertMaterialComponent",{
-        radius=3, -- Creates a square 5px hole
+      local vars = {
+        radius=ERASER_CHUNK_RADIUS,
         is_circle=false,
         to_material=CellFactory_GetType(to_material),
         from_material_tag=from_tag,
@@ -100,7 +88,19 @@ function erase(material)
         from_material=from_material,
         extinguish_fire=true,
         kill_when_finished=true
-      })
+      }
+
+      EntityAddComponent2(eraser, "MagicConvertMaterialComponent", vars)
+
+      -- Sand is inconveniently split into 3 different tags. So we'll be
+      -- creating one eraser chunk for each. And even *then* we'll be missing
+      -- some sands, because they just aren't tagged as any type of sand.
+      if eraser_mode == ERASER_MODE_SANDS then
+        for i, sand_tag in ipairs({"[sand_metal]", "[sand_other]"}) do
+          vars["from_material_tag"] = sand_tag
+          EntityAddComponent2(eraser, "MagicConvertMaterialComponent", vars)
+        end
+      end
     end
   end
 end
@@ -108,7 +108,7 @@ end
 
 local x, y = DEBUG_GetMouseWorld()
 local brush = get_active_brush()
-local material = GlobalsGetValue(SELECTED_MATERIAL, SELECTED_MATERIAL_DEFAULT)
+local material = get_active_material()
 local draw_vars = {
   emitted_material_name=material,
   image_animation_file=brush.brush_file,
