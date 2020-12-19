@@ -8,8 +8,13 @@ dofile_once("mods/raksa/files/scripts/enums.lua")
 ------------------------------
 
 ERASER_ICONS = {
-  [ERASER_MODE_SOLIDS]="mods/raksa/files/gfx/matwand_icons/icon_erase_solids.png" ,
-  [ERASER_MODE_LIQUIDS]="mods/raksa/files/gfx/matwand_icons/icon_suck_liquids.png" ,
+  [ERASER_MODE_ALL]="mods/raksa/files/gfx/matwand_icons/icon_erase_solids.png",
+  [ERASER_MODE_SELECTED]="none, use active material",
+  [ERASER_MODE_SOLIDS]="mods/raksa/files/gfx/matwand_icons/icon_solid.png",
+  [ERASER_MODE_LIQUIDS]="mods/raksa/files/gfx/matwand_icons/icon_liquid.png",
+  [ERASER_MODE_SANDS]="mods/raksa/files/gfx/matwand_icons/icon_sand.png",
+  [ERASER_MODE_GASES]="mods/raksa/files/gfx/matwand_icons/icon_gas.png",
+  [ERASER_MODE_FIRE]="mods/raksa/files/gfx/matwand_icons/icon_fire.png",
 }
 
 
@@ -17,11 +22,63 @@ function get_active_material_image()
   return GlobalsGetValue(SELECTED_MATERIAL_ICON, SELECTED_MATERIAL_ICON_DEFAULT)
 end
 
+function eraser_use_brush_grid()
+  return GlobalsGetValue(ERASER_SHARED_GRID, ERASER_SHARED_GRID_DEFAULT) == "1"
+end
+
+function eraser_user_replacer()
+  return GlobalsGetValue(ERASER_REPLACE, ERASER_REPLACE_DEFAULT) == "1"
+end
+
+function get_eraser_grid_size()
+  return tonumber(GlobalsGetValue(ERASER_GRID_SIZE, ERASER_DEFAULT_GRID_SIZE))
+end
 
 function get_brush_grid_size()
   return tonumber(GlobalsGetValue(BRUSH_GRID_SIZE, BRUSH_DEFAULT_GRID_SIZE))
 end
 
+
+function change_eraser_reticle()
+  -- TODO: DIFFERENT PIXELS FOR THE REPLACE MODE!!
+  local PIXELS = 5  -- with a radius of 3
+  local multiplier = tonumber(GlobalsGetValue(ERASER_SIZE, ERASER_SIZE_DEFAULT))
+  local size = multiplier * PIXELS
+
+  local reticle = EntityGetWithName("eraser_reticle")
+
+  local corners = {
+    { -- Topleft
+      math.floor(size / 2),
+      math.floor(size / 2)
+    },
+    { -- Topright
+      math.floor(-size / 2) + 1,
+      math.floor(size / 2)
+    },
+    { -- Bottomleft
+      math.floor(size / 2),
+      math.floor(-size / 2) + 1
+    },
+    { -- Bottomright
+      math.floor(-size / 2) + 1,
+      math.floor(-size / 2) + 1
+    },
+  }
+
+  local replace = GlobalsGetValue(ERASER_REPLACE, ERASER_REPLACE_DEFAULT) == "1"
+  local image = replace and REPLACER_PIXEL or ERASER_PIXEL
+
+  for i, SpriteComponent in ipairs(EntityGetComponent(reticle, "SpriteComponent")) do
+    -- The odd sizes (15, 25, ...) require their own offset
+    local offset = multiplier % 2
+
+    local corner = corners[i]
+    ComponentSetValue2(SpriteComponent, "offset_x", corner[1] + offset)
+    ComponentSetValue2(SpriteComponent, "offset_y", corner[2] + offset)
+    ComponentSetValue2(SpriteComponent, "image_file", image)
+  end
+end
 
 function change_active_brush(brush, brush_index)
   -- Change reticle
@@ -41,12 +98,15 @@ function get_active_brush()
   local brush_index = tonumber(
     GlobalsGetValue(SELECTED_BRUSH, tostring(DEFAULT_BRUSH))
   )
-  return BRUSHES[brush_index]
+  return BRUSHES[brush_index], brush_index
 end
 
 
 function get_active_eraser_image()
   local current_eraser = GlobalsGetValue(ERASER_MODE, ERASER_MODE_DEFAULT)
+  if current_eraser == ERASER_MODE_SELECTED then
+    return get_active_material_image()
+  end
   return ERASER_ICONS[current_eraser]
 end
 

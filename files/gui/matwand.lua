@@ -91,7 +91,7 @@ function render_brush_picker(GUI, BID_SPACE)
       local repr = tostring(value)
       local default = tonumber(BRUSH_DEFAULT_GRID_SIZE)
 
-      local new_val = GuiSlider(GUI, bid, 3, 0, "Grid", value, 1, 100, default, 1, repr, 100)
+      local new_val = GuiSlider(GUI, bid, 0, 0, "Grid", value, 1, 100, default, 1, repr, 100)
       GuiTooltip(GUI, "Brush snapping grid size", "")
       GlobalsSetValue(BRUSH_GRID_SIZE, math.ceil(new_val))
     end)
@@ -102,41 +102,98 @@ end
 function render_eraser_picker(GUI, BID_SPACE)
   local bid = BID_SPACE + 400
 
-  local eraser_buttons = {
-    { text="Solids Eraser", mode=ERASER_MODE_SOLIDS, image=ERASER_ICONS[ERASER_MODE_SOLIDS] },
-    { text="Liquids Sucker", mode=ERASER_MODE_LIQUIDS, image=ERASER_ICONS[ERASER_MODE_LIQUIDS] },
-  }
+  local eraser_categories = {
+    {
+      { text="All materials", mode=ERASER_MODE_ALL, image=ERASER_ICONS[ERASER_MODE_ALL] },
+      { text="Selected material", mode=ERASER_MODE_SELECTED, image=get_active_material_image() },
+    },
+    {
+      { text="Solid", mode=ERASER_MODE_SOLIDS, image=ERASER_ICONS[ERASER_MODE_SOLIDS], desc="Statics + Sands" },
+      { text="Liquid", mode=ERASER_MODE_LIQUIDS, image=ERASER_ICONS[ERASER_MODE_LIQUIDS] },
+      { text="Sand", mode=ERASER_MODE_SANDS, image=ERASER_ICONS[ERASER_MODE_SANDS] },
+      { text="Gas", mode=ERASER_MODE_GASES, image=ERASER_ICONS[ERASER_MODE_GASES] },
+      { text="Fire", mode=ERASER_MODE_FIRE, image=ERASER_ICONS[ERASER_MODE_FIRE] },
+    }
+  };
+
   local current_eraser = GlobalsGetValue(ERASER_MODE, ERASER_MODE_DEFAULT)
 
   Horizontal(GUI, 1, 1, function()
-    GuiText(GUI, 0, 0, "Eraser options")
+    GuiText(GUI, 0, 0, "Eraser Options")
   end)
 
+  -- TODO: Rewrite the following to have a bit more generalized components.
+  --       Seeing a lot of repetition here.
   Background(GUI, 3, NPBG_BROWN, 200, function()
     Vertical(GUI, 1, 2, function()
 
-      -- Render erasers
-      Horizontal(GUI, 0, 0, function()
-        for i, item in ipairs(eraser_buttons) do
-          local vars = { tooltip=item.text, image=item.image }
-          local click = function() GlobalsSetValue(ERASER_MODE, item.mode) end
-          local right_click = add_mat_to_favorites(vars, click)
-          bid = Button(GUI, bid, vars, click, right_click)
-        end
+      GuiText(GUI, 0, 0, "Material filter")
+      GuiTooltip(GUI, "Choose which material types to erase/replace", "")
+
+      -- Render eraser filters
+      for r, row in ipairs(eraser_categories) do
+        Horizontal(GUI, 0, 0, function()
+          for i, item in ipairs(row) do
+            local vars = { tooltip=item.text, tooltip_desc=item.desc, image=item.image }
+            local click = function() GlobalsSetValue(ERASER_MODE, item.mode) end
+            local right_click = add_mat_to_favorites(vars, click)
+            bid = Button(GUI, bid, vars, click, right_click)
+          end
+        end)
+      end
+
+      GuiLayoutAddVerticalSpacing(GUI, 4)
+
+      -- TOGGLE MATERIAL REPLACEMENT
+      local is_replacer_active = eraser_user_replacer()
+      local new_replace = is_replacer_active and "0" or "1"
+      local replacer_vars = {
+        text=is_replacer_active and "[*] Replace mode" or "[ ] Replace mode",
+        tooltip="Instead of erasing, existing materials will be\nreplaced with the currently selected one.",
+        tooltip_desc="Note: Does nothing with the 'selected material' filter.",
+      }
+      bid = Button(GUI, bid, replacer_vars, function ()
+        GlobalsSetValue(ERASER_REPLACE, new_replace)
       end)
 
-      -- Render extra slider for size, if using solids eraser.
-      if current_eraser == ERASER_MODE_SOLIDS then
+      -- GRID SELECTION
+      local use_brush_grid = eraser_use_brush_grid()
+      local new_grid = use_brush_grid and "0" or "1"
+      local grid_vars = {
+        text=use_brush_grid and "[*] Use brush grid" or "[ ] Use brush grid",
+        tooltip="Use the same grid setting as brushes",
+      }
+      bid = Button(GUI, bid, grid_vars, function ()
+        GlobalsSetValue(ERASER_SHARED_GRID, new_grid)
+      end)
+
+      GuiLayoutAddVerticalSpacing(GUI, 2)
+
+      -- OWN GRID SLIDER
+      if not use_brush_grid then
+        local grid_value = get_eraser_grid_size()
+        local grid_repr = tostring(grid_value)
+        local grid_default = tonumber(ERASER_DEFAULT_GRID_SIZE)
+
+        local new_grid_val = GuiSlider(GUI, bid, 0, 0, "Grid", grid_value, 1, 100, grid_default, 1, grid_repr, 100)
+        bid = bid + 1
+
+        GuiTooltip(GUI, "Eraser snapping grid size", "")
+        GlobalsSetValue(ERASER_GRID_SIZE, math.ceil(new_grid_val))
+
         GuiLayoutAddVerticalSpacing(GUI, 2)
-
-        local value = GlobalsGetValue(ERASER_SIZE, ERASER_SIZE_DEFAULT)
-        local repr = tostring(value)
-        local default = tonumber(ERASER_SIZE_DEFAULT)
-
-        local new_val = GuiSlider(GUI, bid, 2, 0, "Size", value, 1, 8, default, 1, repr, 30 )
-        GuiTooltip(GUI, "Unfortunately this works only with the Solids Eraser", "")
-        GlobalsSetValue(ERASER_SIZE, math.ceil(new_val))
       end
+
+      -- SIZE BAR
+      local value = GlobalsGetValue(ERASER_SIZE, ERASER_SIZE_DEFAULT)
+      local repr = tostring(value*5) .. "px"
+      local default = tonumber(ERASER_SIZE_DEFAULT)
+
+      local new_val = GuiSlider(GUI, bid, 0, 0, "Size", value, 1, 20, default, 1, repr, 60 )
+      bid = bid + 1
+
+      GlobalsSetValue(ERASER_SIZE, math.ceil(new_val))
+      change_eraser_reticle()
     end)
   end)
 end

@@ -1,0 +1,48 @@
+<Entity name="eraser_reticle">
+  <!-- Default brush graphics.
+    TODO: Seek to somehow make this dynamic and get rid of this whole thing.
+
+    Defaults to 10px reticle again.
+  -->
+  <SpriteComponent
+    image_file="mods/raksa/files/gfx/eraser_pixel.png"
+    offset_x="5"
+    offset_y="5"
+
+    alpha="0.5"
+    additive="1"
+    emissive="1"
+    z_index="80"
+  ></SpriteComponent>
+  <SpriteComponent
+    image_file="mods/raksa/files/gfx/eraser_pixel.png"
+    offset_x="-4"
+    offset_y="-4"
+
+    alpha="0.5"
+    additive="1"
+    emissive="1"
+    z_index="80"
+  ></SpriteComponent>
+  <SpriteComponent
+    image_file="mods/raksa/files/gfx/eraser_pixel.png"
+    offset_x="5"
+    offset_y="-4"
+
+    alpha="0.5"
+    additive="1"
+    emissive="1"
+    z_index="80"
+  ></SpriteComponent>
+  <SpriteComponent
+    image_file="mods/raksa/files/gfx/eraser_pixel.png"
+    offset_x="-4"
+    offset_y="5"
+
+    alpha="0.5"
+    additive="1"
+    emissive="1"
+    z_index="80"
+  ></SpriteComponent>
+</Entity>
+

@@ -11,15 +11,23 @@ dofile_once("mods/raksa/files/scripts/enums.lua")
 --
 
 
+function eraser_reticle_follow_mouse(x, y)
+  local eraser_reticle = EntityGetWithName("eraser_reticle")
+  if eraser_reticle then
+    local grid_size = eraser_use_brush_grid() and get_brush_grid_size() or get_eraser_grid_size()
+    x = x - x % grid_size + grid_size/2
+    y = y - y % grid_size + grid_size/2
+    EntitySetTransform(eraser_reticle, math.floor(x), math.floor(y))
+  end
+end
+
 function brush_reticle_follow_mouse(x, y, is_filler_tool)
   local brush_reticle = EntityGetWithName("brush_reticle")
   if brush_reticle then
     local grid_size = get_brush_grid_size()
-    if not is_filler_tool then
-      -- Calculate offset for cursor to always be in the middle.
-      x = math.floor(x - x % grid_size + grid_size/2)
-      y = math.floor(y - y % grid_size + grid_size/2)
-    end
+    -- Calculate offset for cursor to always be in the middle.
+    x = x - x % grid_size + grid_size/2
+    y = y - y % grid_size + grid_size/2
     EntitySetTransform(brush_reticle, math.floor(x), math.floor(y))
   end
 end
@@ -44,34 +52,57 @@ function draw_filler(material, brush, draw_vars, x, y)
 end
 
 
-function erase(x, y)
-  local size = tonumber(GlobalsGetValue(ERASER_SIZE, ERASER_SIZE_DEFAULT))
+function erase(material)
+  local PIXELS = 5  -- with a radius of 3
+  local multiplier = tonumber(GlobalsGetValue(ERASER_SIZE, ERASER_SIZE_DEFAULT))
+  local size = multiplier * PIXELS
   local eraser_mode = GlobalsGetValue(ERASER_MODE, ERASER_MODE_DEFAULT)
 
-  local eraser = EntityCreateNew()
-  EntitySetTransform(eraser, x, y)
+  local eraser_replace = GlobalsGetValue(ERASER_REPLACE, ERASER_REPLACE_DEFAULT) == "1"
 
-  -- TODO:
-  -- * Make ERASER_MODE_BOTH work properly.
-  -- * Figure out why liquid eraser is not affected by size
+  -- Eraser sizes with multiplier:
+  -- 1: 5px
+  -- 2: 10px
+  -- 3: 15px
+  -- ...
 
-  if eraser_mode == ERASER_MODE_LIQUIDS then
-    EntityAddComponent(eraser, "MaterialSuckerComponent", {
-      num_cells_sucked_per_frame=size*10000,
-      material_type=0,
-      barrel_size=1000000,
-    })
+  local reticle = EntityGetWithName("eraser_reticle")
+  local x, y = EntityGetTransform(reticle)
+
+  -- Start from the top left corner of the reticle
+  x = math.floor(x - size / 2) + 2
+  y = math.floor(y - size / 2) + 2
+
+  for row=0, multiplier-1, 1 do
+    for col=0, multiplier-1, 1 do
+      local eraser = EntityCreateNew()
+
+      -- offset each entity
+      EntitySetTransform(eraser,
+        math.floor(x + col * PIXELS),
+        math.floor(y + row * PIXELS)
+      )
+
+      local from_any_material = (eraser_mode == ERASER_MODE_ALL)
+      local from_selected = (eraser_mode == ERASER_MODE_SELECTED)
+
+      local from_tag = from_any_material and "" or eraser_mode
+      local from_material = from_selected and CellFactory_GetType(material) or 0
+
+      local to_material = eraser_replace and material or "air"
+
+      EntityAddComponent2(eraser, "MagicConvertMaterialComponent",{
+        radius=3, -- Creates a square 5px hole
+        is_circle=false,
+        to_material=CellFactory_GetType(to_material),
+        from_material_tag=from_tag,
+        from_any_material=from_any_material,
+        from_material=from_material,
+        extinguish_fire=true,
+        kill_when_finished=true
+      })
+    end
   end
-
-  if eraser_mode == ERASER_MODE_SOLIDS then
-    EntityAddComponent(eraser, "CellEaterComponent",{
-      radius=size*4,
-      eat_probability="100",
-      limited_materials="0"
-    })
-  end
-
-  EntityAddComponent(eraser, "LifetimeComponent", { lifetime=2 })
 end
 
 
@@ -101,7 +132,8 @@ local draw_vars = {
   is_emitting=true
 }
 
-brush_reticle_follow_mouse(x, y, brush.is_filler_tool)
+brush_reticle_follow_mouse(x, y)
+eraser_reticle_follow_mouse(x, y)
 
 
 if is_holding_m1() and not brush.is_filler_tool then
@@ -115,5 +147,5 @@ end
 
 
 if is_holding_m2() then
-  erase(x, y)
+  erase(material)
 end

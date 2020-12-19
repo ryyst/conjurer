@@ -8,7 +8,7 @@ dofile_once("mods/raksa/files/scripts/lists/dangerous_materials.lua");
 
 ALL_MATERIALS = {
   {
-    name="Solids",
+    name="Statics",
     icon="mods/raksa/files/gfx/matwand_icons/icon_solid.png",
     icon_off="mods/raksa/files/gfx/matwand_icons/icon_solid_off.png",
     materials=SOLIDS,
