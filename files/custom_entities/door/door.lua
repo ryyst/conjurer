@@ -1,4 +1,4 @@
-dofile_once("mods/koira/files/scripts/utilities.lua")
+dofile_once("mods/raksa/files/scripts/utilities.lua")
 
 function toggle_background(door)
   local bg = EntityGetFirstComponentIncludingDisabled(door, "SpriteComponent", "door_open_sprite")
