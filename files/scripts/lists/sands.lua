@@ -334,5 +334,10 @@ SANDS = {
     ["name"] = "Sulphur",
     ["id"] = "sulphur"
   },
+  {
+    ["image"] = "mods/raksa/files/gfx/material_icons/wax.png",
+    ["name"] = "Wax",
+    ["id"] = "wax"
+  },
 }
 

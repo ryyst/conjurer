@@ -450,11 +450,6 @@ SOLIDS = {
     ["id"] = "vine"
   },
   {
-    ["image"] = "mods/raksa/files/gfx/material_icons/wax.png",
-    ["name"] = "Wax",
-    ["id"] = "wax"
-  },
-  {
     ["image"] = "mods/raksa/files/gfx/material_icons/wizardstone.png",
     ["name"] = "Wizardstone",
     ["id"] = "wizardstone"
