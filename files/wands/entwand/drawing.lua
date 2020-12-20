@@ -66,6 +66,7 @@ function is_valid_entity(entity)
     entity ~= nil and
     entity ~= 0 and
     EntityGetName(entity) ~= "entwand_cursor" and
+    EntityGetName(entity) ~= "grid_overlay" and
     not IsPlayer(entity) and
     entity ~= GameGetWorldStateEntity() and
     -- This is something that always exists in 0,0.

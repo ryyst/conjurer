@@ -1,0 +1,16 @@
+<Entity name="grid_overlay">
+  <SpriteComponent
+    alpha="0.07"
+    emissive="1"
+    additive="0"
+    offset_x="600"
+    offset_y="340"
+    image_file="mods/raksa/files/powers/grid_overlay.png"
+  ></SpriteComponent>
+
+  <LuaComponent
+    execute_on_added="1"
+    script_source_file="mods/raksa/files/powers/update_grid_overlay.lua"
+    execute_every_n_frame="10"
+  ></LuaComponent>
+</Entity>

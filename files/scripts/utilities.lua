@@ -4,7 +4,6 @@ dofile_once("data/scripts/lib/utilities.lua")
 -- dofile_once("mods/raksa/files/scripts/utilities.lua")
 
 MOD_PATH = "mods/raksa/files/"
-
 ICON_UNKNOWN = "mods/raksa/files/gfx/icon_unknown.png"
 
 ---------------------------

@@ -8,10 +8,11 @@ dofile_once("mods/raksa/files/powers/toggle_speed.lua")
 dofile_once("mods/raksa/files/powers/toggle_kalma.lua")
 dofile_once("mods/raksa/files/powers/change_herd.lua")
 dofile_once("mods/raksa/files/powers/control_happiness.lua")
+dofile_once("mods/raksa/files/powers/grid_overlay.lua")
 
 
 local render_active_powers_overlay = nil
-local main_menu_pos_x = 82
+local main_menu_pos_x = 79
 local main_menu_pos_y = 94
 local sub_menu_pos_x = main_menu_pos_x
 local sub_menu_pos_y = main_menu_pos_y-15
@@ -176,6 +177,11 @@ function render_power_buttons(GUI, BID_SPACE)
   local bid = BID_SPACE + 100
 
   local main_menu_items = {
+    {
+      name="Toggle Grid",
+      image="mods/raksa/files/custom_entities/grid/icon_grid.png",
+      action = function() toggle_grid() end,
+    },
     {
       name="Control World Happiness",
       image = get_happiness_icon(ACTIVE_HAPPINESS_LEVEL),
