@@ -28,6 +28,12 @@ CUSTOM_ENTITIES = {
     image="mods/raksa/files/custom_entities/hatch/icon_hatch.png",
   },
   {
+    name="Magical Drain",
+    desc="Sucks up liquids, sands & gases.\nMakes sewage a breeze!",
+    path="mods/raksa/files/custom_entities/drain/drain.xml",
+    image="mods/raksa/files/custom_entities/drain/drain.png",
+  },
+  {
     name="Grid",
     path="mods/raksa/files/custom_entities/grid/grid.xml",
     image="mods/raksa/files/custom_entities/grid/icon_grid.png",

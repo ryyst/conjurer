@@ -1,0 +1,39 @@
+<Entity>
+  <UIInfoComponent
+    name="Magical Drain"
+  ></UIInfoComponent>
+
+  <SpriteComponent
+    image_file="mods/raksa/files/custom_entities/drain/drain.png"
+    offset_x="7"
+    offset_y="8"
+  ></SpriteComponent>
+
+  <!-- Note on barrel_size:
+    Schema XMLs specify this field as an `int`, but none of these ridicilous values
+    seem to have any negative effects on the game. So we'll keep 'em for now.
+
+    TODO: If problems arise, we should build a script to reset this value periodically.
+  -->
+
+  <!-- Liquid -->
+  <MaterialSuckerComponent
+    material_type="0"
+    barrel_size="9999999999999999999999999999999999999999999999999999"
+    num_cells_sucked_per_frame="10"
+  ></MaterialSuckerComponent>
+
+  <!-- Sands -->
+  <MaterialSuckerComponent
+    material_type="1"
+    barrel_size="9999999999999999999999999999999999999999999999999999"
+    num_cells_sucked_per_frame="10"
+  ></MaterialSuckerComponent>
+
+  <!-- Gas -->
+  <MaterialSuckerComponent
+    material_type="2"
+    barrel_size="9999999999999999999999999999999999999999999999999999"
+    num_cells_sucked_per_frame="10"
+  ></MaterialSuckerComponent>
+</Entity>
