@@ -7,10 +7,11 @@ dofile_once("mods/raksa/files/scripts/enums.lua")
 dofile_once("mods/raksa/files/powers/toggle_speed.lua")
 dofile_once("mods/raksa/files/powers/toggle_kalma.lua")
 dofile_once("mods/raksa/files/powers/change_herd.lua")
+dofile_once("mods/raksa/files/powers/control_happiness.lua")
 
 
 local render_active_powers_overlay = nil
-local main_menu_pos_x = 85
+local main_menu_pos_x = 82
 local main_menu_pos_y = 94
 local sub_menu_pos_x = main_menu_pos_x
 local sub_menu_pos_y = main_menu_pos_y-15
@@ -21,6 +22,51 @@ if ACTIVE_HERD == nil then
   if player then
     ACTIVE_HERD = get_active_herd(EntityGetValue(player, "GenomeDataComponent", "herd_id"))
   end
+end
+
+
+function render_happiness_menu(GUI, BID_SPACE)
+  local bid = BID_SPACE + 500
+
+  local relation_buttons = {
+    {
+      name="Nightfall Nakkikiska",
+      desc="Turns brother on brother. Hiisi on hiisi.\nThere is no love in this world.",
+      image=get_happiness_icon(HAPPINESS_HATE),
+      action=function()
+        GamePrint("You don't feel so safe anymore.")
+        change_happiness(HAPPINESS_HATE)
+      end,
+    },
+    {
+      name="Status Quo",
+      desc="You choose not to influence this world.\nAll relations stay intact.",
+      image=get_happiness_icon(HAPPINESS_NEUTRAL),
+      action=function()
+        GamePrint("Back to normal.")
+        change_happiness(HAPPINESS_NEUTRAL)
+      end,
+    },
+    {
+      name="Sonata Sauna",
+      desc="Purges all hatred from the world.",
+      image=get_happiness_icon(HAPPINESS_LOVE),
+      action=function()
+        GamePrint("You feel a sudden ease as love fills the world.")
+        change_happiness(HAPPINESS_LOVE)
+      end,
+    },
+  };
+
+  Background(GUI, 1, nil, 100, function()
+    Grid(GUI, relation_buttons, function(item)
+      bid = Button(
+        GUI, bid,
+        {image=item.image, tooltip=item.name, tooltip_desc=item.desc},
+        item.action
+      )
+    end, 0, 8, 3)
+  end)
 end
 
 
@@ -130,6 +176,11 @@ function render_power_buttons(GUI, BID_SPACE)
   local bid = BID_SPACE + 100
 
   local main_menu_items = {
+    {
+      name="Control World Happiness",
+      image = get_happiness_icon(ACTIVE_HAPPINESS_LEVEL),
+      action = function() toggle_active_overlay(render_happiness_menu) end,
+    },
     {
       name="Change Herd",
       image = ACTIVE_HERD.image,

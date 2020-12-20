@@ -126,20 +126,26 @@ function UniqueRandom()
 end
 
 
--- Shorthands for a really common action
+-- Shorthands for a really common actions
 function EntityGetValue(entity, component_name, attr_name)
+  if entity == nil or entity == 0 then return nil end
+
   return ComponentGetValue2(
     EntityGetFirstComponentIncludingDisabled(entity, component_name), attr_name
   )
 end
 
 function EntitySetValue(entity, component_name, attr_name, value)
+  if entity == nil or entity == 0 then return end
+
   return ComponentSetValue2(
     EntityGetFirstComponentIncludingDisabled(entity, component_name), attr_name, value
   )
 end
 
 function EntitySetValues(entity, component_name, values)
+  if entity == nil or entity == 0 then return end
+
   local comp = EntityGetFirstComponentIncludingDisabled(entity, component_name)
   ComponentSetValues(comp, values)
 end

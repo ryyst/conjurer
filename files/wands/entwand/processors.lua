@@ -15,3 +15,11 @@ function remove_spawn_limits_set_by_camerabound(entity)
     EntityRemoveComponent(entity, CameraBound)
   end
 end
+
+
+function add_friendly_fire_corrector(entity)
+  -- If global world hatred is <=-100 we'll want enemies to hurt the same herd.
+  EntityAddComponent2(entity, "LuaComponent", {
+    script_shot="mods/raksa/files/powers/correct_friendly_fire.lua"
+  })
+end

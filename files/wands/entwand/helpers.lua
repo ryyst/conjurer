@@ -11,6 +11,7 @@ ICON_DELETE_ENTITY = "mods/raksa/files/gfx/entwand_icons/icon_delete_entity.png"
 ENTITY_POST_PROCESSORS = {
   disable_new_physicsbody_optimizations,
   remove_spawn_limits_set_by_camerabound,
+  add_friendly_fire_corrector,
 }
 
 
