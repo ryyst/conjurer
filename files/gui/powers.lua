@@ -23,6 +23,7 @@ end
 local main_menu_items = {
   {
     name="Toggle Conjurer Eye",
+    desc="Movement keys to move and shift to boost.",
     image="mods/raksa/files/gfx/power_icons/binoculars.png",
     action = function() toggle_binoculars() end,
   },
@@ -229,7 +230,7 @@ function render_power_buttons(GUI, BID_SPACE)
     for i, item in ipairs(main_menu_items) do
       bid = Button(
         GUI, bid,
-        {image=item.image, tooltip=item.name},
+        {image=item.image, tooltip=item.name, tooltip_desc=item.desc},
         item.action
       )
     end
