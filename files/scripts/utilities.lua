@@ -81,6 +81,22 @@ function set_time_of_day(time)
 end
 
 
+function bool_to_global(value)
+  if value then
+    return "1"
+  end
+  return "0"
+end
+
+
+function toggle_global(value)
+  if value == "0" then
+    return "1"
+  end
+  return "0"
+end
+
+
 function set_weather()
   local worldState = EntityGetFirstComponentIncludingDisabled(
     GameGetWorldStateEntity(), "WorldStateComponent"

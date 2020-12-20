@@ -2,6 +2,7 @@ dofile_once("data/scripts/lib/utilities.lua")
 
 dofile_once("mods/raksa/files/wands/entwand/helpers.lua");
 
+dofile_once("mods/raksa/files/powers/binoculars.lua")
 dofile_once("mods/raksa/files/scripts/utilities.lua")
 dofile_once("mods/raksa/files/scripts/enums.lua")
 
@@ -61,17 +62,71 @@ function scan_entity(x, y)
 end
 
 
+function is_freecam_entity(entity, name)
+  -- Upon activating the free camera (Conjurer Eye), an entity appears approximately
+  -- in the middle of the screen. It seems this entity is tied to something on the
+  -- engine side, because deleting this causes a fairly certain crash to desktop
+  -- soon after. So we make sure it cannot be deleted.
+  --
+  -- This entity has no name, no tags and exactly two LightComponents.
+  --
+  -- We were also unable to detect it upon Conjurer Eye activation (eg. to give it
+  -- an easily fetchable name). So we do a bit more hax here.
+
+  -- Don't even bother checking if freecam is not active. Doesn't show up then.
+  if not get_binoculars_active() then
+    return false
+  end
+
+  local components = EntityGetAllComponents(entity)
+  local basic_signature_matches = (
+    name == "" and
+    #components == 2 and
+    EntityGetTags(entity) == ""
+  )
+
+  if basic_signature_matches then
+    -- Final check, the component types.
+    for i, comp in ipairs(components) do
+      if ComponentGetTypeName(comp) ~= "LightComponent" then
+        -- TODO: If we start running into false positives, check
+        -- that all colors are 255 and radius is 750
+        return false
+      end
+    end
+
+    -- All checks pass and signature matches.
+    -- This entity should not be deleted.
+    return true
+  end
+
+  -- Failed at component inspection, not our guy.
+  return false
+end
+
+
 function is_valid_entity(entity)
-  return (
+  local name = EntityGetName(entity)
+  local basic_checks = (
     entity ~= nil and
     entity ~= 0 and
-    EntityGetName(entity) ~= "entwand_cursor" and
-    EntityGetName(entity) ~= "grid_overlay" and
+    name ~= "entwand_cursor" and
+    name ~= "grid_overlay" and
     not IsPlayer(entity) and
     entity ~= GameGetWorldStateEntity() and
     -- This is something that always exists in 0,0.
-    EntityGetName(entity) ~= "example_container"
+    name ~= "example_container"
   )
+
+  if not basic_checks then
+    return false
+  end
+
+  if is_freecam_entity(entity, name) then
+    return false
+  end
+
+  return true
 end
 
 
@@ -86,6 +141,7 @@ function spawn_entity(x, y)
   local entity = EntityLoad(entity_selection.path, x, y)
   postprocess_entity(entity)
 end
+
 
 function postprocess_entity(entity)
   for _, func in ipairs(ENTITY_POST_PROCESSORS) do
