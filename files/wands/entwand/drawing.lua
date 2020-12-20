@@ -76,7 +76,6 @@ end
 
 
 function delete_entity(x, y)
-  --hide_cursor()
   EntityKill(HOVERED_ENTITY)
   HOVERED_ENTITY = nil
 end
