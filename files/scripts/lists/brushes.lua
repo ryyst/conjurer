@@ -154,7 +154,7 @@ BRUSHES = {
     reticle_file="mods/raksa/files/wands/matwand/brushes/radial_xs_reticle.png",
     brush_file="mods/raksa/files/wands/matwand/brushes/radial_xs_brush.png",
     icon_file="mods/raksa/files/wands/matwand/brushes/radial_xs_icon.png",
-    is_filler_tool=true,
+    click_to_use=true,
   },
   {
     name="Medium Radial Expander",
@@ -164,7 +164,7 @@ BRUSHES = {
     reticle_file="mods/raksa/files/wands/matwand/brushes/radial_s_reticle.png",
     brush_file="mods/raksa/files/wands/matwand/brushes/radial_s_brush.png",
     icon_file="mods/raksa/files/wands/matwand/brushes/radial_s_icon.png",
-    is_filler_tool=true,
+    click_to_use=true,
   },
   {
     name="Large Radial Expander",
@@ -174,7 +174,7 @@ BRUSHES = {
     reticle_file="mods/raksa/files/wands/matwand/brushes/radial_m_reticle.png",
     brush_file="mods/raksa/files/wands/matwand/brushes/radial_m_brush.png",
     icon_file="mods/raksa/files/wands/matwand/brushes/radial_m_icon.png",
-    is_filler_tool=true,
+    click_to_use=true,
   },
   {
     name="Huge Radial Expander",
@@ -184,6 +184,6 @@ BRUSHES = {
     reticle_file="mods/raksa/files/wands/matwand/brushes/radial_l_reticle.png",
     brush_file="mods/raksa/files/wands/matwand/brushes/radial_l_brush.png",
     icon_file="mods/raksa/files/wands/matwand/brushes/radial_l_icon.png",
-    is_filler_tool=true,
+    click_to_use=true,
   },
 }

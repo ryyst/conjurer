@@ -1,7 +1,7 @@
 # The Conjurer Extension System
 
-The mod has been built to be easily extendable by other mods. You can add items to any of the basic lists
-straight from your own mod, via the following ways:
+The mod has been built to be easily extendable by other mods. You can add items
+to any of the basic lists straight from your own mod, via the following ways:
 
 
 ## Entities
@@ -57,6 +57,7 @@ if ModIsEnabled("raksa") then
 end
 
 -- my_materials.lua
+--
 table.insert(ALL_MATERIALS, {
   name="My Custom Materials",
   desc="Voluntary extra info",
@@ -96,13 +97,22 @@ end
 -- my_brushes.lua
 --
 table.insert(BRUSHES, {
-  name="My Custom Hexagonal Brush",
+  name="My Custom Hexagonal Filler Brush",
   desc="Voluntary extra description",
-  offset_x=2,  -- The reticle offset.
+  offset_x=2,  -- Manual reticle offset, because not all reticles want to be centered.
   offset_y=2,
   reticle_file="path/to/my/reticle2.png",
   brush_file="path/to/my/brush2.png",
   icon_file="path/to/my/icon.png",
+  click_to_use=true,  -- Should the brush activate upon holding or clicking. Voluntary, defaults to false.
+  action=function(material, brush, x, y)
+    -- Voluntary function, if you want to override the basic drawing
+    -- mechanism entirely. Works with either setting on click_to_use.
+
+    GamePrint("Active material: " .. active_material)
+    GamePrint("Brush name: " .. brush.name)
+    GamePrint("Mouse: "..tostring(x)..", "..tostring(y))
+  end,
 })
 
 table.insert(BRUSHES, {

@@ -16,7 +16,7 @@ function eraser_reticle_follow_mouse(x, y)
 end
 
 
-function brush_reticle_follow_mouse(x, y, is_filler_tool)
+function brush_reticle_follow_mouse(x, y)
   local brush_reticle = EntityGetWithName("brush_reticle")
   if brush_reticle then
     local grid_size = get_brush_grid_size()
@@ -136,13 +136,23 @@ brush_reticle_follow_mouse(x, y)
 eraser_reticle_follow_mouse(x, y)
 
 
-if is_holding_m1() and not brush.is_filler_tool then
-  draw(material, brush, draw_vars)
+if not brush.click_to_use and is_holding_m1() then
+  if brush.action then
+    brush.action(material, brush, x, y)
+  else
+    -- Default action
+    draw(material, brush, draw_vars)
+  end
 end
 
 
-if has_clicked_m1() and brush.is_filler_tool then
-  draw_filler(material, brush, draw_vars, x, y)
+if brush.click_to_use and has_clicked_m1() then
+  if brush.action then
+    brush.action(material, brush, x, y)
+  else
+    -- Default action
+    draw_filler(material, brush, draw_vars, x, y)
+  end
 end
 
 
