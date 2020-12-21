@@ -72,12 +72,9 @@ function is_freecam_entity(entity, name)
   --
   -- We were also unable to detect it upon Conjurer Eye activation (eg. to give it
   -- an easily fetchable name). So we do a bit more hax here.
-
-  -- Don't even bother checking if freecam is not active. Doesn't show up then.
-  if not get_binoculars_active() then
-    return false
-  end
-
+  --
+  -- Has to be checked even when freecam is not in use, because toggling it off will
+  -- actually leave this entity lying behind.
   local components = EntityGetAllComponents(entity)
   local basic_signature_matches = (
     name == "" and
