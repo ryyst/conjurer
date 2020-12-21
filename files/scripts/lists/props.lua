@@ -624,7 +624,7 @@ PROPS = {
     image="mods/raksa/files/gfx/prop_icons/trap_ignite_a.png",
   },
   --[[ These two are broken for some reason.
-  -- Spawn seemingly "empty entities, but can still be deleted.
+  -- Spawn seemingly "empty" entities, but can still be deleted.
   -- Haven't investigated, not important yet.
   {
     name="Physics trap ignite a",
@@ -641,6 +641,21 @@ PROPS = {
     name="Physics trap ignite enabled",
     path="data/entities/props/physics_trap_ignite_enabled.xml",
     image="mods/raksa/files/gfx/prop_icons/trap_ignite_a.png",
+  },
+  {
+    name="Temple Statue 1",
+    path="data/entities/props/temple_statue_01.xml",
+    image="mods/raksa/files/gfx/prop_icons/temple_statue_01.png",
+  },
+  {
+    name="Temple Statue 1 Greem",
+    path="data/entities/props/temple_statue_01_green.xml",
+    image="mods/raksa/files/gfx/prop_icons/temple_statue_01_green.png",
+  },
+  {
+    name="Temple Statue 2",
+    path="data/entities/props/temple_statue_02.xml",
+    image="mods/raksa/files/gfx/prop_icons/temple_statue_02.png",
   },
   {
     name="Trap laser",
