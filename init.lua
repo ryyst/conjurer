@@ -1,8 +1,12 @@
-ModMagicNumbersFileAdd("mods/raksa/files/magic_numbers.xml")
 ModLuaFileAppend("data/scripts/gun/gun_actions.lua", "mods/raksa/files/actions.lua")
 
 dofile_once("mods/raksa/files/scripts/utilities.lua")
 dofile_once("mods/raksa/files/scripts/enums.lua")
+dofile_once("mods/raksa/files/scripts/settings_handlers.lua")
+
+
+handle_map_setting()
+handle_zoom_setting()
 
 
 function handle_inventory(player)
