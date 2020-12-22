@@ -4,7 +4,8 @@ RegisterSpawnFunction( 0xffB40001, "spawn_random_book" )
 RegisterSpawnFunction( 0xffB40002, "spawn_sammon_taistelu" )
 RegisterSpawnFunction( 0xffB40003, "DEBUG_spawn_all_books" )
 
-RegisterSpawnFunction( 0xff0000ff, "spawn_eel" )
+RegisterSpawnFunction( 0xffb075ee, "spawn_eel" )
+RegisterSpawnFunction( 0xffb075ed, "spawn_drummer" )
 RegisterSpawnFunction( 0xffff00dd, "spawn_potion_food" )
 RegisterSpawnFunction( 0xff051051, "spawn_hatch" )
 RegisterSpawnFunction( 0xff051052, "spawn_door" )
@@ -71,13 +72,19 @@ end
 -- Everything else.
 --
 function spawn_eel(x, y) EntityLoad("data/entities/animals/eel.xml", x, y) end
+function spawn_drummer(x, y)
+  if ModIsEnabled("new_enemies") then
+    EntityLoad("data/entities/buildings/ritualist_c.xml", x, y)
+  end
+end
+
 function spawn_potion_food(x, y) EntityLoad(centity("potion_food/potion"), x, y-3) end
 function spawn_hatch(x, y) EntityLoad(centity("hatch/hatch"), x, y-2) end
 function spawn_door(x, y) EntityLoad(centity("door/door"), x, y) end
 function spawn_switch(x, y) EntityLoad(centity("generator/switch"), x, y) end
 function spawn_generator(x, y) EntityLoad(centity("generator/generator"), x, y) end
 function spawn_lamp(x, y)
-  -- For some reason lantern spawning is broken again. TODO
+  -- TODO: For some reason lantern spawning is broken again.
   -- EntityLoad("data/entities/props/physics/lantern_small.xml", x, y)
 end
 
@@ -89,6 +96,3 @@ function spawn_castlechair(x, y) EntityLoad("data/entities/props/furniture_castl
 function spawn_rockingchair(x, y) EntityLoad("data/entities/props/furniture_rocking_chair.xml", x, y) end
 function spawn_chandelier(x, y) EntityLoad("data/entities/props/physics_chandelier.xml", x, y) end
 function spawn_stool(x, y) EntityLoad("data/entities/props/furniture_stool.xml", x, y) end
-
--- bed
--- couch & other furniture for lounge
