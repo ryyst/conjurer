@@ -6,6 +6,15 @@ dofile_once("data/scripts/lib/utilities.lua")
 MOD_PATH = "mods/raksa/files/"
 ICON_UNKNOWN = "mods/raksa/files/gfx/icon_unknown.png"
 
+
+local BUTTON_SETTING = ModSettingGet("raksa.secondary_button")
+local BUTTON_CHOICES = {
+  throw={hold="mButtonDownThrow", click="mButtonFrameThrow"},
+  mouse2={hold="mButtonDownRightClick", click="mButtonFrameRightClick"}
+}
+
+local SELECTED_BUTTON = BUTTON_CHOICES[BUTTON_SETTING]
+
 ---------------------------
 -- General utilities
 --
@@ -35,7 +44,7 @@ function is_holding_m2()
 
   return ComponentGetValue2(
     EntityGetFirstComponentIncludingDisabled(player, "ControlsComponent"),
-    "mButtonDownRightClick"
+    SELECTED_BUTTON.hold
   )
 end
 
@@ -50,7 +59,7 @@ end
 
 function has_clicked_m2()
   local click_frame = EntityGetValue(
-    get_player(), "ControlsComponent", "mButtonFrameRightClick"
+    get_player(), "ControlsComponent", SELECTED_BUTTON.click
   )
   return click_frame == GameGetFrameNum()
 end

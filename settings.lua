@@ -40,10 +40,11 @@ for anything but screenshots.]],
       {
         id = "secondary_button",
         ui_name = "Secondary button scheme",
-        ui_description = "Which button do you want to use for erasing/removing action?",
+        ui_description = [[Which button do you want to use for erasing/removing action?
+Useful if your mouse2 is taken by something else specific, or you're using a controller.]],
         value_default = "mouse2",
         values = { {"throw", "Throw"}, {"mouse2", "Mouse2"} },
-        scope = MOD_SETTING_SCOPE_RUNTIME,
+        scope = MOD_SETTING_SCOPE_NEW_GAME,
       },
     },
   },
