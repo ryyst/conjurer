@@ -28,31 +28,32 @@ end
 
 
 function handle_zoom_setting()
-  local ZOOM_LEVELS = {
-    conjurer="mods/raksa/files/overrides/resolution_conjurer.xml",
-    huge="mods/raksa/files/overrides/resolution_huge.xml",
-    fullhd="mods/raksa/files/overrides/resolution_fullhd.xml",
-  }
-
   local zoom = ModSettingGet("raksa.zoom_level")
   if zoom == "noita" then
     -- Nothing needs overwriting
     return
   end
 
+  local ZOOM_LEVELS = {
+    conjurer="mods/raksa/files/overrides/resolution_conjurer.xml",
+    huge="mods/raksa/files/overrides/resolution_huge.xml",
+    fullhd="mods/raksa/files/overrides/resolution_fullhd.xml",
+  }
+
   ModMagicNumbersFileAdd(ZOOM_LEVELS[zoom])
 end
 
 
 function handle_map_setting()
-  local AVAILABLE_MAPS = {
-    conjurer="mods/raksa/files/overrides/map_conjurer.xml",
-    noita="mods/raksa/files/overrides/map_noita.xml",
-  }
   local map = ModSettingGet("raksa.map_selection")
   if map == "noita" then
+    -- Nothing needs overwriting
     return
   end
+
+  local AVAILABLE_MAPS = {
+    conjurer="mods/raksa/files/overrides/map_conjurer.xml",
+  }
 
   ModMagicNumbersFileAdd(AVAILABLE_MAPS[map])
   _append_biomes()
