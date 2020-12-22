@@ -136,7 +136,17 @@ brush_reticle_follow_mouse(x, y)
 eraser_reticle_follow_mouse(x, y)
 
 
-if not brush.click_to_use and is_holding_m1() then
+--
+-- TODO: Refactor this whole file to be a bit nicer.
+--
+
+--
+-- MOUSE LEFT HANDLING
+--
+local holding_m1 = is_holding_m1()
+
+-- Hold action
+if not brush.click_to_use and holding_m1 then
   if brush.action then
     brush.action(material, brush, x, y)
   else
@@ -146,6 +156,7 @@ if not brush.click_to_use and is_holding_m1() then
 end
 
 
+-- Click action
 if brush.click_to_use and has_clicked_m1() then
   if brush.action then
     brush.action(material, brush, x, y)
@@ -156,6 +167,22 @@ if brush.click_to_use and has_clicked_m1() then
 end
 
 
+-- Release action
+local has_released_m1 = (holding_m1 == false and PREV_HOLDING_M1 == true)
+if has_released_m1 then
+  -- No default action for this yet, only included for other mods.
+  if brush.release_action then
+    brush.release_action(material, brush, x, y)
+  end
+end
+
+
+--
+-- MOUSE RIGHT HANDLING
+--
 if is_holding_m2() then
   erase(material)
 end
+
+
+PREV_HOLDING_M1 = holding_m1

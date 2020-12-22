@@ -113,6 +113,13 @@ table.insert(BRUSHES, {
     GamePrint("Brush name: " .. brush.name)
     GamePrint("Mouse: "..tostring(x)..", "..tostring(y))
   end,
+  release_action=function(material, brush, x, y)
+    -- Voluntary function, if you want to give drawing function an extra
+    -- action upon releasing the hold/click.
+    GamePrint("Active material: " .. active_material)
+    GamePrint("Brush name: " .. brush.name)
+    GamePrint("Mouse: "..tostring(x)..", "..tostring(y))
+  end
 })
 
 table.insert(BRUSHES, {

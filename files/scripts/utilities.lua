@@ -6,6 +6,7 @@ dofile_once("data/scripts/lib/utilities.lua")
 MOD_PATH = "mods/raksa/files/"
 ICON_UNKNOWN = "mods/raksa/files/gfx/icon_unknown.png"
 
+M1_CLICKED = false
 
 local BUTTON_SETTING = ModSettingGet("raksa.secondary_button")
 local BUTTON_CHOICES = {
