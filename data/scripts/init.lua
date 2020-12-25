@@ -220,7 +220,7 @@ function OnWorldPreUpdate()
   end
 end
 
-function OnPlayerDied( player_entity )
-  GameDestroyInventoryItems( player_entity )
-  GameTriggerGameOver()
-end
+--function OnPlayerDied( player_entity )
+--  GameDestroyInventoryItems( player_entity )
+--  GameTriggerGameOver()
+--end
