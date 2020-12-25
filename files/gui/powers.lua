@@ -22,6 +22,11 @@ end
 
 local main_menu_items = {
   {
+    name="Toggle Conscious Eye of Glass",
+    image="mods/raksa/files/gfx/power_icons/binoculars.png",
+    action = function() toggle_camera_controls() end,
+  },
+  {
     name="Toggle Conjurer Eye",
     desc="Movement keys to move and shift to boost.",
     image="mods/raksa/files/gfx/power_icons/binoculars.png",

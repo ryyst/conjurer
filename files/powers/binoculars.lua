@@ -7,13 +7,14 @@ function get_binoculars_active()
 end
 
 
+-- Conjurer Eye
 function toggle_player_movement(is_enabled)
   local player = get_player()
   if not player then return end
 
-  local platComponent = EntityGetFirstComponentIncludingDisabled(player, "CharacterPlatformingComponent")
+  local CharacterPlatforming = EntityGetFirstComponentIncludingDisabled(player, "CharacterPlatformingComponent")
 
-  EntitySetComponentIsEnabled(player, platComponent, is_enabled)
+  EntitySetComponentIsEnabled(player, CharacterPlatforming, is_enabled)
 
   if not is_enabled then
     local dataComp = EntityGetFirstComponent(player, "CharacterDataComponent")
@@ -31,4 +32,26 @@ function toggle_binoculars()
   GameSetCameraFree(is_active)
 
   GlobalsSetValue(BINOCULARS_ACTIVE, bool_to_global(is_active))
+end
+
+
+-- Glass Eye
+function toggle_camera_controls()
+  local player = get_player()
+  if not player then return end
+
+  -- Make sure binoculars are turned off
+  if get_binoculars_active() then
+    -- TODO:
+    -- Figure out how to make the camera stay properly when binoculars are used.
+    -- Previous tries always put the camera back in player's starting position,
+    -- no matter how we tried to set it manually.
+    toggle_binoculars()
+  end
+
+  EntityToggleValue(
+    player,
+    "PlatformShooterPlayerComponent",
+    "center_camera_on_this_entity"
+  )
 end

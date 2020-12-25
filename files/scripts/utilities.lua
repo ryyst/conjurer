@@ -134,7 +134,6 @@ unitCircle = {
 }
 
 
-
 function UniqueRandom()
   -- Return a generator for fetching multiple unique random numbers from a list.
   local used = {}
@@ -173,6 +172,13 @@ function EntitySetValues(entity, component_name, values)
 
   local comp = EntityGetFirstComponentIncludingDisabled(entity, component_name)
   ComponentSetValues(comp, values)
+end
+
+function EntityToggleValue(entity, component_name, attr_name)
+  if entity == nil or entity == 0 then return end
+
+  local value = EntityGetValue(entity, component_name, attr_name)
+  EntitySetValue(entity, component_name, attr_name, not value)
 end
 
 function ComponentSetValues(component, values)
