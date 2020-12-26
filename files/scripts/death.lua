@@ -23,5 +23,8 @@ function damage_received(damage, message, entity_thats_responsible, is_fatal)
 
     --
     GamePrintImportant("You died", "No rest for the wicked")
+
+    EntityAddRandomStains(player, CellFactory_GetType("magic_liquid_hp_regeneration"), 100)
+    EntityAddRandomStains(player, CellFactory_GetType("water"), 200)
   end
 end

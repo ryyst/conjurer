@@ -14,6 +14,7 @@ dofile_once("mods/raksa/files/gui/powers.lua")
 async_loop(function()
   if GUI ~= nil then
     GuiStartFrame(GUI)
+    GuiOptionsAdd(GUI, GUI_OPTION.NoPositionTween)
   end
 
   -- Start button ID counter from 0 every frame
@@ -31,7 +32,6 @@ async_loop(function()
     -- Don't show any GUI when the player is polymorphed,
     -- checking if we have an active wand works nicely for now.
     if wand then
-      GuiOptionsAdd(GUI, GUI_OPTION.NoPositionTween)
       render_powers()
     end
   end

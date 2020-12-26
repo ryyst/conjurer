@@ -1,5 +1,8 @@
 dofile_once("data/scripts/lib/utilities.lua")
 
+dofile_once("mods/raksa/files/scripts/enums.lua")
+
+
 -- Include this file with:
 -- dofile_once("mods/raksa/files/scripts/utilities.lua")
 
@@ -187,12 +190,20 @@ function ComponentSetValues(component, values)
   end
 end
 
-function GlobalsGetBool(key, default)
-  return GlobalsGetValue(key, default) == "1"
+function GlobalsGet(key)
+  return GlobalsGetValue(key, tostring(DEFAULTS[key]))
 end
 
-function GlobalsGetNumber(key, default)
-  return tonumber(GlobalsGetValue(key, tostring(default)))
+function GlobalsToggleBool(key)
+  GlobalsSetValue(key, toggle_global(GlobalsGetBool(key)))
+end
+
+function GlobalsGetBool(key)
+  return GlobalsGet(key) == "1"
+end
+
+function GlobalsGetNumber(key)
+  return tonumber(GlobalsGet(key))
 end
 
 

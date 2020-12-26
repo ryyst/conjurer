@@ -5,7 +5,7 @@ dofile_once("mods/raksa/files/scripts/enums.lua")
 
 
 local function _init_bid_handler(value)
-  local initial = 0
+  local initial = 1
   local _bid = value or initial
 
   local new = function()

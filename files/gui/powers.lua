@@ -24,18 +24,18 @@ local main_menu_items = {
   {
     name="Toggle Conscious Eye of Glass",
     image="mods/raksa/files/gfx/power_icons/binoculars.png",
-    action = function() toggle_camera_controls() end,
+    action = toggle_camera_controls,
   },
   {
     name="Toggle Conjurer Eye",
     desc="Movement keys to move and shift to boost.",
     image="mods/raksa/files/gfx/power_icons/binoculars.png",
-    action = function() toggle_binoculars() end,
+    action = toggle_binoculars,
   },
   {
     name="Toggle Grid",
     image="mods/raksa/files/gfx/power_icons/grid.png",
-    action = function() toggle_grid() end,
+    action = toggle_grid,
   },
   {
     name="Control World Happiness",
@@ -63,6 +63,11 @@ local main_menu_items = {
     name="Toggle Viima's Howl",
     image = "mods/raksa/files/gfx/power_icons/viima.png",
     action = toggle_speed,
+  },
+  {
+    name="Control Weather",
+    image = "mods/raksa/files/gfx/power_icons/planetary_controls.png",
+    action = function() toggle_active_overlay(render_weather_menu) end,
   },
   {
     name="Control Planetary Rotation",
@@ -157,6 +162,101 @@ function render_teleport_menu()
       item.action
     )
   end, 0, 0, 2)
+end
+
+
+function render_weather_menu()
+  Vertical(0, -10, function()
+    Checkbox({
+        is_active=GlobalsGetBool(RAIN_ENABLED),
+        text="Make it rain",
+      },
+      function() GlobalsToggleBool(RAIN_ENABLED) end
+    )
+
+    Slider({
+        min=1,
+        max=200,
+        default=DEFAULTS[RAIN_COUNT],
+        value=GlobalsGetNumber(RAIN_COUNT),
+        text="Amount",
+      },
+      function(new_value)
+        GlobalsSetValue(RAIN_COUNT, str(new_value))
+      end
+    )
+
+    Slider({
+        min=128,
+        max=2048,
+        default=DEFAULTS[RAIN_WIDTH],
+        value=GlobalsGetNumber(RAIN_WIDTH),
+        text="Extra width",
+        tooltip="How far to rain outside the camera. Might help with performance."
+      },
+      function(new_value)
+        GlobalsSetValue(RAIN_WIDTH, str(new_value))
+      end
+    )
+
+    Slider({
+        min=0,
+        max=300,
+        default=DEFAULTS[RAIN_VELOCITY_MIN],
+        value=GlobalsGetNumber(RAIN_VELOCITY_MIN),
+        text="Velocity min",
+      },
+      function(new_value)
+        GlobalsSetValue(RAIN_VELOCITY_MIN, str(new_value))
+      end
+    )
+    Slider({
+        min=0,
+        max=300,
+        default=DEFAULTS[RAIN_VELOCITY_MAX],
+        value=GlobalsGetNumber(RAIN_VELOCITY_MAX),
+        text="Velocity max",
+      },
+      function(new_value)
+        GlobalsSetValue(RAIN_VELOCITY_MAX, str(new_value))
+      end
+    )
+    Slider({
+        min=1,
+        max=100,
+        default=DEFAULTS[RAIN_GRAVITY],
+        value=GlobalsGetNumber(RAIN_GRAVITY),
+        text="Gravity",
+      },
+      function(new_value)
+        GlobalsSetValue(RAIN_GRAVITY, str(new_value))
+      end
+    )
+    -- MaterialPicker("material_name")
+    -- Slider("gravity")
+    -- Checkbox("Toggle natural rain cycle")
+    --
+    Checkbox({
+        is_active=GlobalsGetBool(RAIN_BOUNCE),
+        text="Droplets bounce",
+      },
+      function() GlobalsToggleBool(RAIN_BOUNCE) end
+    )
+    Checkbox({
+        is_active=GlobalsGetBool(RAIN_DRAW_LONG),
+        text="Long particles",
+      },
+      function() GlobalsToggleBool(RAIN_DRAW_LONG) end
+    )
+    --
+    --
+    --
+    local world = GameGetWorldStateEntity()
+    local value = EntityGetValue(world, "WorldStateComponent", "rain_target_extra")
+    -- Slider("clouds")  -- WorldStateComponent.rain_target_extra
+    --wind
+
+  end)
 end
 
 

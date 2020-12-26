@@ -1,5 +1,7 @@
 dofile_once("mods/raksa/files/wands/entwand/processors.lua")
 dofile_once("mods/raksa/files/scripts/lists/entity_categories.lua");
+
+dofile_once("mods/raksa/files/scripts/utilities.lua")
 dofile_once("mods/raksa/files/scripts/enums.lua")
 
 ------------------------------
@@ -16,18 +18,14 @@ ENTITY_POST_PROCESSORS = {
 
 
 function change_active_entity(entity_index, category_index)
-  GlobalsSetValue(SELECTED_ENTITY_INDEX, tostring(entity_index))
-  GlobalsSetValue(SELECTED_ENTITY_TYPE, tostring(category_index))
+  GlobalsSetValue(SELECTED_ENTITY_INDEX, str(entity_index))
+  GlobalsSetValue(SELECTED_ENTITY_TYPE, str(category_index))
 end
 
 
 function get_active_entity()
-  local category_index = GlobalsGetNumber(
-    SELECTED_ENTITY_TYPE, SELECTED_ENTITY_TYPE_DEFAULT
-  )
-  local entity_index = GlobalsGetNumber(
-    SELECTED_ENTITY_INDEX, SELECTED_ENTITY_INDEX_DEFAULT
-  )
+  local category_index = GlobalsGetNumber(SELECTED_ENTITY_TYPE)
+  local entity_index = GlobalsGetNumber(SELECTED_ENTITY_INDEX)
 
   local category = ALL_ENTITIES[category_index]
   local entity = category.entities[entity_index]
