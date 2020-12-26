@@ -39,12 +39,12 @@ local main_menu_items = {
   },
   {
     name="Control World Happiness",
-    image = get_happiness_icon(ACTIVE_HAPPINESS_LEVEL),
+    image_func = function() return get_happiness_icon(ACTIVE_HAPPINESS_LEVEL) end,
     action = function() toggle_active_overlay(render_happiness_menu) end,
   },
   {
     name="Change Herd",
-    image = ACTIVE_HERD.image,
+    image_func = function() return ACTIVE_HERD.image end,
     action = function() toggle_active_overlay(render_herd_menu) end,
   },
   {
@@ -80,9 +80,7 @@ local sub_menu_pos_x = main_menu_pos_x
 local sub_menu_pos_y = main_menu_pos_y-15
 
 
-function render_happiness_menu(GUI, BID_SPACE)
-  local bid = BID_SPACE + 500
-
+function render_happiness_menu()
   local relation_buttons = {
     {
       name="Nightfall Nakkikiska",
@@ -113,10 +111,9 @@ function render_happiness_menu(GUI, BID_SPACE)
     },
   };
 
-  Background(GUI, 1, nil, 100, function()
-    Grid(GUI, relation_buttons, function(item)
-      bid = Button(
-        GUI, bid,
+  Background(1, nil, 100, function()
+    Grid(relation_buttons, function(item)
+      Button(
         {image=item.image, tooltip=item.name, tooltip_desc=item.desc},
         item.action
       )
@@ -125,13 +122,10 @@ function render_happiness_menu(GUI, BID_SPACE)
 end
 
 
-function render_herd_menu(GUI, BID_SPACE)
-  local bid = BID_SPACE + 400
-
-  Background(GUI, 1, nil, 100, function()
-    Grid(GUI, HERDS, function(herd)
-        bid = Button(
-        GUI, bid,
+function render_herd_menu()
+  Background(1, nil, 100, function()
+    Grid(HERDS, function(herd)
+      Button(
         {image=ICON_UNKNOWN, tooltip=herd.display, image=herd.image},
         function()
             change_player_herd(herd.name)
@@ -143,8 +137,7 @@ function render_herd_menu(GUI, BID_SPACE)
 end
 
 
-function render_teleport_menu(GUI, BID_SPACE)
-  local bid = BID_SPACE + 300
+function render_teleport_menu()
   local teleport_buttons = {
     {
       name="Tower",
@@ -158,9 +151,8 @@ function render_teleport_menu(GUI, BID_SPACE)
     },
   };
 
-  Grid(GUI, teleport_buttons, function(item)
-    bid = Button(
-      GUI, bid,
+  Grid(teleport_buttons, function(item)
+    Button(
       {image=item.image, tooltip=item.name},
       item.action
     )
@@ -168,20 +160,7 @@ function render_teleport_menu(GUI, BID_SPACE)
 end
 
 
-function render_time_menu(GUI, BID_SPACE)
-  local bid = BID_SPACE + 200
-  local MULTIPLIER = 10
-
-  function to_worldstate_value(val)
-    if val <= 0.1 then return 0 end
-    return math.max(10 ^ val / MULTIPLIER)
-  end
-
-  function to_slider_log_value(val)
-    return math.max(math.log10(val*MULTIPLIER), 0)
-  end
-
-
+function render_time_menu()
   local time_of_day_buttons = {
     {
       name="Dawn",
@@ -205,37 +184,50 @@ function render_time_menu(GUI, BID_SPACE)
     },
   };
 
-  Grid(GUI, time_of_day_buttons, function(item)
-    bid = Button(
-      GUI, bid,
+  Grid(time_of_day_buttons, function(item)
+    Button(
       {image=item.image, tooltip=item.name},
       item.action
     )
   end, 0, 0, 2)
 
   -- time_dt slider
-  local default = to_slider_log_value(1)
+  local MULTIPLIER = 10
+
+  function to_worldstate_value(val)
+    if val <= 0.1 then return 0 end
+    return math.max(10 ^ val / MULTIPLIER)
+  end
+
+  function to_slider_log_value(val)
+    return math.max(math.log10(val*MULTIPLIER), 0)
+  end
+
   local world = GameGetWorldStateEntity()
-  local value = EntityGetValue(world, "WorldStateComponent", "time_dt")
-  value = to_slider_log_value(value)
+  local value = to_slider_log_value(EntityGetValue(world, "WorldStateComponent", "time_dt"))
 
-  local new_val = GuiSlider(GUI, bid, -2, 0, "", value, 0, 3.5, default, 1, string.format("%.2f", value), 50 )
-  GuiTooltip(GUI, "Rotational Velocity", "Right-click to reset back to natural order")
+  local vars = {
+    x=-2,
+    max=3.5,
+    default=to_slider_log_value(1),
+    value=value,
+    formatting=string.format("%.2f", value),
+    tooltip="Rotational Velocity",
+    tooltip_desc="Right-click to reset back to natural order",
+  }
 
-  new_val = to_worldstate_value(new_val)
-  EntitySetValue(world, "WorldStateComponent", "time_dt", new_val)
+  Slider(vars, function(new_value)
+    EntitySetValue(world, "WorldStateComponent", "time_dt", to_worldstate_value(new_value))
+  end)
 end
 
 
-function render_power_buttons(GUI, BID_SPACE)
-  local bid = BID_SPACE + 100
-
+function render_power_buttons()
   -- Render picker buttons
-  Background(GUI, 1, NPBG_GOLD, 100, function()
+  Background(1, NPBG_GOLD, 100, function()
     for i, item in ipairs(main_menu_items) do
-      bid = Button(
-        GUI, bid,
-        {image=item.image, tooltip=item.name, tooltip_desc=item.desc},
+      Button(
+        {image=item.image or item.image_func(), tooltip=item.name, tooltip_desc=item.desc},
         item.action
       )
     end
@@ -248,14 +240,14 @@ function toggle_active_overlay(func)
 end
 
 
-function render_powers(GUI, BID_SPACE)
-  Horizontal(GUI, main_menu_pos_x, main_menu_pos_y, function()
-    render_power_buttons(GUI, BID_SPACE)
+function render_powers()
+  Horizontal(main_menu_pos_x, main_menu_pos_y, function()
+    render_power_buttons()
   end)
 
   if render_active_powers_overlay ~= nil then
-    Vertical(GUI, sub_menu_pos_x, sub_menu_pos_y, function()
-      render_active_powers_overlay(GUI, BID_SPACE)
+    Vertical(sub_menu_pos_x, sub_menu_pos_y, function()
+      render_active_powers_overlay()
     end)
   end
 end

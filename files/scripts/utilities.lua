@@ -100,7 +100,7 @@ end
 
 
 function toggle_global(value)
-  if value == "0" then
+  if value == "0" or value == false then
     return "1"
   end
   return "0"
@@ -186,6 +186,15 @@ function ComponentSetValues(component, values)
     ComponentSetValue2(component, key, value)
   end
 end
+
+function GlobalsGetBool(key, default)
+  return GlobalsGetValue(key, default) == "1"
+end
+
+function GlobalsGetNumber(key, default)
+  return tonumber(GlobalsGetValue(key, tostring(default)))
+end
+
 
 function teleport_player(x, y)
   -- Spawn on top of player

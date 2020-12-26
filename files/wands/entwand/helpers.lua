@@ -22,12 +22,12 @@ end
 
 
 function get_active_entity()
-  local category_index = tonumber(GlobalsGetValue(
+  local category_index = GlobalsGetNumber(
     SELECTED_ENTITY_TYPE, SELECTED_ENTITY_TYPE_DEFAULT
-  ))
-  local entity_index = tonumber(GlobalsGetValue(
+  )
+  local entity_index = GlobalsGetNumber(
     SELECTED_ENTITY_INDEX, SELECTED_ENTITY_INDEX_DEFAULT
-  ))
+  )
 
   local category = ALL_ENTITIES[category_index]
   local entity = category.entities[entity_index]

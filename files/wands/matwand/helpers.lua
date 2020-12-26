@@ -41,25 +41,25 @@ function get_eraser_size()
   -- ...
 
   local chunk_size = ERASER_CHUNK_SIZE
-  local chunk_count = tonumber(GlobalsGetValue(ERASER_SIZE, ERASER_SIZE_DEFAULT))
+  local chunk_count = GlobalsGetNumber(ERASER_SIZE, ERASER_SIZE_DEFAULT)
   local total_size = chunk_count * chunk_size
   return chunk_count, chunk_size, total_size
 end
 
 function eraser_use_brush_grid()
-  return GlobalsGetValue(ERASER_SHARED_GRID, ERASER_SHARED_GRID_DEFAULT) == "1"
+  return GlobalsGetBool(ERASER_SHARED_GRID, ERASER_SHARED_GRID_DEFAULT)
 end
 
 function eraser_use_replacer()
-  return GlobalsGetValue(ERASER_REPLACE, ERASER_REPLACE_DEFAULT) == "1"
+  return GlobalsGetBool(ERASER_REPLACE, ERASER_REPLACE_DEFAULT)
 end
 
 function get_eraser_grid_size()
-  return tonumber(GlobalsGetValue(ERASER_GRID_SIZE, ERASER_DEFAULT_GRID_SIZE))
+  return GlobalsGetNumber(ERASER_GRID_SIZE, ERASER_DEFAULT_GRID_SIZE)
 end
 
 function get_brush_grid_size()
-  return tonumber(GlobalsGetValue(BRUSH_GRID_SIZE, BRUSH_DEFAULT_GRID_SIZE))
+  return GlobalsGetNumber(BRUSH_GRID_SIZE, BRUSH_DEFAULT_GRID_SIZE)
 end
 
 
@@ -115,9 +115,7 @@ end
 
 
 function get_active_brush()
-  local brush_index = tonumber(
-    GlobalsGetValue(SELECTED_BRUSH, tostring(DEFAULT_BRUSH))
-  )
+  local brush_index = GlobalsGetNumber(SELECTED_BRUSH, DEFAULT_BRUSH)
   return BRUSHES[brush_index], brush_index
 end
 

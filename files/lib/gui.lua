@@ -4,22 +4,55 @@ dofile_once("mods/raksa/files/scripts/utilities.lua")
 dofile_once("mods/raksa/files/scripts/enums.lua")
 
 
-function Horizontal(gui, x, y, callback)
-  GuiLayoutBeginHorizontal(gui, x, y)
+local function _init_bid_handler(value)
+  local initial = 0
+  local _bid = value or initial
+
+  local new = function()
+    _bid = _bid + 1
+    return _bid
+  end
+
+  local reset = function(value)
+    _bid = initial
+    return _bid
+  end
+
+  return new, reset
+end
+
+print("Loading GUI handlers...")
+BID, RESET_BID = _init_bid_handler()
+GUI = GuiCreate()
+
+
+function Horizontal(x, y, callback)
+  GuiLayoutBeginHorizontal(GUI, x, y)
     callback()
-  GuiLayoutEnd(gui)
+  GuiLayoutEnd(GUI)
 end
 
 
-function Vertical(gui, x, y, callback)
-  GuiLayoutBeginVertical(gui, x, y)
+function Vertical(x, y, callback)
+  GuiLayoutBeginVertical(GUI, x, y)
     callback()
-  GuiLayoutEnd(gui)
+  GuiLayoutEnd(GUI)
 end
 
 
-function Grid(gui, items, callback, x, y, size)
-  local row_length = math.ceil(size or math.max(6, math.min((#items) ^ 0.75, 12)));
+function HorizontalSpacing(amount)
+  GuiLayoutAddHorizontalSpacing(GUI, amount)
+end
+
+
+function VerticalSpacing(amount)
+  GuiLayoutAddVerticalSpacing(GUI, amount)
+end
+
+
+function Grid(items, callback, x, y, size)
+  local auto_size = math.max(6, math.min((#items) ^ 0.75, 12))
+  local row_length = math.ceil(size or auto_size);
   local row_count = math.ceil(#items / row_length)
 
   x = x or 0
@@ -29,7 +62,7 @@ function Grid(gui, items, callback, x, y, size)
   for row=1, row_count do
     if not items[item_pos] then break end
 
-    Horizontal(gui, x, y, function()
+    Horizontal(x, y, function()
       for col = 1, row_length do
         if not items[item_pos] then break end
         callback(items[item_pos], item_pos)
@@ -40,20 +73,18 @@ function Grid(gui, items, callback, x, y, size)
 end
 
 
-function Button(gui, bid, vars, click_action, right_click_action)
-  local x = vars.x or 0
-  local y = vars.y or 0
-  local image = vars.image or ICON_UNKNOWN
-  local text = vars.text or ""
-  local tooltip = vars.tooltip
-  local tooltip_desc = vars.tooltip_desc or ""
-
+function Button(vars, click_action, right_click_action)
   local ButtonType = vars.text and GuiButton or GuiImageButton
+  local click, right_click = ButtonType(
+    GUI, BID(),
+    vars.x or 0,
+    vars.y or 0,
+    vars.text or "",
+    vars.image or ICON_UNKNOWN
+  )
 
-  local click, right_click = ButtonType(gui, bid, x, y, text, image)
-
-  if tooltip then
-    GuiTooltip(gui, tooltip, tooltip_desc)
+  if vars.tooltip then
+    Tooltip(vars.tooltip, vars.tooltip_desc or "")
   end
 
   if click and click_action then
@@ -63,10 +94,6 @@ function Button(gui, bid, vars, click_action, right_click_action)
   if right_click and right_click_action then
     right_click_action()
   end
-
-  -- Return the next button ID. Purposefully hiding the ugly incrementation
-  -- logic from every single button loop.
-  return bid + 1
 end
 
 
@@ -80,12 +107,50 @@ NPBG_STYLES = {
   [NPBG_BROWN_TAB]="mods/raksa/files/gfx/9piece_brown_tab.png",
 }
 
-function Background(gui, margin, style, z_index, callback)
+function Background(margin, style, z_index, callback)
   if not style then style = NPBG_DEFAULT end
   local sprite = NPBG_STYLES[style]
 
-  GuiBeginAutoBox(gui)
+  GuiBeginAutoBox(GUI)
     callback()
-  GuiZSetForNextWidget(gui, z_index)
-  GuiEndAutoBoxNinePiece(gui, margin, 5, 5, false, 0, sprite, sprite)
+  GuiZSetForNextWidget(GUI, z_index)
+  GuiEndAutoBoxNinePiece(GUI, margin, 5, 5, false, 0, sprite, sprite)
+end
+
+
+function Slider(vars, callback)
+  callback(GuiSlider(
+    GUI, BID(),
+    vars.x or 0,
+    vars.y or 0,
+    vars.text or "",
+    vars.value,
+    vars.min or 0,
+    vars.max,
+    vars.default or 0,
+    vars.display_multiplier or 1,
+    vars.formatting or "",
+    vars.width or 50
+  ))
+
+  if vars.tooltip then
+    Tooltip(vars.tooltip, vars.tooltip_desc or "")
+  end
+end
+
+function Text(x, y, text)
+  GuiText(GUI, x, y, text)
+end
+
+function Tooltip(text, desc)
+  GuiTooltip(GUI, text, desc)
+end
+
+function Checkbox(vars, callback)
+  local button_vars = {
+    text=vars.is_active and "[*] "..vars.text or "[ ] "..vars.text,
+    tooltip=vars.tooltip or nil,
+    tooltip_desc=vars.tooltip_desc or nil,
+  }
+  Button(button_vars, callback)
 end

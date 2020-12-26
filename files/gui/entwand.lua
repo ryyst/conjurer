@@ -31,11 +31,10 @@ function add_entity_to_favorites(vars, click)
 end
 
 
-function render_entity_picker(GUI, BID_SPACE)
-  local bid = BID_SPACE + 200
+function render_entity_picker()
   local active_entities = ALL_ENTITIES[active_entity_tab]
 
-  Horizontal(GUI, 1, 1, function()
+  Horizontal(1, 1, function()
     for i, category in ipairs(ALL_ENTITIES) do
       local is_selected = (i == active_entity_tab)
       local image = is_selected and category.icon or category.icon_off
@@ -43,31 +42,29 @@ function render_entity_picker(GUI, BID_SPACE)
       local y_override = -0.3
 
       local vars = {tooltip=category.name, image=image, y=y_override, tooltip_desc=category.desc}
-      Background(GUI, 0, style, 100, function()
-        bid = Button(GUI, bid, vars, function()
+      Background(0, style, 100, function()
+        Button(vars, function()
           active_entity_tab = i
         end)
       end)
-      GuiLayoutAddHorizontalSpacing(GUI, 3)
+      HorizontalSpacing(3)
     end
   end)
 
   -- Render entities
-  Background(GUI, 3, NPBG_BLUE, 200, function()
-    Grid(GUI, active_entities.entities, function(entity, i)
+  Background(3, NPBG_BLUE, 200, function()
+    Grid(active_entities.entities, function(entity, i)
       local vars = {tooltip=entity.name, image=entity.image, tooltip_desc=entity.desc}
       local tab_copy = active_entity_tab  -- For favorites
       local click = function() change_active_entity(i, tab_copy) end
       local right_click = add_entity_to_favorites(vars, click)
-      bid = Button(GUI, bid, vars, click, right_click)
+      Button(vars, click, right_click)
     end, 1, 2)
   end)
 end
 
 
-function render_entwand_buttons(GUI, BID_SPACE)
-  local bid = BID_SPACE + 100
-
+function render_entwand_buttons()
   local main_menu_items = {
     {
       name = "Entity Picker",
@@ -87,30 +84,29 @@ function render_entwand_buttons(GUI, BID_SPACE)
   };
 
   -- Render picker buttons
-  Background(GUI, 1, NPBG_BLUE, 200, function()
+  Background(1, NPBG_BLUE, 200, function()
     for i, item in ipairs(main_menu_items) do
-      bid = Button(
-        GUI, bid,
+      Button(
         {
           image=item.image or item.image_func(),
           tooltip=item.name, tooltip_desc=item.desc
         },
         item.action
       )
-      GuiLayoutAddVerticalSpacing(GUI, 2)
+      VerticalSpacing(2)
     end
   end)
 
-  GuiLayoutAddVerticalSpacing(GUI, 2)
-  GuiText(GUI, 1, 0, "fav.")
-  GuiTooltip(GUI, "Add favorites by right-clicking on individual entities", "")
-  GuiLayoutAddVerticalSpacing(GUI, 1)
+  VerticalSpacing(2)
+  Text(1, 0, "fav.")
+  Tooltip("Add favorites by right-clicking on individual entities", "")
+  VerticalSpacing(1)
 
-  Background(GUI, 1, NPBG_BLUE, 200, function()
+  Background(1, NPBG_BLUE, 200, function()
     -- Render favorite buttons
     for i, fav in ipairs(favorites) do
-      bid = Button(GUI, bid, fav.vars, fav.click, remove_entity_from_favorites(i))
-      GuiLayoutAddVerticalSpacing(GUI, 2)
+      Button(fav.vars, fav.click, remove_entity_from_favorites(i))
+      VerticalSpacing(2)
     end
   end)
 end
@@ -121,14 +117,14 @@ function toggle_active_entwand_overlay(func)
 end
 
 
-function render_entwand(GUI, BID_SPACE)
-  Vertical(GUI, main_menu_pos_x, main_menu_pos_y, function()
-    render_entwand_buttons(GUI, BID_SPACE)
+function render_entwand()
+  Vertical(main_menu_pos_x, main_menu_pos_y, function()
+    render_entwand_buttons()
   end)
 
   if render_active_entwand_overlay ~= nil then
-    Vertical(GUI, sub_menu_pos_x, sub_menu_pos_y, function()
-      render_active_entwand_overlay(GUI, BID_SPACE)
+    Vertical(sub_menu_pos_x, sub_menu_pos_y, function()
+      render_active_entwand_overlay()
     end)
   end
 end
