@@ -1,11 +1,12 @@
 dofile("data/scripts/lib/coroutines.lua")
 
+dofile_once("mods/raksa/files/scripts/lists/material_categories.lua");
 dofile_once("mods/raksa/files/scripts/utilities.lua")
 dofile_once("mods/raksa/files/scripts/enums.lua")
 
 
 local function _init_bid_handler(value)
-  local initial = 0
+  local initial = 1
   local _bid = value or initial
 
   local new = function()
@@ -24,6 +25,21 @@ end
 print("Loading GUI handlers...")
 BID, RESET_BID = _init_bid_handler()
 GUI = GuiCreate()
+
+
+function ColorNextWidget(vars)
+  GuiColorSetForNextWidget(
+    GUI,
+    (vars.red or 255) / 255,
+    (vars.green or 255) / 255,
+    (vars.blue or 255) / 255,
+    (vars.alpha or 255) / 255
+  )
+end
+
+function GetScreenDimensions()
+  return GuiGetScreenDimensions(GUI)
+end
 
 
 function Horizontal(x, y, callback)
@@ -107,23 +123,32 @@ NPBG_STYLES = {
   [NPBG_BROWN_TAB]="mods/raksa/files/gfx/9piece_brown_tab.png",
 }
 
-function Background(margin, style, z_index, callback)
-  if not style then style = NPBG_DEFAULT end
-  local sprite = NPBG_STYLES[style]
+function Background(vars, callback)  -- margin, style, z_index, callback)
+  local sprite = NPBG_STYLES[vars.style or NPBG_DEFAULT]
 
   GuiBeginAutoBox(GUI)
     callback()
-  GuiZSetForNextWidget(GUI, z_index)
-  GuiEndAutoBoxNinePiece(GUI, margin, 5, 5, false, 0, sprite, sprite)
+  GuiZSetForNextWidget(GUI, vars.z_index or 100)
+  GuiEndAutoBoxNinePiece(
+    GUI,
+    vars.margin or 5,
+    vars.min_width or 5,
+    vars.min_height or 5,
+    vars.mirrorize_over_x_axis == true,
+    vars.x_axis or 0,
+    sprite,
+    sprite
+  )
 end
 
 
 function Slider(vars, callback)
+  local text = vars.text and vars.text.." " or ""
   callback(GuiSlider(
     GUI, BID(),
     vars.x or 0,
     vars.y or 0,
-    vars.text or "",
+    text,
     vars.value,
     vars.min or 0,
     vars.max,
@@ -138,13 +163,17 @@ function Slider(vars, callback)
   end
 end
 
-function Text(x, y, text)
+
+function Text(x, y, text, vars)
+  ColorNextWidget(vars or {})
   GuiText(GUI, x, y, text)
 end
+
 
 function Tooltip(text, desc)
   GuiTooltip(GUI, text, desc)
 end
+
 
 function Checkbox(vars, callback)
   local button_vars = {
@@ -153,4 +182,43 @@ function Checkbox(vars, callback)
     tooltip_desc=vars.tooltip_desc or nil,
   }
   Button(button_vars, callback)
+end
+
+
+local _active_category = 1
+
+function MaterialPicker(vars, click_handler, right_click_handler)
+  local x = vars.x or 1
+  local y = vars.y or 1
+
+  -- Category selection tab buttons
+  Horizontal(x, y, function()
+    for i, category in ipairs(ALL_MATERIALS) do
+      local is_selected = (i == _active_category)
+      local image = is_selected and category.icon or category.icon_off
+      local style = is_selected and NPBG_BROWN_TAB or NPBG_BROWN
+      local y_override = -0.3
+
+      local vars = {tooltip=category.name, image=image, y=y_override, tooltip_desc=category.desc}
+      Background({margin=0, style=style}, function()
+        Button(vars, function()
+          _active_category = i
+        end)
+      end)
+      HorizontalSpacing(3)
+    end
+  end)
+
+  -- Material buttons
+  local category = ALL_MATERIALS[_active_category]
+
+  Background({margin=3, style=NPBG_BROWN, z_index=200}, function()
+    Grid(category.materials, function(material)
+      Button(
+        {image=material.image, tooltip=material.name},
+        click_handler(material),
+        right_click_handler(material)
+      )
+    end, x, y+1, 8)
+  end)
 end

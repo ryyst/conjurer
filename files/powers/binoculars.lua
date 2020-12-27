@@ -3,7 +3,7 @@ dofile_once("mods/raksa/files/scripts/enums.lua")
 
 
 function get_binoculars_active()
-  return GlobalsGetValue(BINOCULARS_ACTIVE, BINOCULARS_ACTIVE_DEFAULT) == "1"
+  return GlobalsGetBool(BINOCULARS_ACTIVE)
 end
 
 
@@ -27,11 +27,9 @@ function toggle_binoculars()
   local is_active = get_binoculars_active()
 
   toggle_player_movement(is_active)
+  GameSetCameraFree(not is_active)
 
-  is_active = not is_active
-  GameSetCameraFree(is_active)
-
-  GlobalsSetValue(BINOCULARS_ACTIVE, bool_to_global(is_active))
+  GlobalsToggleBool(BINOCULARS_ACTIVE)
 end
 
 

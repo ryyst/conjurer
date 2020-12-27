@@ -1,5 +1,7 @@
 dofile_once("mods/raksa/files/scripts/lists/brushes.lua");
 dofile_once("mods/raksa/files/scripts/lists/material_categories.lua");
+
+dofile_once("mods/raksa/files/scripts/utilities.lua")
 dofile_once("mods/raksa/files/scripts/enums.lua")
 
 
@@ -22,15 +24,15 @@ ERASER_CHUNK_RADIUS = 3  -- Creates a square 5px hole
 
 
 function get_active_material()
-  return GlobalsGetValue(SELECTED_MATERIAL, SELECTED_MATERIAL_DEFAULT)
+  return GlobalsGet(SELECTED_MATERIAL)
 end
 
 function get_active_material_image()
-  return GlobalsGetValue(SELECTED_MATERIAL_ICON, SELECTED_MATERIAL_ICON_DEFAULT)
+  return GlobalsGet(SELECTED_MATERIAL_ICON)
 end
 
 function get_eraser_mode()
-  return GlobalsGetValue(ERASER_MODE, ERASER_MODE_DEFAULT)
+  return GlobalsGet(ERASER_MODE)
 end
 
 function get_eraser_size()
@@ -41,25 +43,25 @@ function get_eraser_size()
   -- ...
 
   local chunk_size = ERASER_CHUNK_SIZE
-  local chunk_count = GlobalsGetNumber(ERASER_SIZE, ERASER_SIZE_DEFAULT)
+  local chunk_count = GlobalsGetNumber(ERASER_SIZE)
   local total_size = chunk_count * chunk_size
   return chunk_count, chunk_size, total_size
 end
 
 function eraser_use_brush_grid()
-  return GlobalsGetBool(ERASER_SHARED_GRID, ERASER_SHARED_GRID_DEFAULT)
+  return GlobalsGetBool(ERASER_SHARED_GRID)
 end
 
 function eraser_use_replacer()
-  return GlobalsGetBool(ERASER_REPLACE, ERASER_REPLACE_DEFAULT)
+  return GlobalsGetBool(ERASER_REPLACE)
 end
 
 function get_eraser_grid_size()
-  return GlobalsGetNumber(ERASER_GRID_SIZE, ERASER_DEFAULT_GRID_SIZE)
+  return GlobalsGetNumber(ERASER_GRID_SIZE)
 end
 
 function get_brush_grid_size()
-  return GlobalsGetNumber(BRUSH_GRID_SIZE, BRUSH_DEFAULT_GRID_SIZE)
+  return GlobalsGetNumber(BRUSH_GRID_SIZE)
 end
 
 
@@ -86,7 +88,7 @@ function change_eraser_reticle()
     },
   }
 
-  local replace = GlobalsGetValue(ERASER_REPLACE, ERASER_REPLACE_DEFAULT) == "1"
+  local replace = GlobalsGetBool(ERASER_REPLACE)
   local image = replace and REPLACER_PIXEL or ERASER_PIXEL
 
   for i, SpriteComponent in ipairs(EntityGetComponent(reticle, "SpriteComponent")) do
@@ -115,13 +117,13 @@ end
 
 
 function get_active_brush()
-  local brush_index = GlobalsGetNumber(SELECTED_BRUSH, DEFAULT_BRUSH)
+  local brush_index = GlobalsGetNumber(SELECTED_BRUSH)
   return BRUSHES[brush_index], brush_index
 end
 
 
 function get_active_eraser_image()
-  local current_eraser = GlobalsGetValue(ERASER_MODE, ERASER_MODE_DEFAULT)
+  local current_eraser = GlobalsGet(ERASER_MODE)
   if current_eraser == ERASER_MODE_SELECTED then
     return get_active_material_image()
   end

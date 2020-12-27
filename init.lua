@@ -48,33 +48,57 @@ function OnPlayerSpawned(player)
     EntityLoad('mods/raksa/files/gui/gui_container.xml' );
   end
 
-  local is_first_load = GlobalsGetValue("RAKSA_FIRST_LOAD_DONE", "0") == "0"
-  local has_died = GlobalsGetValue("RAKSA_DIED", "0") == "1"
-  if (is_first_load or has_died) then
+  if not GlobalsGetBool(FIRST_LOAD_DONE) or GlobalsGetBool(PLAYER_HAS_DIED) then
     handle_inventory(player)
     player_overrides(player)
-
-    local world = GameGetWorldStateEntity()
-    EntitySetValues(world, "WorldStateComponent", {
-      -- MAYBE SOME OF THESE COULD WORK, PLEASE?!
-      fog=0, rain=0,
-      fog_target=0, rain_target=0,
-      fog_target_extra=0, rain_target_extra=0,
-    })
 
     -- Always start on noon
     set_time_of_day(NOON)
 
-    GlobalsSetValue("RAKSA_FIRST_LOAD_DONE", "1")
-    GlobalsSetValue("RAKSA_DIED", "0")
+    -- Disable initial fog & cloud (="rain") states
+    EntitySetValues(
+      GameGetWorldStateEntity(),
+      "WorldStateComponent", {
+        fog=0, fog_target=0, fog_target_extra=0,
+        rain=0, rain_target=0, rain_target_extra=0,
+    })
+
+    GlobalsSetValue(FIRST_LOAD_DONE, "1")
+    GlobalsSetValue(PLAYER_HAS_DIED, "0")
   end
 end
 
 
 function OnPlayerDied(player)
-  GlobalsSetValue("RAKSA_DIED", "1")
+ GlobalsToggleBool(PLAYER_HAS_DIED)
   GamePrintImportant(
     "Somehow you managed to die for real",
     "[Save & Quit] and [Continue] to keep your progress and respawn"
   )
+end
+
+
+function OnWorldPreUpdate()
+  if GlobalsGetBool(RAIN_ENABLED) then
+    -- TODO: Maybe add a little variance to the count?
+    GameEmitRainParticles(
+      GlobalsGetNumber(RAIN_COUNT),
+      GlobalsGetNumber(RAIN_WIDTH),
+      GlobalsGet(RAIN_MATERIAL),
+      GlobalsGetNumber(RAIN_VELOCITY_MIN),
+      GlobalsGetNumber(RAIN_VELOCITY_MAX),
+      GlobalsGetNumber(RAIN_GRAVITY),
+      GlobalsGetBool(RAIN_BOUNCE),
+      GlobalsGetBool(RAIN_DRAW_LONG)
+    )
+  end
+
+  if GlobalsGetBool(WIND_OVERRIDE_ENABLED) then
+    EntitySetValue(
+      GameGetWorldStateEntity(),
+      "WorldStateComponent",
+      "wind_speed",
+      GlobalsGetNumber(WIND_SPEED)
+    )
+  end
 end

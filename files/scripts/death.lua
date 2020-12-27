@@ -1,8 +1,9 @@
+dofile_once("mods/raksa/files/scripts/utilities.lua")
 dofile_once("mods/raksa/files/scripts/enums.lua")
 
 
 function damage_received(damage, message, entity_thats_responsible, is_fatal)
-  if is_fatal and GlobalsGetValue(KALMA_IS_IMMORTAL, "0") == "0" then
+  if is_fatal and not GlobalsGetBool(KALMA_IS_IMMORTAL) then
     local player = GetUpdatedEntityID()
 
     -- Momentary blindness
