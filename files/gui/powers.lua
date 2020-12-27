@@ -251,6 +251,7 @@ function render_weather_menu()
         GlobalsSetValue(RAIN_VELOCITY_MIN, str(new_value))
       end
     )
+
     Slider({
         min=0,
         max=300,
@@ -262,6 +263,7 @@ function render_weather_menu()
         GlobalsSetValue(RAIN_VELOCITY_MAX, str(new_value))
       end
     )
+
     Slider({
         min=1,
         max=100,
@@ -273,16 +275,14 @@ function render_weather_menu()
         GlobalsSetValue(RAIN_GRAVITY, str(new_value))
       end
     )
-    -- MaterialPicker("material_name")
-    -- Slider("gravity")
-    -- Checkbox("Toggle natural rain cycle")
-    --
+
     Checkbox({
         is_active=GlobalsGetBool(RAIN_BOUNCE),
         text="Bouncy droplets",
       },
       function() GlobalsToggleBool(RAIN_BOUNCE) end
     )
+
     Checkbox({
         is_active=GlobalsGetBool(RAIN_DRAW_LONG),
         text="Long droplets",
@@ -292,6 +292,7 @@ function render_weather_menu()
   end)
 
   VerticalSpacing(10)
+
   Text(0, 0, "Air", npbg_color)
   VerticalSpacing(4)
 
@@ -339,7 +340,6 @@ function render_weather_menu()
 
     -- NOTE: Lightning did not work nicely with sliders, due to automatically going to 0.
     -- See if you can figure any sort of fun UI for it.
-
 
     Slider({
         value=EntityGetValue(world, "WorldStateComponent", "fog") * 100,

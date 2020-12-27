@@ -210,16 +210,6 @@ SANDS = {
     ["id"] = "plant_seed"
   },
   {
-    ["image"] = "mods/raksa/files/gfx/material_icons/plasma_fading_green_colorgen.png",
-    ["name"] = "Plasma Fading Green",
-    ["id"] = "plasma_fading_green"
-  },
-  {
-    ["image"] = "mods/raksa/files/gfx/material_icons/plasma_fading_pink_colorgen.png",
-    ["name"] = "Plasma Fading Pink",
-    ["id"] = "plasma_fading_pink"
-  },
-  {
     ["image"] = "mods/raksa/files/gfx/material_icons/plastic_red_colorgen.png",
     ["name"] = "Plastic Red",
     ["id"] = "plastic_red"

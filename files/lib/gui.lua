@@ -37,6 +37,7 @@ function ColorNextWidget(vars)
   )
 end
 
+
 function GetScreenDimensions()
   return GuiGetScreenDimensions(GUI)
 end

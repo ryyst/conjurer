@@ -240,7 +240,16 @@ FIRES = {
     ["name"] = "Plasma Fading Bright",
     ["id"] = "plasma_fading_bright"
   },
-
+  {
+    ["image"] = "mods/raksa/files/gfx/material_icons/plasma_fading_green_colorgen.png",
+    ["name"] = "Plasma Fading Green",
+    ["id"] = "plasma_fading_green"
+  },
+  {
+    ["image"] = "mods/raksa/files/gfx/material_icons/plasma_fading_pink_colorgen.png",
+    ["name"] = "Plasma Fading Pink",
+    ["id"] = "plasma_fading_pink"
+  },
   {
     ["image"] = "mods/raksa/files/gfx/material_icons/rocket_particles_colorgen.png",
     ["name"] = "Rocket Particles",
