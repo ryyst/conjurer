@@ -55,6 +55,14 @@ function OnPlayerSpawned(player)
     -- Always start on noon
     set_time_of_day(NOON)
 
+    -- Disable initial fog & cloud (="rain") states
+    EntitySetValues(
+      GameGetWorldStateEntity(),
+      "WorldStateComponent", {
+        fog=0, fog_target=0, fog_target_extra=0, 
+        rain=0, rain_target=0, rain_target_extra=0,
+    })
+
     GlobalsSetValue(FIRST_LOAD_DONE, "1")
     GlobalsSetValue(PLAYER_HAS_DIED, "0")
   end
@@ -76,12 +84,21 @@ function OnWorldPreUpdate()
     GameEmitRainParticles(
       GlobalsGetNumber(RAIN_COUNT),
       GlobalsGetNumber(RAIN_WIDTH),
-      "snow",
+      GlobalsGet(RAIN_MATERIAL),
       GlobalsGetNumber(RAIN_VELOCITY_MIN),
       GlobalsGetNumber(RAIN_VELOCITY_MAX),
       GlobalsGetNumber(RAIN_GRAVITY),
       GlobalsGetBool(RAIN_BOUNCE),
       GlobalsGetBool(RAIN_DRAW_LONG)
+    )
+  end
+
+  if GlobalsGetBool(WIND_OVERRIDE_ENABLED) then
+    EntitySetValue(
+      GameGetWorldStateEntity(),
+      "WorldStateComponent",
+      "wind_speed",
+      GlobalsGetNumber(WIND_SPEED)
     )
   end
 end

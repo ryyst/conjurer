@@ -45,7 +45,7 @@ function render_material_picker()
       local y_override = -0.3
 
       local vars = {tooltip=category.name, image=image, y=y_override, tooltip_desc=category.desc}
-      Background(0, style, 100, function()
+      Background({margin=0, style=style}, function()
         Button(vars, function()
           active_material_type = i
         end)
@@ -55,7 +55,7 @@ function render_material_picker()
   end)
 
   -- Render material buttons
-  Background(3, NPBG_BROWN, 200, function()
+  Background({margin=3, style=NPBG_BROWN, z_index=200}, function()
     Grid(active_category.materials, function(material)
       local vars = { image=material.image, tooltip=material.name }
       local click = function()
@@ -75,7 +75,7 @@ function render_brush_picker()
   end)
 
   -- Render brushes
-  Background(3, NPBG_BROWN, 200, function()
+  Background({margin=3, style=NPBG_BROWN, z_index=200}, function()
     Grid(BRUSHES, function(brush, i)
       local vars = { image=brush.icon_file, tooltip=brush.name, tooltip_desc=brush.desc }
       local click = function() change_active_brush(brush, i) end
@@ -132,7 +132,7 @@ function render_eraser_picker()
     Text(0, 0, "Eraser Options")
   end)
 
-  Background(3, NPBG_BROWN, 200, function()
+  Background({margin=3, style=NPBG_BROWN, z_index=200}, function()
     Vertical(1, 2, function()
 
       Text(0, 0, "Material filters")
@@ -238,7 +238,7 @@ function render_matwand_buttons()
   };
 
   -- Render picker buttons
-  Background(1, NPBG_BROWN, 100, function()
+  Background({margin=1, style=NPBG_BROWN}, function()
     for i, item in ipairs(main_menu_items) do
       Button(
         {image=item.image_func(), tooltip=item.name, tooltip_desc=item.desc},
@@ -253,7 +253,7 @@ function render_matwand_buttons()
   Tooltip("Add favorites by right-clicking on individual mats/brushes/erasers", "")
   VerticalSpacing(1)
 
-  Background(1, NPBG_BROWN, 200, function()
+  Background({margin=1, style=NPBG_BROWN, z_index=200}, function()
     -- Render favorite buttons
     for i, fav in ipairs(favorites) do
       Button(fav.vars, fav.click, remove_mat_from_favorites(i))

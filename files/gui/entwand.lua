@@ -42,7 +42,7 @@ function render_entity_picker()
       local y_override = -0.3
 
       local vars = {tooltip=category.name, image=image, y=y_override, tooltip_desc=category.desc}
-      Background(0, style, 100, function()
+      Background({margin=0, style=style}, function()
         Button(vars, function()
           active_entity_tab = i
         end)
@@ -52,7 +52,7 @@ function render_entity_picker()
   end)
 
   -- Render entities
-  Background(3, NPBG_BLUE, 200, function()
+  Background({margin=3, style=NPBG_BLUE, z_index=200}, function()
     Grid(active_entities.entities, function(entity, i)
       local vars = {tooltip=entity.name, image=entity.image, tooltip_desc=entity.desc}
       local tab_copy = active_entity_tab  -- For favorites
@@ -84,7 +84,7 @@ function render_entwand_buttons()
   };
 
   -- Render picker buttons
-  Background(1, NPBG_BLUE, 200, function()
+  Background({margin=1, style=NPBG_BLUE, z_index=200}, function()
     for i, item in ipairs(main_menu_items) do
       Button(
         {
@@ -102,8 +102,8 @@ function render_entwand_buttons()
   Tooltip("Add favorites by right-clicking on individual entities", "")
   VerticalSpacing(1)
 
-  Background(1, NPBG_BLUE, 200, function()
-    -- Render favorite buttons
+  -- Render favorite buttons
+  Background({margin=1, style=NPBG_BLUE, z_index=200}, function()
     for i, fav in ipairs(favorites) do
       Button(fav.vars, fav.click, remove_entity_from_favorites(i))
       VerticalSpacing(2)

@@ -20,6 +20,10 @@ if ACTIVE_HERD == nil then
 end
 
 
+function activate_weather_menu()
+  toggle_active_overlay(render_weather_menu, 11, -38)
+end
+
 local main_menu_items = {
   {
     name="Toggle Conscious Eye of Glass",
@@ -67,7 +71,7 @@ local main_menu_items = {
   {
     name="Control Weather",
     image = "mods/raksa/files/gfx/power_icons/planetary_controls.png",
-    action = function() toggle_active_overlay(render_weather_menu) end,
+    action = activate_weather_menu,
   },
   {
     name="Control Planetary Rotation",
@@ -78,11 +82,15 @@ local main_menu_items = {
 
 
 local BUTTON_WIDTH = 3
-local render_active_powers_overlay = nil
+
 local main_menu_pos_x = 100 - BUTTON_WIDTH * #main_menu_items + 1
 local main_menu_pos_y = 94
-local sub_menu_pos_x = main_menu_pos_x
-local sub_menu_pos_y = main_menu_pos_y-15
+local sub_menu_pos_x_default = main_menu_pos_x
+local sub_menu_pos_y_default = main_menu_pos_y-15
+local sub_menu_pos_x = sub_menu_pos_x_default
+local sub_menu_pos_y = sub_menu_pos_y_default
+
+local render_active_powers_overlay = nil
 
 
 function render_happiness_menu()
@@ -116,7 +124,7 @@ function render_happiness_menu()
     },
   };
 
-  Background(1, nil, 100, function()
+  Background({margin=1}, function()
     Grid(relation_buttons, function(item)
       Button(
         {image=item.image, tooltip=item.name, tooltip_desc=item.desc},
@@ -128,7 +136,7 @@ end
 
 
 function render_herd_menu()
-  Background(1, nil, 100, function()
+  Background({margin=1}, function()
     Grid(HERDS, function(herd)
       Button(
         {image=ICON_UNKNOWN, tooltip=herd.display, image=herd.image},
@@ -164,22 +172,55 @@ function render_teleport_menu()
   end, 0, 0, 2)
 end
 
+local active_category = 1
+
+function render_rain_material_picker()
+  MaterialPicker({},
+    function(material)
+      return function()
+        GlobalsSetValue(RAIN_MATERIAL, material.id)
+        GlobalsSetValue(RAIN_MATERIAL_ICON, material.image)
+        activate_weather_menu()
+      end
+    end,
+    function(material) end
+  )
+end
 
 function render_weather_menu()
-  Vertical(0, -10, function()
-    Checkbox({
-        is_active=GlobalsGetBool(RAIN_ENABLED),
-        text="Make it rain",
-      },
-      function() GlobalsToggleBool(RAIN_ENABLED) end
-    )
+  local npbg_color = {red=14, green=13, blue=12, alpha=242}
+  local min_width = 100
+
+  Text(0, 0, "Rain", npbg_color)
+  VerticalSpacing(4)
+
+  Background({margin=5, min_width=min_width}, function()
+    Horizontal(0, 0, function()
+      Button({
+          image=GlobalsGet(RAIN_MATERIAL_ICON),
+          tooltip="Select rain material",
+        },
+        function() toggle_active_overlay(render_rain_material_picker, 4, -55) end
+      )
+
+      local icon="mods/raksa/files/gfx/matwand_icons/icon_liquid.png"
+      local icon_off="mods/raksa/files/gfx/matwand_icons/icon_liquid_off.png"
+      local is_raining = GlobalsGetBool(RAIN_ENABLED)
+
+      Button({
+          image=is_raining and icon or icon_off,
+          tooltip=is_raining and "End the rain" or "Make it rain!",
+        },
+        function() GlobalsToggleBool(RAIN_ENABLED) end
+      )
+    end)
 
     Slider({
         min=1,
         max=200,
         default=DEFAULTS[RAIN_COUNT],
         value=GlobalsGetNumber(RAIN_COUNT),
-        text="Amount",
+        text="Droplets",
       },
       function(new_value)
         GlobalsSetValue(RAIN_COUNT, str(new_value))
@@ -238,24 +279,81 @@ function render_weather_menu()
     --
     Checkbox({
         is_active=GlobalsGetBool(RAIN_BOUNCE),
-        text="Droplets bounce",
+        text="Bouncy droplets",
       },
       function() GlobalsToggleBool(RAIN_BOUNCE) end
     )
     Checkbox({
         is_active=GlobalsGetBool(RAIN_DRAW_LONG),
-        text="Long particles",
+        text="Long droplets",
       },
       function() GlobalsToggleBool(RAIN_DRAW_LONG) end
     )
-    --
-    --
-    --
-    local world = GameGetWorldStateEntity()
-    local value = EntityGetValue(world, "WorldStateComponent", "rain_target_extra")
-    -- Slider("clouds")  -- WorldStateComponent.rain_target_extra
-    --wind
+  end)
 
+  VerticalSpacing(10)
+  Text(0, 0, "Air", npbg_color)
+  VerticalSpacing(4)
+
+  Background({margin=5, min_width=min_width}, function()
+    local world = GameGetWorldStateEntity()
+
+    -- Winds have their own mind, which requires overriding every frame, so we simply set
+    -- globals here instead of the actual value.
+    local wind_override = GlobalsGetBool(WIND_OVERRIDE_ENABLED)
+    Checkbox({
+        is_active=wind_override,
+        text="Tame the winds",
+        tooltip="Wind speed changes naturally over time, which this will overrule."
+      },
+      function() GlobalsToggleBool(WIND_OVERRIDE_ENABLED) end
+    )
+    if wind_override then
+      Slider({
+          value=GlobalsGetNumber(WIND_SPEED),
+          default=0,
+          min=-49,  -- [sic] Exclusive, actually goes to -50
+          max=50,
+          text="Wind",
+        },
+        function(new_value)
+          GlobalsSetValue(WIND_SPEED, tostring(new_value))
+        end
+      )
+    end
+
+    -- [sic] Rain variable names, from the docs: "should be called clouds, controls amount of cloud cover in the sky"
+    Slider({
+        value=EntityGetValue(world, "WorldStateComponent", "rain") * 100,
+        default=0,
+        min=0,
+        max=100,
+        text="Clouds",
+      },
+      function(new_value)
+        -- The target animation is kinda cool, but is it really worth it? Think not for now.
+        EntitySetValue(world, "WorldStateComponent", "rain", new_value/100)
+        EntitySetValue(world, "WorldStateComponent", "rain_target_extra", new_value/100)
+      end
+    )
+
+    -- NOTE: Lightning did not work nicely with sliders, due to automatically going to 0.
+    -- See if you can figure any sort of fun UI for it.
+
+
+    Slider({
+        value=EntityGetValue(world, "WorldStateComponent", "fog") * 100,
+        default=0,
+        min=0,
+        max=100,
+        text="Fog",
+      },
+      function(new_value)
+        EntitySetValue(world, "WorldStateComponent", "fog", new_value/100)
+        EntitySetValue(world, "WorldStateComponent", "fog_target", new_value/100)
+        EntitySetValue(world, "WorldStateComponent", "fog_target_extra", new_value/100)
+      end
+    )
   end)
 end
 
@@ -289,7 +387,7 @@ function render_time_menu()
       {image=item.image, tooltip=item.name},
       item.action
     )
-  end, 0, 0, 2)
+  end, 0, 0, 4)
 
   -- time_dt slider
   local MULTIPLIER = 10
@@ -304,27 +402,51 @@ function render_time_menu()
   end
 
   local world = GameGetWorldStateEntity()
-  local value = to_slider_log_value(EntityGetValue(world, "WorldStateComponent", "time_dt"))
+  local time_dt = to_slider_log_value(EntityGetValue(world, "WorldStateComponent", "time_dt"))
 
-  local vars = {
-    x=-2,
-    max=3.5,
-    default=to_slider_log_value(1),
-    value=value,
-    formatting=string.format("%.2f", value),
-    tooltip="Rotational Velocity",
-    tooltip_desc="Right-click to reset back to natural order",
-  }
+  Slider({
+      x=-2,
+      max=3.5,
+      default=to_slider_log_value(1),
+      value=time_dt,
+      formatting=string.format("%.2f", time_dt),
+      text="Torque",
+      tooltip="Right-click to reset back to natural order",
+    },
+    function(new_value)
+      EntitySetValue(world, "WorldStateComponent", "time_dt", to_worldstate_value(new_value))
+    end
+  )
 
-  Slider(vars, function(new_value)
-    EntitySetValue(world, "WorldStateComponent", "time_dt", to_worldstate_value(new_value))
-  end)
+  Slider({
+      value=EntityGetValue(world, "WorldStateComponent", "gradient_sky_alpha_target") * 100,
+      default=0,
+      min=0,
+      max=100,
+      text="Skytop",
+    },
+    function(new_value)
+      EntitySetValue(world, "WorldStateComponent", "gradient_sky_alpha_target", new_value/100)
+    end
+  )
+  Slider({
+      value=EntityGetValue(world, "WorldStateComponent", "sky_sunset_alpha_target") * 100,
+      default=100,
+      min=0,
+      max=100,
+      text="Sunset",
+    },
+    function(new_value)
+      EntitySetValue(world, "WorldStateComponent", "sky_sunset_alpha_target", new_value/100)
+    end
+  )
+
 end
 
 
 function render_power_buttons()
   -- Render picker buttons
-  Background(1, NPBG_GOLD, 100, function()
+  Background({margin=1, style=NPBG_GOLD}, function()
     for i, item in ipairs(main_menu_items) do
       Button(
         {image=item.image or item.image_func(), tooltip=item.name, tooltip_desc=item.desc},
@@ -335,7 +457,13 @@ function render_power_buttons()
 end
 
 
-function toggle_active_overlay(func)
+function toggle_active_overlay(func, offset_x, offset_y)
+  offset_x = offset_x or 0
+  offset_y = offset_y or 0
+
+  sub_menu_pos_x = sub_menu_pos_x_default + offset_x
+  sub_menu_pos_y = sub_menu_pos_y_default + offset_y
+
   render_active_powers_overlay = (render_active_powers_overlay ~= func) and func or nil
 end
 
