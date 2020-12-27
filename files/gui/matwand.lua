@@ -35,6 +35,7 @@ end
 
 function render_material_picker()
   local active_category = ALL_MATERIALS[active_material_type]
+  -- TODO: Migrate this over to use the new MaterialPicker component as well
 
   -- Render material type buttons
   Horizontal(1, 1, function()
@@ -222,12 +223,13 @@ function render_matwand_buttons()
       name="Material Picker",
       image_func = get_active_material_image,
       action = function() toggle_active_matwand_overlay(render_material_picker) end,
-      desc="Left-click to draw materials"
+      desc="["..GlobalsGet(SELECTED_MATERIAL).."]",
     },
     {
       name="Brush Options",
       image_func = function() return get_active_brush().icon_file end,
       action = function() toggle_active_matwand_overlay(render_brush_picker) end,
+      desc="Left-click to draw materials"
     },
     {
       name="Eraser Options",
@@ -240,8 +242,11 @@ function render_matwand_buttons()
   -- Render picker buttons
   Background({margin=1, style=NPBG_BROWN}, function()
     for i, item in ipairs(main_menu_items) do
-      Button(
-        {image=item.image_func(), tooltip=item.name, tooltip_desc=item.desc},
+      Button({
+          image=item.image_func(),
+          tooltip=item.name,
+          tooltip_desc=item.desc,
+        },
         item.action
       )
       VerticalSpacing(2)

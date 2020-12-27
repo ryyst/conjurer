@@ -21,18 +21,18 @@ end
 
 
 function activate_weather_menu()
-  toggle_active_overlay(render_weather_menu, 11, -3)
+  toggle_active_overlay(render_weather_menu, 11, -38)
 end
 
 local main_menu_items = {
   {
     name="Toggle Conscious Eye of Glass",
-    image="mods/raksa/files/gfx/power_icons/binoculars.png",
+    image="mods/raksa/files/gfx/power_icons/glass_eye.png",
     action = toggle_camera_controls,
   },
   {
-    name="Toggle Conjurer Eye",
-    desc="Movement keys to move and shift to boost.",
+    -- TODO: This ugly tooltip & teaching the player
+    name="Toggle Conjurer Eye   [shift to boost]",
     image="mods/raksa/files/gfx/power_icons/binoculars.png",
     action = toggle_binoculars,
   },
@@ -70,7 +70,7 @@ local main_menu_items = {
   },
   {
     name="Control Weather",
-    image = "mods/raksa/files/gfx/power_icons/planetary_controls.png",
+    image="mods/raksa/files/gfx/power_icons/weather.png",
     action = activate_weather_menu,
   },
   {
@@ -199,12 +199,13 @@ function render_weather_menu()
       Button({
           image=GlobalsGet(RAIN_MATERIAL_ICON),
           tooltip="Select rain material",
+          tooltip_desc="["..GlobalsGet(RAIN_MATERIAL).."]",
         },
         function() toggle_active_overlay(render_rain_material_picker, 4, -55) end
       )
 
-      local icon="mods/raksa/files/gfx/matwand_icons/icon_liquid.png"
-      local icon_off="mods/raksa/files/gfx/matwand_icons/icon_liquid_off.png"
+      local icon = "mods/raksa/files/gfx/icon_power_on.png"
+      local icon_off = "mods/raksa/files/gfx/icon_power_off.png"
       local is_raining = GlobalsGetBool(RAIN_ENABLED)
 
       Button({

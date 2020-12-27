@@ -30,6 +30,9 @@ function toggle_binoculars()
   GameSetCameraFree(not is_active)
 
   GlobalsToggleBool(BINOCULARS_ACTIVE)
+
+  local text = not is_active and "You leave your body behind" or "You return to your body"
+  GamePrint(text)
 end
 
 
@@ -52,4 +55,13 @@ function toggle_camera_controls()
     "PlatformShooterPlayerComponent",
     "center_camera_on_this_entity"
   )
+
+  local is_active = not EntityGetValue(
+    player,
+    "PlatformShooterPlayerComponent",
+    "center_camera_on_this_entity"
+  )
+
+  local text = is_active and "You feel a familiar presence watching over you..." or "The watcher fades"
+  GamePrint(text)
 end
