@@ -124,19 +124,19 @@ function render_happiness_menu()
   };
 
   Background({margin=1}, function()
-    Grid(relation_buttons, function(item)
+    Grid({items=relation_buttons, size=3, y=8}, function(item)
       Button(
         {image=item.image, tooltip=item.name, tooltip_desc=item.desc},
         item.action
       )
-    end, 0, 8, 3)
+    end)
   end)
 end
 
 
 function render_herd_menu()
   Background({margin=1}, function()
-    Grid(HERDS, function(herd)
+    Grid({items=HERDS, size=5, y=-17}, function(herd)
       Button(
         {image=ICON_UNKNOWN, tooltip=herd.display, image=herd.image},
         function()
@@ -144,7 +144,7 @@ function render_herd_menu()
             ACTIVE_HERD = herd
         end
       )
-    end, 0, -17, 5)
+    end)
   end)
 end
 
@@ -167,14 +167,14 @@ function render_teleport_menu()
     },
   };
 
-  Grid(teleport_buttons, function(item)
+  Grid({items=teleport_buttons, size=2}, function(item)
     Button(
       {image=item.image, tooltip=item.name},
       item.action
     )
-  end, 0, 0, 2)
+  end)
 
-  Grid(LOCATION_MEMORY, function(item, index)
+  Grid({items=LOCATION_MEMORY}, function(item, index)
     Button({
         style=NPBG_PURPLE,
         image=item.image,
@@ -398,12 +398,12 @@ function render_time_menu()
     },
   };
 
-  Grid(time_of_day_buttons, function(item)
+  Grid({items=time_of_day_buttons, size=4}, function(item)
     Button(
       {image=item.image, tooltip=item.name},
       item.action
     )
-  end, 0, 0, 4)
+  end)
 
   -- time_dt slider
   local MULTIPLIER = 10

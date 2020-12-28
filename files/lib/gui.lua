@@ -67,13 +67,14 @@ function VerticalSpacing(amount)
 end
 
 
-function Grid(items, callback, x, y, size)
-  local auto_size = math.max(6, math.min((#items) ^ 0.75, 12))
-  local row_length = math.ceil(size or auto_size);
-  local row_count = math.ceil(#items / row_length)
+function Grid(vars, callback)
+  local items = vars.items or {}
+  local x = vars.x or 0
+  local y = vars.y or 0
 
-  x = x or 0
-  y = y or 0
+  local auto_size = math.max(6, math.min((#items) ^ 0.75, 12))
+  local row_length = math.ceil(vars.size or auto_size);
+  local row_count = math.ceil(#items / row_length)
 
   local item_pos = 1
   for row=1, row_count do
@@ -188,7 +189,7 @@ function Checkbox(vars, callback)
 end
 
 
-local _active_category = 1
+local _active_category = 1  -- TODO: enum
 
 function MaterialPicker(vars, click_handler, right_click_handler)
   local x = vars.x or 1
@@ -216,12 +217,17 @@ function MaterialPicker(vars, click_handler, right_click_handler)
   local category = ALL_MATERIALS[_active_category]
 
   Background({margin=3, style=NPBG_BROWN, z_index=200}, function()
-    Grid(category.materials, function(material)
+    Grid({
+      items=category.materials,
+      x=x, y=y+1,
+      size=8,
+    },
+    function(material)
       Button(
         {image=material.image, tooltip=material.name},
         click_handler(material),
         right_click_handler(material)
       )
-    end, x, y+1, 8)
+    end)
   end)
 end

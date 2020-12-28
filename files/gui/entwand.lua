@@ -32,8 +32,6 @@ end
 
 
 function render_entity_picker()
-  local active_entities = ALL_ENTITIES[active_entity_tab]
-
   Horizontal(1, 1, function()
     for i, category in ipairs(ALL_ENTITIES) do
       local is_selected = (i == active_entity_tab)
@@ -52,14 +50,20 @@ function render_entity_picker()
   end)
 
   -- Render entities
+  local active_category = ALL_ENTITIES[active_entity_tab]
+
   Background({margin=3, style=NPBG_BLUE, z_index=200}, function()
-    Grid(active_entities.entities, function(entity, i)
-      local vars = {tooltip=entity.name, image=entity.image, tooltip_desc=entity.desc}
+    Grid({items=active_category.entities, x=1, y=2}, function(entity, i)
       local tab_copy = active_entity_tab  -- For favorites
-      local click = function() change_active_entity(i, tab_copy) end
-      local right_click = add_entity_to_favorites(vars, click)
-      Button(vars, click, right_click)
-    end, 1, 2)
+      Button({
+          tooltip=entity.name,
+          image=entity.image,
+          tooltip_desc=entity.desc
+        },
+        function() change_active_entity(i, tab_copy) end,
+        add_entity_to_favorites(vars, click)
+      )
+    end)
   end)
 end
 
