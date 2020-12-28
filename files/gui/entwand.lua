@@ -102,7 +102,7 @@ function render_entwand_buttons()
   end)
 
   VerticalSpacing(2)
-  Text(1, 0, "fav.")
+  Text("fav.", {x=1})
   Tooltip("Add favorites by right-clicking on individual entities", "")
   VerticalSpacing(1)
 

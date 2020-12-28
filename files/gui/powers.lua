@@ -206,7 +206,7 @@ function render_weather_menu()
   local npbg_color = {red=14, green=13, blue=12, alpha=242}
   local min_width = 100
 
-  Text(0, 0, "Rain", npbg_color)
+  Text("Rain", {color=npbg_color})
   VerticalSpacing(4)
 
   Background({margin=5, min_width=min_width}, function()
@@ -309,7 +309,7 @@ function render_weather_menu()
 
   VerticalSpacing(10)
 
-  Text(0, 0, "Air", npbg_color)
+  Text("Air", {color=npbg_color})
   VerticalSpacing(4)
 
   Background({margin=5, min_width=min_width}, function()

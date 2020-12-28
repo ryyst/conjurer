@@ -75,7 +75,7 @@ end
 
 function render_brush_picker()
   Horizontal(1, 1, function()
-    Text(0, 0, "Brush Options")
+    Text("Brush Options")
   end)
 
   -- Render brushes
@@ -137,13 +137,13 @@ function render_eraser_picker()
   local current_eraser = get_eraser_mode()
 
   Horizontal(1, 1, function()
-    Text(0, 0, "Eraser Options")
+    Text("Eraser Options")
   end)
 
   Background({margin=3, style=NPBG_BROWN, z_index=200}, function()
     Vertical(1, 2, function()
 
-      Text(0, 0, "Material filters")
+      Text("Material filters")
       Tooltip("Choose which material types to erase/replace", "")
 
       -- Render eraser filters
@@ -261,7 +261,7 @@ function render_matwand_buttons()
   end)
 
   VerticalSpacing(2)
-  Text(1, 0, "fav.")
+  Text("fav.", {x=1})
   Tooltip("Add favorites by right-clicking on individual mats/brushes/erasers", "")
   VerticalSpacing(1)
 

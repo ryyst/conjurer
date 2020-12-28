@@ -168,9 +168,15 @@ function Slider(vars, callback)
 end
 
 
-function Text(x, y, text, vars)
-  ColorNextWidget(vars or {})
-  GuiText(GUI, x, y, text)
+-- Breaking the signature uniformity here just because this is so
+-- simple component, and arguably the vars are all optional while
+-- text really is not.
+function Text(text, vars)
+  local x = vars.x or 0
+  local y = vars.y or 0
+
+  ColorNextWidget(vars.color or {})
+  GuiText(GUI, x, y, text or "")
 end
 
 
