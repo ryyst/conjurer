@@ -10,6 +10,7 @@ dofile_once("mods/raksa/files/powers/change_herd.lua")
 dofile_once("mods/raksa/files/powers/control_happiness.lua")
 dofile_once("mods/raksa/files/powers/grid_overlay.lua")
 dofile_once("mods/raksa/files/powers/binoculars.lua")
+dofile_once("mods/raksa/files/powers/waypoints.lua")
 
 
 if ACTIVE_HERD == nil then
@@ -37,7 +38,12 @@ local main_menu_items = {
     action = toggle_binoculars,
   },
   {
-    name="Toggle Grid",
+    name="Arcane Mind",
+    image = "mods/raksa/files/gfx/power_icons/memorize.png",
+    action = function() toggle_active_overlay(render_teleport_menu) end,
+  },
+  {
+    name="Toggle Gridular Monocle",
     image="mods/raksa/files/gfx/power_icons/grid.png",
     action = toggle_grid,
   },
@@ -50,13 +56,6 @@ local main_menu_items = {
     name="Change Herd",
     image_func = function() return ACTIVE_HERD.image end,
     action = function() toggle_active_overlay(render_herd_menu) end,
-  },
-  {
-    name="Return to Tower",
-    image = "mods/raksa/files/gfx/power_icons/tower.png",
-    action = function() teleport_player(SPAWN_X, SPAWN_Y) end,
-    -- TODO: Return to the waypoint system sometime later
-    --action = function() toggle_active_overlay(render_teleport_menu) end,
   },
   {
     name="Toggle Kalma's Call",
@@ -153,14 +152,18 @@ end
 function render_teleport_menu()
   local teleport_buttons = {
     {
-      name="Tower",
-      image = ICON_UNKNOWN,
+      name="Return to Tower",
+      image = "mods/raksa/files/gfx/power_icons/tower.png",
       action = function() teleport_player(SPAWN_X, SPAWN_Y) end,
     },
     {
-      name="Set Waypoint",
-      image = ICON_UNKNOWN,
-      action = function() GamePrint("Set waypoint here!") end,
+      name="Memorize Current Location",
+      image = "mods/raksa/files/gfx/power_icons/plus.png",
+      action = function()
+        local player = get_player()
+        local x, y = EntityGetTransform(player)
+        set_waypoint(x, y)
+      end,
     },
   };
 
@@ -170,6 +173,18 @@ function render_teleport_menu()
       item.action
     )
   end, 0, 0, 2)
+
+  Grid(LOCATION_MEMORY, function(item, index)
+    Button({
+        style=NPBG_PURPLE,
+        image=item.image,
+        tooltip="Memory of "..item.name.." at "..math.floor(item.x)..","..math.floor(item.y),
+        tooltip_desc="Right-click to forget",
+      },
+      function() teleport_player(item.x, item.y) end,
+      function() remove_waypoint(item, index) end
+    )
+  end)
 end
 
 
