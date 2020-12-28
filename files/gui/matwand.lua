@@ -89,7 +89,7 @@ function render_brush_picker()
       local vars = {
         text="Grid",
         value=value,
-        default=float(BRUSH_DEFAULT_GRID_SIZE),
+        default=float(DEFAULTS[BRUSH_GRID_SIZE]),
         min=1,
         max=100,
         width=100,
@@ -183,7 +183,7 @@ function render_eraser_picker()
         local grid_slider_vars = {
           text="Grid",
           value=get_eraser_grid_size(),
-          default=float(ERASER_DEFAULT_GRID_SIZE),
+          default=float(DEFAULTS[ERASER_GRID_SIZE]),
           min=1,
           max=100,
           width=100,
@@ -202,7 +202,7 @@ function render_eraser_picker()
         text="Size",
         value=value,
         formatting=str(value*5) .. "px",
-        default=tonumber(ERASER_SIZE_DEFAULT),
+        default=tonumber(DEFAULTS[ERASER_SIZE]),
         min=1,
         max=20,
         width=60,

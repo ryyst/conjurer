@@ -124,7 +124,7 @@ NPBG_STYLES = {
   [NPBG_BROWN_TAB]="mods/raksa/files/gfx/9piece_brown_tab.png",
 }
 
-function Background(vars, callback)  -- margin, style, z_index, callback)
+function Background(vars, callback)
   local sprite = NPBG_STYLES[vars.style or NPBG_DEFAULT]
 
   GuiBeginAutoBox(GUI)
@@ -144,12 +144,11 @@ end
 
 
 function Slider(vars, callback)
-  local text = vars.text and vars.text.." " or ""
   callback(GuiSlider(
     GUI, BID(),
     vars.x or 0,
     vars.y or 0,
-    text,
+    vars.text and vars.text.." " or "",
     vars.value,
     vars.min or 0,
     vars.max,

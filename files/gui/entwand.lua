@@ -14,7 +14,7 @@ local main_menu_pos_y = 18
 local sub_menu_pos_x = main_menu_pos_x+3
 local sub_menu_pos_y = main_menu_pos_y-5.3
 
-local active_entity_tab = SELECTED_ENTITY_TYPE_DEFAULT
+local active_entity_tab = DEFAULTS[SELECTED_ENTITY_TYPE]
 local favorites = {}
 
 

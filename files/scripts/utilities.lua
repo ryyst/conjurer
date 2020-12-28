@@ -208,9 +208,10 @@ end
 
 
 function teleport_player(x, y)
-  -- Spawn on top of player
   local player = get_player()
-  if not player then return end
+  if not player then
+    return
+  end
 
   EntitySetTransform(player, x, y)
 end

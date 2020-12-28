@@ -12,7 +12,10 @@ function toggle_player_movement(is_enabled)
   local player = get_player()
   if not player then return end
 
-  local CharacterPlatforming = EntityGetFirstComponentIncludingDisabled(player, "CharacterPlatformingComponent")
+  local CharacterPlatforming = EntityGetFirstComponentIncludingDisabled(
+    player,
+    "CharacterPlatformingComponent"
+  )
 
   EntitySetComponentIsEnabled(player, CharacterPlatforming, is_enabled)
 

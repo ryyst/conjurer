@@ -144,7 +144,7 @@ function render_herd_menu()
             change_player_herd(herd.name)
             ACTIVE_HERD = herd
         end
-        )
+      )
     end, 0, -17, 5)
   end)
 end
@@ -172,7 +172,6 @@ function render_teleport_menu()
   end, 0, 0, 2)
 end
 
-local active_category = 1
 
 function render_rain_material_picker()
   MaterialPicker({},
@@ -186,6 +185,7 @@ function render_rain_material_picker()
     function(material) end
   )
 end
+
 
 function render_weather_menu()
   local npbg_color = {red=14, green=13, blue=12, alpha=242}
