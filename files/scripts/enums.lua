@@ -10,6 +10,20 @@ NPBG_BLUE = 3
 NPBG_BLUE_TAB = 4
 NPBG_BROWN = 5
 NPBG_BROWN_TAB = 6
+NPBG_PURPLE = 7
+
+NPBG_STYLES = {
+  [NPBG_DEFAULT]="data/ui_gfx/decorations/9piece0_gray.png",
+  [NPBG_GOLD]="data/ui_gfx/decorations/9piece0.png",
+  [NPBG_TAB]="mods/raksa/files/gfx/9piece_tab.png",
+  [NPBG_BLUE]="mods/raksa/files/gfx/9piece_blue.png",
+  [NPBG_BLUE_TAB]="mods/raksa/files/gfx/9piece_blue_tab.png",
+  [NPBG_BROWN]="mods/raksa/files/gfx/9piece_brown.png",
+  [NPBG_BROWN_TAB]="mods/raksa/files/gfx/9piece_brown_tab.png",
+  [NPBG_BROWN_TAB]="mods/raksa/files/gfx/9piece_brown_tab.png",
+  [NPBG_PURPLE]="mods/raksa/files/gfx/9piece_purple.png",
+}
+
 
 ICON_MOUSE_LEFT = "mods/raksa/files/gfx/mouse_left.png"
 ICON_MOUSE_RIGHT = "mods/raksa/files/gfx/mouse_right.png"

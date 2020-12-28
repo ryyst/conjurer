@@ -84,45 +84,48 @@ function Grid(items, callback, x, y, size)
         if not items[item_pos] then break end
         callback(items[item_pos], item_pos)
         item_pos = item_pos + 1
+        -- TODO: HorizontalPadding
       end
     end)
+    -- TODO: VerticalPadding
   end
 end
 
 
 function Button(vars, click_action, right_click_action)
-  local ButtonType = vars.text and GuiButton or GuiImageButton
-  local click, right_click = ButtonType(
-    GUI, BID(),
-    vars.x or 0,
-    vars.y or 0,
-    vars.text or "",
-    vars.image or ICON_UNKNOWN
-  )
+  local Wrapper = vars.style and Background or Noop
 
-  if vars.tooltip then
-    Tooltip(vars.tooltip, vars.tooltip_desc or "")
-  end
+  -- "Padding" because we are working inside the button borders now.
+  Wrapper({style=vars.style, margin=vars.padding or -2}, function()
+    local ButtonType = vars.text and GuiButton or GuiImageButton
+    local click, right_click = ButtonType(
+      GUI, BID(),
+      vars.x or 0,
+      vars.y or 0,
+      vars.text or "",
+      vars.image or ICON_UNKNOWN
+    )
 
-  if click and click_action then
-    click_action()
-  end
+    if vars.tooltip then
+      Tooltip(vars.tooltip, vars.tooltip_desc or "")
+    end
 
-  if right_click and right_click_action then
-    right_click_action()
-  end
+    if click and click_action then
+      click_action()
+    end
+
+    if right_click and right_click_action then
+      right_click_action()
+    end
+  end)
 end
 
 
-NPBG_STYLES = {
-  [NPBG_DEFAULT]="data/ui_gfx/decorations/9piece0_gray.png",
-  [NPBG_GOLD]="data/ui_gfx/decorations/9piece0.png",
-  [NPBG_TAB]="mods/raksa/files/gfx/9piece_tab.png",
-  [NPBG_BLUE]="mods/raksa/files/gfx/9piece_blue.png",
-  [NPBG_BLUE_TAB]="mods/raksa/files/gfx/9piece_blue_tab.png",
-  [NPBG_BROWN]="mods/raksa/files/gfx/9piece_brown.png",
-  [NPBG_BROWN_TAB]="mods/raksa/files/gfx/9piece_brown_tab.png",
-}
+function Noop(vars, callback)
+  -- No-op wrapper for easier boolean logic elsewhere
+  callback()
+end
+
 
 function Background(vars, callback)
   local sprite = NPBG_STYLES[vars.style or NPBG_DEFAULT]
