@@ -58,16 +58,13 @@ function render_material_picker()
   -- Render material buttons
   Background({margin=3, style=NPBG_BROWN, z_index=200}, function()
     Grid({items=active_category.materials, x=1, y=2, size=8}, function(material)
-      Button({
-          image=material.image,
-          tooltip=material.name
-        },
-        function()
-          GlobalsSetValue(SELECTED_MATERIAL, material.id)
-          GlobalsSetValue(SELECTED_MATERIAL_ICON, material.image)
-        end,
-        add_mat_to_favorites(vars, click)
-      )
+      local vars = {image=material.image, tooltip=material.name}
+      local click = function()
+        GlobalsSetValue(SELECTED_MATERIAL, material.id)
+        GlobalsSetValue(SELECTED_MATERIAL_ICON, material.image)
+      end
+      local right_click = add_mat_to_favorites(vars, click)
+      Button(vars, click, right_click)
     end)
   end)
 end
@@ -81,14 +78,10 @@ function render_brush_picker()
   -- Render brushes
   Background({margin=3, style=NPBG_BROWN, z_index=200}, function()
     Grid({items=BRUSHES, x=1, y=2, size=7}, function(brush, i)
-      Button({
-          image=brush.icon_file,
-          tooltip=brush.name,
-          tooltip_desc=brush.desc
-        },
-        function() change_active_brush(brush, i) end,
-        add_mat_to_favorites(vars, click)
-      )
+      local vars = {image=brush.icon_file, tooltip=brush.name, tooltip_desc=brush.desc}
+      local click = function() change_active_brush(brush, i) end
+      local right_click = add_mat_to_favorites(vars, click)
+      Button(vars, click, right_click)
     end)
 
     Horizontal(1, 3, function()

@@ -180,6 +180,7 @@ end
 -- simple component, and arguably the vars are all optional while
 -- text really is not.
 function Text(text, vars)
+  vars = vars or {}
   local x = vars.x or 0
   local y = vars.y or 0
 

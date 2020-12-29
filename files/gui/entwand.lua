@@ -55,14 +55,10 @@ function render_entity_picker()
   Background({margin=3, style=NPBG_BLUE, z_index=200}, function()
     Grid({items=active_category.entities, x=1, y=2}, function(entity, i)
       local tab_copy = active_entity_tab  -- For favorites
-      Button({
-          tooltip=entity.name,
-          image=entity.image,
-          tooltip_desc=entity.desc
-        },
-        function() change_active_entity(i, tab_copy) end,
-        add_entity_to_favorites(vars, click)
-      )
+      local vars = {tooltip=entity.name, image=entity.image, tooltip_desc=entity.desc}
+      local click = function() change_active_entity(i, tab_copy) end
+      local right_click = add_entity_to_favorites(vars, click)
+      Button(vars, click, right_click)
     end)
   end)
 end
