@@ -77,18 +77,26 @@ function Grid(vars, callback)
   local row_count = math.ceil(#items / row_length)
 
   local item_pos = 1
-  for row=1, row_count do
+  for row=0, row_count-1 do
     if not items[item_pos] then break end
 
-    Horizontal(x, y, function()
+    local y_reverse = vars.reverse and row*10 or 0
+
+    Horizontal(x, y-y_reverse, function()
       for col = 1, row_length do
         if not items[item_pos] then break end
         callback(items[item_pos], item_pos)
         item_pos = item_pos + 1
-        -- TODO: HorizontalPadding
+
+        if vars.padding_x then
+          HorizontalSpacing(vars.padding_x)
+        end
       end
     end)
-    -- TODO: VerticalPadding
+
+    if vars.padding_y then
+      VerticalSpacing(vars.padding_y)
+    end
   end
 end
 

@@ -40,7 +40,7 @@ local main_menu_items = {
   {
     name="Arcane Mind",
     image = "mods/raksa/files/gfx/power_icons/memorize.png",
-    action = function() toggle_active_overlay(render_teleport_menu) end,
+    action = function() toggle_active_overlay(render_teleport_menu, 0, 8) end,
   },
   {
     name="Toggle Gridular Monocle",
@@ -158,6 +158,7 @@ function render_teleport_menu()
     },
     {
       name="Memorize Current Location",
+      desc="Right-click memories to forget them",
       image = "mods/raksa/files/gfx/power_icons/plus.png",
       action = function()
         local player = get_player()
@@ -167,24 +168,27 @@ function render_teleport_menu()
     },
   };
 
-  Grid({items=teleport_buttons, size=2}, function(item)
-    Button(
-      {image=item.image, tooltip=item.name},
-      item.action
-    )
+  Background({style=NPBG_PURPLE, margin=0}, function()
+    Grid({items=teleport_buttons, size=2}, function(item)
+      Button({
+          --style=NPBG_PURPLE, padding=-1,
+        image=item.image, tooltip=item.name, tooltip_desc=item.desc
+        },
+        item.action
+      )
+    end)
   end)
 
-  Grid({items=LOCATION_MEMORY}, function(item, index)
-    Button({
-        style=NPBG_PURPLE,
-        image=item.image,
-        tooltip="Memory of "..item.name.." at "..math.floor(item.x)..","..math.floor(item.y),
-        tooltip_desc="Right-click to forget",
-      },
-      function() teleport_player(item.x, item.y) end,
-      function() remove_waypoint(item, index) end
-    )
-  end)
+    Grid({x=6, y=-5, items=LOCATION_MEMORY, reverse=true, size=8}, function(item, index)
+      Button({
+          style=NPBG_PURPLE,
+          image=item.image,
+          tooltip=item.name..": "..math.floor(item.x)..","..math.floor(item.y),
+        },
+        function() teleport_player(item.x, item.y) end,
+        function() remove_waypoint(item, index) end
+      )
+    end)
 end
 
 
