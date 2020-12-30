@@ -31,6 +31,9 @@ table.insert(ALL_ENTITIES, {
       desc="Voluntary tooltip description",
       path="path/to/my/entity.xml",
       image="path/to/my/entity_icon.png",  -- This should be a 16*16px icon
+      post_processor=function(entity, x, y)
+        -- Do anything you want with the entity or its location after it's spawned.
+      end
     },
     {
       name="My Second entity",

@@ -136,13 +136,20 @@ end
 function spawn_entity(x, y)
   local entity_selection = get_active_entity()
   local entity = EntityLoad(entity_selection.path, x, y)
+
+  -- Per-entity post-processing
+  if entity_selection.post_processor then
+    entity_selection.post_processor(entity, x, y)
+  end
+
+  -- Global level post-processors, for every entity
   postprocess_entity(entity)
 end
 
 
-function postprocess_entity(entity)
+function postprocess_entity(entity, x, y)
   for _, func in ipairs(ENTITY_POST_PROCESSORS) do
-    func(entity)
+    func(entity, x, y)
   end
 end
 

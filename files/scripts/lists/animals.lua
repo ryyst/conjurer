@@ -23,7 +23,16 @@ ANIMALS = {
   animal('bloodcrystal_physics', 'Bloodcrystal physics'),
   animal('bloom', 'Bloom'),
   animal('boss_alchemist/boss_alchemist', 'Boss alchemist', 'boss_alchemist'),
-  animal('boss_centipede/boss_centipede', 'Boss three-eye - collect sampo in boss chamber to activate', 'boss_centipede'),
+  {
+    image='data/ui_gfx/animal_icons/boss_centipede.png',
+    path='data/entities/animals/boss_centipede/boss_centipede.xml',
+    name='Boss three-eye',
+    desc='Collect the Sampo to activate',
+    post_processor=function(entity, x, y)
+      -- This is required to make the boss activatable by Sampo
+      EntityLoad("data/entities/animals/boss_centipede/reference_point.xml", x, y)
+    end,
+  },
   animal('boss_centipede/boss_centipede_minion', 'Boss three-eye minion', 'boss_centipede'),
   animal('boss_dragon', 'Boss dragon'),
   animal('boss_limbs/boss_limbs', 'Boss limbs', 'boss_limbs'),
@@ -71,7 +80,11 @@ ANIMALS = {
   animal('lukki/lukki_creepy_long', 'Lukki creepy', 'lukki_longleg'),  -- Missing own image
   animal('lukki/lukki_longleg', 'Lukki longleg', 'lukki_longleg'),
   animal('lukki/lukki_tiny', 'Lukki tiny', 'lukki_tiny'),
-  {path='data/entities/animals/lurker.xml', name='Lurker', image="mods/raksa/files/gfx/animal_icons/lurker.png"},
+  {
+    image="mods/raksa/files/gfx/animal_icons/lurker.png",
+    path='data/entities/animals/lurker.xml',
+    name='Lurker',
+  },
   animal('maggot', 'Maggot'),
   animal('miner', 'Miner'),
   animal('miner_fire', 'Miner fire'),
