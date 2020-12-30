@@ -1,4 +1,5 @@
 dofile("data/scripts/lib/coroutines.lua")
+dofile("data/scripts/lib/utilities.lua")
 
 dofile_once("mods/raksa/files/scripts/lists/material_categories.lua");
 dofile_once("mods/raksa/files/scripts/utilities.lua")
@@ -35,6 +36,11 @@ function ColorNextWidget(vars)
     (vars.blue or 255) / 255,
     (vars.alpha or 255) / 255
   )
+end
+
+
+function OptionNextWidget(option)
+  GuiOptionsAddForNextWidget(GUI, option)
 end
 
 

@@ -25,6 +25,7 @@ FIRES = {
     ["id"] = "spark_blue"
   },
   {
+    ["image"] = "mods/raksa/files/gfx/material_icons/spark_blue_colorgen.png",
     ["name"] = "Spark Blue Dark",
     ["id"] = "spark_blue_dark"
   },

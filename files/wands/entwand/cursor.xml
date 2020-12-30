@@ -6,6 +6,36 @@
     emissive="1"
   ></SpriteComponent>
 
+  <SpriteComponent
+    _tags="enabled_in_world,cursor_text"
+    alpha="0.80"
+    offset_x="-10"
+    offset_y="20"
+    emissive="1"
+    image_file="data/fonts/font_pixel.xml"
+    is_text_sprite="1"
+    update_transform="1"
+    update_transform_rotation="0"
+    text=""
+    has_special_scale="1"
+    special_scale_x="0.8"
+    special_scale_y="0.8"
+    z_index="-9000"
+  ></SpriteComponent>
+
+  <!--
+    local TextSprite = EntityGetFirstComponentIncludingDisabled(
+      cursor,
+      "SpriteComponent",
+      "cursor_text"
+    )
+    local name = GameTextGetTranslatedOrNot(EntityGetName(entity))
+    local tags = EntityGetTags(entity)
+
+    local text = name .. "\n" .. tags
+    ComponentSetValue2(TextSprite, "text", text)
+  -->
+
   <InheritTransformComponent
     only_position="1"
   ></InheritTransformComponent>

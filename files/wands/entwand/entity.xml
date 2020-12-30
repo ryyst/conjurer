@@ -75,6 +75,15 @@
     offset.y="0"
   ></HotspotComponent>
 
+  <!-- Notice:
+    reticle = spawning
+    cursor  = delete hovering
+  --> 
+  <LuaComponent
+    _tags="enabled_in_hand"
+    script_enabled_changed="mods/raksa/files/wands/entwand/toggle_reticle.lua"
+  ></LuaComponent>
+
   <LuaComponent
     _tags="enabled_in_hand"
     script_enabled_changed="mods/raksa/files/wands/entwand/hide_cursor.lua"

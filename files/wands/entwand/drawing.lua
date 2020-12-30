@@ -8,7 +8,19 @@ dofile_once("mods/raksa/files/scripts/enums.lua")
 
 
 local HOVERED_ENTITY = nil
-local SCAN_RADIUS = 32
+local SCAN_RADIUS = 64
+
+
+function spawner_reticle_follow_mouse(x, y)
+  local reticle = EntityGetWithName(RETICLE_NAME)
+  if reticle then
+    local grid_size = GlobalsGetNumber(ENTWAND_GRID_SIZE)
+    x = x - x % grid_size + grid_size/2
+    y = y - y % grid_size + grid_size/2
+    EntitySetTransform(reticle, math.floor(x), math.floor(y))
+  end
+end
+
 
 function get_or_create_cursor(x, y)
   local cursor = EntityGetWithName("entwand_cursor")
@@ -109,6 +121,7 @@ function is_valid_entity(entity)
     entity ~= 0 and
     name ~= "entwand_cursor" and
     name ~= "grid_overlay" and
+    name ~= RETICLE_NAME and
     not IsPlayer(entity) and
     entity ~= GameGetWorldStateEntity() and
     -- This is something that always exists in 0,0.
@@ -133,7 +146,10 @@ function delete_entity(x, y)
 end
 
 
-function spawn_entity(x, y)
+function spawn_entity()
+  local reticle = EntityGetWithName(RETICLE_NAME)
+  local x, y = EntityGetTransform(reticle)
+
   local entity_selection = get_active_entity()
   local entity = EntityLoad(entity_selection.path, x, y)
 
@@ -155,11 +171,12 @@ end
 
 
 local x, y = DEBUG_GetMouseWorld()
+spawner_reticle_follow_mouse(x, y)
 scan_entity(x, y)
 
 
 if has_clicked_m1() then
-  spawn_entity(x, y)
+  spawn_entity()
 end
 
 

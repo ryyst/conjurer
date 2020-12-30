@@ -64,15 +64,71 @@ function render_entity_picker()
 end
 
 
+function render_entity_options()
+  Horizontal(1, 1, function()
+    Text("Spawner Options")
+  end)
+
+  -- Render brushes
+  Background({margin=3, style=NPBG_BLUE, z_index=200}, function()
+    Vertical(1, 3, function()
+      Slider({
+          text="Rows",
+          value=GlobalsGetNumber(ENTWAND_ROWS),
+          default=float(DEFAULTS[ENTWAND_ROWS]),
+          min=1,
+          max=50,
+          width=100,
+          tooltip="How many rows to spawn enemies"
+        },
+        function(new_value)
+          GlobalsSetValue(ENTWAND_ROWS, new_value)
+        end
+      )
+      Slider({
+          text="Cols",
+          value=GlobalsGetNumber(ENTWAND_COLS),
+          default=float(DEFAULTS[ENTWAND_COLS]),
+          min=1,
+          max=50,
+          width=100,
+          tooltip="How many columns to spawn enemies"
+        },
+        function(new_value)
+          GlobalsSetValue(ENTWAND_COLS, new_value)
+        end
+      )
+      Slider({
+          text="Grid",
+          value=GlobalsGetNumber(ENTWAND_GRID_SIZE),
+          default=float(DEFAULTS[ENTWAND_GRID_SIZE]),
+          min=1,
+          max=100,
+          width=100,
+          tooltip="Entity spawner grid snapping size"
+        },
+        function(new_value)
+          GlobalsSetValue(ENTWAND_GRID_SIZE, new_value)
+        end
+      )
+    end)
+  end)
+end
+
+
 function render_entwand_buttons()
+  local active_entity = get_active_entity();
   local main_menu_items = {
     {
       name = "Entity Picker",
-      image_func = function()
-        local entity = get_active_entity();
-        return entity.image
-      end,
+      image_func = function() return active_entity.image end,
       action = function() toggle_active_entwand_overlay(render_entity_picker) end,
+      desc="["..active_entity.name.."]"
+    },
+    {
+      name = "Spawner Options",
+      image = ICON_UNKNOWN,
+      action = function() toggle_active_entwand_overlay(render_entity_options) end,
       desc="Left-click to conjure entities"
     },
     {
