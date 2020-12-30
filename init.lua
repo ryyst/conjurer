@@ -55,14 +55,6 @@ function OnPlayerSpawned(player)
     -- Always start on noon
     set_time_of_day(NOON)
 
-    -- Disable initial fog & cloud (="rain") states
-    EntitySetValues(
-      GameGetWorldStateEntity(),
-      "WorldStateComponent", {
-        fog=0, fog_target=0, fog_target_extra=0,
-        rain=0, rain_target=0, rain_target_extra=0,
-    })
-
     GlobalsSetValue(FIRST_LOAD_DONE, "1")
     GlobalsSetValue(PLAYER_HAS_DIED, "0")
   end
@@ -94,11 +86,23 @@ function OnWorldPreUpdate()
   end
 
   if GlobalsGetBool(WIND_OVERRIDE_ENABLED) then
-    EntitySetValue(
-      GameGetWorldStateEntity(),
-      "WorldStateComponent",
-      "wind_speed",
-      GlobalsGetNumber(WIND_SPEED)
-    )
+    local world = GameGetWorldStateEntity()
+
+    -- Wind control
+    local wind = GlobalsGetNumber(WIND_SPEED)
+    EntitySetValue(world, "WorldStateComponent", "wind_speed", wind)
+
+    -- Fog control
+    local fog = GlobalsGetNumber(FOG_AMOUNT)
+    EntitySetValue(world, "WorldStateComponent", "fog", fog)
+    EntitySetValue(world, "WorldStateComponent", "fog_target", fog)
+    EntitySetValue(world, "WorldStateComponent", "fog_target_extra", fog)
+
+    -- Cloud control
+    -- [sic] "Rain" variables, from the docs:
+    -- "should be called clouds, controls amount of cloud cover in the sky"
+    local clouds = GlobalsGetNumber(CLOUD_AMOUNT)
+    EntitySetValue(world, "WorldStateComponent", "rain", clouds)
+    EntitySetValue(world, "WorldStateComponent", "rain_target_extra", clouds)
   end
 end

@@ -319,13 +319,16 @@ function render_weather_menu()
   Background({margin=5, min_width=min_width}, function()
     local world = GameGetWorldStateEntity()
 
-    -- Winds have their own mind, which requires overriding every frame, so we simply set
-    -- globals here instead of the actual value.
+    -- NOTICE:
+    -- All of the following attributes have their own natural cycles, which
+    -- requires overriding them every frame, we simply set globals here
+    -- instead of the actual values.
+
     local wind_override = GlobalsGetBool(WIND_OVERRIDE_ENABLED)
     Checkbox({
         is_active=wind_override,
-        text="Tame the winds",
-        tooltip="Wind speed changes naturally over time, which this will overrule."
+        text="Tame the Winds",
+        tooltip="Overrule the natural wind, cloud & fog cycles.",
       },
       function() GlobalsToggleBool(WIND_OVERRIDE_ENABLED) end
     )
@@ -341,39 +344,36 @@ function render_weather_menu()
           GlobalsSetValue(WIND_SPEED, tostring(new_value))
         end
       )
+
+      local value_multiplier = 100
+      Slider({
+          value=GlobalsGetNumber(CLOUD_AMOUNT) * value_multiplier,
+          default=0,
+          min=0,
+          max=100,
+          text="Clouds",
+        },
+        function(new_value)
+          -- The target animation is kinda cool, but is it really worth it? Think not for now.
+          GlobalsSetValue(CLOUD_AMOUNT, tostring(new_value / value_multiplier))
+        end
+      )
+
+      -- NOTE: Lightning did not work nicely with sliders, due to automatically going to 0.
+      -- See if you can figure any sort of fun UI for it.
+
+      Slider({
+          value=GlobalsGetNumber(FOG_AMOUNT) * value_multiplier,
+          default=0,
+          min=0,
+          max=100,
+          text="Fog",
+        },
+        function(new_value)
+          GlobalsSetValue(FOG_AMOUNT, tostring(new_value / value_multiplier))
+        end
+      )
     end
-
-    -- [sic] Rain variable names, from the docs: "should be called clouds, controls amount of cloud cover in the sky"
-    Slider({
-        value=EntityGetValue(world, "WorldStateComponent", "rain") * 100,
-        default=0,
-        min=0,
-        max=100,
-        text="Clouds",
-      },
-      function(new_value)
-        -- The target animation is kinda cool, but is it really worth it? Think not for now.
-        EntitySetValue(world, "WorldStateComponent", "rain", new_value/100)
-        EntitySetValue(world, "WorldStateComponent", "rain_target_extra", new_value/100)
-      end
-    )
-
-    -- NOTE: Lightning did not work nicely with sliders, due to automatically going to 0.
-    -- See if you can figure any sort of fun UI for it.
-
-    Slider({
-        value=EntityGetValue(world, "WorldStateComponent", "fog") * 100,
-        default=0,
-        min=0,
-        max=100,
-        text="Fog",
-      },
-      function(new_value)
-        EntitySetValue(world, "WorldStateComponent", "fog", new_value/100)
-        EntitySetValue(world, "WorldStateComponent", "fog_target", new_value/100)
-        EntitySetValue(world, "WorldStateComponent", "fog_target_extra", new_value/100)
-      end
-    )
   end)
 end
 
