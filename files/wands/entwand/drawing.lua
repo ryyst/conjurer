@@ -8,7 +8,18 @@ dofile_once("mods/raksa/files/scripts/enums.lua")
 
 
 local HOVERED_ENTITY = nil
-local SCAN_RADIUS = 32
+
+
+function spawner_reticle_follow_mouse(x, y)
+  local reticle = EntityGetWithName(RETICLE_NAME)
+  if reticle then
+    local grid_size = GlobalsGetNumber(ENTWAND_GRID_SIZE)
+    x = x - x % grid_size --+ grid_size/2
+    y = y - y % grid_size --+ grid_size/2
+    EntitySetTransform(reticle, math.floor(x+RETICLE_OFFSET), math.floor(y+RETICLE_OFFSET))
+  end
+end
+
 
 function get_or_create_cursor(x, y)
   local cursor = EntityGetWithName("entwand_cursor")
@@ -109,6 +120,8 @@ function is_valid_entity(entity)
     entity ~= 0 and
     name ~= "entwand_cursor" and
     name ~= "grid_overlay" and
+    -- The reticle shouldn't ever even be detected, but good to have anyway.
+    name ~= RETICLE_NAME and
     not IsPlayer(entity) and
     entity ~= GameGetWorldStateEntity() and
     -- This is something that always exists in 0,0.
@@ -133,17 +146,40 @@ function delete_entity(x, y)
 end
 
 
-function spawn_entity(x, y)
-  local entity_selection = get_active_entity()
-  local entity = EntityLoad(entity_selection.path, x, y)
+function spawn_entity()
+  local rows = GlobalsGetNumber(ENTWAND_ROWS)
+  local cols = GlobalsGetNumber(ENTWAND_COLS)
+  local grid_size = GlobalsGetNumber(ENTWAND_GRID_SIZE)
+  local reticle = EntityGetWithName(RETICLE_NAME)
+  local x, y = EntityGetTransform(reticle)
 
-  -- Per-entity post-processing
-  if entity_selection.post_processor then
-    entity_selection.post_processor(entity, x, y)
+  local entity_selection = get_active_entity()
+
+  -- Centering grid around the mouse & match it with the brush grid
+  local center_x_offset = (cols - cols % 2) * grid_size / 2
+  local center_y_offset = (rows - rows % 2) * grid_size / 2
+
+  for row=0, rows-1 do
+    local offset_y = y - row*grid_size
+
+    for col=0, cols-1 do
+      local offset_x = x - col*grid_size
+      local entity = EntityLoad(
+        entity_selection.path,
+        math.floor(offset_x - RETICLE_OFFSET + center_x_offset),
+        math.floor(offset_y - RETICLE_OFFSET + center_y_offset)
+      )
+
+      -- Per-entity post-processing
+      if entity_selection.post_processor then
+        entity_selection.post_processor(entity, x, y)
+      end
+
+      -- Global level post-processors, for every entity
+      postprocess_entity(entity)
+    end
   end
 
-  -- Global level post-processors, for every entity
-  postprocess_entity(entity)
 end
 
 
@@ -156,10 +192,11 @@ end
 
 local x, y = DEBUG_GetMouseWorld()
 scan_entity(x, y)
+spawner_reticle_follow_mouse(x, y)
 
 
 if has_clicked_m1() then
-  spawn_entity(x, y)
+  spawn_entity()
 end
 
 

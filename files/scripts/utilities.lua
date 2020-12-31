@@ -22,6 +22,12 @@ local SELECTED_BUTTON = BUTTON_CHOICES[BUTTON_SETTING]
 ---------------------------
 -- General utilities
 --
+function round(num)
+    if num >= 0 then return math.floor(num+.5)
+    else return math.ceil(num-.5) end
+end
+
+
 function get_player()
   local players = get_players()
   if players ~= nil then

@@ -156,7 +156,9 @@ end
 
 
 function Slider(vars, callback)
-  callback(GuiSlider(
+  -- The display value of GuiSlider component itself seems to use rounding,
+  -- so we'll make it match with the real value.
+  local new_value = round(GuiSlider(
     GUI, BID(),
     vars.x or 0,
     vars.y or 0,
@@ -169,6 +171,11 @@ function Slider(vars, callback)
     vars.formatting or "",
     vars.width or 50
   ))
+
+  -- Run callback only if value changed.
+  if new_value ~= vars.value then
+    callback(new_value)
+  end
 
   if vars.tooltip then
     Tooltip(vars.tooltip, vars.tooltip_desc or "")

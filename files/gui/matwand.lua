@@ -85,15 +85,14 @@ function render_brush_picker()
     end)
 
     Horizontal(1, 3, function()
-      local value = get_brush_grid_size()
       local vars = {
         text="Grid",
-        value=value,
+        value=get_brush_grid_size(),
         default=float(DEFAULTS[BRUSH_GRID_SIZE]),
         min=1,
         max=100,
         width=100,
-        tooltip="Brush snapping grid size"
+        tooltip="Brush grid snapping size"
       }
 
       Slider(vars, function(new_value)
@@ -187,7 +186,7 @@ function render_eraser_picker()
           min=1,
           max=100,
           width=100,
-          tooltip="Eraser snapping grid size"
+          tooltip="Eraser grid snapping size"
         }
         Slider(grid_slider_vars, function(new_value)
           GlobalsSetValue(ERASER_GRID_SIZE, math.ceil(new_value))
