@@ -14,6 +14,7 @@ function handle_inventory(player)
     "mods/raksa/files/wands/matwand/entity.xml",
     "mods/raksa/files/wands/entwand/entity.xml",
     "data/entities/items/starting_wand_rng.xml",
+    "mods/raksa/files/wands/carrot/entity.xml",
   }
   local ITEMS_FULL = {
   }

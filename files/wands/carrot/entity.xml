@@ -1,0 +1,72 @@
+<Entity tags="hittable,teleportable_NOT,item_physics">
+
+  <!-- physical presence -->
+  <PhysicsBodyComponent
+    _tags="enabled_in_world"
+    uid="1"
+    allow_sleep="1"
+    angular_damping="0"
+    fixed_rotation="0"
+    is_bullet="1"
+    linear_damping="0"
+    auto_clean="0"
+    on_death_leave_physics_body="1"
+    hax_fix_going_through_ground="1"
+  ></PhysicsBodyComponent>
+
+  <PhysicsImageShapeComponent
+    body_id="1"
+    centered="1"
+    image_file="mods/raksa/files/wands/carrot/item_gfx.png"
+    material="spore_pod_stalk"
+  ></PhysicsImageShapeComponent>
+
+  <VelocityComponent
+    _tags="enabled_in_world"
+  ></VelocityComponent>
+
+  <!-- item -->
+
+  <SpriteComponent
+    _tags="enabled_in_hand"
+    _enabled="1"
+    offset_x="3.5"
+    offset_y="3.5"
+    image_file="mods/raksa/files/wands/carrot/item_gfx.png"
+  ></SpriteComponent>
+
+  <ItemComponent
+    _tags="enabled_in_world"
+    item_name="Porkkana"
+    ui_description="Old Enchanted Carrot.
+Point and click to instantly relocate the wielder.
+Do not eat."
+    max_child_items="0"
+    is_pickable="1"
+    is_equipable_forced="1"
+    ui_sprite="mods/raksa/files/wands/carrot/ui_gfx.png"
+    preferred_inventory="FULL"
+  ></ItemComponent>
+
+  <UIInfoComponent
+    _tags="enabled_in_world"
+    name="Porkkana"
+  ></UIInfoComponent>
+
+  <AbilityComponent
+    ui_name="Porkkana"
+    throw_as_item="0"
+    mana_max="0"
+    >
+    <gun_config
+      deck_capacity="0"
+    ></gun_config>
+  </AbilityComponent>
+
+  <!-- Blink shooting action -->
+  <LuaComponent
+    _tags="enabled_in_hand"
+    script_source_file="mods/raksa/files/wands/carrot/blink.lua"
+    execute_every_n_frame="1"
+  ></LuaComponent>
+</Entity>
