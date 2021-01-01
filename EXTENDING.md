@@ -29,8 +29,14 @@ table.insert(ALL_ENTITIES, {
     {
       name="My Entity",
       desc="Voluntary tooltip description",
-      path="path/to/my/entity.xml",
       image="path/to/my/entity_icon.png",  -- This should be a 16*16px icon
+      path="path/to/my/entity.xml",
+      spawn_func=function(x, y)
+        -- Do any custom entity loading stuff here when just the path is not enough (eg. perks).
+        -- Overrides the `path` variable entirely.
+        -- MUST return the entity you loaded.
+        return EntityLoad("myentity.xml", x, y)
+      end,
       post_processor=function(entity, x, y)
         -- Do anything you want with the entity or its location after it's spawned.
       end

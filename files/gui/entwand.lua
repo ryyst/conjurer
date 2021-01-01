@@ -126,7 +126,7 @@ function render_entwand_buttons()
       name = "Entity Picker",
       image_func = function() return active_entity.image end,
       action = function() toggle_active_entwand_overlay(render_entity_picker) end,
-      desc="["..active_entity.name.."]"
+      desc="["..GameTextGetTranslatedOrNot(active_entity.name).."]"
     },
     {
       name = "Spawner Options",

@@ -1,6 +1,7 @@
 dofile_once("mods/raksa/files/scripts/lists/animals.lua")
 dofile_once("mods/raksa/files/scripts/lists/props.lua")
 dofile_once("mods/raksa/files/scripts/lists/pickups.lua")
+dofile_once("mods/raksa/files/scripts/lists/perks.lua")
 dofile_once("mods/raksa/files/scripts/lists/custom_entities.lua")
 
 
@@ -22,6 +23,12 @@ ALL_ENTITIES = {
     icon="mods/raksa/files/gfx/entwand_icons/icon_pickups.png",
     icon_off="mods/raksa/files/gfx/entwand_icons/icon_pickups_off.png",
     entities=PICKUPS,
+  },
+  {
+    name="Perks",
+    icon="mods/raksa/files/gfx/entwand_icons/icon_pickups.png",
+    icon_off="mods/raksa/files/gfx/entwand_icons/icon_pickups_off.png",
+    entities=PERKS,
   },
   {
     name="Custom",

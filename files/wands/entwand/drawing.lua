@@ -151,23 +151,27 @@ function spawn_entity()
   local cols = GlobalsGetNumber(ENTWAND_COLS)
   local grid_size = GlobalsGetNumber(ENTWAND_GRID_SIZE)
   local reticle = EntityGetWithName(RETICLE_NAME)
-  local x, y = EntityGetTransform(reticle)
+  local reticle_x, reticle_y = EntityGetTransform(reticle)
 
   local entity_selection = get_active_entity()
 
   -- Centering grid around the mouse & match it with the brush grid
-  local center_x_offset = (cols - cols % 2) * grid_size / 2
-  local center_y_offset = (rows - rows % 2) * grid_size / 2
+  local centerize_offset_x = (cols - cols % 2) * grid_size / 2
+  local centerize_offset_y = (rows - rows % 2) * grid_size / 2
 
   for row=0, rows-1 do
-    local offset_y = y - row*grid_size
+    local grid_offset_y = reticle_y - row*grid_size
+    local y = math.floor(grid_offset_y - RETICLE_OFFSET + centerize_offset_y)
 
     for col=0, cols-1 do
-      local offset_x = x - col*grid_size
-      local entity = EntityLoad(
-        entity_selection.path,
-        math.floor(offset_x - RETICLE_OFFSET + center_x_offset),
-        math.floor(offset_y - RETICLE_OFFSET + center_y_offset)
+      local grid_offset_x = reticle_x - col*grid_size
+      local x = math.floor(grid_offset_x - RETICLE_OFFSET + centerize_offset_x)
+
+      -- Manual spawn function always overrides simple spawn-by-path
+      local entity = (
+        entity_selection.spawn_func
+        and entity_selection.spawn_func(x, y)
+        or EntityLoad(entity_selection.path, x, y)
       )
 
       -- Per-entity post-processing
