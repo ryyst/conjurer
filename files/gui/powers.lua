@@ -427,11 +427,13 @@ function render_time_menu()
   Slider({
       x=-2,
       max=3.5,
+      decimals=true,
       default=to_slider_log_value(1),
       value=time_dt,
       formatting=string.format("%.2f", time_dt),
       text="Torque",
-      tooltip="Right-click to reset back to natural order",
+      tooltip="Right-click to bring back the natural order.",
+      tooltip_desc="Note: Planetary rotational velocity also affects the wind speeds.",
     },
     function(new_value)
       EntitySetValue(world, "WorldStateComponent", "time_dt", to_worldstate_value(new_value))

@@ -164,7 +164,7 @@ end
 function Slider(vars, callback)
   -- The display value of GuiSlider component itself seems to use rounding,
   -- so we'll make it match with the real value.
-  local new_value = round(GuiSlider(
+  local new_value = GuiSlider(
     GUI, BID(),
     vars.x or 0,
     vars.y or 0,
@@ -176,7 +176,12 @@ function Slider(vars, callback)
     vars.display_multiplier or 1,
     vars.formatting or "",
     vars.width or 50
-  ))
+  )
+
+  -- Most sliders want integers, but a select few don't. Round by default.
+  if not vars.decimals then
+    new_value = round(new_value)
+  end
 
   -- Run callback only if value changed.
   if new_value ~= vars.value then
