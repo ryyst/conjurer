@@ -324,4 +324,354 @@ _GENERATED = {
     path="data/entities/items/easter/druidsoccer_ball.xml",
     image="mods/raksa/files/gfx/pickup_icons/druidsoccer_ball.png",
   },
+  {
+    name="Starting bomb wand",
+    path="data/entities/items/starting_bomb_wand.xml",
+    image="mods/raksa/files/gfx/pickup_icons/bomb_wand.png",
+  },
+  {
+    name="Starting bomb wand rng",
+    path="data/entities/items/starting_bomb_wand_rng.xml",
+    image="mods/raksa/files/gfx/pickup_icons/bomb_wand.png",
+  },
+  {
+    name="Starting bomb wand rng daily",
+    path="data/entities/items/starting_bomb_wand_rng_daily.xml",
+    image="mods/raksa/files/gfx/pickup_icons/bomb_wand.png",
+  },
+  {
+    name="Starting wand",
+    path="data/entities/items/starting_wand.xml",
+    image="mods/raksa/files/gfx/pickup_icons/handgun.png",
+  },
+  {
+    name="Starting wand rng",
+    path="data/entities/items/starting_wand_rng.xml",
+    image="mods/raksa/files/gfx/pickup_icons/handgun.png",
+  },
+  {
+    name="Starting wand rng daily",
+    path="data/entities/items/starting_wand_rng_daily.xml",
+    image="mods/raksa/files/gfx/pickup_icons/handgun.png",
+  },
+  {
+    name="Wand daily 01",
+    path="data/entities/items/wand_daily_01.xml",
+    image="mods/raksa/files/gfx/pickup_icons/machinegun.png",
+  },
+  {
+    name="Wand daily 02",
+    path="data/entities/items/wand_daily_02.xml",
+    image="mods/raksa/files/gfx/pickup_icons/machinegun.png",
+  },
+  {
+    name="Wand daily 03",
+    path="data/entities/items/wand_daily_03.xml",
+    image="mods/raksa/files/gfx/pickup_icons/machinegun.png",
+  },
+  {
+    name="Wand daily 04",
+    path="data/entities/items/wand_daily_04.xml",
+    image="mods/raksa/files/gfx/pickup_icons/machinegun.png",
+  },
+  {
+    name="Wand daily 05",
+    path="data/entities/items/wand_daily_05.xml",
+    image="mods/raksa/files/gfx/pickup_icons/machinegun.png",
+  },
+  {
+    name="Wand daily 06",
+    path="data/entities/items/wand_daily_06.xml",
+    image="mods/raksa/files/gfx/pickup_icons/machinegun.png",
+  },
+  {
+    name="Wand level 01",
+    path="data/entities/items/wand_level_01.xml",
+    image="mods/raksa/files/gfx/pickup_icons/machinegun.png",
+  },
+  {
+    name="Wand level 01 better",
+    path="data/entities/items/wand_level_01_better.xml",
+    image="mods/raksa/files/gfx/pickup_icons/machinegun.png",
+  },
+  {
+    name="Wand level 01 p",
+    path="data/entities/items/wand_level_01_p.xml",
+    image="mods/raksa/files/gfx/pickup_icons/machinegun.png",
+  },
+  {
+    name="Wand level 02",
+    path="data/entities/items/wand_level_02.xml",
+    image="mods/raksa/files/gfx/pickup_icons/machinegun.png",
+  },
+  {
+    name="Wand level 02 better",
+    path="data/entities/items/wand_level_02_better.xml",
+    image="mods/raksa/files/gfx/pickup_icons/machinegun.png",
+  },
+  {
+    name="Wand level 02 p",
+    path="data/entities/items/wand_level_02_p.xml",
+    image="mods/raksa/files/gfx/pickup_icons/machinegun.png",
+  },
+  {
+    name="Wand level 03",
+    path="data/entities/items/wand_level_03.xml",
+    image="mods/raksa/files/gfx/pickup_icons/machinegun.png",
+  },
+  {
+    name="Wand level 03 better",
+    path="data/entities/items/wand_level_03_better.xml",
+    image="mods/raksa/files/gfx/pickup_icons/machinegun.png",
+  },
+  {
+    name="Wand level 03 p",
+    path="data/entities/items/wand_level_03_p.xml",
+    image="mods/raksa/files/gfx/pickup_icons/machinegun.png",
+  },
+  {
+    name="Wand level 04",
+    path="data/entities/items/wand_level_04.xml",
+    image="mods/raksa/files/gfx/pickup_icons/machinegun.png",
+  },
+  {
+    name="Wand level 04 better",
+    path="data/entities/items/wand_level_04_better.xml",
+    image="mods/raksa/files/gfx/pickup_icons/machinegun.png",
+  },
+  {
+    name="Wand level 04 p",
+    path="data/entities/items/wand_level_04_p.xml",
+    image="mods/raksa/files/gfx/pickup_icons/machinegun.png",
+  },
+  {
+    name="Wand level 05",
+    path="data/entities/items/wand_level_05.xml",
+    image="mods/raksa/files/gfx/pickup_icons/machinegun.png",
+  },
+  {
+    name="Wand level 05 better",
+    path="data/entities/items/wand_level_05_better.xml",
+    image="mods/raksa/files/gfx/pickup_icons/machinegun.png",
+  },
+  {
+    name="Wand level 05 p",
+    path="data/entities/items/wand_level_05_p.xml",
+    image="mods/raksa/files/gfx/pickup_icons/machinegun.png",
+  },
+  {
+    name="Wand level 06",
+    path="data/entities/items/wand_level_06.xml",
+    image="mods/raksa/files/gfx/pickup_icons/machinegun.png",
+  },
+  {
+    name="Wand level 06 better",
+    path="data/entities/items/wand_level_06_better.xml",
+    image="mods/raksa/files/gfx/pickup_icons/machinegun.png",
+  },
+  {
+    name="Wand level 06 p",
+    path="data/entities/items/wand_level_06_p.xml",
+    image="mods/raksa/files/gfx/pickup_icons/machinegun.png",
+  },
+  {
+    name="Wand level 10",
+    path="data/entities/items/wand_level_10.xml",
+    image="mods/raksa/files/gfx/pickup_icons/machinegun.png",
+  },
+  {
+    name="Wand petri",
+    path="data/entities/items/wand_petri.xml",
+    image="mods/raksa/files/gfx/pickup_icons/machinegun.png",
+  },
+  {
+    name="Wand unshuffle 01",
+    path="data/entities/items/wand_unshuffle_01.xml",
+    image="mods/raksa/files/gfx/pickup_icons/machinegun.png",
+  },
+  {
+    name="Wand unshuffle 01 p",
+    path="data/entities/items/wand_unshuffle_01_p.xml",
+    image="mods/raksa/files/gfx/pickup_icons/machinegun.png",
+  },
+  {
+    name="Wand unshuffle 02",
+    path="data/entities/items/wand_unshuffle_02.xml",
+    image="mods/raksa/files/gfx/pickup_icons/machinegun.png",
+  },
+  {
+    name="Wand unshuffle 02 p",
+    path="data/entities/items/wand_unshuffle_02_p.xml",
+    image="mods/raksa/files/gfx/pickup_icons/machinegun.png",
+  },
+  {
+    name="Wand unshuffle 03",
+    path="data/entities/items/wand_unshuffle_03.xml",
+    image="mods/raksa/files/gfx/pickup_icons/machinegun.png",
+  },
+  {
+    name="Wand unshuffle 03 p",
+    path="data/entities/items/wand_unshuffle_03_p.xml",
+    image="mods/raksa/files/gfx/pickup_icons/machinegun.png",
+  },
+  {
+    name="Wand unshuffle 04",
+    path="data/entities/items/wand_unshuffle_04.xml",
+    image="mods/raksa/files/gfx/pickup_icons/machinegun.png",
+  },
+  {
+    name="Wand unshuffle 04 p",
+    path="data/entities/items/wand_unshuffle_04_p.xml",
+    image="mods/raksa/files/gfx/pickup_icons/machinegun.png",
+  },
+  {
+    name="Wand unshuffle 05",
+    path="data/entities/items/wand_unshuffle_05.xml",
+    image="mods/raksa/files/gfx/pickup_icons/machinegun.png",
+  },
+  {
+    name="Wand unshuffle 05 p",
+    path="data/entities/items/wand_unshuffle_05_p.xml",
+    image="mods/raksa/files/gfx/pickup_icons/machinegun.png",
+  },
+  {
+    name="Wand unshuffle 06",
+    path="data/entities/items/wand_unshuffle_06.xml",
+    image="mods/raksa/files/gfx/pickup_icons/machinegun.png",
+  },
+  {
+    name="Wand unshuffle 06 p",
+    path="data/entities/items/wand_unshuffle_06_p.xml",
+    image="mods/raksa/files/gfx/pickup_icons/machinegun.png",
+  },
+  {
+    name="Wand unshuffle 10",
+    path="data/entities/items/wand_unshuffle_10.xml",
+    image="mods/raksa/files/gfx/pickup_icons/machinegun.png",
+  },
+  {
+    name="Wand vasta",
+    path="data/entities/items/wand_vasta.xml",
+    image="mods/raksa/files/gfx/pickup_icons/vasta.png",
+  },
+  {
+    name="Wand vihta",
+    path="data/entities/items/wand_vihta.xml",
+    image="mods/raksa/files/gfx/pickup_icons/vihta.png",
+  },
+  {
+    name="Experimental wand 1",
+    path="data/entities/items/wands/experimental/experimental_wand_1.xml",
+    image="mods/raksa/files/gfx/pickup_icons/experimental_wand_1.png",
+  },
+  {
+    name="Experimental wand 2",
+    path="data/entities/items/wands/experimental/experimental_wand_2.xml",
+    image="mods/raksa/files/gfx/pickup_icons/experimental_wand_2.png",
+  },
+  {
+    name="Base wand level 1",
+    path="data/entities/items/wands/level_01/base_wand_level_1.xml",
+    image="mods/raksa/files/gfx/pickup_icons/wand_0484.png",
+  },
+  {
+    name="Wand 001",
+    path="data/entities/items/wands/level_01/wand_001.xml",
+    image="mods/raksa/files/gfx/pickup_icons/wand_0484.png",
+  },
+  {
+    name="Wand 002",
+    path="data/entities/items/wands/level_01/wand_002.xml",
+    image="mods/raksa/files/gfx/pickup_icons/wand_0654.png",
+  },
+  {
+    name="Wand 003",
+    path="data/entities/items/wands/level_01/wand_003.xml",
+    image="mods/raksa/files/gfx/pickup_icons/wand_0958.png",
+  },
+  {
+    name="Wand 004",
+    path="data/entities/items/wands/level_01/wand_004.xml",
+    image="mods/raksa/files/gfx/pickup_icons/wand_0516.png",
+  },
+  {
+    name="Wand 005",
+    path="data/entities/items/wands/level_01/wand_005.xml",
+    image="mods/raksa/files/gfx/pickup_icons/wand_0484.png",
+  },
+  {
+    name="Wand 006",
+    path="data/entities/items/wands/level_01/wand_006.xml",
+    image="mods/raksa/files/gfx/pickup_icons/wand_0058.png",
+  },
+  {
+    name="Wand 007",
+    path="data/entities/items/wands/level_01/wand_007.xml",
+    image="mods/raksa/files/gfx/pickup_icons/wand_0120.png",
+  },
+  {
+    name="Wand 008",
+    path="data/entities/items/wands/level_01/wand_008.xml",
+    image="mods/raksa/files/gfx/pickup_icons/wand_0898.png",
+  },
+  {
+    name="Wand 009",
+    path="data/entities/items/wands/level_01/wand_009.xml",
+    image="mods/raksa/files/gfx/pickup_icons/wand_0724.png",
+  },
+  {
+    name="Wand 010",
+    path="data/entities/items/wands/level_01/wand_010.xml",
+    image="mods/raksa/files/gfx/pickup_icons/wand_0326.png",
+  },
+  {
+    name="Wand 011",
+    path="data/entities/items/wands/level_01/wand_011.xml",
+    image="mods/raksa/files/gfx/pickup_icons/wand_0374.png",
+  },
+  {
+    name="Wand 012",
+    path="data/entities/items/wands/level_01/wand_012.xml",
+    image="mods/raksa/files/gfx/pickup_icons/wand_0324.png",
+  },
+  {
+    name="Wand 013",
+    path="data/entities/items/wands/level_01/wand_013.xml",
+    image="mods/raksa/files/gfx/pickup_icons/wand_0309.png",
+  },
+  {
+    name="Wand 014",
+    path="data/entities/items/wands/level_01/wand_014.xml",
+    image="mods/raksa/files/gfx/pickup_icons/wand_0230.png",
+  },
+  {
+    name="Wand 015",
+    path="data/entities/items/wands/level_01/wand_015.xml",
+    image="mods/raksa/files/gfx/pickup_icons/wand_0063.png",
+  },
+  {
+    name="Wand 016",
+    path="data/entities/items/wands/level_01/wand_016.xml",
+    image="mods/raksa/files/gfx/pickup_icons/wand_0830.png",
+  },
+  {
+    name="Wand 017",
+    path="data/entities/items/wands/level_01/wand_017.xml",
+    image="mods/raksa/files/gfx/pickup_icons/wand_1000.png",
+  },
+  {
+    name="Wand good 1",
+    path="data/entities/items/wands/wand_good/wand_good_1.xml",
+    image="mods/raksa/files/gfx/pickup_icons/wand_good_1.png",
+  },
+  {
+    name="Wand good 2",
+    path="data/entities/items/wands/wand_good/wand_good_2.xml",
+    image="mods/raksa/files/gfx/pickup_icons/wand_good_2.png",
+  },
+  {
+    name="Wand good 3",
+    path="data/entities/items/wands/wand_good/wand_good_3.xml",
+    image="mods/raksa/files/gfx/pickup_icons/wand_good_3.png",
+  },
 }

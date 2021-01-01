@@ -70,40 +70,57 @@ def parse_image_xml(entity_path, data_path):
     return (attr.value, width, height)
 
 
-def find_entity_sprite(xml_file):
+def find_possible_entity_sprites(xml_file):
+    # TODO: Recurse into <Base> entities
     elements = xml_file.getElementsByTagName
-    return (
+    usual_elements = (
         elements("SpriteComponent")
-        or elements("PixelSpriteComponent")
-        or elements("PhysicsImageShapeComponent")
+        + elements("PixelSpriteComponent")
+        + elements("PhysicsImageShapeComponent")
+        + elements("AbilityComponent")
     )
 
+    sprite = ""
+    for elem in usual_elements:
+        attrs = elem.attributes
+        attr = attrs.get("image_file") or attrs.get("sprite_file")
+        if attr:
+            sprite = attr
+            break
 
-def parse_entity_xmls(entity_path, data_path):
-    xml_path = Path(data_path) / Path(entity_path)
+    return sprite
+
+
+def parse_entity_xmls(entity, data_path):
+    entity_path = entity["path"]
+    image_path = entity.get("image")
     width, height = None, None  # None means we use whole image
-    image_path = None
 
+    def full_image_path(_p):
+        return Path(data_path) / str(_p).replace("data/", "")
+
+    if image_path:
+        return (full_image_path(image_path), width, height, Path(entity_path))
+
+    xml_path = Path(data_path) / Path(entity_path)
     xml_file = open_xml(str(xml_path), entity_path)
     if not xml_file:
         return (image_path, width, height, Path(entity_path))
 
-    sprites = find_entity_sprite(xml_file)
+    sprite = find_possible_entity_sprites(xml_file)
 
-    if sprites:
-        sprite = sprites[0]  # Pick _only_ first element for now
-        attr = sprite.attributes.get("image_file")
-
-        if not attr:
-            # Rare cases of inheritance, where a path is not yet explicitly defined?
-            print(f"{entity_path}: No image_file defined in XML")
-            return (image_path, width, height, Path(entity_path))
-
-        image_path = Path(attr.value)
+    if sprite:
+        image_path = Path(sprite.value)
         if image_path.suffix == ".xml":
             image_path, width, height = parse_image_xml(image_path, data_path)
 
-        image_path = Path(data_path) / str(image_path).replace("data/", "")
+        image_path = full_image_path(image_path)
+    else:
+        # Rare cases:
+        # - Inheritance, where a path is not explicitly defined in the child
+        # - Sprite is not defined in xml at all, but Lua (see: Vasta)
+        print(f"{entity_path}: No image_file defined in XML")
+        return (image_path, width, height, Path(entity_path))
 
     return (image_path, width, height, Path(entity_path))
 
@@ -175,18 +192,19 @@ def main(args):
 
     data_path = args[0]
 
+    # TODO: Change this hardcoded crap into JSON input parsing
     print("\nGenerating pickups...")
-    images = [parse_entity_xmls(entity["path"], data_path) for entity in PICKUPS]
+    images = [parse_entity_xmls(entity, data_path) for entity in PICKUPS]
     generate_icons_from_sprites(images, "../files/gfx/pickup_icons")
     render_list_to_lua(images, "../files/scripts/lists/_pickups.lua", "pickup_icons")
 
     print("\nGenerating props...")
-    images = [parse_entity_xmls(entity["path"], data_path) for entity in PROPS]
+    images = [parse_entity_xmls(entity, data_path) for entity in PROPS]
     generate_icons_from_sprites(images, "../files/gfx/prop_icons")
     render_list_to_lua(images, "../files/scripts/lists/_props.lua", "prop_icons")
 
     print("\nGenerating animals...")
-    images = [parse_entity_xmls(entity["path"], data_path) for entity in CUSTOM_ANIMALS]
+    images = [parse_entity_xmls(entity, data_path) for entity in CUSTOM_ANIMALS]
     generate_icons_from_sprites(images, "../files/gfx/animal_icons")
     render_list_to_lua(images, "../files/scripts/lists/_animals.lua", "animal_icons")
 
