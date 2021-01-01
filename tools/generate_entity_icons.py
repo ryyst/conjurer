@@ -12,6 +12,7 @@ from PIL import ImageDraw
 from inputs.pickups import PICKUPS
 from inputs.props import PROPS
 from inputs.animals import CUSTOM_ANIMALS
+from inputs.thearmory import ARMORY
 
 
 IMAGE_SIZE = (16, 16)
@@ -46,10 +47,11 @@ def open_xml(xml_path, entity_path):
 
 def parse_image_xml(entity_path, data_path):
     # Extracted data never has the main folder name
-    entity_path = str(entity_path).replace("data/", "")
+    # entity_path = str(entity_path).replace("data/", "")
     xml_path = str(Path(data_path) / Path(entity_path))
 
     xml_file = open_xml(xml_path, entity_path)
+    # print(xml_file, xml_path, entity_path)
 
     attr = xml_file.documentElement.attributes.get("filename")
     if not attr:
@@ -103,7 +105,8 @@ def parse_entity_xmls(entity_path, data_path):
         if image_path.suffix == ".xml":
             image_path, width, height = parse_image_xml(image_path, data_path)
 
-        image_path = Path(data_path) / str(image_path).replace("data/", "")
+        image_path = Path(data_path) / str(image_path)  # .replace("data/", "")
+        print("TÄÄ", image_path)
 
     return (image_path, width, height, Path(entity_path))
 
@@ -175,21 +178,27 @@ def main(args):
 
     data_path = args[0]
 
-    print("\nGenerating pickups...")
-    images = [parse_entity_xmls(entity["path"], data_path) for entity in PICKUPS]
-    generate_icons_from_sprites(images, "../files/gfx/pickup_icons")
-    render_list_to_lua(images, "../files/scripts/lists/_pickups.lua", "pickup_icons")
+    # print("\nGenerating pickups...")
+    # images = [parse_entity_xmls(entity["path"], data_path) for entity in PICKUPS]
+    # generate_icons_from_sprites(images, "../files/gfx/pickup_icons")
+    # render_list_to_lua(images, "../files/scripts/lists/_pickups.lua", "pickup_icons")
 
-    print("\nGenerating props...")
-    images = [parse_entity_xmls(entity["path"], data_path) for entity in PROPS]
-    generate_icons_from_sprites(images, "../files/gfx/prop_icons")
-    render_list_to_lua(images, "../files/scripts/lists/_props.lua", "prop_icons")
+    # print("\nGenerating props...")
+    # images = [parse_entity_xmls(entity["path"], data_path) for entity in PROPS]
+    # generate_icons_from_sprites(images, "../files/gfx/prop_icons")
+    # render_list_to_lua(images, "../files/scripts/lists/_props.lua", "prop_icons")
 
-    print("\nGenerating animals...")
-    images = [parse_entity_xmls(entity["path"], data_path) for entity in CUSTOM_ANIMALS]
-    generate_icons_from_sprites(images, "../files/gfx/animal_icons")
-    render_list_to_lua(images, "../files/scripts/lists/_animals.lua", "animal_icons")
+    # print("\nGenerating animals...")
+    # images = [parse_entity_xmls(entity["path"], data_path) for entity in CUSTOM_ANIMALS]
+    # generate_icons_from_sprites(images, "../files/gfx/animal_icons")
+    # render_list_to_lua(images, "../files/scripts/lists/_animals.lua", "animal_icons")
 
+    print("\nGenerating armory...")
+    images = [parse_entity_xmls(entity["path"], data_path) for entity in ARMORY]
+    generate_icons_from_sprites(images, "../files/gfx/thearmory_icons")
+    render_list_to_lua(
+        images, "../files/scripts/lists/_thearmory.lua", "thearmory_icons"
+    )
     print("Done.")
 
 

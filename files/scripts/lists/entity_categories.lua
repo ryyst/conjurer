@@ -2,6 +2,7 @@ dofile_once("mods/raksa/files/scripts/lists/animals.lua")
 dofile_once("mods/raksa/files/scripts/lists/props.lua")
 dofile_once("mods/raksa/files/scripts/lists/pickups.lua")
 dofile_once("mods/raksa/files/scripts/lists/custom_entities.lua")
+dofile_once("mods/raksa/files/scripts/lists/_thearmory.lua")
 
 
 ALL_ENTITIES = {
@@ -28,5 +29,11 @@ ALL_ENTITIES = {
     icon="mods/raksa/files/gfx/entwand_icons/icon_custom.png",
     icon_off="mods/raksa/files/gfx/entwand_icons/icon_custom_off.png",
     entities=CUSTOM_ENTITIES,
+  },
+  {
+    name="TheArmory",
+    icon="mods/raksa/files/gfx/entwand_icons/icon_custom.png",
+    icon_off="mods/raksa/files/gfx/entwand_icons/icon_custom_off.png",
+    entities=ARMORY,
   },
 };
