@@ -18,7 +18,7 @@
     body_id="1"
     centered="1"
     image_file="mods/raksa/files/wands/carrot/item_gfx.png"
-    material="spore_pod_stalk"
+    material="fungi"
   ></PhysicsImageShapeComponent>
 
   <VelocityComponent
@@ -37,10 +37,11 @@
 
   <ItemComponent
     _tags="enabled_in_world"
-    item_name="Porkkana"
-    ui_description="Old Enchanted Carrot.
-Point and click to instantly relocate the wielder.
-Do not eat."
+    item_name="Porgand"
+    ui_description="Enchanted old carrot.
+Point and squeeze to instantly relocate the wielder. Do not eat.
+---
+Left-click to blink, right-click to hold."
     max_child_items="0"
     is_pickable="1"
     is_equipable_forced="1"
@@ -50,11 +51,11 @@ Do not eat."
 
   <UIInfoComponent
     _tags="enabled_in_world"
-    name="Porkkana"
+    name="Porgand"
   ></UIInfoComponent>
 
   <AbilityComponent
-    ui_name="Porkkana"
+    ui_name="Porgand"
     throw_as_item="0"
     mana_max="0"
     >

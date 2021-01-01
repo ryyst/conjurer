@@ -220,6 +220,16 @@ function teleport_player(x, y)
   end
 
   EntitySetTransform(player, x, y)
+
+  -- 1. Make the arrival less janky when teleporting in-air.
+  --
+  -- 2. If the Eye of Conjurer is active while we give the player some velocity
+  -- it'll make the player float off helpless, so we disable it in that case.
+  if not GlobalsGetBool(BINOCULARS_ACTIVE) then
+    local dataComp = EntityGetFirstComponent(player, "CharacterDataComponent")
+    local xvel, yvel = ComponentGetValue2(dataComp, "mVelocity")
+    ComponentSetValue2(dataComp, "mVelocity", xvel, -65)
+  end
 end
 
 
