@@ -58,7 +58,7 @@ function render_material_picker()
   -- Render material buttons
   Background({margin=3, style=NPBG_BROWN, z_index=200}, function()
     Grid({items=active_category.materials, x=1, y=2, size=8}, function(material)
-      local vars = {image=material.image, tooltip=material.name}
+      local vars = {image=material.image, tooltip=material.name, tooltip_desc=material.desc}
       local click = function()
         GlobalsSetValue(SELECTED_MATERIAL, material.id)
         GlobalsSetValue(SELECTED_MATERIAL_ICON, material.image)
