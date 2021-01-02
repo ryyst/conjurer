@@ -39,7 +39,8 @@ table.insert(ALL_ENTITIES, {
       end,
       post_processor=function(entity, x, y)
         -- Do anything you want with the entity or its location after it's spawned.
-      end
+      end,
+      grid_size=32,  -- Optional. If you want to override the default automatic grid size.
     },
     {
       name="My Second entity",

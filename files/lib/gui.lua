@@ -161,6 +161,22 @@ function Background(vars, callback)
 end
 
 
+function Scroller(vars, callback)
+  GuiBeginScrollContainer(
+    GUI, BID(),
+    vars.x or 0,
+    vars.y or 0,
+    vars.width or 100,
+    vars.height or 100,
+    vars.gamepad_focusable or true,
+    vars.margin_x or 0,
+    vars.margin_y or 0
+  )
+    callback()
+  GuiEndScrollContainer(GUI)
+end
+
+
 function Slider(vars, callback)
   -- The display value of GuiSlider component itself seems to use rounding,
   -- so we'll make it match with the real value.

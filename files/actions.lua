@@ -15,6 +15,7 @@ table.insert( actions,
   spawn_probability = "",
   price             = 100000,
   mana              = 0,
+  hide_from_conjurer  = true,
   action = function()
     -- Could we make some sparks fly here? Some eartherly lights?
   end,
@@ -31,6 +32,7 @@ table.insert( actions,
   spawn_probability = "",
   price             = 100000,
   mana              = 0,
+  hide_from_conjurer  = true,
   action = function()
     -- Could we make some sparks fly here? Some eartherly lights?
   end,
