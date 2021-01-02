@@ -9,6 +9,7 @@ dofile_once("mods/raksa/files/scripts/enums.lua")
 ------------------------------
 
 ICON_DELETE_ENTITY = "mods/raksa/files/gfx/entwand_icons/icon_delete_entity.png"
+ICON_STAFF_OPTIONS = "mods/raksa/files/gfx/entwand_icons/icon_entity_staff_options.png"
 
 ENTITY_POST_PROCESSORS = {
   disable_new_physicsbody_optimizations,

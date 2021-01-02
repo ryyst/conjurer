@@ -138,7 +138,7 @@ function render_entwand_buttons()
     },
     {
       name = "Staff Options",
-      image = ICON_UNKNOWN,
+      image = ICON_STAFF_OPTIONS,
       action = function() toggle_active_entwand_overlay(render_entity_options) end,
       desc="Left-click to conjure entities"
     },
