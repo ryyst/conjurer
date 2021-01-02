@@ -336,8 +336,8 @@ function render_weather_menu()
       Slider({
           value=GlobalsGetNumber(WIND_SPEED),
           default=0,
-          min=-49,  -- [sic] Exclusive, actually goes to -50
-          max=50,
+          min=-499,  -- Exclusive, actually goes to -500
+          max=500,
           text="Wind",
         },
         function(new_value)
@@ -433,7 +433,7 @@ function render_time_menu()
       formatting=string.format("%.2f", time_dt),
       text="Torque",
       tooltip="Right-click to bring back the natural order.",
-      tooltip_desc="Note: Planetary rotational velocity also affects the wind speeds.",
+      tooltip_desc="Note: This also acts as a multiplier to wind speeds.",
     },
     function(new_value)
       EntitySetValue(world, "WorldStateComponent", "time_dt", to_worldstate_value(new_value))
