@@ -106,7 +106,7 @@ SANDS = {
   },
   {
     name="Grass Dark",
-    image="mods/raksa/files/gfx/icon_unknown.png",
+    image="mods/raksa/files/gfx/material_icons/moss.png",
     id="grass_dark",
   },
   {
