@@ -26,6 +26,7 @@ ALL_ENTITIES = {
   },
   {
     name="Perks",
+    desc="Notice: There's no undoing picked up perks",
     icon="mods/raksa/files/gfx/entwand_icons/icon_pickups.png",
     icon_off="mods/raksa/files/gfx/entwand_icons/icon_pickups_off.png",
     entities=PERKS,

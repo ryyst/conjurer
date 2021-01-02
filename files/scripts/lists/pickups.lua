@@ -136,26 +136,31 @@ PICKUPS = {
   },
   {
     name="Essence air",
+    desc="Danger: Not removable after picking up",
     path="data/entities/items/pickup/essence_air.xml",
     image="mods/raksa/files/gfx/pickup_icons/essence_air.png",
   },
   {
     name="Essence alcohol",
+    desc="Danger: Not removable after picking up",
     path="data/entities/items/pickup/essence_alcohol.xml",
     image="mods/raksa/files/gfx/pickup_icons/essence_alcohol.png",
   },
   {
     name="Essence fire",
+    desc="Danger: Not removable after picking up",
     path="data/entities/items/pickup/essence_fire.xml",
     image="mods/raksa/files/gfx/pickup_icons/essence_fire.png",
   },
   {
     name="Essence laser",
+    desc="Danger: Not removable after picking up",
     path="data/entities/items/pickup/essence_laser.xml",
     image="mods/raksa/files/gfx/pickup_icons/essence_laser.png",
   },
   {
     name="Essence water",
+    desc="Danger: Not removable after picking up",
     path="data/entities/items/pickup/essence_water.xml",
     image="mods/raksa/files/gfx/pickup_icons/essence_water.png",
   },
@@ -193,16 +198,6 @@ PICKUPS = {
     name="Heart fullhp temple",
     path="data/entities/items/pickup/heart_fullhp_temple.xml",
     image="mods/raksa/files/gfx/pickup_icons/heart.png",
-  },
-  {
-    name="Flute",
-    path="data/entities/items/flute.xml",
-    image="mods/raksa/files/gfx/pickup_icons/flute.png",
-  },
-  {
-    name="Kantele",
-    path="data/entities/items/kantele.xml",
-    image="mods/raksa/files/gfx/pickup_icons/kantele.png",
   },
   {
     name="Jar",
@@ -323,6 +318,16 @@ PICKUPS = {
     name="Druidsoccer ball",
     path="data/entities/items/easter/druidsoccer_ball.xml",
     image="mods/raksa/files/gfx/pickup_icons/druidsoccer_ball.png",
+  },
+  {
+    name="Huilu",
+    path="data/entities/items/flute.xml",
+    image="mods/raksa/files/gfx/pickup_icons/flute.png",
+  },
+  {
+    name="Kantele",
+    path="data/entities/items/kantele.xml",
+    image="mods/raksa/files/gfx/pickup_icons/kantele.png",
   },
   {
     name="Starting bomb wand",
@@ -482,7 +487,7 @@ PICKUPS = {
   {
     name="Wand petri",
     path="data/entities/items/wand_petri.xml",
-    image="mods/raksa/files/gfx/pickup_icons/machinegun.png",
+    image="mods/raksa/files/gfx/pickup_icons/wand_0898.png",
   },
   {
     name="Wand unshuffle 01",
@@ -660,17 +665,17 @@ PICKUPS = {
     image="mods/raksa/files/gfx/pickup_icons/wand_1000.png",
   },
   {
-    name="Wand good 1",
+    name="Wand of Swiftness",
     path="data/entities/items/wands/wand_good/wand_good_1.xml",
     image="mods/raksa/files/gfx/pickup_icons/wand_good_1.png",
   },
   {
-    name="Wand good 2",
+    name="Wand of Destruction",
     path="data/entities/items/wands/wand_good/wand_good_2.xml",
     image="mods/raksa/files/gfx/pickup_icons/wand_good_2.png",
   },
   {
-    name="Wand good 3",
+    name="Wand of Multitudes",
     path="data/entities/items/wands/wand_good/wand_good_3.xml",
     image="mods/raksa/files/gfx/pickup_icons/wand_good_3.png",
   },

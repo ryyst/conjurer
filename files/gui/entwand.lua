@@ -66,7 +66,7 @@ end
 
 function render_entity_options()
   Horizontal(1, 1, function()
-    Text("Spawner Options")
+    Text("Staff Options")
   end)
 
   -- Render brushes
@@ -79,7 +79,8 @@ function render_entity_options()
           min=1,
           max=50,
           width=100,
-          tooltip="How many rows to spawn enemies"
+          tooltip="How many rows to spawn entities",
+          tooltip_desc="Warning: Things can quickly turn sour with high numbers",
         },
         function(new_value)
           GlobalsSetValue(ENTWAND_ROWS, new_value)
@@ -93,7 +94,8 @@ function render_entity_options()
           min=1,
           max=50,
           width=100,
-          tooltip="How many columns to spawn enemies"
+          tooltip="How many columns to spawn entities",
+          tooltip_desc="Warning: Things can quickly turn sour with high numbers",
         },
         function(new_value)
           GlobalsSetValue(ENTWAND_COLS, new_value)
@@ -129,7 +131,7 @@ function render_entwand_buttons()
       desc="["..GameTextGetTranslatedOrNot(active_entity.name).."]"
     },
     {
-      name = "Spawner Options",
+      name = "Staff Options",
       image = ICON_UNKNOWN,
       action = function() toggle_active_entwand_overlay(render_entity_options) end,
       desc="Left-click to conjure entities"
