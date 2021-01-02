@@ -97,23 +97,25 @@ def parse_materials_xml(xml_path):
     return line_data
 
 
-def render_biomes(biomes):
-    # Sort alphabetically
-    biomes = sorted(biomes, key=lambda k: k[0].lower())
+def render_biomes_to_lua(biomes, save_location):
+    with open(save_location, "w+") as f:
+        # Sort alphabetically
+        biomes = sorted(biomes, key=lambda k: k[0].lower())
 
-    # TODO: This will still break with odd sizes, the +1 is just an
-    #       emergency fix for this specific length.
-    column_size = int(len(biomes) / 3) + 1
-    biomes_by_columns = [
-        biomes[i : i + column_size] for i in range(0, len(biomes), column_size)
-    ]
-
-    print("MATERIAL_ICONS = {")
-    for col, column in enumerate(biomes_by_columns):
-        for row, data in enumerate(column):
-            name, path = data
-            print('  ["%s"] = %s,' % (name, _to_lua(path)))
-    print("}")
+        print("_GENERATED = {", file=f)
+        for row, data in enumerate(biomes):
+            matid, image_path = data
+            name = matid.replace("_", " ").capitalize()
+            print(
+                "  {",
+                "    image=%s," % _to_lua(image_path),
+                "    name=%s," % _to_lua(name),
+                "    id=%s," % _to_lua(matid),
+                "  },",
+                file=f,
+                sep="\n",
+            )
+        print("}", file=f)
 
 
 def resize_textures(materials_gfx):
@@ -133,8 +135,9 @@ def main(args):
 
     materials = parse_materials_xml(materials_file)
 
+    # TODO: Parametrize the output file
     resize_textures(textures_path)
-    render_biomes(materials)
+    render_biomes_to_lua(materials, "../files/scripts/lists/_materials.lua")
 
 
 if __name__ == "__main__":
