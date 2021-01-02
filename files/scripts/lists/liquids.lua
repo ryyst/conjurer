@@ -150,6 +150,11 @@ LIQUIDS = {
     ["id"] = "material_confusion"
   },
   {
+    name="Material Darkness",
+    image="mods/raksa/files/gfx/material_icons/darkness.png",
+    id="material_darkness",
+  },
+  {
     ["image"] = "mods/raksa/files/gfx/material_icons/honey.png",
     ["name"] = "Midas",
     ["id"] = "midas"
@@ -258,22 +263,6 @@ LIQUIDS = {
     ["image"] = "mods/raksa/files/gfx/material_icons/water_temp_colorgen.png",
     ["name"] = "Water Temp",
     ["id"] = "water_temp"
-  },
-  -- Static liquids.
-  {
-    ["image"] = "mods/raksa/files/gfx/material_icons/endslime.png",
-    ["name"] = "Endslime Static",
-    ["id"] = "endslime_static"
-  },
-  {
-    ["image"] = "mods/raksa/files/gfx/material_icons/slime.png",
-    ["name"] = "Slime Static",
-    ["id"] = "slime_static"
-  },
-  {
-    ["image"] = "mods/raksa/files/gfx/material_icons/water_static_colorgen.png",
-    ["name"] = "Water Static",
-    ["id"] = "water_static"
   },
 }
 

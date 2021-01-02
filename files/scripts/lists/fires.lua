@@ -25,6 +25,7 @@ FIRES = {
     ["id"] = "spark_blue"
   },
   {
+    image="mods/raksa/files/gfx/material_icons/spark_blue_dark_colorgen.png",
     ["name"] = "Spark Blue Dark",
     ["id"] = "spark_blue_dark"
   },
@@ -89,6 +90,7 @@ FIRES = {
     ["id"] = "spark_yellow"
   },
   -- Molten materials. Not really useful for building, but can produce fun effects with different brushes!
+  -- ...and raining!
   {
     ["image"] = "mods/raksa/files/gfx/material_icons/steel.png",
     ["name"] = "Aluminium Molten",
@@ -130,6 +132,11 @@ FIRES = {
     ["id"] = "gold_molten"
   },
   {
+    name="Gunpowder Unstable Big",
+    image="mods/raksa/files/gfx/material_icons/gunpowder.png",
+    id="gunpowder_unstable_big",
+  },
+  {
     ["image"] = "mods/raksa/files/gfx/material_icons/steel.png",
     ["name"] = "Metal Molten",
     ["id"] = "metal_molten"
@@ -148,6 +155,11 @@ FIRES = {
     ["image"] = "mods/raksa/files/gfx/material_icons/steel.png",
     ["name"] = "Metal Rust Molten",
     ["id"] = "metal_rust_molten"
+  },
+  {
+    name="Metal Sand Molten",
+    image="mods/raksa/files/gfx/material_icons/steel.png",
+    id="metal_sand_molten",
   },
   {
     ["image"] = "mods/raksa/files/gfx/material_icons/steel.png",
@@ -255,21 +267,5 @@ FIRES = {
     ["name"] = "Rocket Particles",
     ["id"] = "rocket_particles"
   },
-  -- Random materials we have no better place for, but might find interesting at some point.
-  -- {
-  --   ["image"] = "mods/raksa/files/gfx/material_icons/blood_thick_colorgen.png",
-  --   ["name"] = "Blood Thick",
-  --   ["id"] = "blood_thick"
-  -- },
-  -- {
-  --   ["image"] = "mods/raksa/files/gfx/material_icons/ice.png",
-  --   ["name"] = "Rock Static Box2d",
-  --   ["id"] = "rock_static_box2d"
-  -- },
-  -- {
-  --   ["image"] = "mods/raksa/files/gfx/material_icons/tnt.png",
-  --   ["name"] = "Tnt Static",
-  --   ["id"] = "tnt_static"
-  -- },
 }
 

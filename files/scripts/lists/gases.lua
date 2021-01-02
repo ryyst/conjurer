@@ -40,6 +40,11 @@ GASES = {
     ["id"] = "poison_gas"
   },
   {
+    name="Poo Gas",
+    image="mods/raksa/files/gfx/material_icons/poo_gas_colorgen.png",
+    id="poo_gas",
+  },
+  {
     ["image"] = "mods/raksa/files/gfx/material_icons/radioactive_gas_colorgen.png",
     ["name"] = "Radioactive Gas",
     ["id"] = "radioactive_gas"

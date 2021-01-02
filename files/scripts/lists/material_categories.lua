@@ -4,6 +4,7 @@ dofile_once("mods/raksa/files/scripts/lists/liquids.lua");
 dofile_once("mods/raksa/files/scripts/lists/gases.lua");
 dofile_once("mods/raksa/files/scripts/lists/fires.lua");
 dofile_once("mods/raksa/files/scripts/lists/dangerous_materials.lua");
+dofile_once("mods/raksa/files/scripts/lists/leftovers.lua");
 
 
 ALL_MATERIALS = {
@@ -42,5 +43,14 @@ ALL_MATERIALS = {
     icon="mods/raksa/files/gfx/matwand_icons/icon_dangerous.png",
     icon_off="mods/raksa/files/gfx/matwand_icons/icon_dangerous_off.png",
     materials=DANGEROUS,
-  }
+  },
 };
+
+if LEFTOVERS and #LEFTOVERS > 0 then
+  table.insert(ALL_MATERIALS, {
+    name="Leftovers",
+    icon="mods/raksa/files/gfx/matwand_icons/icon_dangerous.png",
+    icon_off="mods/raksa/files/gfx/matwand_icons/icon_dangerous_off.png",
+    materials=LEFTOVERS,
+  })
+end

@@ -215,6 +215,11 @@ SOLIDS = {
     ["id"] = "sand_static_rainforest"
   },
   {
+    name="Sand Static Rainforest Dark",
+    image="mods/raksa/files/gfx/material_icons/earth_rainforest_dark.png",
+    id="sand_static_rainforest_dark",
+  },
+  {
     ["image"] = "mods/raksa/files/gfx/material_icons/earth_bright_red.png",
     ["name"] = "Sand Static Red",
     ["id"] = "sand_static_red"
@@ -453,5 +458,30 @@ SOLIDS = {
     ["image"] = "mods/raksa/files/gfx/material_icons/wizardstone.png",
     ["name"] = "Wizardstone",
     ["id"] = "wizardstone"
+  },
+  -- Static liquids.
+  {
+    ["image"] = "mods/raksa/files/gfx/material_icons/endslime.png",
+    desc="Static liquid",
+    ["name"] = "Endslime Static",
+    ["id"] = "endslime_static"
+  },
+  {
+    ["image"] = "mods/raksa/files/gfx/material_icons/slime.png",
+    desc="Static liquid",
+    ["name"] = "Slime Static",
+    ["id"] = "slime_static"
+  },
+  {
+    ["image"] = "mods/raksa/files/gfx/material_icons/water_static_colorgen.png",
+    desc="Static liquid",
+    ["name"] = "Water Static",
+    ["id"] = "water_static"
+  },
+  {
+    name="Blood Thick",
+    desc="Note: Can be walked through and still holds liquids",
+    image="mods/raksa/files/gfx/material_icons/blood_thick_colorgen.png",
+    id="blood_thick",
   },
 }

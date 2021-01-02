@@ -1,5 +1,4 @@
 dofile_once("mods/raksa/files/scripts/lists/brushes.lua");
-dofile_once("mods/raksa/files/scripts/lists/material_categories.lua");
 
 dofile_once("mods/raksa/files/scripts/utilities.lua")
 dofile_once("mods/raksa/files/scripts/enums.lua")
@@ -128,40 +127,4 @@ function get_active_eraser_image()
     return get_active_material_image()
   end
   return ERASER_ICONS[current_eraser]
-end
-
-
-
--------------------------------------------------------------------------------
--- Deprecated functions from old material table generation system.
--- TODO: Return to these later for uncategorized material detection system.
-function material_to_name(id)
-  id = id:gsub("_",' ')
-  id = id:gsub("(%l)(%w*)", function(a,b) return string.upper(a)..b end)
-  return id
-end
-
-function is_static(str)
-  if string.match(str, "static") then return true else return false end
-end
-
-function generate_all_materials()
-  MATERIAL_TYPES = {"Solids", "Sands", "Liquids", "Gases", "Fires"};
-  for i,cat in ipairs(MATERIAL_TYPES) do
-    local temp = {}
-    local mats = getfenv()["CellFactory_GetAll"..cat]()
-    table.sort(mats)
-
-    for i,x in ipairs(mats)
-    do
-      if is_static(x) then
-        table.insert(ALL_MATERIALS.Solids, {id=x, name=material_to_name(x), image=MATERIAL_ICONS[x]})
-      else
-        table.insert(temp, {id=x, name=material_to_name(x), image=MATERIAL_ICONS[x]})
-      end
-    end
-    if cat ~= "Solids" then
-      ALL_MATERIALS[cat] = temp
-    end
-  end
 end
