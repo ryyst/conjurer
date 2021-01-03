@@ -1,0 +1,31 @@
+<Entity>
+  <ParticleEmitterComponent
+    emitted_material_name="spark_purple"
+    gravity.y="0.0"
+    lifetime_min="3"
+    lifetime_max="4"
+    x_vel_min="-100"
+    x_vel_max="100"
+    y_vel_min="-100"
+    y_vel_max="100"
+    count_min="50"
+    count_max="100"
+    render_on_grid="1"
+    fade_based_on_lifetime="1"
+    cosmetic_force_create="1"
+    collide_with_grid="0"
+    airflow_force="1.051"
+    airflow_time="1.01"
+    airflow_scale="1.03"
+    emission_interval_min_frames="12"
+    emission_interval_max_frames="12"
+    emit_cosmetic_particles="1"
+    velocity_always_away_from_center="1"
+    render_back="1"
+    is_emitting="1"
+  ></ParticleEmitterComponent>
+
+  <LifetimeComponent
+    lifetime="30"
+  ></LifetimeComponent>
+</Entity>
