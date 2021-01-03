@@ -3,21 +3,11 @@ dofile("data/scripts/lib/utilities.lua")
 dofile_once("mods/raksa/files/scripts/utilities.lua")
 dofile_once("mods/raksa/files/scripts/enums.lua")
 
--- Wolverine
--- Lynx
--- Rabbit
--- Bear
--- Fox
--- Stoat
--- Bat
--- "European" Badger (kärppä)
--- Arctic Fox (naali)
--- Ringed Seal (norppa)
--- Hedgehog
--- Raccoon
+
 function path(name)
   return "mods/raksa/files/gfx/power_icons/waypoints/"..name..".png"
 end
+
 
 function key(name)
   return "RAKSA_WAYPOINT_"..name

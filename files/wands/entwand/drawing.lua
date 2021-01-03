@@ -14,8 +14,8 @@ function spawner_reticle_follow_mouse(x, y)
   local reticle = EntityGetWithName(RETICLE_NAME)
   if reticle then
     local grid_size = GlobalsGetNumber(ENTWAND_GRID_SIZE)
-    x = x - x % grid_size --+ grid_size/2
-    y = y - y % grid_size --+ grid_size/2
+    x = x - x % grid_size
+    y = y - y % grid_size
     EntitySetTransform(reticle, math.floor(x+RETICLE_OFFSET), math.floor(y+RETICLE_OFFSET))
   end
 end
@@ -146,6 +146,17 @@ function delete_entity(x, y)
 end
 
 
+function delete_all(x, y)
+  local entities = EntityGetInRadius(x, y, SCAN_RADIUS)
+  for i, entity in ipairs(entities) do
+    local root = EntityGetRootEntity(entity)
+    if is_valid_entity(root) then
+      EntityKill(root)
+    end
+  end
+end
+
+
 function spawn_entity()
   local rows = GlobalsGetNumber(ENTWAND_ROWS)
   local cols = GlobalsGetNumber(ENTWAND_COLS)
@@ -199,11 +210,17 @@ scan_entity(x, y)
 spawner_reticle_follow_mouse(x, y)
 
 
-if has_clicked_m1() then
+local spawn_function = GlobalsGetBool(ENTWAND_HOLD_TO_SPAWN) and is_holding_m1 or has_clicked_m1
+if spawn_function() then
   spawn_entity()
 end
 
 
-if has_clicked_m2() then
-  delete_entity(x, y)
+local delete_function = GlobalsGetBool(ENTWAND_HOLD_TO_DELETE) and is_holding_m2 or has_clicked_m2
+if delete_function() then
+  if GlobalsGetBool(ENTWAND_DELETE_ALL) then
+    delete_all(x, y)
+  else
+    delete_entity(x, y)
+  end
 end

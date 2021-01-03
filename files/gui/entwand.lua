@@ -75,9 +75,18 @@ function render_entity_options()
     Text("Staff Options")
   end)
 
-  -- Render brushes
   Background({margin=3, style=NPBG_BLUE, z_index=200}, function()
-    Vertical(1, 3, function()
+    Vertical(1, 2, function()
+      Text("Spawning")
+      VerticalSpacing(2)
+      Checkbox({
+          is_active=GlobalsGetBool(ENTWAND_HOLD_TO_SPAWN),
+          text="Spawn when holding",
+          tooltip="Really quick way to flood entities.",
+          tooltip_desc="Beware when spawning multiple rows/columns of entities.",
+        },
+        function() GlobalsToggleBool(ENTWAND_HOLD_TO_SPAWN) end
+      )
       Slider({
           text="Rows",
           value=GlobalsGetNumber(ENTWAND_ROWS),
@@ -121,6 +130,24 @@ function render_entity_options()
           GlobalsSetValue(ENTWAND_GRID_SIZE, new_value)
           change_spawner_reticle()
         end
+      )
+
+      VerticalSpacing(6)
+      Text("Deleting")
+      VerticalSpacing(2)
+      Checkbox({
+          is_active=GlobalsGetBool(ENTWAND_HOLD_TO_DELETE),
+          text="Delete when holding",
+          tooltip="Less accurate but more efficient way of removing multiple entities"
+        },
+        function() GlobalsToggleBool(ENTWAND_HOLD_TO_DELETE) end
+      )
+      Checkbox({
+          is_active=GlobalsGetBool(ENTWAND_DELETE_ALL),
+          text="Delete multiple",
+          tooltip="Deletes everything in a short radius around the mouse",
+        },
+        function() GlobalsToggleBool(ENTWAND_DELETE_ALL) end
       )
     end)
   end)
