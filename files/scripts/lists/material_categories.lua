@@ -67,9 +67,9 @@ dofile_once("mods/raksa/files/scripts/lists/leftovers.lua");
 if LEFTOVERS and #LEFTOVERS > 0 then
   table.insert(ALL_MATERIALS, {
     name="Uncategorized",
-    desc="All materials (including modded) appear here, before they are explicitly categorized by the modders.",
-    icon="mods/raksa/files/gfx/matwand_icons/icon_dangerous.png",
-    icon_off="mods/raksa/files/gfx/matwand_icons/icon_dangerous_off.png",
+    desc="All materials (including modded) appear here before\nthey are explicitly categorized by the modders.",
+    icon="mods/raksa/files/gfx/matwand_icons/icon_leftovers.png",
+    icon_off="mods/raksa/files/gfx/matwand_icons/icon_leftovers_off.png",
     materials=LEFTOVERS,
   })
 end

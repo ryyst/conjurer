@@ -5,6 +5,8 @@ dofile_once("mods/raksa/files/scripts/lists/material_categories.lua");
 dofile_once("mods/raksa/files/scripts/utilities.lua")
 dofile_once("mods/raksa/files/scripts/enums.lua")
 
+dofile_once("mods/raksa/files/scripts/letter_icons.lua")
+
 
 local function _init_bid_handler(value)
   local initial = 1
@@ -112,14 +114,26 @@ function Button(vars, click_action, right_click_action)
 
   -- "Padding" because we are working inside the button borders now.
   Wrapper({style=vars.style, margin=vars.padding or -2}, function()
-    local ButtonType = vars.text and GuiButton or GuiImageButton
-    local click, right_click = ButtonType(
-      GUI, BID(),
-      vars.x or 0,
-      vars.y or 0,
-      vars.text or "",
-      vars.image or ICON_UNKNOWN
-    )
+    local click = nil
+    local right_click = nil
+
+    -- Simple icon buttons don't have any text attached to them
+    if vars.text then
+      click, right_click = GuiButton(
+        GUI, BID(),
+        vars.x or 0,
+        vars.y or 0,
+        vars.text
+      )
+    else
+      click, right_click = GuiImageButton(
+        GUI, BID(),
+        vars.x or 0,
+        vars.y or 0,
+        "",
+        vars.image or get_letter_icon(vars.image_letter_text)
+      )
+    end
 
     if vars.tooltip then
       Tooltip(vars.tooltip, vars.tooltip_desc or "")
@@ -272,8 +286,11 @@ function MaterialPicker(vars, click_handler, right_click_handler)
       size=8,
     },
     function(material)
-      Button(
-        {image=material.image, tooltip=material.name},
+      Button({
+          image=material.image,
+          image_letter_text=material.name,
+          tooltip=material.name
+        },
         click_handler(material),
         right_click_handler(material)
       )

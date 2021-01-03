@@ -1,7 +1,7 @@
 dofile("data/scripts/lib/utilities.lua")
 
-dofile_once("mods/raksa/files/scripts/lists/brushes.lua");
 dofile_once("mods/raksa/files/wands/matwand/helpers.lua");
+dofile_once("mods/raksa/files/scripts/lists/brushes.lua");
 dofile_once("mods/raksa/files/scripts/lists/material_categories.lua");
 
 dofile_once("mods/raksa/files/lib/gui.lua")
@@ -58,10 +58,15 @@ function render_material_picker()
   -- Render material buttons
   Background({margin=3, style=NPBG_BROWN, z_index=200}, function()
     Grid({items=active_category.materials, x=1, y=2, size=8}, function(material)
-      local vars = {image=material.image, tooltip=material.name, tooltip_desc=material.desc}
+      local vars = {
+        image=material.image,
+        image_letter_text=material.name,
+        tooltip=material.name,
+        tooltip_desc=material.desc
+      }
       local click = function()
         GlobalsSetValue(SELECTED_MATERIAL, material.id)
-        GlobalsSetValue(SELECTED_MATERIAL_ICON, material.image)
+        GlobalsSetValue(SELECTED_MATERIAL_ICON, material.image or GLOBAL_UNDEFINED)
       end
       local right_click = add_mat_to_favorites(vars, click)
       Button(vars, click, right_click)
@@ -243,6 +248,7 @@ function render_matwand_buttons()
     for i, item in ipairs(main_menu_items) do
       Button({
           image=item.image_func(),
+          image_letter_text=GlobalsGet(SELECTED_MATERIAL),
           tooltip=item.name,
           tooltip_desc=item.desc,
         },

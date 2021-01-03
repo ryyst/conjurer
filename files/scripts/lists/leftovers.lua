@@ -48,13 +48,15 @@ function generate_leftover_materials()
     for j, material in ipairs(category) do
       if not is_material_defined(material) then
         table.insert(leftovers, {
-          image=ICON_UNKNOWN,
+          image=nil,
           name=material_to_name(material),
           id=material
         })
       end
     end
   end
+
+  table.sort(leftovers, function(a, b) return a.name:lower() < b.name:lower() end)
 
   return leftovers
 end

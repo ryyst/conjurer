@@ -197,7 +197,7 @@ function render_rain_material_picker()
     function(material)
       return function()
         GlobalsSetValue(RAIN_MATERIAL, material.id)
-        GlobalsSetValue(RAIN_MATERIAL_ICON, material.image)
+        GlobalsSetValue(RAIN_MATERIAL_ICON, material.image or GLOBAL_UNDEFINED)
         activate_weather_menu()
       end
     end,
@@ -217,6 +217,7 @@ function render_weather_menu()
     Horizontal(0, 0, function()
       Button({
           image=GlobalsGet(RAIN_MATERIAL_ICON),
+          image_letter_text=GlobalsGet(RAIN_MATERIAL),
           tooltip="Select rain material",
           tooltip_desc="["..GlobalsGet(RAIN_MATERIAL).."]",
         },

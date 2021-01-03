@@ -197,7 +197,11 @@ function ComponentSetValues(component, values)
 end
 
 function GlobalsGet(key)
-  return GlobalsGetValue(key, tostring(DEFAULTS[key]))
+  local value = GlobalsGetValue(key, tostring(DEFAULTS[key]))
+  if value == GLOBAL_UNDEFINED then
+    return nil
+  end
+  return value
 end
 
 function GlobalsToggleBool(key)

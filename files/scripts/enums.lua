@@ -35,6 +35,8 @@ DUSK = 0.47
 MIDNIGHT = 0.6
 
 
+GLOBAL_UNDEFINED = "nil"
+
 --
 -- MATWAND
 --
