@@ -109,11 +109,15 @@ end
 
 
 function render_eraser_picker()
+  local active_material = GlobalsGet(SELECTED_MATERIAL)
   local eraser_categories = {
     {
       { text="All materials", mode=ERASER_MODE_ALL, image=ERASER_ICONS[ERASER_MODE_ALL] },
-      { text="Selected material", mode=ERASER_MODE_SELECTED, image=get_active_material_image(),
-        desc="Erase ONLY the currently active material in material picker."
+      {
+        text="Selected material",
+        mode=ERASER_MODE_SELECTED,
+        image_func=get_active_material_image,
+        desc="Erase ONLY the currently active material\n["..active_material.."]",
       },
     },
     {
@@ -147,7 +151,13 @@ function render_eraser_picker()
       for r, row in ipairs(eraser_categories) do
         Horizontal(0, 0, function()
           for i, item in ipairs(row) do
-            local vars = { tooltip=item.text, tooltip_desc=item.desc, image=item.image }
+            local vars = {
+              tooltip=item.text,
+              tooltip_desc=item.desc,
+              image=item.image or item.image_func(),
+              image_func=item.image_func,
+              image_letter_text=active_material,
+            }
             local click = function() GlobalsSetValue(ERASER_MODE, item.mode) end
             local right_click = add_mat_to_favorites(vars, click)
             Button(vars, click, right_click)
@@ -266,6 +276,10 @@ function render_matwand_buttons()
   Background({margin=1, style=NPBG_BROWN, z_index=200}, function()
     -- Render favorite buttons
     for i, fav in ipairs(favorites) do
+      if fav.vars.image_func then
+        fav.vars.image = fav.vars.image_func()
+        fav.vars.image_letter_text = GlobalsGet(SELECTED_MATERIAL)
+      end
       Button(fav.vars, fav.click, remove_mat_from_favorites(i))
       VerticalSpacing(2)
     end
