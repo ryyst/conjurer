@@ -132,9 +132,20 @@ FIRES = {
     ["id"] = "gold_molten"
   },
   {
+    ["image"] = "mods/raksa/files/gfx/material_icons/gunpowder.png",
+    ["name"] = "Gunpowder Unstable",
+    ["id"] = "gunpowder_unstable"
+  },
+  {
     name="Gunpowder Unstable Big",
     image="mods/raksa/files/gfx/material_icons/gunpowder.png",
     id="gunpowder_unstable_big",
+    is_beta=true,
+  },
+  {
+    ["image"] = "mods/raksa/files/gfx/material_icons/moss.png",
+    ["name"] = "Gunpowder Unstable Boss Limbs",
+    ["id"] = "gunpowder_unstable_boss_limbs"
   },
   {
     ["image"] = "mods/raksa/files/gfx/material_icons/steel.png",
@@ -160,6 +171,7 @@ FIRES = {
     name="Metal Sand Molten",
     image="mods/raksa/files/gfx/material_icons/steel.png",
     id="metal_sand_molten",
+    is_beta=true,
   },
   {
     ["image"] = "mods/raksa/files/gfx/material_icons/steel.png",

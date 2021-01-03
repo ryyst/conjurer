@@ -4,7 +4,6 @@ dofile_once("mods/raksa/files/scripts/lists/liquids.lua");
 dofile_once("mods/raksa/files/scripts/lists/gases.lua");
 dofile_once("mods/raksa/files/scripts/lists/fires.lua");
 dofile_once("mods/raksa/files/scripts/lists/dangerous_materials.lua");
-dofile_once("mods/raksa/files/scripts/lists/leftovers.lua");
 
 
 ALL_MATERIALS = {
@@ -46,9 +45,29 @@ ALL_MATERIALS = {
   },
 };
 
+
+-- Remove all beta materials for non-beta builds.
+-- Try to do this before calculating leftovers, so that when the materials
+-- finally *are* released, I'm not in a hurry to set the is_beta to false,
+-- because they should be found in the leftovers until I do.
+if not GameIsBetaBuild() then
+  print("Hiding pre-defined beta materials:")
+  for i, category in ipairs(ALL_MATERIALS) do
+    for j, mat in ipairs(category.materials) do
+      if mat.is_beta then
+        print("  * "..mat.name)
+        table.remove(category.materials, j)
+      end
+    end
+  end
+end
+
+
+dofile_once("mods/raksa/files/scripts/lists/leftovers.lua");
 if LEFTOVERS and #LEFTOVERS > 0 then
   table.insert(ALL_MATERIALS, {
-    name="Leftovers",
+    name="Uncategorized",
+    desc="All materials (including modded) appear here, before they are explicitly categorized by the modders.",
     icon="mods/raksa/files/gfx/matwand_icons/icon_dangerous.png",
     icon_off="mods/raksa/files/gfx/matwand_icons/icon_dangerous_off.png",
     materials=LEFTOVERS,

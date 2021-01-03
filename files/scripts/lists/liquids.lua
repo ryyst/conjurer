@@ -153,6 +153,7 @@ LIQUIDS = {
     name="Material Darkness",
     image="mods/raksa/files/gfx/material_icons/darkness.png",
     id="material_darkness",
+    is_beta=true,
   },
   {
     ["image"] = "mods/raksa/files/gfx/material_icons/honey.png",

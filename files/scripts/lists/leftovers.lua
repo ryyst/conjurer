@@ -13,11 +13,13 @@ local _all_defined_materials = {
   SOLIDS, LIQUIDS, SANDS, GASES, FIRES, DANGEROUS, BOX2D_SOLIDS
 }
 
+
 function material_to_name(id)
   id = id:gsub("_",' ')
   id = id:gsub("(%l)(%w*)", function(a,b) return string.upper(a)..b end)
   return id
 end
+
 
 function is_material_defined(id)
   for i, category in ipairs(_all_defined_materials) do
@@ -30,10 +32,11 @@ function is_material_defined(id)
   return false
 end
 
+
 function generate_leftover_materials()
   local leftovers = {}
 
-  local all_materials = {
+  local all_registered_materials = {
     CellFactory_GetAllLiquids(true),
     CellFactory_GetAllSands(true),
     CellFactory_GetAllGases(true),
@@ -41,7 +44,7 @@ function generate_leftover_materials()
     CellFactory_GetAllSolids(true),
   }
 
-  for i, category in ipairs(all_materials) do
+  for i, category in ipairs(all_registered_materials) do
     for j, material in ipairs(category) do
       if not is_material_defined(material) then
         table.insert(leftovers, {

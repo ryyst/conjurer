@@ -108,6 +108,7 @@ SANDS = {
     name="Grass Dark",
     image="mods/raksa/files/gfx/material_icons/moss.png",
     id="grass_dark",
+    is_beta=true,
   },
   {
     ["image"] = "mods/raksa/files/gfx/material_icons/grass_dry.png",
@@ -135,16 +136,6 @@ SANDS = {
     ["id"] = "gunpowder_tnt"
   },
   {
-    ["image"] = "mods/raksa/files/gfx/material_icons/gunpowder.png",
-    ["name"] = "Gunpowder Unstable",
-    ["id"] = "gunpowder_unstable"
-  },
-  {
-    ["image"] = "mods/raksa/files/gfx/material_icons/moss.png",
-    ["name"] = "Gunpowder Unstable Boss Limbs",
-    ["id"] = "gunpowder_unstable_boss_limbs"
-  },
-  {
     ["image"] = "mods/raksa/files/gfx/material_icons/honey.png",
     ["name"] = "Honey",
     ["id"] = "honey"
@@ -168,6 +159,7 @@ SANDS = {
     name="Metal Sand",
     image="mods/raksa/files/gfx/material_icons/steel.png",
     id="metal_sand",
+    is_beta=true,
   },
   {
     ["image"] = "mods/raksa/files/gfx/material_icons/moss.png",
@@ -238,6 +230,7 @@ SANDS = {
     name="Rat Powder",
     image="mods/raksa/files/gfx/material_icons/meat_rotten.png",
     id="rat_powder",
+    is_beta=true,
   },
   {
     ["image"] = "mods/raksa/files/gfx/material_icons/meat_rotten.png",
@@ -318,11 +311,13 @@ SANDS = {
     name="Soil Dark",
     image="mods/raksa/files/gfx/material_icons/soil_lush_dark.png",
     id="soil_dark",
+    is_beta=true,
   },
   {
     name="Soil Lush Dark",
     image="mods/raksa/files/gfx/material_icons/soil_lush_dark.png",
     id="soil_lush_dark",
+    is_beta=true,
   },
   {
     ["image"] = "mods/raksa/files/gfx/material_icons/soil_dead.png",

@@ -218,6 +218,7 @@ SOLIDS = {
     name="Sand Static Rainforest Dark",
     image="mods/raksa/files/gfx/material_icons/earth_rainforest_dark.png",
     id="sand_static_rainforest_dark",
+    is_beta=true,
   },
   {
     ["image"] = "mods/raksa/files/gfx/material_icons/earth_bright_red.png",

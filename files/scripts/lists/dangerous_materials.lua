@@ -13,5 +13,6 @@ DANGEROUS = {
     name="Orb Powder",
     image="mods/raksa/files/gfx/material_icons/ice.png",
     id="orb_powder",
+    is_beta=true,
   },
 }
