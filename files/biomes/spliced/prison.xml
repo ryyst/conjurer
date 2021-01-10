@@ -2,33 +2,33 @@
   <mBufferedPixelScenes>
     <PixelScene background_filename="mods/raksa/files/biomes/spliced/prison/0_background.png" colors_filename="" material_filename="mods/raksa/files/biomes/spliced/prison/0.plz" pos_x="-512" pos_y="-1536" skip_biome_checks="1" >
     </PixelScene>
-    <PixelScene background_filename="mods/raksa/files/biomes/spliced/prison/1_background.png" colors_filename="" material_filename="mods/raksa/files/biomes/spliced/prison/1.plz" pos_x="-982" pos_y="-1409" skip_biome_checks="1" >
+    <PixelScene background_filename="mods/raksa/files/biomes/spliced/prison/1_background.png" colors_filename="mods/raksa/files/biomes/spliced/prison/1_visual.plz" material_filename="mods/raksa/files/biomes/spliced/prison/1.plz" pos_x="-982" pos_y="-1409" skip_biome_checks="1" >
     </PixelScene>
-    <PixelScene background_filename="mods/raksa/files/biomes/spliced/prison/2_background.png" colors_filename="" material_filename="mods/raksa/files/biomes/spliced/prison/2.plz" pos_x="-708" pos_y="-1024" skip_biome_checks="1" >
+    <PixelScene background_filename="mods/raksa/files/biomes/spliced/prison/2_background.png" colors_filename="mods/raksa/files/biomes/spliced/prison/2_visual.plz" material_filename="mods/raksa/files/biomes/spliced/prison/2.plz" pos_x="-708" pos_y="-1024" skip_biome_checks="1" >
     </PixelScene>
     <PixelScene background_filename="mods/raksa/files/biomes/spliced/prison/3_background.png" colors_filename="" material_filename="mods/raksa/files/biomes/spliced/prison/3.plz" pos_x="0" pos_y="-1536" skip_biome_checks="1" >
     </PixelScene>
     <PixelScene background_filename="mods/raksa/files/biomes/spliced/prison/4_background.png" colors_filename="" material_filename="mods/raksa/files/biomes/spliced/prison/4.plz" pos_x="-512" pos_y="-1409" skip_biome_checks="1" >
     </PixelScene>
-    <PixelScene background_filename="mods/raksa/files/biomes/spliced/prison/5_background.png" colors_filename="" material_filename="mods/raksa/files/biomes/spliced/prison/5.plz" pos_x="-512" pos_y="-1024" skip_biome_checks="1" >
+    <PixelScene background_filename="mods/raksa/files/biomes/spliced/prison/5_background.png" colors_filename="mods/raksa/files/biomes/spliced/prison/5_visual.plz" material_filename="mods/raksa/files/biomes/spliced/prison/5.plz" pos_x="-512" pos_y="-1024" skip_biome_checks="1" >
     </PixelScene>
-    <PixelScene background_filename="mods/raksa/files/biomes/spliced/prison/6_background.png" colors_filename="" material_filename="mods/raksa/files/biomes/spliced/prison/6.plz" pos_x="153" pos_y="-2046" skip_biome_checks="1" >
+    <PixelScene background_filename="mods/raksa/files/biomes/spliced/prison/6_background.png" colors_filename="mods/raksa/files/biomes/spliced/prison/6_visual.plz" material_filename="mods/raksa/files/biomes/spliced/prison/6.plz" pos_x="153" pos_y="-2046" skip_biome_checks="1" >
     </PixelScene>
     <PixelScene background_filename="mods/raksa/files/biomes/spliced/prison/7_background.png" colors_filename="" material_filename="mods/raksa/files/biomes/spliced/prison/7.plz" pos_x="0" pos_y="-1536" skip_biome_checks="1" >
     </PixelScene>
-    <PixelScene background_filename="mods/raksa/files/biomes/spliced/prison/8_background.png" colors_filename="" material_filename="mods/raksa/files/biomes/spliced/prison/8.plz" pos_x="0" pos_y="-1024" skip_biome_checks="1" >
+    <PixelScene background_filename="mods/raksa/files/biomes/spliced/prison/8_background.png" colors_filename="mods/raksa/files/biomes/spliced/prison/8_visual.plz" material_filename="mods/raksa/files/biomes/spliced/prison/8.plz" pos_x="0" pos_y="-1024" skip_biome_checks="1" >
     </PixelScene>
     <PixelScene background_filename="mods/raksa/files/biomes/spliced/prison/9_background.png" colors_filename="" material_filename="mods/raksa/files/biomes/spliced/prison/9.plz" pos_x="512" pos_y="-1799" skip_biome_checks="1" >
     </PixelScene>
     <PixelScene background_filename="mods/raksa/files/biomes/spliced/prison/10_background.png" colors_filename="" material_filename="mods/raksa/files/biomes/spliced/prison/10.plz" pos_x="512" pos_y="-1409" skip_biome_checks="1" >
     </PixelScene>
-    <PixelScene background_filename="mods/raksa/files/biomes/spliced/prison/11_background.png" colors_filename="" material_filename="mods/raksa/files/biomes/spliced/prison/11.plz" pos_x="512" pos_y="-1024" skip_biome_checks="1" >
+    <PixelScene background_filename="mods/raksa/files/biomes/spliced/prison/11_background.png" colors_filename="mods/raksa/files/biomes/spliced/prison/11_visual.plz" material_filename="mods/raksa/files/biomes/spliced/prison/11.plz" pos_x="512" pos_y="-1024" skip_biome_checks="1" >
     </PixelScene>
     <PixelScene background_filename="mods/raksa/files/biomes/spliced/prison/12_background.png" colors_filename="" material_filename="mods/raksa/files/biomes/spliced/prison/12.plz" pos_x="1536" pos_y="-1536" skip_biome_checks="1" >
     </PixelScene>
-    <PixelScene background_filename="mods/raksa/files/biomes/spliced/prison/13_background.png" colors_filename="" material_filename="mods/raksa/files/biomes/spliced/prison/13.plz" pos_x="1024" pos_y="-1409" skip_biome_checks="1" >
+    <PixelScene background_filename="mods/raksa/files/biomes/spliced/prison/13_background.png" colors_filename="mods/raksa/files/biomes/spliced/prison/13_visual.plz" material_filename="mods/raksa/files/biomes/spliced/prison/13.plz" pos_x="1024" pos_y="-1409" skip_biome_checks="1" >
     </PixelScene>
-    <PixelScene background_filename="mods/raksa/files/biomes/spliced/prison/14_background.png" colors_filename="" material_filename="mods/raksa/files/biomes/spliced/prison/14.plz" pos_x="1024" pos_y="-1024" skip_biome_checks="1" >
+    <PixelScene background_filename="mods/raksa/files/biomes/spliced/prison/14_background.png" colors_filename="mods/raksa/files/biomes/spliced/prison/14_visual.plz" material_filename="mods/raksa/files/biomes/spliced/prison/14.plz" pos_x="1024" pos_y="-1024" skip_biome_checks="1" >
     </PixelScene>
   </mBufferedPixelScenes>
 </PixelScenes>
