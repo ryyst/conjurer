@@ -64,6 +64,11 @@ Left-click to blink, right-click to hold."
     ></gun_config>
   </AbilityComponent>
 
+  <LuaComponent
+    _tags="enabled_in_hand"
+    script_enabled_changed="mods/raksa/files/wands/carrot/toggle_breathing.lua"
+  ></LuaComponent>
+
   <!-- Blink shooting action -->
   <LuaComponent
     _tags="enabled_in_hand"
