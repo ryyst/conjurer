@@ -128,6 +128,10 @@ function is_valid_entity(entity)
     name ~= "example_container"
   )
 
+  if GlobalsGetBool(ENTWAND_IGNORE_BACKGROUNDS) and name == BG_NAME then
+    return false
+  end
+
   if not basic_checks then
     return false
   end

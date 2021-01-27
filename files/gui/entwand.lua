@@ -149,6 +149,13 @@ function render_entity_options()
         },
         function() GlobalsToggleBool(ENTWAND_DELETE_ALL) end
       )
+      Checkbox({
+          is_active=GlobalsGetBool(ENTWAND_IGNORE_BACKGROUNDS),
+          text="Don't target backgrounds",
+          tooltip="Prevents you from deleting backgrounds.",
+        },
+        function() GlobalsToggleBool(ENTWAND_IGNORE_BACKGROUNDS) end
+      )
     end)
   end)
 end
