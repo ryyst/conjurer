@@ -3,6 +3,8 @@ dofile_once("mods/raksa/files/scripts/lists/props.lua")
 dofile_once("mods/raksa/files/scripts/lists/pickups.lua")
 dofile_once("mods/raksa/files/scripts/lists/perks.lua")
 dofile_once("mods/raksa/files/scripts/lists/spells.lua")
+dofile_once("mods/raksa/files/scripts/lists/backgrounds.lua")
+dofile_once("mods/raksa/files/scripts/lists/foregrounds.lua")
 dofile_once("mods/raksa/files/scripts/lists/custom_entities.lua")
 
 
@@ -39,6 +41,19 @@ ALL_ENTITIES = {
     icon_off="mods/raksa/files/gfx/entwand_icons/icon_spells_off.png",
     entities=SPELLS,
     grid_size=32,
+  },
+  {
+    name="Backgrounds",
+    icon="mods/raksa/files/gfx/entwand_icons/icon_backgrounds.png",
+    icon_off="mods/raksa/files/gfx/entwand_icons/icon_backgrounds_off.png",
+    entities=BACKGROUNDS,
+  },
+  {
+    name="Foregrounds",
+    icon="mods/raksa/files/gfx/entwand_icons/icon_foregrounds.png",
+    icon_off="mods/raksa/files/gfx/entwand_icons/icon_foregrounds_off.png",
+    entities=FOREGROUNDS,
+    grid_size=14,
   },
   {
     name="Custom",

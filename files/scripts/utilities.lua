@@ -9,8 +9,6 @@ dofile_once("mods/raksa/files/scripts/enums.lua")
 MOD_PATH = "mods/raksa/files/"
 ICON_UNKNOWN = "mods/raksa/files/gfx/icon_unknown.png"
 
-M1_CLICKED = false
-
 local BUTTON_SETTING = ModSettingGet("raksa.secondary_button")
 local BUTTON_CHOICES = {
   throw={hold="mButtonDownThrow", click="mButtonFrameThrow"},
@@ -19,6 +17,7 @@ local BUTTON_CHOICES = {
 
 local SELECTED_BUTTON = BUTTON_CHOICES[BUTTON_SETTING]
 
+--
 ---------------------------
 -- General utilities
 --
@@ -308,6 +307,26 @@ function give_player_items(inventory, items)
       EntityAddChild(inventory, item)
     else
       GamePrint("Couldn't load the item ["..path.."], something's terribly wrong!")
+    end
+  end
+end
+
+function create_image_spawner(z_index)
+  return function(path, offset_x, offset_y)
+    return function(x, y)
+
+      local bg = EntityCreateNew(BG_NAME)
+
+      EntityAddComponent2(bg, "SpriteComponent", {
+        image_file=path,
+        z_index=z_index,
+        -- Cursor offsets can be set very accurately for backgrounds.
+        offset_x=offset_x + 5,
+        offset_y=offset_y + 10,
+      })
+      EntitySetTransform(bg, x, y)
+
+      return bg
     end
   end
 end
