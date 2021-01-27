@@ -65,6 +65,7 @@ function scan_entity(x, y)
       HOVERED_ENTITY = root
       return
     end
+    -- else: get_next_entity()
   end
 
   -- Nothing found
@@ -198,7 +199,6 @@ function spawn_entity()
       postprocess_entity(entity)
     end
   end
-
 end
 
 

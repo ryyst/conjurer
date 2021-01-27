@@ -1,0 +1,64 @@
+<Entity>
+  <SimplePhysicsComponent
+    _tags="enabled_in_world"
+  ></SimplePhysicsComponent>
+
+  <VelocityComponent
+    _tags="enabled_in_world"
+  ></VelocityComponent>
+
+  <HotspotComponent
+    _tags="gun_pos"
+    offset.x="5"
+    offset.y="-7"
+  ></HotspotComponent>
+
+  <SpriteComponent
+    _tags="enabled_in_world"
+    alpha="1"
+    image_file="mods/raksa/files/custom_entities/mounted_gun/gun_stand.png"
+    offset_x="0"
+    offset_y="8"
+    z_index="-2"
+  ></SpriteComponent>
+
+  <Entity name="mounted_gun_shooter">
+    <SpriteComponent
+      _tags="enabled_in_world"
+      image_file="mods/raksa/files/gfx/eraser_pixel.png"
+      emissive="1"
+      offset_x="0"
+      offset_y="0"
+    ></SpriteComponent>
+    <SpriteComponent
+      _tags="enabled_in_world"
+      image_file="mods/raksa/files/custom_entities/mounted_gun/hmg.png"
+      offset_x="8"
+      offset_y="5"
+      z_index="-2"
+    ></SpriteComponent>
+
+    <InheritTransformComponent
+      parent_hotspot_tag="gun_pos"
+      only_position="1"
+    ></InheritTransformComponent>
+
+    <InteractableComponent
+      radius="16"
+      ui_text="Press $0 to operate the mounted gun"
+      name="Mounted Gun"
+    ></InteractableComponent>
+
+    <LuaComponent
+      script_interacting="mods/raksa/files/custom_entities/mounted_gun/toggle_use.lua"
+      script_physics_body_modified="mods/raksa/files/custom_entities/mounted_gun/toggle_use.lua"
+    ></LuaComponent>
+
+    <LuaComponent
+      _tags="gun_active_script"
+      _enabled="0"
+      script_source_file="mods/raksa/files/custom_entities/mounted_gun/use.lua"
+      execute_every_n_frame="1"
+    ></LuaComponent>
+  </Entity>
+</Entity>

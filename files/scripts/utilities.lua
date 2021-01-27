@@ -37,9 +37,23 @@ function get_player()
   return nil
 end
 
-function is_holding_m1()
+function shooting_is_enabled(player)
+  player = player or get_player()
+  if not player then return false end
+
+  return ComponentGetIsEnabled(
+    EntityGetFirstComponentIncludingDisabled(player, "GunComponent")
+  )
+end
+
+
+function is_holding_m1(ignore_guncomponent)
   local player = get_player()
   if not player then return false end
+
+  if not ignore_guncomponent and not shooting_is_enabled(player) then
+    return false
+  end
 
   return ComponentGetValue2(
     EntityGetFirstComponentIncludingDisabled(player, "ControlsComponent"),
@@ -47,9 +61,13 @@ function is_holding_m1()
   )
 end
 
-function is_holding_m2()
+function is_holding_m2(ignore_guncomponent)
   local player = get_player()
   if not player then return false end
+
+  if not ignore_guncomponent and not shooting_is_enabled(player) then
+    return false
+  end
 
   return ComponentGetValue2(
     EntityGetFirstComponentIncludingDisabled(player, "ControlsComponent"),
@@ -58,18 +76,28 @@ function is_holding_m2()
 end
 
 
-function has_clicked_m1()
+function has_clicked_m1(ignore_guncomponent)
   local click_frame = EntityGetValue(
     get_player(), "ControlsComponent", "mButtonFrameFire"
   )
+
+  if not ignore_guncomponent and not shooting_is_enabled() then
+    return false
+  end
+
   return click_frame == GameGetFrameNum()
 end
 
 
-function has_clicked_m2()
+function has_clicked_m2(ignore_guncomponent)
   local click_frame = EntityGetValue(
     get_player(), "ControlsComponent", SELECTED_BUTTON.click
   )
+
+  if not ignore_guncomponent and not shooting_is_enabled() then
+    return false
+  end
+
   return click_frame == GameGetFrameNum()
 end
 

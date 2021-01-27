@@ -71,6 +71,6 @@ CUSTOM_ENTITIES = {
   {
     name="Mounted Gun",
     path="mods/raksa/files/custom_entities/mounted_gun/hmg.xml",
-    image="mods/raksa/files/custom_entities/generator/icon_generator.png",
+    image="mods/raksa/files/custom_entities/mounted_gun/icon.png",
   },
 }
