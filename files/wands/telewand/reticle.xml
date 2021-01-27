@@ -1,0 +1,112 @@
+<Entity name="telewand_reticle">
+  <SpriteComponent
+    image_file="mods/raksa/files/gfx/spawner_pixel.png"
+    offset_x="0"
+    offset_y="0"
+
+    alpha="1"
+    additive="1"
+    emissive="1"
+    z_index="80"
+  ></SpriteComponent>
+
+  <TelekinesisComponent
+    min_size="7"
+    max_size="50"
+    radius="15"
+    throw_speed="15"
+    target_distance="3"
+    kick_to_use="0"
+  ></TelekinesisComponent>
+  <KickComponent
+    kick_radius="5"
+    kick_damage="0.5"
+  />
+
+  <ControlsComponent
+    enabled="1"
+    gamepad_fire_on_thumbstick_extend="0"
+    gamepad_fire_on_thumbstick_extend_threshold="0.9"
+    gamepad_indirect_aiming_enabled="0"
+  ></ControlsComponent>
+  <!-- Required for TelekinesisComponent -->
+  <CharacterDataComponent
+    platforming_type="2"
+    check_collision_max_size_x="4"
+    check_collision_max_size_y="4"
+    climb_over_y="6"
+    collision_aabb_min_x="-2.0"
+    collision_aabb_max_x="2.0"
+    collision_aabb_min_y="-4.5"
+    collision_aabb_max_y="2.1"
+    eff_hg_offset_y="1.28572"
+    eff_hg_position_x="0"
+    eff_hg_position_y="5"
+    eff_hg_size_x="6.42857"
+    eff_hg_size_y="5.14286"
+    eff_hg_velocity_max_x="19.5787896514"
+    eff_hg_velocity_max_y="-11.5714"
+    eff_hg_velocity_min_x="-19.5714"
+    eff_hg_velocity_min_y="-40"
+    eff_hg_damage_min="10"
+    eff_hg_damage_max="95"
+    eff_hg_update_box2d="0"
+    eff_hg_b2force_multiplier="0.0015"
+    effect_hit_ground="1"
+    fly_time_max="100.0"
+    fly_recharge_spd="110"
+    fly_recharge_spd_ground="110"
+    flying_needs_recharge="1"
+    flying_in_air_wait_frames="0"
+    flying_recharge_removal_frames="0"
+    gravity="0"
+    buoyancy_check_offset_y="-7"
+  ></CharacterDataComponent>
+
+  <GenomeDataComponent
+    herd_id="player"
+    food_chain_rank="20"
+    is_predator="1" >
+  </GenomeDataComponent>
+
+  <ControlsComponent
+    enabled="1"
+    gamepad_fire_on_thumbstick_extend="0"
+    gamepad_fire_on_thumbstick_extend_threshold="0.9"
+    gamepad_indirect_aiming_enabled="0"
+    >
+  </ControlsComponent>
+
+  <DamageModelComponent
+    air_in_lungs="7"
+    air_in_lungs_max="7"
+    air_lack_of_damage="0.6"
+    air_needed="1"
+    falling_damage_damage_max="4"
+    falling_damage_damage_min="1.2"
+    falling_damage_height_max="450"
+    falling_damage_height_min="70"
+    falling_damages="0"
+    fire_damage_amount="0.2"
+    fire_probability_of_ignition="0"
+    invincibility_frames="60"
+    minimum_knockback_force="1"
+    hp="1.5"
+    is_on_fire="0"
+    materials_damage="1"
+    materials_that_damage="fire,acid,lava,blood_cold_vapour,blood_cold,poison,radioactive_gas,radioactive_gas_static,rock_static_radioactive,rock_static_poison,ice_radioactive_static,ice_radioactive_glass,ice_acid_static,ice_acid_glass"
+    materials_how_much_damage="0.0005,0.005,0.003,0.0006,0.0009,0.001,0.001,0.001,0.001,0.001,0.001,0.001,0.001,0.001"
+    ragdoll_filenames_file="data/ragdolls/player/filenames.txt"
+    ragdoll_offset_y="-5"
+    ragdollify_child_entity_sprites="1"
+    blood_spray_material="blood"
+    physics_objects_damage="0"
+    critical_damage_resistance="1"
+    wait_for_kill_flag_on_death="1"
+    >
+    <damage_multipliers
+      explosion="0.35" >
+    </damage_multipliers>
+  </DamageModelComponent>
+</Entity>
+
