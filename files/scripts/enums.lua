@@ -1,6 +1,7 @@
 -- Synced with magic numbers. Location for respawn & tower return.
-SPAWN_X = MagicNumbersGetValue("DESIGN_PLAYER_START_POS_X")
-SPAWN_Y = MagicNumbersGetValue("DESIGN_PLAYER_START_POS_Y")
+-- Note: not the same as Noita's default mountain spawn location.
+CONJURER_SPAWN_X = MagicNumbersGetValue("DESIGN_PLAYER_START_POS_X")
+CONJURER_SPAWN_Y = MagicNumbersGetValue("DESIGN_PLAYER_START_POS_Y")
 
 -- Ninepiece Backgrounds
 NPBG_DEFAULT = 0
@@ -114,6 +115,31 @@ PLAYER_HAS_DIED = "RAKSA_PLAYER_HAS_DIED"
 FIRST_LOAD_DONE = "RAKSA_FIRST_LOAD_DONE"
 
 
+-- World file locations
+BIOME_MAP_NOITA = "data/biome_impl/biome_map.png"
+BIOME_MAP_NOITA_NG = "data/biome_impl/biome_map_newgame_plus.lua"
+BIOME_MAP_CONJURER = "mods/raksa/files/biomes/biome_map.png"
+BIOME_MAP_CONJURER_GENERATED = "mods/raksa/files/biomes/biome_map.lua"
+PIXEL_SCENES_NOITA = "mods/raksa/files/overrides/original_pixel_scenes.xml"
+PIXEL_SCENES_DEFAULT = "data/biome/_pixel_scenes.xml"
+PIXEL_SCENES_NOITA_NG = "data/biome/_pixel_scenes_newgame_plus.xml"
+
+-- World selection values for Globals
+BIOME_CURRENT_WORLD = "RAKSA_CURRENT_WORLD"
+BIOME_SELECTION = "RAKSA_BIOME_SELECTION"
+BIOME_DESERT = "desert"
+BIOME_FOREST = "forest"
+BIOME_WINTER = "winter"
+BIOME_WATER = "lake"
+BIOME_HELL = "hell"
+-- Not real biomes, just worlds:
+BIOME_NOITA = "noita"
+BIOME_CONJURER = "conjurer"
+
+BIOME_SELECTION_SCENE_FILE = "RAKSA_BIOME_SELECTION_FILE"
+BIOME_SELECTION_FILE = "RAKSA_BIOME_FILE"
+
+
 DEFAULTS = {
   -- Matwand
   [SELECTED_BRUSH] = "4", -- 10px brush
@@ -155,4 +181,8 @@ DEFAULTS = {
   -- Other
   [PLAYER_HAS_DIED] = "0",
   [FIRST_LOAD_DONE] = "0",
+  [BIOME_CURRENT_WORLD] = BIOME_CONJURER,
+  [BIOME_SELECTION] = BIOME_CONJURER,
+  [BIOME_SELECTION_FILE] = BIOME_MAP_CONJURER_GENERATED,
+  [BIOME_SELECTION_SCENE_FILE] = PIXEL_SCENES_DEFAULT, -- Overridden as Conjurer's
 }

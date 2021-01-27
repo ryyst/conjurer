@@ -69,6 +69,4 @@
     script_interacting="mods/raksa/files/custom_entities/door/door.lua"
     script_physics_body_modified="mods/raksa/files/custom_entities/door/door.lua"
   ></LuaComponent>
-
 </Entity>
-

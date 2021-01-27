@@ -1,12 +1,19 @@
+ModMaterialsFileAdd("mods/raksa/files/overrides/materials.xml")
 ModLuaFileAppend("data/scripts/gun/gun_actions.lua", "mods/raksa/files/actions.lua")
 
 dofile_once("mods/raksa/files/scripts/utilities.lua")
 dofile_once("mods/raksa/files/scripts/enums.lua")
 dofile_once("mods/raksa/files/scripts/settings_handlers.lua")
+dofile_once("mods/raksa/files/scripts/world_handlers.lua")
 
 
-handle_map_setting()
+-- Settings handlers
 handle_zoom_setting()
+
+-- World overrides
+append_custom_biomes()
+replace_pixel_scenes()
+replace_biome_map()
 
 
 function handle_inventory(player)
@@ -63,7 +70,7 @@ end
 
 
 function OnPlayerDied(player)
- GlobalsToggleBool(PLAYER_HAS_DIED)
+  GlobalsToggleBool(PLAYER_HAS_DIED)
   GamePrintImportant(
     "Somehow you managed to die for real",
     "[Save & Quit] and [Continue] to keep your progress and respawn"

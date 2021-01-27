@@ -1,6 +1,6 @@
 <MagicNumbers
-  DESIGN_PLAYER_START_POS_X="490"
-  DESIGN_PLAYER_START_POS_Y="-1815"
+  DESIGN_PLAYER_START_POS_X="-16918"
+  DESIGN_PLAYER_START_POS_Y="-2839"
 
   BIOME_MAP="mods/raksa/files/biomes/biome_map.png"
 ></MagicNumbers>

@@ -25,7 +25,35 @@ function activate_weather_menu()
   toggle_active_overlay(render_weather_menu, 11, -38)
 end
 
+function create_dimensional_portal(biome, biome_file, scene_file)
+  return function()
+    -- Never ever let these *not* update when creating a new portal
+    biome_file = biome_file or DEFAULTS[BIOME_SELECTION_FILE]
+    scene_file = scene_file or DEFAULTS[BIOME_SELECTION_SCENE_FILE]
+    biome = biome or DEFAULTS[BIOME_SELECTION]
+
+    GlobalsSetValue(BIOME_SELECTION_FILE, biome_file)
+    GlobalsSetValue(BIOME_SELECTION_SCENE_FILE, scene_file)
+    GlobalsSetValue(BIOME_SELECTION, biome)
+
+    -- Kill any existing portals
+    local portal = EntityGetWithName("dimension_portal")
+    EntityKill(portal)
+
+    -- Spawn the portal
+    local player = get_player()
+    local x, y = EntityGetTransform(player)
+    EntityLoad("mods/raksa/files/powers/dimension_portal.xml", x, y-80)
+  end
+end
+
+
 local main_menu_items = {
+  {
+    name="Trans-Dimensional Travel",
+    image=ICON_UNKNOWN,
+    action = function() toggle_active_overlay(render_world_menu) end,
+  },
   {
     name="Toggle Conscious Eye of Glass",
     image="mods/raksa/files/gfx/power_icons/glass_eye.png",
@@ -92,6 +120,89 @@ local sub_menu_pos_y = sub_menu_pos_y_default
 local render_active_powers_overlay = nil
 
 
+function render_world_menu()
+  local conjurer_dimensions = {
+    {
+      name="Home",
+      image="mods/raksa/files/gfx/power_icons/glass_eye.png",
+      action=create_dimensional_portal(BIOME_CONJURER, BIOME_MAP_CONJURER),
+    },
+    {
+      name="Freezing climate",
+      image="mods/raksa/files/gfx/power_icons/glass_eye.png",
+      action=create_dimensional_portal(BIOME_WINTER),
+    },
+    {
+      name="Temperate climate",
+      image="mods/raksa/files/gfx/power_icons/glass_eye.png",
+      action=create_dimensional_portal("BIOME_WHATEVER", "mods/raksa/files/biomes/biome_map_green.png"),
+    },
+    {
+      name="Hot climate",
+      image="mods/raksa/files/gfx/power_icons/glass_eye.png",
+      action=create_dimensional_portal(BIOME_DESERT),
+    },
+    {
+      name="Seaworld",
+      image="mods/raksa/files/gfx/power_icons/glass_eye.png",
+      action=create_dimensional_portal(BIOME_WATER),
+    },
+    {
+      name="Hellscape",
+      image="mods/raksa/files/gfx/power_icons/glass_eye.png",
+      action=create_dimensional_portal(BIOME_HELL, "mods/raksa/files/biomes/biome_map_hellscape.png"),
+    },
+  }
+  local noita_worlds = {
+    -- Demo, trailer, lab, niilo, newgame_plus, metagame
+    {
+      name="World of Noita",
+      image="mods/raksa/files/gfx/power_icons/glass_eye.png",
+      action=create_dimensional_portal(BIOME_NOITA, BIOME_MAP_NOITA, PIXEL_SCENES_NOITA)
+    },
+    {
+      name="World of NG",
+      image="mods/raksa/files/gfx/power_icons/glass_eye.png",
+      action=create_dimensional_portal(BIOME_NOITA, BIOME_MAP_NOITA_NG, PIXEL_SCENES_NOITA_NG),
+    },
+    {
+      name="World of Metapeli",
+      image="mods/raksa/files/gfx/power_icons/glass_eye.png",
+      action=create_dimensional_portal(BIOME_NOITA, "data/scripts/biomes/biome_map_gen.lua", ""),
+    },
+    {
+      name="World of Niilo",
+      image="mods/raksa/files/gfx/power_icons/glass_eye.png",
+      action=create_dimensional_portal(BIOME_NOITA, "data/biome_impl/biome_map_niilo.png", PIXEL_SCENES_NOITA),
+    },
+    {
+      name="World of Trailer",
+      image="mods/raksa/files/gfx/power_icons/glass_eye.png",
+      action=create_dimensional_portal(BIOME_NOITA, "data/biome_impl/biome_map_trailer.png", ""),
+    },
+    {
+      name="Endworld Plains",
+      image="mods/raksa/files/gfx/power_icons/glass_eye.png",
+      action=create_dimensional_portal(BIOME_NOITA, "data/biome_impl/biome_map_the_end.png", ""),
+    },
+  }
+
+  Grid({items=conjurer_dimensions, size=5, y=-10}, function(world)
+    Button(
+      {tooltip=world.name, image=world.image},
+      world.action
+    )
+  end)
+
+  Grid({items=noita_worlds, size=5, y=-5}, function(world)
+    Button(
+      {tooltip=world.name, image=world.image},
+      world.action
+    )
+  end)
+end
+
+
 function render_happiness_menu()
   local relation_buttons = {
     {
@@ -138,7 +249,7 @@ function render_herd_menu()
   Background({margin=1}, function()
     Grid({items=HERDS, size=5, y=-17}, function(herd)
       Button(
-        {image=ICON_UNKNOWN, tooltip=herd.display, image=herd.image},
+        {tooltip=herd.display, image=herd.image},
         function()
             change_player_herd(herd.name)
             ACTIVE_HERD = herd
@@ -154,7 +265,10 @@ function render_teleport_menu()
     {
       name="Return to Tower",
       image = "mods/raksa/files/gfx/power_icons/tower.png",
-      action = function() teleport_player(SPAWN_X, SPAWN_Y) end,
+      action = function()
+        local x, y = get_spawn_position()
+        teleport_player(x, y)
+      end,
     },
     {
       name="Memorize Current Location",

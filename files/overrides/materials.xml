@@ -1,0 +1,122 @@
+<Materials>
+
+<!-- Edge Graphics:
+  * COLOR_EDGE_PIXELS
+  * EVERYWHERE
+  * CARDINAL_DIRECTIONS
+  * NORMAL_BASED
+-->
+
+<!-- list of materials required:
+  * fire
+  * smoke
+  * water
+-->
+
+<!-- order of materials:
+  fire (for hax reasons)
+  static
+  sand - ground stuff
+    sand - rare metals
+    sand - other
+  liquid
+  gas
+  box2d (solid+physics)
+  special
+  hax
+  bad jokes
+-->
+
+<!-- tags:
+  [fire]
+  [static]
+  [sand_ground]
+  [sand_metal]
+  [sand_other]
+  [liquid]
+  [gas]
+  [box2d]
+  [hax]
+
+  [acid]
+  [lava]
+  [slime]
+  [plant]
+  [corrodible]
+  [meltable]
+  [meltable_to_lava]
+  [molten]
+  [soluble]
+  [evaporable]
+  [evaporable_fast]
+  [frozen]
+  [radioactive]
+  [requires_air]
+  [requires_water]
+  [grows_grass]
+
+
+  NOTE: [meltable] materials need to have a MATERIALNAME_molten variation
+-->
+
+<!--
+  solid_static_type=
+  SOLID_DYNAMIC = 0,
+  SOLID_STATIC_ALWAYS = 1,
+  SOLID_STATIC_BUT_BREAK = 2,
+  SOLID_STATIC_TREE_BREAK = 3,
+  SOLID_DYNAMIC_BREAK_INTO_OTHER_MATERIAL = 4,
+  SOLID_STATIC_ICE_BREAK = 5
+-->
+
+<!-- =================================================================================================================  -->
+<!-- FIRE -->
+  <CellData
+    name="under_construction"
+    ui_name="Under Construction"
+    tags="[static],[corrodible],[meltable_to_lava],[alchemy],[solid]"
+    burnable="0"
+    density="100"
+    cell_type="liquid"
+    wang_color="ff111122"
+    liquid_gravity="1.2"
+    liquid_sand="1"
+    liquid_static="1"
+    solid_static_type="1"
+    durability="100"
+    on_fire="0"
+    hp="1000000000000"
+    platform_type="1"
+    audio_physics_material_event="metalhollow"
+    audio_physics_material_wall="metalwall"
+    audio_physics_material_solid="metalhollow"
+    electrical_conductivity="1"
+    show_in_creative_mode="0"
+  >
+    <Graphics
+      texture_file="mods/raksa/files/gfx/materials/construction.png"
+      color="ff111122"
+    ></Graphics>
+  </CellData>
+
+  <CellDataChild
+    _parent="coal"
+    _inherit_reactions="1"
+    name="ash"
+    ui_name="ash"
+    tags="[liquid],[corrodible],[soluble],[impure]"
+    wang_color="ff121213"
+    show_in_creative_mode="1"
+    generates_smoke="1"
+    liquid_gravity="0.00001"
+    density="6"
+    hp="100000"
+    liquid_stains="2"
+    liquid_stains_self="1"
+    >
+    <Graphics
+      texture_file="mods/raksa/files/gfx/materials/ash.png"
+      color="ff010102"
+    ></Graphics>
+  </CellDataChild>
+</Materials>

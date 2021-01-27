@@ -236,6 +236,18 @@ function teleport_player(x, y)
 end
 
 
+function get_spawn_position(world)
+  world = world or GlobalsGet(BIOME_CURRENT_WORLD)
+  if world == BIOME_NOITA then
+    -- Noita's default spawn location
+    return 227, -85
+  end
+
+  -- For now all other worlds are just Conjurer's own.
+  return CONJURER_SPAWN_X, CONJURER_SPAWN_Y
+end
+
+
 ---------------------------
 -- PERKS
 function has_perk(perk_id)
