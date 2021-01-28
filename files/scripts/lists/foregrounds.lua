@@ -165,36 +165,6 @@ FOREGROUNDS = {
     spawn_func=spawn_img("data/biome_impl/coalmine/wandtrap_h_06_visual.png", 11, 4),
   },
   {
-    name="Coalmine wandtrap h 01 visual",
-    image="mods/raksa/files/gfx/fg_icons/55_coalmine_wandtrap_h_01_visual.png",
-    spawn_func=spawn_img("data/biome_impl/coalmine_wandtrap_h_01_visual.png", 11, 2),
-  },
-  {
-    name="Coalmine wandtrap h 02 visual",
-    image="mods/raksa/files/gfx/fg_icons/56_coalmine_wandtrap_h_02_visual.png",
-    spawn_func=spawn_img("data/biome_impl/coalmine_wandtrap_h_02_visual.png", 11, 4),
-  },
-  {
-    name="Coalmine wandtrap h 03 visual",
-    image="mods/raksa/files/gfx/fg_icons/57_coalmine_wandtrap_h_03_visual.png",
-    spawn_func=spawn_img("data/biome_impl/coalmine_wandtrap_h_03_visual.png", 11, 2),
-  },
-  {
-    name="Coalmine wandtrap h 04 visual",
-    image="mods/raksa/files/gfx/fg_icons/58_coalmine_wandtrap_h_04_visual.png",
-    spawn_func=spawn_img("data/biome_impl/coalmine_wandtrap_h_04_visual.png", 11, 4),
-  },
-  {
-    name="Coalmine wandtrap h 05 visual",
-    image="mods/raksa/files/gfx/fg_icons/59_coalmine_wandtrap_h_05_visual.png",
-    spawn_func=spawn_img("data/biome_impl/coalmine_wandtrap_h_05_visual.png", 11, 4),
-  },
-  {
-    name="Coalmine wandtrap h 06 visual",
-    image="mods/raksa/files/gfx/fg_icons/60_coalmine_wandtrap_h_06_visual.png",
-    spawn_func=spawn_img("data/biome_impl/coalmine_wandtrap_h_06_visual.png", 11, 4),
-  },
-  {
     name="Demonic altar visual",
     image="mods/raksa/files/gfx/fg_icons/92_demonic_altar_visual.png",
     spawn_func=spawn_img("data/biome_impl/demonic_altar_visual.png", 167, 0),
@@ -743,21 +713,6 @@ FOREGROUNDS = {
     name="Shop second row visual",
     image="mods/raksa/files/gfx/fg_icons/293_shop_second_row_visual.png",
     spawn_func=spawn_img("data/biome_impl/temple/shop_second_row_visual.png", 0, 0),
-  },
-  {
-    name="Temple altar left visual",
-    image="mods/raksa/files/gfx/fg_icons/294_temple_altar_left_visual.png",
-    spawn_func=spawn_img("data/biome_impl/temple_altar_left_visual.png", 251, 3),
-  },
-  {
-    name="Temple altar right visual",
-    image="mods/raksa/files/gfx/fg_icons/295_temple_altar_right_visual.png",
-    spawn_func=spawn_img("data/biome_impl/temple_altar_right_visual.png", 0, 4),
-  },
-  {
-    name="Temple altar visual",
-    image="mods/raksa/files/gfx/fg_icons/296_temple_altar_visual.png",
-    spawn_func=spawn_img("data/biome_impl/temple_altar_visual.png", 0, 3),
   },
   {
     name="Logo visual",
