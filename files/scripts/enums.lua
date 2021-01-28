@@ -134,6 +134,7 @@ BIOME_WATER = "lake"
 BIOME_HELL = "hell"
 -- Not real biomes, just worlds:
 BIOME_NOITA = "noita"
+BIOME_NOITA_NG = "noita_ng+"
 BIOME_CONJURER = "conjurer"
 
 BIOME_SELECTION_SCENE_FILE = "RAKSA_BIOME_SELECTION_FILE"

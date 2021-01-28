@@ -161,9 +161,9 @@ function render_world_menu()
       action=create_dimensional_portal(BIOME_NOITA, BIOME_MAP_NOITA, PIXEL_SCENES_NOITA)
     },
     {
-      name="World of NG",
+      name='World of "NG" the Plus',
       image="mods/raksa/files/gfx/power_icons/glass_eye.png",
-      action=create_dimensional_portal(BIOME_NOITA, BIOME_MAP_NOITA_NG, PIXEL_SCENES_NOITA_NG),
+      action=create_dimensional_portal(BIOME_NOITA_NG, BIOME_MAP_NOITA_NG, PIXEL_SCENES_NOITA_NG),
     },
     {
       name="World of Metapeli",

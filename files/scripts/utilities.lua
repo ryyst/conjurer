@@ -266,7 +266,7 @@ end
 
 function get_spawn_position(world)
   world = world or GlobalsGet(BIOME_CURRENT_WORLD)
-  if world == BIOME_NOITA then
+  if world == BIOME_NOITA or world == BIOME_NOITA_NG then
     -- Noita's default spawn location
     return 227, -85
   end

@@ -1,3 +1,5 @@
+dofile_once("data/scripts/newgame_plus.lua")
+
 dofile_once("mods/raksa/files/scripts/utilities.lua")
 dofile_once("mods/raksa/files/scripts/enums.lua")
 
@@ -7,11 +9,16 @@ dofile_once("mods/raksa/files/scripts/enums.lua")
 function teleport_if_necessary(destination, x, y)
   local current_world = GlobalsGet(BIOME_CURRENT_WORLD)
 
-  if (
-    current_world == BIOME_NOITA or   -- = Noita -> Conjurer
-    current_world ~= BIOME_NOITA and  -- = Conjurer -> Noita
-    destination == BIOME_NOITA
-  ) then
+  local to_conjurer = (
+    current_world == BIOME_NOITA or current_world == BIOME_NOITA_NG
+  )
+  local to_noita = (
+    current_world ~= BIOME_NOITA and
+    current_world ~= BIOME_NOITA_NG and
+    destination == BIOME_NOITA or destination == BIOME_NOITA_NG
+  )
+
+  if to_noita or to_conjurer then
     x, y = get_spawn_position(destination)
     print("TELEPORTING PLAYER TO "..tostring(x)..", "..tostring(y))
     teleport_player(x, y)
@@ -37,6 +44,15 @@ function collision_trigger(entity)
 
 
     teleport_if_necessary(destination, x, y)
+
+    -- Override all our own fun stuff with things necessary for loading NG+
+    if destination == BIOME_NOITA_NG then
+      GameClearOrbsFoundThisRun()
+
+      do_newgame_plus()
+      GlobalsSetValue(BIOME_CURRENT_WORLD, destination)
+      return
+    end
 
     -- Actually change the map
     BiomeMapLoad_KeepPlayer(biome_file, scene_file)
