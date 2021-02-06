@@ -146,6 +146,16 @@ end
 
 
 function delete_entity(x, y)
+  local DamageModel = EntityFirstComponent(HOVERED_ENTITY, "DamageModelComponent")
+  if GlobalsGetBool(ENTWAND_KILL_INSTEAD) and DamageModel then
+    -- Thanks KeithSammut!
+    ComponentSetValue2(DamageModel, "hp", 0)
+    ComponentSetValue2(DamageModel, "air_needed", true)
+    ComponentSetValue2(DamageModel, "air_in_lungs", 0)
+    HOVERED_ENTITY = nil
+    return
+  end
+
   EntityKill(HOVERED_ENTITY)
   HOVERED_ENTITY = nil
 end

@@ -136,6 +136,13 @@ function render_entity_options()
       Text("Deleting")
       VerticalSpacing(2)
       Checkbox({
+          is_active=GlobalsGetBool(ENTWAND_KILL_INSTEAD),
+          text="Kill instead of deleting",
+          tooltip="If the entity has a pulse, it will be killed instead.",
+        },
+        function() GlobalsToggleBool(ENTWAND_KILL_INSTEAD) end
+      )
+      Checkbox({
           is_active=GlobalsGetBool(ENTWAND_HOLD_TO_DELETE),
           text="Delete when holding",
           tooltip="Less accurate but more efficient way of removing multiple entities"
@@ -151,8 +158,8 @@ function render_entity_options()
       )
       Checkbox({
           is_active=GlobalsGetBool(ENTWAND_IGNORE_BACKGROUNDS),
-          text="Don't target backgrounds",
-          tooltip="Prevents you from deleting backgrounds.",
+          text="Don't target bg/fg visuals",
+          tooltip="Prevents you from deleting background & foreground entities.",
         },
         function() GlobalsToggleBool(ENTWAND_IGNORE_BACKGROUNDS) end
       )
