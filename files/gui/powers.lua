@@ -177,7 +177,7 @@ function render_world_menu()
       action=create_dimensional_portal(BIOME_NOITA, WORLD_NOITA, "data/biome_impl/biome_map_niilo.png", PIXEL_SCENES_NOITA),
     },
     {
-      name="Simulation",
+      name="Bostrom Simulation",
       image="mods/raksa/files/gfx/power_icons/worlds/noita_trailer.png",
       action=create_dimensional_portal(BIOME_NOITA, WORLD_NOITA, "data/biome_impl/biome_map_trailer.png", ""),
     },

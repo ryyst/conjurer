@@ -108,6 +108,25 @@ function Grid(vars, callback)
   end
 end
 
+function Image(vars)
+  GuiImage(
+    GUI, BID(),
+    vars.x or 0,
+    vars.y or 0,
+    vars.sprite or "",
+    vars.alpha or 1,
+    vars.scale or 1,
+    vars.scale_y or 0,
+    vars.rotation or 0
+  )
+  -- ['scale' will be used for 'scale_y' if 'scale_y' equals 0.]
+  --rect_animation_playback_type:int = GUI_RECT_ANIMATION_PLAYBACK.PlayToEndAndHide,
+  --rect_animation_name:string = "" )
+
+  if vars.tooltip then
+    Tooltip(vars.tooltip, vars.tooltip_desc or "")
+  end
+end
 
 function Button(vars, click_action, right_click_action)
   local Wrapper = vars.style and Background or Noop
@@ -234,6 +253,9 @@ function Text(text, vars)
 
   ColorNextWidget(vars.color or {})
   GuiText(GUI, x, y, text or "")
+  if vars.tooltip then
+    Tooltip(vars.tooltip, vars.tooltip_desc or "")
+  end
 end
 
 

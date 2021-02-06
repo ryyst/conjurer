@@ -49,9 +49,6 @@ function m1_click_event(entity)
   PhysicsSetStatic(entity, false)
   physics_enabled(entity, false)
   remove_joints(entity)
-
-
-  debug_entity(entity)
 end
 
 
@@ -70,7 +67,6 @@ end
 
 function m2_release_event(entity)
   freeze_entity(entity)
-  --physics_enabled(entity, true)
 end
 
 
@@ -100,6 +96,10 @@ local m2_action_released = not is_holding_m2() and ENTITY_TO_ROTATE
 -- Click events
 if only_m1_clicked then m1_click_event(hovered_entity) end
 if only_m2_clicked then m2_click_event(hovered_entity) end
+
+if has_clicked_interact() then
+  GlobalsSetValue(ENTITY_TO_INSPECT, tostring(hovered_entity))
+end
 
 -- Release event
 if m1_action_released then m1_release_event(ENTITY_TO_MOVE) end

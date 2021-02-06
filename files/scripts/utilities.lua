@@ -89,6 +89,15 @@ function has_clicked_m1(ignore_guncomponent)
 end
 
 
+function has_clicked_interact()
+  local click_frame = EntityGetValue(
+    get_player(), "ControlsComponent", "mButtonFrameInteract"
+  )
+
+  return click_frame == GameGetFrameNum()
+end
+
+
 function has_clicked_m2(ignore_guncomponent)
   local click_frame = EntityGetValue(
     get_player(), "ControlsComponent", SELECTED_BUTTON.click
@@ -222,6 +231,13 @@ function EntityToggleValue(entity, component_name, attr_name)
   EntitySetValue(entity, component_name, attr_name, not value)
 end
 
+function ComponentToggleValue(comp, attr_name)
+  print(str(comp))
+  local presumably_boolean = ComponentGetValue2(comp, attr_name)
+  print(str(presumably_boolean), type(presumably_boolean))
+  ComponentSetValue2(comp, attr_name, not presumably_boolean)
+end
+
 function ComponentSetValues(component, values)
   for key, value in pairs(values) do
     ComponentSetValue2(component, key, value)
@@ -268,6 +284,12 @@ function teleport_player(x, y)
   end
 end
 
+function is_physical_entity(entity)
+  return (
+    EntityFirstComponent(entity, "PhysicsBody2Component") or
+    EntityFirstComponent(entity, "PhysicsBodyComponent")
+  )
+end
 
 function get_spawn_position(world)
   world = world or GlobalsGet(WORLD_CURRENT)

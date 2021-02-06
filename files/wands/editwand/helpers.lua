@@ -1,4 +1,3 @@
-
 -- TODO: Cursor handling very similar to entwand. See if they could be combined.
 function get_or_create_cursor(x, y)
   local cursor = EntityGetWithName("editwand_cursor")

@@ -7,6 +7,7 @@ dofile_once("mods/raksa/files/lib/gui.lua")
 
 dofile_once("mods/raksa/files/gui/matwand.lua")
 dofile_once("mods/raksa/files/gui/entwand.lua")
+dofile_once("mods/raksa/files/gui/editwand.lua")
 dofile_once("mods/raksa/files/gui/powers.lua")
 
 
@@ -27,6 +28,8 @@ async_loop(function()
       render_matwand()
     elseif wand == "entwand" then
       render_entwand()
+    elseif wand == "editwand" then
+      render_editwand()
     end
 
     -- Don't show any GUI when the player is polymorphed,
