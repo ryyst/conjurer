@@ -15,15 +15,18 @@ Entity wand:
   - New category: Backgrounds
   - New category: Foregrounds
   - New wand setting: Ignore backgrounds when removing entities
-  - New wand setting: Kill instead of deleting - for any entities that have a "pulse"
+  - New wand setting: Kill instead of deleting
 
 Powers:
   - New power: Trans-dimensional traveling; Change maps/biomes while in-game!
     - Includes 6 new custom areas and 6 basegame worlds
     - The "map selection" Mod Setting is removed along this new power
+  - Nightfall Nakkikiska will now also enable self-damage for any enemies
 
 Items:
-  - You will no longer suffocate inside materials when using the enchanted carrot
+  - New wand: Chaos Claw
+    - Move & rotate any entities
+  - Fixed: You will no longer suffocate inside materials when using the enchanted carrot
 
 Other:
   - Fixed: Fog of war hole around the player was *off* for custom zoom levels.

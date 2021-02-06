@@ -12,5 +12,9 @@ function shot(projectile)
 
   if happiness <= -100 then
     EntitySetValue(projectile, "ProjectileComponent", "friendly_fire", true)
+
+    -- Everyone can self-damage, why not?
+    EntitySetValue(projectile, "ProjectileComponent", "collide_with_shooter_frames", 10)
+    EntitySetValue(projectile, "ProjectileComponent", "explosion_dont_damage_shooter", false)
   end
 end
