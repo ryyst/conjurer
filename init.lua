@@ -20,6 +20,7 @@ function handle_inventory(player)
   local ITEMS_QUICK = {
     "mods/raksa/files/wands/matwand/entity.xml",
     "mods/raksa/files/wands/entwand/entity.xml",
+    "mods/raksa/files/wands/editwand/entity.xml",
     "data/entities/items/starting_wand_rng.xml",
     "mods/raksa/files/wands/carrot/entity.xml",
   }
