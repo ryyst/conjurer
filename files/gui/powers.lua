@@ -25,7 +25,7 @@ function activate_weather_menu()
   toggle_active_overlay(render_weather_menu, 11, -38)
 end
 
-function create_dimensional_portal(biome, biome_file, scene_file)
+function create_dimensional_portal(biome, world, biome_file, scene_file)
   return function()
     -- Never ever let these *not* update when creating a new portal
     biome_file = biome_file or DEFAULTS[BIOME_SELECTION_FILE]
@@ -35,6 +35,7 @@ function create_dimensional_portal(biome, biome_file, scene_file)
     GlobalsSetValue(BIOME_SELECTION_FILE, biome_file)
     GlobalsSetValue(BIOME_SELECTION_SCENE_FILE, scene_file)
     GlobalsSetValue(BIOME_SELECTION, biome)
+    GlobalsSetValue(WORLD_SELECTION, world)
 
     -- Kill any existing portals
     local portal = EntityGetWithName("dimension_portal")
@@ -51,7 +52,7 @@ end
 local main_menu_items = {
   {
     name="Trans-Dimensional Travel",
-    image=ICON_UNKNOWN,
+    image="mods/raksa/files/gfx/power_icons/dimension_portal.png",
     action = function() toggle_active_overlay(render_world_menu) end,
   },
   {
@@ -123,81 +124,81 @@ local render_active_powers_overlay = nil
 function render_world_menu()
   local conjurer_dimensions = {
     {
-      name="Home",
-      image="mods/raksa/files/gfx/power_icons/glass_eye.png",
-      action=create_dimensional_portal(BIOME_CONJURER, BIOME_MAP_CONJURER),
+      name="Strange Flats",
+      image="mods/raksa/files/gfx/power_icons/worlds/flat.png",
+      action=create_dimensional_portal(BIOME_CONJURER, WORLD_CONJURER, BIOME_MAP_CONJURER),
     },
     {
-      name="Freezing climate",
-      image="mods/raksa/files/gfx/power_icons/glass_eye.png",
-      action=create_dimensional_portal(BIOME_WINTER),
+      name="Green Eden",
+      image="mods/raksa/files/gfx/power_icons/worlds/grass.png",
+      action=create_dimensional_portal(BIOME_FOREST, WORLD_CONJURER, "mods/raksa/files/biomes/biome_map_green.png"),
     },
     {
-      name="Temperate climate",
-      image="mods/raksa/files/gfx/power_icons/glass_eye.png",
-      action=create_dimensional_portal("BIOME_WHATEVER", "mods/raksa/files/biomes/biome_map_green.png"),
+      name="Desert",
+      image="mods/raksa/files/gfx/power_icons/worlds/sand.png",
+      action=create_dimensional_portal(BIOME_DESERT, WORLD_CONJURER, BIOME_MAP_CONJURER_GENERATED),
     },
     {
-      name="Hot climate",
-      image="mods/raksa/files/gfx/power_icons/glass_eye.png",
-      action=create_dimensional_portal(BIOME_DESERT),
+      name="Everfrost",
+      image="mods/raksa/files/gfx/power_icons/worlds/snow.png",
+      action=create_dimensional_portal(BIOME_WINTER, WORLD_CONJURER, BIOME_MAP_CONJURER_GENERATED),
     },
     {
-      name="Seaworld",
-      image="mods/raksa/files/gfx/power_icons/glass_eye.png",
-      action=create_dimensional_portal(BIOME_WATER),
+      name="Aquavesi",
+      image="mods/raksa/files/gfx/power_icons/worlds/water.png",
+      action=create_dimensional_portal(BIOME_WATER, WORLD_CONJURER, BIOME_MAP_CONJURER_GENERATED),
     },
     {
       name="Hellscape",
-      image="mods/raksa/files/gfx/power_icons/glass_eye.png",
-      action=create_dimensional_portal(BIOME_HELL, "mods/raksa/files/biomes/biome_map_hellscape.png"),
+      image="mods/raksa/files/gfx/power_icons/worlds/hell.png",
+      action=create_dimensional_portal(BIOME_HELL, WORLD_CONJURER, "mods/raksa/files/biomes/biome_map_hellscape.png"),
     },
   }
   local noita_worlds = {
     -- Demo, trailer, lab, niilo, newgame_plus, metagame
     {
-      name="World of Noita",
-      image="mods/raksa/files/gfx/power_icons/glass_eye.png",
-      action=create_dimensional_portal(BIOME_NOITA, BIOME_MAP_NOITA, PIXEL_SCENES_NOITA)
+      name="Peculiar Mountainside",
+      image="mods/raksa/files/gfx/power_icons/worlds/noita.png",
+      action=create_dimensional_portal(BIOME_NOITA, WORLD_NOITA, BIOME_MAP_NOITA, PIXEL_SCENES_NOITA)
     },
     {
-      name='World of "NG" the Plus',
-      image="mods/raksa/files/gfx/power_icons/glass_eye.png",
-      action=create_dimensional_portal(BIOME_NOITA_NG, BIOME_MAP_NOITA_NG, PIXEL_SCENES_NOITA_NG),
+      name='The Cursed Realms of "NG" the Plus',
+      image="mods/raksa/files/gfx/power_icons/worlds/noita_ng.png",
+      action=create_dimensional_portal(BIOME_NOITA_NG, WORLD_NOITA, BIOME_MAP_NOITA_NG, PIXEL_SCENES_NOITA_NG),
     },
     {
-      name="World of Metapeli",
-      image="mods/raksa/files/gfx/power_icons/glass_eye.png",
-      action=create_dimensional_portal(BIOME_NOITA, "data/scripts/biomes/biome_map_gen.lua", ""),
+      name="Metapelium",
+      image="mods/raksa/files/gfx/power_icons/worlds/noita_metapeli.png",
+      action=create_dimensional_portal(BIOME_NOITA, WORLD_NOITA, "data/scripts/biomes/biome_map_gen.lua", ""),
     },
     {
-      name="World of Niilo",
-      image="mods/raksa/files/gfx/power_icons/glass_eye.png",
-      action=create_dimensional_portal(BIOME_NOITA, "data/biome_impl/biome_map_niilo.png", PIXEL_SCENES_NOITA),
+      name="Takalands of Niilo",
+      image="mods/raksa/files/gfx/power_icons/worlds/noita_niilo.png",
+      action=create_dimensional_portal(BIOME_NOITA, WORLD_NOITA, "data/biome_impl/biome_map_niilo.png", PIXEL_SCENES_NOITA),
     },
     {
-      name="World of Trailer",
-      image="mods/raksa/files/gfx/power_icons/glass_eye.png",
-      action=create_dimensional_portal(BIOME_NOITA, "data/biome_impl/biome_map_trailer.png", ""),
+      name="Simulation",
+      image="mods/raksa/files/gfx/power_icons/worlds/noita_trailer.png",
+      action=create_dimensional_portal(BIOME_NOITA, WORLD_NOITA, "data/biome_impl/biome_map_trailer.png", ""),
     },
     {
-      name="Endworld Plains",
-      image="mods/raksa/files/gfx/power_icons/glass_eye.png",
-      action=create_dimensional_portal(BIOME_NOITA, "data/biome_impl/biome_map_the_end.png", ""),
+      name="Endworld Hillplains",
+      image="mods/raksa/files/gfx/power_icons/worlds/noita_end.png",
+      action=create_dimensional_portal(BIOME_NOITA, WORLD_NOITA, "data/biome_impl/biome_map_the_end.png", ""),
     },
   }
 
-  Grid({items=conjurer_dimensions, size=5, y=-10}, function(world)
+  Grid({items=conjurer_dimensions, size=6, y=0}, function(dimension)
     Button(
-      {tooltip=world.name, image=world.image},
-      world.action
+      {style=NPBG_BLACK, tooltip=dimension.name, image=dimension.image},
+      dimension.action
     )
   end)
 
-  Grid({items=noita_worlds, size=5, y=-5}, function(world)
+  Grid({items=noita_worlds, size=6, y=1}, function(dimension)
     Button(
-      {tooltip=world.name, image=world.image},
-      world.action
+      {style=NPBG_BLACK, tooltip=dimension.name, image=dimension.image},
+      dimension.action
     )
   end)
 end

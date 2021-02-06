@@ -3,6 +3,9 @@
 CONJURER_SPAWN_X = MagicNumbersGetValue("DESIGN_PLAYER_START_POS_X")
 CONJURER_SPAWN_Y = MagicNumbersGetValue("DESIGN_PLAYER_START_POS_Y")
 
+NOITA_SPAWN_X = 227
+NOITA_SPAWN_Y = -85
+
 -- Ninepiece Backgrounds
 NPBG_DEFAULT = 0
 NPBG_GOLD = 1
@@ -12,6 +15,8 @@ NPBG_BLUE_TAB = 4
 NPBG_BROWN = 5
 NPBG_BROWN_TAB = 6
 NPBG_PURPLE = 7
+NPBG_GREEN = 8
+NPBG_BLACK = 9
 
 NPBG_STYLES = {
   [NPBG_DEFAULT]="data/ui_gfx/decorations/9piece0_gray.png",
@@ -23,6 +28,8 @@ NPBG_STYLES = {
   [NPBG_BROWN_TAB]="mods/raksa/files/gfx/9piece_brown_tab.png",
   [NPBG_BROWN_TAB]="mods/raksa/files/gfx/9piece_brown_tab.png",
   [NPBG_PURPLE]="mods/raksa/files/gfx/9piece_purple.png",
+  [NPBG_GREEN]="mods/raksa/files/gfx/9piece_green.png",
+  [NPBG_BLACK]="mods/raksa/files/gfx/9piece_black.png",
 }
 
 
@@ -126,17 +133,21 @@ PIXEL_SCENES_DEFAULT = "data/biome/_pixel_scenes.xml"
 PIXEL_SCENES_NOITA_NG = "data/biome/_pixel_scenes_newgame_plus.xml"
 
 -- World selection values for Globals
-BIOME_CURRENT_WORLD = "RAKSA_CURRENT_WORLD"
+BIOME_CURRENT = "RAKSA_CURRENT_WORLD"
 BIOME_SELECTION = "RAKSA_BIOME_SELECTION"
 BIOME_DESERT = "desert"
 BIOME_FOREST = "forest"
 BIOME_WINTER = "winter"
 BIOME_WATER = "lake"
 BIOME_HELL = "hell"
--- Not real biomes, just worlds:
 BIOME_NOITA = "noita"
 BIOME_NOITA_NG = "noita_ng+"
 BIOME_CONJURER = "conjurer"
+
+WORLD_CURRENT = "RAKSA_WORLD_CURRENT"
+WORLD_SELECTION = "RAKSA_WORLD_SELECTION"
+WORLD_NOITA = "world_noita"
+WORLD_CONJURER = "world_conjurer"
 
 BIOME_SELECTION_SCENE_FILE = "RAKSA_BIOME_SELECTION_FILE"
 BIOME_SELECTION_FILE = "RAKSA_BIOME_FILE"
@@ -184,7 +195,9 @@ DEFAULTS = {
   -- Other
   [PLAYER_HAS_DIED] = "0",
   [FIRST_LOAD_DONE] = "0",
-  [BIOME_CURRENT_WORLD] = BIOME_CONJURER,
+  [WORLD_CURRENT] = WORLD_CONJURER,
+  [WORLD_SELECTION] = WORLD_CONJURER,
+  [BIOME_CURRENT] = BIOME_CONJURER,
   [BIOME_SELECTION] = BIOME_CONJURER,
   [BIOME_SELECTION_FILE] = BIOME_MAP_CONJURER_GENERATED,
   [BIOME_SELECTION_SCENE_FILE] = PIXEL_SCENES_DEFAULT, -- Overridden as Conjurer's

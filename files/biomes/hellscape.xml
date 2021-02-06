@@ -5,6 +5,7 @@
     background_use_neighbor="0"
     noise_type="SIN_CAPPED_SIMPLEX"
 
+    lua_script="mods/raksa/files/biomes/common.lua"
     mGradientAddNoise="1"
     mGradientStartY="-1524"
     mGradientEndY="1024"

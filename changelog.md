@@ -19,7 +19,7 @@ Entity wand:
 
 Powers:
   - New power: Trans-dimensional traveling; Change maps/biomes while in-game!
-    - Includes 5 new custom areas and 5 basegame worlds
+    - Includes 6 new custom areas and 6 basegame worlds
     - The "map selection" Mod Setting is removed along this new power
 
 Items:

@@ -195,6 +195,11 @@ function EntityGetValue(entity, component_name, attr_name)
   )
 end
 
+function EntityFirstComponent(entity, component_name)
+  -- Holy moly, should've made this alias sooner.
+  return EntityGetFirstComponentIncludingDisabled(entity, component_name)
+end
+
 function EntitySetValue(entity, component_name, attr_name, value)
   if entity == nil or entity == 0 then return end
 
@@ -265,10 +270,9 @@ end
 
 
 function get_spawn_position(world)
-  world = world or GlobalsGet(BIOME_CURRENT_WORLD)
-  if world == BIOME_NOITA or world == BIOME_NOITA_NG then
-    -- Noita's default spawn location
-    return 227, -85
+  world = world or GlobalsGet(WORLD_CURRENT)
+  if world == WORLD_NOITA then
+    return NOITA_SPAWN_X, NOITA_SPAWN_Y
   end
 
   -- For now all other worlds are just Conjurer's own.

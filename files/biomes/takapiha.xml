@@ -3,7 +3,7 @@
     name="_EMPTY_"
     background_use_neighbor="0"
 
-    lua_script="mods/raksa/files/biomes/takapiha.lua"
+    lua_script="mods/raksa/files/biomes/common.lua"
     mGradientAddNoise="0"
     mGradientHighNoise="64"
     mGradientLowNoise="0"

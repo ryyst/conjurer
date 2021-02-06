@@ -5,6 +5,7 @@ dofile_once("data/scripts/perks/perk.lua")
 RegisterSpawnFunction( 0xffB40001, "spawn_random_book" )
 RegisterSpawnFunction( 0xffB40002, "spawn_sammon_taistelu" )
 RegisterSpawnFunction( 0xffB40003, "DEBUG_spawn_all_books" )
+RegisterSpawnFunction( 0xffB40004, "spawn_travel_manual" )
 
 RegisterSpawnFunction( 0xffb075ee, "spawn_eel" )
 RegisterSpawnFunction( 0xffb075ed, "spawn_drummer" )
@@ -62,6 +63,10 @@ function book(name)
   return "mods/raksa/files/secrets/books/"..name..".xml"
 end
 
+function spawn_travel_manual(x, y)
+  EntityLoadProcessed(book("manual"), x, y)
+end
+
 function spawn_sammon_taistelu(x, y)
   EntityLoadProcessed(book("kalevala3"), x, y)
 end
@@ -116,3 +121,7 @@ function spawn_stool(x, y) EntityLoadProcessed("data/entities/props/furniture_st
 function spawn_bone(x, y) EntityLoadProcessed("data/entities/props/physics_bone_01.xml", x, y) end
 function spawn_skull(x, y) EntityLoadProcessed("data/entities/props/physics_skull_01.xml", x, y) end
 function spawn_skull2(x, y) EntityLoadProcessed("data/entities/props/physics_skull_02.xml", x, y) end
+
+-- Expected by some base game pixel scenes / caves / something. Spawn nothing.
+function spawn_small_enemies(x, y) end
+function spawn_items(x, y) end
