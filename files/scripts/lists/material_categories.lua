@@ -16,12 +16,12 @@ ALL_MATERIALS = {
     icon_off="mods/raksa/files/gfx/matwand_icons/icon_solid_off.png",
     materials=SOLIDS,
   },
-  {
-    name="Solid Physics",
-    icon="mods/raksa/files/gfx/matwand_icons/icon_solid.png",
-    icon_off="mods/raksa/files/gfx/matwand_icons/icon_solid_off.png",
-    materials=BOX2D_SOLIDS,
-  },
+  --{
+  --  name="Solid Physics",
+  --  icon="mods/raksa/files/gfx/matwand_icons/icon_solid.png",
+  --  icon_off="mods/raksa/files/gfx/matwand_icons/icon_solid_off.png",
+  --  materials=BOX2D_SOLIDS,
+  --},
   {
     name="Liquids",
     icon="mods/raksa/files/gfx/matwand_icons/icon_liquid.png",
