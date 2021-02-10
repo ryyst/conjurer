@@ -125,6 +125,21 @@ _GENERATED = {
     image="mods/raksa/files/gfx/prop_icons/excavationsite_machine_3c.png",
   },
   {
+    name="Physics fungus small",
+    path="data/entities/props/physics_fungus_small.xml",
+    image="mods/raksa/files/gfx/prop_icons/physics_fungus_cap_02.png",
+  },
+  {
+    name="Physics fungus",
+    path="data/entities/props/physics_fungus.xml",
+    image="mods/raksa/files/gfx/prop_icons/physics_fungus_cap_01.png",
+  },
+  {
+    name="Physics fungus big",
+    path="data/entities/props/physics_fungus_big.xml",
+    image="mods/raksa/files/gfx/prop_icons/physics_fungus_cap_03.png",
+  },
+  {
     name="Furniture bed",
     path="data/entities/props/furniture_bed.xml",
     image="mods/raksa/files/gfx/prop_icons/furniture_bed.png",
