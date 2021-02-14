@@ -55,6 +55,22 @@ ALL_MATERIALS = {
 };
 
 
+-- Create a second table for places where we don't want box2d materials
+-- eg. rain, particle emitters, etc.
+function _strip_physics()
+  local nonphysics = {}
+  for i, category in ipairs(ALL_MATERIALS) do
+    if i ~= 2 then
+      table.insert(nonphysics, category)
+    end
+  end
+
+  return nonphysics
+end
+
+ALL_NONPHYSICS_MATERIALS = _strip_physics()
+
+
 -- Remove all beta materials for non-beta builds.
 -- Try to do this before calculating leftovers, so that when the materials
 -- finally *are* released, I'm not in a hurry to set the is_beta to false,

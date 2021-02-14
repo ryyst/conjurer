@@ -308,15 +308,14 @@ end
 
 
 function render_rain_material_picker()
-  MaterialPicker({},
+  MaterialPicker({ignore_physics=true},
     function(material)
       return function()
         GlobalsSetValue(RAIN_MATERIAL, material.id)
         GlobalsSetValue(RAIN_MATERIAL_ICON, material.image or GLOBAL_UNDEFINED)
         activate_weather_menu()
       end
-    end,
-    function(material) end
+    end
   )
 end
 

@@ -289,9 +289,11 @@ function MaterialPicker(vars, click_handler, right_click_handler)
   local x = vars.x or 1
   local y = vars.y or 1
 
+  local MATERIALS = vars.ignore_physics and ALL_NONPHYSICS_MATERIALS or ALL_MATERIALS
+
   -- Category selection tab buttons
   Horizontal(x, y, function()
-    for i, category in ipairs(ALL_MATERIALS) do
+    for i, category in ipairs(MATERIALS) do
       local is_selected = (i == _active_category)
       local image = is_selected and category.icon or category.icon_off
       local style = is_selected and NPBG_BROWN_TAB or NPBG_BROWN
@@ -308,7 +310,8 @@ function MaterialPicker(vars, click_handler, right_click_handler)
   end)
 
   -- Material buttons
-  local category = ALL_MATERIALS[_active_category]
+  local category = MATERIALS[_active_category]
+  right_click_handler = right_click_handler or function(m) end
 
   Background({margin=3, style=NPBG_BROWN, z_index=200}, function()
     Grid({
