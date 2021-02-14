@@ -46,7 +46,7 @@ function render_entity_properties()
       end)
       Horizontal(0, 0, function()
         Image({sprite="mods/raksa/files/gfx/editwand_icons/info_rotation.png", tooltip="Rotation"})
-        Text(string.format("%.2f", rot), {tooltip="Rotation", x=2})
+        Text(string.format("%.4f", rot), {tooltip="Rotation", x=2})
       end)
       Horizontal(0, 0, function()
         Image({sprite="mods/raksa/files/gfx/editwand_icons/info_scale.png", tooltip="Scale"})
@@ -55,7 +55,6 @@ function render_entity_properties()
 
       VerticalSpacing(2)
       Text("Fine-tuning:", {color={red=155, green=173, blue=183}})
-      VerticalSpacing(2)
 
       if is_physical_entity(entity) then
         Text("[not supported]", {
@@ -64,18 +63,28 @@ function render_entity_properties()
           color={red=183, green=146, blue=110},
         })
       else
+        Horizontal(0, -2, function()
+          Button(
+            {x=11, y=12, tooltip="Rotation -0.5 degrees", image="mods/raksa/files/gfx/editwand_icons/icon_arrow_left_cycle_small.png"},
+            function() EntitySetTransform(entity, x, y, rot-math.rad(0.5), scale_x, scale_y) end
+          )
+          Button(
+            {x=12, y=12, tooltip="Rotation +0.5 degrees", image="mods/raksa/files/gfx/editwand_icons/icon_arrow_right_cycle_small.png"},
+            function() EntitySetTransform(entity, x, y, rot+math.rad(0.5), scale_x, scale_y) end
+          )
+        end)
         Horizontal(0, 0, function()
           Button(
-            {tooltip="Rotation -0.01", image="mods/raksa/files/gfx/editwand_icons/icon_arrow_left_cycle.png"},
-            function() EntitySetTransform(entity, x, y, rot-0.01, scale_x, scale_y) end
+            {tooltip="Rotation -90 degrees", image="mods/raksa/files/gfx/editwand_icons/icon_arrow_left_cycle.png"},
+            function() EntitySetTransform(entity, x, y, rot-math.rad(90), scale_x, scale_y) end
           )
           Button(
             {tooltip="Y-Pos -1.0", image="mods/raksa/files/gfx/editwand_icons/icon_arrow_up.png"},
             function() EntitySetTransform(entity, x, y-1, rot, scale_x, scale_y) end
           )
           Button(
-            {tooltip="Rotation +0.01", image="mods/raksa/files/gfx/editwand_icons/icon_arrow_right_cycle.png"},
-            function() EntitySetTransform(entity, x, y, rot+0.01, scale_x, scale_y) end
+            {tooltip="Rotation +90 degrees", image="mods/raksa/files/gfx/editwand_icons/icon_arrow_right_cycle.png"},
+            function() EntitySetTransform(entity, x, y, rot+math.rad(90), scale_x, scale_y) end
           )
         end)
         Horizontal(0, 0, function()
@@ -124,15 +133,15 @@ function render_entity_properties()
             )
           end)
           Button(
-            {x=3, tooltip="Scale +1.0", image="mods/raksa/files/gfx/editwand_icons/icon_plus.png"},
+            {x=3, tooltip="Scale +0.5", image="mods/raksa/files/gfx/editwand_icons/icon_plus.png"},
             function()
-              EntitySetTransform(entity, x, y, rot, incr(scale_x, 1), incr(scale_y, 1))
+              EntitySetTransform(entity, x, y, rot, incr(scale_x, 0.5), incr(scale_y, 0.5))
             end
           )
           Button(
-            {x=-1, tooltip="Scale -1.0", image="mods/raksa/files/gfx/editwand_icons/icon_minus.png"},
+            {x=-1, tooltip="Scale -0.5", image="mods/raksa/files/gfx/editwand_icons/icon_minus.png"},
             function()
-              EntitySetTransform(entity, x, y, rot, decr(scale_x, 1), decr(scale_y, 1))
+              EntitySetTransform(entity, x, y, rot, decr(scale_x, 0.5), decr(scale_y, 0.5))
             end
           )
           Vertical(0, 1, function()
@@ -165,22 +174,63 @@ function render_entity_properties()
             function() EntitySetTransform(entity, x, y, 0, 1, 1) end
           )
         end)
-
       end
 
       VerticalSpacing(16)
-      Text("Misc settings:", {color={red=155, green=173, blue=183}})
+      Text("Other tools:", {color={red=155, green=173, blue=183}})
 
-      -- Add sprites
-      local hitboxes = EntityGetComponentIncludingDisabled(entity, "HitboxComponent")
-      if hitboxes then
+      Vertical(0, 0, function()
         Horizontal(0, 0, function()
+          local DamageModel = EntityFirstComponent(entity, "DamageModelComponent")
+          if DamageModel then
+            Button(
+              {
+                tooltip='Kill entity',
+                tooltip_desc='Only available for "living" creatures',
+                image="mods/raksa/files/gfx/editwand_icons/icon_kill.png",
+              },
+              function()
+                -- Re-fetch damagemodel just in case
+                local DamageModel = EntityFirstComponent(entity, "DamageModelComponent")
+                ComponentSetValue2(DamageModel, "hp", 0)
+                ComponentSetValue2(DamageModel, "air_needed", true)
+                ComponentSetValue2(DamageModel, "air_in_lungs", 0)
+                GlobalsSetValue(SIGNAL_RESET_EDITWAND_GUI, "1")
+              end
+            )
+          end
+          Button(
+            {
+              tooltip="Delete entity",
+              image="mods/raksa/files/gfx/editwand_icons/icon_del.png",
+            },
+            function()
+              EntityKill(entity)
+              GlobalsSetValue(SIGNAL_RESET_EDITWAND_GUI, "1")
+            end
+          )
+          Button(
+            {
+              tooltip="Clone entity",
+              tooltip_desc="Only a pure copy is made, no modifications are preserved.",
+              image="mods/raksa/files/gfx/editwand_icons/icon_cln.png",
+            },
+            function()
+              local x, y = EntityGetTransform(entity)
+              local path = EntityGetFilename(entity)
+              EntityLoad(path, x+10, y-10)
+            end
+          )
+        end)
+
+        local hitboxes = EntityGetComponentIncludingDisabled(entity, "HitboxComponent")
+        if hitboxes then
           local hitbox_sprites = EntityGetComponentIncludingDisabled(entity, "SpriteComponent", "raksa_hitbox_display")
           local hitbox_updater = EntityGetFirstComponentIncludingDisabled(entity, "LuaComponent", "raksa_hitbox_updater")
 
           Checkbox({
               is_active=hitbox_sprites,
-              text="Show entity hitboxes",
+              text="Show hitboxes",
             },
             function()
               if hitbox_sprites then
@@ -199,8 +249,8 @@ function render_entity_properties()
               })
             end
           )
-        end)
-      end
+        end
+      end)
     end)
   end)
 end

@@ -10,7 +10,7 @@ end
 function HoverTextField(field_name, text)
   return function (comp, entity)
     Text(
-      "[Hover: "..text.."]",
+      text..":  [hover]",
       { tooltip=ComponentGetValue2(comp, field_name) }
     )
   end
