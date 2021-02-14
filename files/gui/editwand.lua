@@ -32,11 +32,14 @@ function render_entity_properties()
 
   local tags = EntityGetTags(entity)
   if not tags or #tags == 0 then
-    tags = "No tags"
+    tags = "-"
   end
 
+  local tags_text = "Tags: "..tags
+  local filepath = "Entity file: "..(EntityGetFilename(entity) or "")
+
   local x, y, rot, scale_x, scale_y = EntityGetTransform(entity)
-  Text(GameTextGetTranslatedOrNot(name), {tooltip=tags, x=4})
+  Text(GameTextGetTranslatedOrNot(name), {tooltip=filepath, tooltip_desc=tags_text, x=4})
 
   Background({margin=3, style=NPBG_DEFAULT, z_index=200, min_width=90}, function()
     Vertical(1, 1, function()
