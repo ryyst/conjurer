@@ -10,6 +10,7 @@ dofile_once("mods/raksa/files/scripts/enums.lua")
 
 ENTITY_TO_MOVE = ENTITY_TO_MOVE or nil
 ENTITY_TO_ROTATE = ENTITY_TO_ROTATE or nil
+PREV_HOVERED_ENTITY = PREV_HOVERED_ENTITY or nil
 
 
 function move_entity(entity, x, y)
@@ -98,6 +99,10 @@ if only_m1_clicked then m1_click_event(hovered_entity) end
 if only_m2_clicked then m2_click_event(hovered_entity) end
 
 if has_clicked_interact() then
+  if not hovered_entity or not EntityGetIsAlive(hovered_entity) or GlobalsGetNumber(ENTITY_TO_INSPECT) ~= PREV_HOVERED_ENTITY then
+    GlobalsSetValue(SIGNAL_RESET_EDITWAND_GUI, "1")
+  end
+
   GlobalsSetValue(ENTITY_TO_INSPECT, tostring(hovered_entity))
 end
 
@@ -108,3 +113,6 @@ if m2_action_released then m2_release_event(ENTITY_TO_ROTATE) end
 -- Actions
 if ENTITY_TO_MOVE then m1_action(ENTITY_TO_MOVE, x, y) end
 if ENTITY_TO_ROTATE then m2_action(ENTITY_TO_ROTATE, x, y) end
+
+
+PREV_HOVERED_ENTITY = hovered_entity

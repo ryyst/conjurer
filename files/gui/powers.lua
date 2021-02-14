@@ -563,6 +563,7 @@ function render_time_menu()
       max=100,
       text="Skytop",
       tooltip="Adjust the topmost sky gradient",
+      decimals=false,
     },
     function(new_value)
       EntitySetValue(world, "WorldStateComponent", "gradient_sky_alpha_target", new_value/100)
@@ -575,6 +576,7 @@ function render_time_menu()
       max=100,
       text="Sunset",
       tooltip="Adjust the bottom sky gradient",
+      decimals=false,
     },
     function(new_value)
       EntitySetValue(world, "WorldStateComponent", "sky_sunset_alpha_target", new_value/100)

@@ -232,9 +232,7 @@ function EntityToggleValue(entity, component_name, attr_name)
 end
 
 function ComponentToggleValue(comp, attr_name)
-  print(str(comp))
   local presumably_boolean = ComponentGetValue2(comp, attr_name)
-  print(str(presumably_boolean), type(presumably_boolean))
   ComponentSetValue2(comp, attr_name, not presumably_boolean)
 end
 

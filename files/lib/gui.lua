@@ -195,6 +195,9 @@ end
 
 
 function Scroller(vars, callback)
+  -- local clicked, rclicked, hovered, x, y, width, height, draw_x, draw_y, draw_width, draw_height = GuiGetPreviousWidgetInfo(GUI)
+  -- [Returns the final position, size etc calculated for a widget. Some values aren't supported by all widgets.]
+
   GuiBeginScrollContainer(
     GUI, BID(),
     vars.x or 0,
@@ -202,15 +205,21 @@ function Scroller(vars, callback)
     vars.width or 100,
     vars.height or 100,
     vars.gamepad_focusable or true,
-    vars.margin_x or 0,
-    vars.margin_y or 0
+    vars.margin_x or vars.margin or 2,
+    vars.margin_y or vars.margin or 2
   )
     callback()
+
+    -- Invisible component to add some padding in the bottom,
+    -- because not all components have the space they need (eg. sliders).
+    Text("-", {color={red=0, green=0, blue=0, alpha=1}})
   GuiEndScrollContainer(GUI)
 end
 
 
 function Slider(vars, callback)
+  local formatting = vars.decimals and string.format("%.2f", vars.value) or vars.value
+
   -- The display value of GuiSlider component itself seems to use rounding,
   -- so we'll make it match with the real value.
   local new_value = GuiSlider(
@@ -223,7 +232,7 @@ function Slider(vars, callback)
     vars.max,
     vars.default or 0,
     vars.display_multiplier or 1,
-    vars.formatting or "",
+    vars.formatting or formatting,
     vars.width or 50
   )
 
