@@ -23,7 +23,7 @@ ERASER_CHUNK_RADIUS = 3  -- Creates a square 5px hole
 
 
 function get_active_material()
-  return GlobalsGet(SELECTED_MATERIAL)
+  return GlobalsGet(SELECTED_MATERIAL), GlobalsGetBool(SELECTED_MATERIAL_IS_PHYSICS)
 end
 
 function get_active_material_image()

@@ -168,6 +168,15 @@ function entity_set_genome(entity, herd)
 end
 
 
+function enable_physics(mats)
+  -- Enables physics drawing for physics materials
+  for i, mat in ipairs(mats) do
+    mat.is_physics = true
+  end
+  return mats
+end
+
+
 local PI = math.pi
 unitCircle = {
   ["topleft"] = 5*PI / 6,

@@ -67,6 +67,7 @@ function render_material_picker()
       local click = function()
         GlobalsSetValue(SELECTED_MATERIAL, material.id)
         GlobalsSetValue(SELECTED_MATERIAL_ICON, material.image or GLOBAL_UNDEFINED)
+        GlobalsSetValue(SELECTED_MATERIAL_IS_PHYSICS, bool_to_global(material.is_physics))
       end
       local right_click = add_mat_to_favorites(vars, click)
       Button(vars, click, right_click)

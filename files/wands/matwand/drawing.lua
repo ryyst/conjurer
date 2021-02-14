@@ -5,6 +5,9 @@ dofile_once("mods/raksa/files/wands/matwand/helpers.lua");
 dofile_once("mods/raksa/files/scripts/enums.lua")
 
 
+--
+-- LOCATION TRACKING
+--
 function eraser_reticle_follow_mouse(x, y)
   local eraser_reticle = EntityGetWithName("eraser_reticle")
   if eraser_reticle then
@@ -28,22 +31,49 @@ function brush_reticle_follow_mouse(x, y)
 end
 
 
-function draw(material, brush, draw_vars)
+--
+-- DRAWING HANDLERS
+--
+function draw(material, brush)
   local reticle = EntityGetWithName("brush_reticle")
   local x, y = EntityGetTransform(reticle)
+  local draw_vars = get_draw_vars(material, brush)
 
   EntityAddComponent2(reticle, "ParticleEmitterComponent", draw_vars)
 end
 
 
-function draw_filler(material, brush, draw_vars, x, y)
+function draw_filler(material, brush, x, y)
   local filler = EntityCreateNew()
+  local draw_vars = get_draw_vars(material, brush)
 
   draw_vars["image_animation_raytrace_from_center"] = true
 
   EntityAddComponent2(filler, "LifetimeComponent", { lifetime=200 })
   EntityAddComponent2(filler, "ParticleEmitterComponent", draw_vars)
   EntitySetTransform(filler, x, y)
+end
+
+
+function draw_physics(material, brush, x, y)
+  local reticle = EntityGetWithName("brush_reticle")
+  EntityAddComponent2(
+    reticle,
+    "ParticleEmitterComponent",
+    get_draw_vars("under_construction", brush)
+  )
+end
+
+
+function draw_physics_release(material, brush, x, y)
+  -- Conversion delay is added because our drawing logic has a short
+  -- "trailing" for a few frames upon releasing mouse (on purpose).
+  local seconds = 0.33
+  SetTimeOut(
+    seconds,
+    "mods/raksa/files/wands/matwand/convert_to_box2d.lua",
+    "convert_material"
+  )
 end
 
 
@@ -82,6 +112,7 @@ function erase(material)
       local vars = {
         radius=ERASER_CHUNK_RADIUS,
         is_circle=false,
+        steps_per_frame=300,
         to_material=CellFactory_GetType(to_material),
         from_material_tag=from_tag,
         from_any_material=from_any_material,
@@ -106,81 +137,86 @@ function erase(material)
 end
 
 
+--
+-- MISC UTILITIES
+--
+function get_draw_vars(material, brush)
+  return {
+    emitted_material_name=material,
+    image_animation_file=brush.brush_file,
+
+    create_real_particles=true,
+    lifetime_min=1,
+    lifetime_max=1,
+    count_min=1,
+    count_max=1,
+    render_on_grid=true,
+    fade_based_on_lifetime=true,
+    cosmetic_force_create=false,
+    emission_interval_min_frames=1,
+    emission_interval_max_frames=1,
+    emit_cosmetic_particles=false,
+    image_animation_speed=2,
+    image_animation_loop=false,
+    image_animation_raytrace_from_center=false,
+    collide_with_gas_and_fire=false,
+    set_magic_creation=true,
+    is_emitting=true
+  }
+end
+
+
+--
+-- MAIN LOGIC
+--
 local x, y = DEBUG_GetMouseWorld()
-local brush = get_active_brush()
-local material = get_active_material()
-local draw_vars = {
-  emitted_material_name=material,
-  image_animation_file=brush.brush_file,
-
-  create_real_particles=true,
-  lifetime_min=1,
-  lifetime_max=1,
-  count_min=1,
-  count_max=1,
-  render_on_grid=true,
-  fade_based_on_lifetime=true,
-  cosmetic_force_create=false,
-  emission_interval_min_frames=1,
-  emission_interval_max_frames=1,
-  emit_cosmetic_particles=false,
-  image_animation_speed=2,
-  image_animation_loop=false,
-  image_animation_raytrace_from_center=false,
-  collide_with_gas_and_fire=false,
-  set_magic_creation=true,
-  is_emitting=true
-}
-
 brush_reticle_follow_mouse(x, y)
 eraser_reticle_follow_mouse(x, y)
 
+local brush = get_active_brush()
+local material, is_physics = get_active_material()
 
---
--- TODO: Refactor this whole file to be a bit nicer.
---
-
---
--- MOUSE LEFT HANDLING
---
 local holding_m1 = is_holding_m1()
+local ACTION_HOLD_DRAW = not brush.click_to_use and holding_m1
+local ACTION_CLICK_DRAW = brush.click_to_use and has_clicked_m1()
+local ACTION_RELEASE_DRAW = (holding_m1 == false and PREV_HOLDING_M1 == true)
+local ACTION_HOLD_ERASE = is_holding_m2()
 
--- Hold action
-if not brush.click_to_use and holding_m1 then
-  if brush.action then
+
+if ACTION_HOLD_DRAW then
+  if is_physics then
+    draw_physics(material, brush, x, y)
+  elseif brush.action then
     brush.action(material, brush, x, y)
   else
     -- Default action
-    draw(material, brush, draw_vars)
+    draw(material, brush)
   end
 end
 
 
--- Click action
-if brush.click_to_use and has_clicked_m1() then
-  if brush.action then
+if ACTION_CLICK_DRAW then
+  if is_physics then
+    GamePrint("Physics materials not supported with radial brushes")
+  elseif brush.action then
     brush.action(material, brush, x, y)
   else
     -- Default action
-    draw_filler(material, brush, draw_vars, x, y)
+    draw_filler(material, brush, x, y)
   end
 end
 
 
--- Release action
-local has_released_m1 = (holding_m1 == false and PREV_HOLDING_M1 == true)
-if has_released_m1 then
-  -- No default action for this yet, only included for other mods.
-  if brush.release_action then
+if ACTION_RELEASE_DRAW then
+  if is_physics then
+    draw_physics_release(material, brush, x, y)
+  elseif brush.release_action then
     brush.release_action(material, brush, x, y)
   end
 end
 
 
---
--- MOUSE RIGHT HANDLING
---
-if is_holding_m2() then
+if ACTION_HOLD_ERASE then
   erase(material)
 end
 

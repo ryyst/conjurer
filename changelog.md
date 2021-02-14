@@ -9,6 +9,8 @@ Map changes:
   - *Secrets*
 
 Material wand:
+  - New category: Solid Physics
+    - Finally the ability to draw physical, moving, chunks of meat!
   - Default eraser filter changed to "All materials" from "Solids"
 
 Entity wand:
@@ -22,6 +24,7 @@ New wand: Chaos Claw
   - Inspect entities via [use]:
     - List the entity name, tags & other properties
     - Micro-adjust the entity position
+    - Display animal hitboxes
     - Change internal component values [Currently only SpriteComponent & ParticleEmitter]
 
 Powers:
