@@ -46,7 +46,7 @@ function render_entity_properties()
       end)
       Horizontal(0, 0, function()
         Image({sprite="mods/raksa/files/gfx/editwand_icons/info_rotation.png", tooltip="Rotation"})
-        Text(string.format("%.4f", rot), {tooltip="Rotation", x=2})
+        Text(string.format("%.4f", rot), {tooltip="Rotation (rad)", x=2})
       end)
       Horizontal(0, 0, function()
         Image({sprite="mods/raksa/files/gfx/editwand_icons/info_scale.png", tooltip="Scale"})
@@ -170,7 +170,7 @@ function render_entity_properties()
             function() EntitySetTransform(entity, x, y, rot, scale_x, scale_y*-1) end
           )
           Button(
-            {x=2, tooltip="Reset rotation & scale", image="mods/raksa/files/gfx/editwand_icons/icon_reset_2.png"},
+            {x=1, y=1, tooltip="Reset rotation & scale", image="mods/raksa/files/gfx/editwand_icons/icon_reset_3.png"},
             function() EntitySetTransform(entity, x, y, 0, 1, 1) end
           )
         end)
@@ -258,14 +258,19 @@ end
 function render_editwand_buttons()
   local main_menu_items = {
     {
-      name = "Move & freeze entities",
-      image = ICON_UNKNOWN,
-      desc="Left-click to move entities.\nRight-click while moving to freeze."
+      name = "[LEFT-CLICK] to move entities",
+      image = "mods/raksa/files/gfx/editwand_icons/icon_m1.png",
+      desc="[RIGHT-CLICK] while moving to freeze."
     },
     {
-      name = "Rotate entities",
-      image = ICON_UNKNOWN,
-      desc="Right-click to rotate entities.\nNote: physics entities have no free rotation, only torque."
+      name = "[RIGHT-CLICK] to rotate entities",
+      image = "mods/raksa/files/gfx/editwand_icons/icon_m2.png",
+      desc="Note: physics entities have no free rotation, only torque."
+    },
+    {
+      name = "[INTERACT] to inspect entities",
+      image = "mods/raksa/files/gfx/editwand_icons/icon_use.png",
+      desc="Below this button will appear different properties\nof an entity, which you can edit freely."
     },
   };
 
@@ -283,9 +288,7 @@ function render_editwand_buttons()
     end
   end)
 
-  VerticalSpacing(2)
-  Text("ent.", {x=1, tooltip="Inspect the hovered entity by pressing [use]."})
-  VerticalSpacing(1)
+  VerticalSpacing(3)
 
   if not EntityGetIsAlive(active_entity) then
     return

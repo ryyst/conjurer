@@ -181,13 +181,13 @@ function render_entwand_buttons()
       name = "Staff Options",
       image = ICON_STAFF_OPTIONS,
       action = function() toggle_active_entwand_overlay(render_entity_options) end,
-      desc="Left-click to conjure entities"
+      desc="[LEFT-CLICK] to conjure entities"
     },
     {
       name = "Delete Entity",
       image = ICON_DELETE_ENTITY,
       action = function() return end,
-      desc="Right-click to delete entities"
+      desc="[RIGHT-CLICK] to delete entities"
     },
   };
 
@@ -207,7 +207,7 @@ function render_entwand_buttons()
 
   VerticalSpacing(2)
   Text("fav.", {x=1})
-  Tooltip("Add favorites by right-clicking on individual entities", "")
+  Tooltip("Add favorites with [RIGHT-CLICK]\non individual entity icons", "")
   VerticalSpacing(1)
 
   -- Render favorite buttons

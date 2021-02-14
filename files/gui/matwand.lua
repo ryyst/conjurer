@@ -244,13 +244,13 @@ function render_matwand_buttons()
       name="Brush Options",
       image_func = function() return get_active_brush().icon_file end,
       action = function() toggle_active_matwand_overlay(render_brush_picker) end,
-      desc="Left-click to draw materials"
+      desc="[LEFT-CLICK] to draw materials"
     },
     {
       name="Eraser Options",
       image_func = get_active_eraser_image,
       action = function() toggle_active_matwand_overlay(render_eraser_picker) end,
-      desc="Right-click to erase materials"
+      desc="[RIGHT-CLICK] to erase materials"
     },
   };
 
@@ -271,7 +271,7 @@ function render_matwand_buttons()
 
   VerticalSpacing(2)
   Text("fav.", {x=1})
-  Tooltip("Add favorites by right-clicking on individual mats/brushes/erasers", "")
+  Tooltip("Add favorites with [RIGHT-CLICK]\non individual mat/brush/eraser icons", "")
   VerticalSpacing(1)
 
   Background({margin=1, style=NPBG_BROWN, z_index=200}, function()
