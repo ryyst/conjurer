@@ -288,11 +288,25 @@ function render_editwand_buttons()
     end
   end)
 
-  VerticalSpacing(3)
+  VerticalSpacing(5)
 
   if not EntityGetIsAlive(active_entity) then
     return
   end
+
+  -- Always show entity properties
+  Button(
+    {
+      tooltip="Entity properties",
+      image="mods/raksa/files/gfx/editwand_icons/icon_entity_properties.png",
+      style=NPBG_DEFAULT,
+      padding=0,
+    },
+    function()
+      toggle_active_editwand_overlay(render_entity_properties)
+    end
+  )
+  VerticalSpacing(4)
 
   -- TODO: Run this code only once, then load from globals
   local valid_comps = {}
@@ -308,7 +322,6 @@ function render_editwand_buttons()
   for i, item in ipairs(valid_comps) do
     Button(
       {
-        --image=item.image or item.image_func(),
         tooltip=item.name, tooltip_desc=item.desc,
         image_letter_text=item.name
       },
@@ -351,7 +364,7 @@ end
 
 
 function toggle_active_editwand_overlay(func)
-  render_active_editwand_overlay = (render_active_editwand_overlay ~= func) and func or nil
+  render_active_editwand_overlay = func
 end
 
 
