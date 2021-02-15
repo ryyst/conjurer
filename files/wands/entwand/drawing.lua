@@ -143,13 +143,6 @@ function spawn_entity()
 end
 
 
-function postprocess_entity(entity, x, y)
-  for _, func in ipairs(ENTITY_POST_PROCESSORS) do
-    func(entity, x, y)
-  end
-end
-
-
 local x, y = DEBUG_GetMouseWorld()
 scan_entity(x, y)
 spawner_reticle_follow_mouse(x, y)

@@ -1,4 +1,3 @@
-dofile_once("mods/raksa/files/wands/entwand/processors.lua")
 dofile_once("mods/raksa/files/scripts/lists/entity_categories.lua");
 
 dofile_once("mods/raksa/files/scripts/utilities.lua")
@@ -10,12 +9,6 @@ dofile_once("mods/raksa/files/scripts/enums.lua")
 
 ICON_DELETE_ENTITY = "mods/raksa/files/gfx/entwand_icons/icon_delete_entity.png"
 ICON_STAFF_OPTIONS = "mods/raksa/files/gfx/entwand_icons/icon_entity_staff_options.png"
-
-ENTITY_POST_PROCESSORS = {
-  disable_new_physicsbody_optimizations,
-  remove_spawn_limits_set_by_camerabound,
-  add_friendly_fire_corrector,
-}
 
 SCAN_RADIUS = 32
 RETICLE_NAME = "spawner_reticle"

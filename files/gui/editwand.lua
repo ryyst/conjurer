@@ -1,6 +1,7 @@
 dofile("data/scripts/lib/utilities.lua")
 
 dofile_once("mods/raksa/files/wands/editwand/helpers.lua");
+dofile_once("mods/raksa/files/wands/wand_utilities.lua");
 dofile_once("mods/raksa/files/gui/editable_components.lua")
 
 dofile_once("mods/raksa/files/lib/gui.lua")
@@ -36,7 +37,7 @@ function render_entity_properties()
   end
 
   local tags_text = "Tags: "..tags
-  local filepath = "Entity file: "..(EntityGetFilename(entity) or "")
+  local filepath = "Entity: "..(EntityGetFilename(entity) or "")
 
   local x, y, rot, scale_x, scale_y = EntityGetTransform(entity)
   Text(GameTextGetTranslatedOrNot(name), {tooltip=filepath, tooltip_desc=tags_text, x=4})
@@ -221,7 +222,7 @@ function render_entity_properties()
             function()
               local x, y = EntityGetTransform(entity)
               local path = EntityGetFilename(entity)
-              EntityLoad(path, x+10, y-10)
+              EntityLoadProcessed(path, x+10, y-10)
             end
           )
         end)

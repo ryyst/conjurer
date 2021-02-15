@@ -1,4 +1,25 @@
 dofile_once("mods/raksa/files/scripts/enums.lua")
+dofile_once("mods/raksa/files/wands/entwand/processors.lua")
+
+
+ENTITY_POST_PROCESSORS = {
+  disable_new_physicsbody_optimizations,
+  remove_spawn_limits_set_by_camerabound,
+  add_friendly_fire_corrector,
+}
+
+function postprocess_entity(entity, x, y)
+  for _, func in ipairs(ENTITY_POST_PROCESSORS) do
+    func(entity, x, y)
+  end
+end
+
+function EntityLoadProcessed(path, x, y)
+  local entity = EntityLoad(path, x, y)
+  postprocess_entity(entity, x, y)
+  return entity
+end
+
 
 function is_freecam_entity(entity, name)
   -- Upon activating the free camera (Conjurer Eye), an entity appears approximately

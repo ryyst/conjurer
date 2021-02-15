@@ -1,5 +1,5 @@
 dofile_once("mods/raksa/files/scripts/utilities.lua")
-dofile_once("mods/raksa/files/wands/entwand/helpers.lua");
+dofile_once("mods/raksa/files/wands/wand_utilities.lua");
 dofile_once("data/scripts/perks/perk.lua")
 
 RegisterSpawnFunction( 0xffB40001, "spawn_random_book" )
