@@ -84,6 +84,28 @@ function m2_action(entity, x, y)
   rotate_entity(entity, x, y)
 end
 
+function interact_action(entity, x, y)
+  local target_has_changed = GlobalsGetNumber(ENTITY_TO_INSPECT) ~= PREV_HOVERED_ENTITY
+  local target_is_alive = entity and EntityGetIsAlive(entity)
+
+  if not target_is_alive or target_has_changed then
+    GlobalsSetValue(SIGNAL_RESET_EDITWAND_GUI, "1")
+  end
+
+  GlobalsSetValue(ENTITY_TO_INSPECT, tostring(entity))
+
+  -- Toggle indicator
+  local old_indicator = EntityGetWithName("editwand_indicator")
+  if old_indicator and EntityGetIsAlive(old_indicator) and target_has_changed then
+    EntityKill(old_indicator)
+  end
+
+  if target_is_alive and target_has_changed then
+    local new_indicator = EntityLoad("mods/raksa/files/wands/editwand/selected_indicator.xml", x-1000, y-1000)
+    EntityAddChild(entity, new_indicator)
+  end
+end
+
 
 local x, y = DEBUG_GetMouseWorld()
 local hovered_entity = scan_entity(x, y)
@@ -98,14 +120,6 @@ local m2_action_released = not is_holding_m2() and ENTITY_TO_ROTATE
 if only_m1_clicked then m1_click_event(hovered_entity) end
 if only_m2_clicked then m2_click_event(hovered_entity) end
 
-if has_clicked_interact() then
-  if not hovered_entity or not EntityGetIsAlive(hovered_entity) or GlobalsGetNumber(ENTITY_TO_INSPECT) ~= PREV_HOVERED_ENTITY then
-    GlobalsSetValue(SIGNAL_RESET_EDITWAND_GUI, "1")
-  end
-
-  GlobalsSetValue(ENTITY_TO_INSPECT, tostring(hovered_entity))
-end
-
 -- Release event
 if m1_action_released then m1_release_event(ENTITY_TO_MOVE) end
 if m2_action_released then m2_release_event(ENTITY_TO_ROTATE) end
@@ -113,6 +127,8 @@ if m2_action_released then m2_release_event(ENTITY_TO_ROTATE) end
 -- Actions
 if ENTITY_TO_MOVE then m1_action(ENTITY_TO_MOVE, x, y) end
 if ENTITY_TO_ROTATE then m2_action(ENTITY_TO_ROTATE, x, y) end
+
+if has_clicked_interact() then interact_action(hovered_entity, x, y) end
 
 
 PREV_HOVERED_ENTITY = hovered_entity

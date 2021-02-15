@@ -4,6 +4,7 @@
     offset_x="10"
     offset_y="10"
     emissive="1"
+    z_index="4"
   ></SpriteComponent>
 
   <InheritTransformComponent
