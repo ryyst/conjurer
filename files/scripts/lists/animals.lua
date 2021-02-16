@@ -6,7 +6,34 @@ local function animal(file, name, image)
   }
 end
 
+local function building(file, name, image)
+  return {
+    image='data/ui_gfx/animal_icons/'..(image or file)..'.png',
+    path='data/entities/buildings/'..file..'.xml',
+    name=name,
+  }
+end
+
 ANIMALS = {
+  animal("boss_ghost/boss_ghost", "Boss ghost", "boss_ghost"),
+  animal("boss_ghost/polyp_shot", "Boss ghost polyp", "boss_ghost_polyp"),
+  animal("boss_wizard/boss_wizard", "Boss wizard", "boss_wizard"),
+  animal("ethereal_being", "Ethereal being"),
+  animal("boss_gate/gate_monster_a", "Gate monster a", "gate_monster_a"),
+  animal("boss_gate/gate_monster_b", "Gate monster b", "gate_monster_b"),
+  animal("boss_gate/gate_monster_c", "Gate monster c", "gate_monster_c"),
+  animal("boss_gate/gate_monster_d", "Gate monster d", "gate_monster_d"),
+  building("hpcrystal", "HP Crystal"),
+  animal("lukki/lukki_dark", "Lukki dark", "lukki_dark"),
+  animal("special/minipit", "Minipit", "minipit"),
+  animal("necrobot", "Necrobot"),
+  animal("necrobot_super", "Necrobot super"),
+  animal("necromancer_super", "Necromancer super"),
+  animal("parallel/alchemist/parallel_alchemist", "Parallel alchemist", "parallel_alchemist"),
+  animal("parallel/tentacles/parallel_tentacles", "Parallel tentacles", "parallel_tentacles"),
+  animal("scavenger_glue", "Scavenger glue"),
+  building("snowcrystal", "Snowcrystal"),
+  animal("thundermage_big", "Thundermage big"),
   animal('acidshooter', 'Acidshooter'),
   animal('acidshooter_weak', 'Acidshooter weak'),
   animal('alchemist', 'Alchemist'),
@@ -77,7 +104,7 @@ ANIMALS = {
   animal('lasershooter', 'Lasershooter'),
   animal('longleg', 'Longleg'),
   animal('lukki/lukki', 'Lukki', 'lukki'),
-  animal('lukki/lukki_creepy_long', 'Lukki creepy', 'lukki_longleg'),  -- Missing own image
+  animal('lukki/lukki_creepy_long', 'Lukki creepy', 'lukki_creepy_long'),
   animal('lukki/lukki_longleg', 'Lukki longleg', 'lukki_longleg'),
   animal('lukki/lukki_tiny', 'Lukki tiny', 'lukki_tiny'),
   {

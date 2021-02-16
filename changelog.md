@@ -25,7 +25,7 @@ New wand: Chaos Claw
     - List the entity name, tags & other properties
     - Micro-adjust the entity position
     - Display animal hitboxes
-    - Change internal component values [Currently only SpriteComponent & ParticleEmitter]
+    - Change internal component values
 
 Powers:
   - New power: Trans-dimensional traveling; Change maps/biomes while in-game!
