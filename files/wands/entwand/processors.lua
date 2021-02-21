@@ -9,7 +9,6 @@ end
 
 function remove_spawn_limits_set_by_camerabound(entity)
   -- The only thing limiting player's imagination should be his CPU.
-  -- TODO: Figure out how big of a performance hit this actually is.
   local CameraBound = EntityGetFirstComponentIncludingDisabled(entity, "CameraBoundComponent")
   if CameraBound then
     EntityRemoveComponent(entity, CameraBound)

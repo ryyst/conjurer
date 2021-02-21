@@ -21,6 +21,48 @@ local SELECTED_BUTTON = BUTTON_CHOICES[BUTTON_SETTING]
 ---------------------------
 -- General utilities
 --
+
+function capitalize_string(input)
+  return input:gsub("%a", string.upper, 1)
+end
+function split_string(input, sep)
+  sep = sep or "%s"
+
+  local t={}
+  for str in string.gmatch(input, "([^"..sep.."]+)") do
+    table.insert(t, str)
+  end
+  return t
+end
+
+function get_path_basename(path)
+  local parts = split_string(path, "/")
+  return parts[#parts]
+end
+
+function get_entity_name_from_file(path)
+  if not path or #path == 0 then
+    return "anonymous entity"
+  end
+
+  local basename = get_path_basename(path)
+  local sans_ext = split_string(basename, ".")[1]
+
+  return sans_ext
+end
+
+function normalize_name(name)
+  local words = split_string(name, "_")
+
+  -- Don't capitalize everything, for now?
+  --for i, word in ipairs(words) do
+  --  words[i] = capitalize_string(word)
+  --end
+
+  return capitalize_string(table.concat(words, " "))
+end
+
+
 function round(num)
     if num >= 0 then return math.floor(num+.5)
     else return math.ceil(num-.5) end

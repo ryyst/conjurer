@@ -21,15 +21,18 @@ local active_component = nil
 
 function render_entity_properties()
   local entity = active_entity
+  local filename = EntityGetFilename(entity)
+
   if not EntityGetIsAlive(entity) then
     render_active_editwand_overlay = nil
     return
   end
 
-  local name = EntityGetName(entity)
-  if not name or #name == 0 then
-    name = "unnamed"
+  local name = GameTextGetTranslatedOrNot(EntityGetName(entity))
+  if not name or #name == 0 or name == "unknown" then
+    name = get_entity_name_from_file(filename)
   end
+  name = normalize_name(name)
 
   local tags = EntityGetTags(entity)
   if not tags or #tags == 0 then
@@ -37,10 +40,10 @@ function render_entity_properties()
   end
 
   local tags_text = "Tags: "..tags
-  local filepath = "Entity: "..(EntityGetFilename(entity) or "")
+  local filepath = "Entity: "..(filename or "")
 
   local x, y, rot, scale_x, scale_y = EntityGetTransform(entity)
-  Text(GameTextGetTranslatedOrNot(name), {tooltip=filepath, tooltip_desc=tags_text, x=4})
+  Text(name, {tooltip=filepath, tooltip_desc=tags_text, x=4})
 
   Background({margin=3, style=NPBG_DEFAULT, z_index=200, min_width=90}, function()
     Vertical(1, 1, function()
@@ -221,10 +224,24 @@ function render_entity_properties()
             },
             function()
               local x, y = EntityGetTransform(entity)
-              local path = EntityGetFilename(entity)
-              EntityLoadProcessed(path, x+10, y-10)
+              EntityLoadProcessed(filename, x+10, y-10)
             end
           )
+          if DebugGetIsDevBuild() then
+            Button(
+              {
+                tooltip="Save entity",
+                tooltip_desc="Saves the whole entity in your Noita base directory",
+                image="mods/raksa/files/gfx/editwand_icons/icon_sav.png",
+              },
+              function()
+                local basename = get_path_basename(filename)
+                local save_file = "conjurer_"..basename
+                EntitySave(entity, save_file)
+                GamePrint("Entity saved as "..save_file.." in the Noita base folder")
+              end
+            )
+          end
         end)
 
         local hitboxes = EntityGetComponentIncludingDisabled(entity, "HitboxComponent")
