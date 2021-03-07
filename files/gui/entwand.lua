@@ -77,7 +77,7 @@ function render_entity_options()
 
   Background({margin=3, style=NPBG_BLUE, z_index=200}, function()
     Vertical(1, 2, function()
-      Text("Spawning")
+      Text("Spawning", {color=COLOR_TEXT_TITLE})
       VerticalSpacing(2)
       Checkbox({
           is_active=GlobalsGetBool(ENTWAND_HOLD_TO_SPAWN),
@@ -133,7 +133,7 @@ function render_entity_options()
       )
 
       VerticalSpacing(6)
-      Text("Deleting")
+      Text("Deleting", {color=COLOR_TEXT_TITLE})
       VerticalSpacing(2)
       Checkbox({
           is_active=GlobalsGetBool(ENTWAND_KILL_INSTEAD),
@@ -162,6 +162,17 @@ function render_entity_options()
           tooltip="Prevents you from deleting background & foreground entities.",
         },
         function() GlobalsToggleBool(ENTWAND_IGNORE_BACKGROUNDS) end
+      )
+
+      VerticalSpacing(6)
+      Text("Other", {color=COLOR_TEXT_TITLE})
+      VerticalSpacing(2)
+      Checkbox({
+          is_active=GlobalsGetBool(ANIMALS_SPAWN_GOLD),
+          text="Gold drops",
+          tooltip="If creatures should drop gold upon death or not.",
+        },
+        function() GlobalsToggleBool(ANIMALS_SPAWN_GOLD) end
       )
     end)
   end)

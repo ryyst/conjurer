@@ -1,5 +1,6 @@
 ModMaterialsFileAdd("mods/raksa/files/overrides/materials.xml")
 ModLuaFileAppend("data/scripts/gun/gun_actions.lua", "mods/raksa/files/actions.lua")
+ModLuaFileAppend("data/scripts/items/drop_money.lua", "mods/raksa/files/overrides/drop_money.lua")
 
 dofile_once("mods/raksa/files/scripts/utilities.lua")
 dofile_once("mods/raksa/files/scripts/enums.lua")

@@ -36,6 +36,10 @@ NPBG_STYLES = {
 ICON_MOUSE_LEFT = "mods/raksa/files/gfx/mouse_left.png"
 ICON_MOUSE_RIGHT = "mods/raksa/files/gfx/mouse_right.png"
 
+
+COLOR_TEXT_TITLE = {red=155, green=173, blue=183}
+
+
 -- TIME OF DAY
 DAWN = 0.73
 NOON = 0
@@ -91,6 +95,8 @@ ENTWAND_KILL_INSTEAD  = "RAKSA_ENTWAND_KILL_INSTEAD"
 
 ENTWAND_IGNORE_BACKGROUNDS  = "RAKSA_IGNORE_BACKGROUNDS"
 BG_NAME = "raksa_background"
+
+ANIMALS_SPAWN_GOLD = "raksa_animals_spawn_gold"
 
 
 --
@@ -183,6 +189,7 @@ DEFAULTS = {
   [ENTWAND_DELETE_ALL] = "0",
   [ENTWAND_KILL_INSTEAD] = "0",
   [ENTWAND_IGNORE_BACKGROUNDS] = "0",
+  [ANIMALS_SPAWN_GOLD] = "0",
   -- Editwand
   [ENTITY_TO_INSPECT] = GLOBAL_UNDEFINED,
   [SIGNAL_RESET_EDITWAND_GUI] = "0",

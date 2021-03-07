@@ -61,7 +61,7 @@ function render_entity_properties()
       end)
 
       VerticalSpacing(2)
-      Text("Fine-tuning:", {color={red=155, green=173, blue=183}})
+      Text("Fine-tuning:", {color=COLOR_TEXT_TITLE})
 
       if is_physical_entity(entity) then
         Text("[not supported]", {
@@ -184,7 +184,7 @@ function render_entity_properties()
       end
 
       VerticalSpacing(16)
-      Text("Other tools:", {color={red=155, green=173, blue=183}})
+      Text("Other tools:", {color=COLOR_TEXT_TITLE})
 
       Vertical(0, 0, function()
         Horizontal(0, 0, function()
