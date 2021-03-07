@@ -18,7 +18,16 @@ end
 
 function add_friendly_fire_corrector(entity)
   -- If global world hatred is <=-100 we'll want enemies to hurt the same herd.
-  EntityAddComponent2(entity, "LuaComponent", {
-    script_shot="mods/raksa/files/powers/correct_friendly_fire.lua"
-  })
+  --
+  -- Only add on actual animals. Causes terrible issues otherwise.
+  local animalAI = EntityGetFirstComponentIncludingDisabled(entity, "AnimalAIComponent")
+  local fishAI = EntityGetFirstComponentIncludingDisabled(entity, "AdvancedFishAIComponent")
+  local wormAI = EntityGetFirstComponentIncludingDisabled(entity, "WormAIComponent")
+  local physAI = EntityGetFirstComponentIncludingDisabled(entity, "PhysicsAIComponent")
+
+  if animalAI or fishAI or wormAI or physAI then
+    EntityAddComponent2(entity, "LuaComponent", {
+      script_shot="mods/raksa/files/powers/correct_friendly_fire.lua"
+    })
+  end
 end
