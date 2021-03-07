@@ -10,7 +10,10 @@ function shot(projectile)
     "global_genome_relations_modifier"
   )
 
-  if happiness <= -100 then
+  -- Not every projectile actually has a ProjectileComponent. For example Polyorbs.
+  local projComp = EntityGetFirstComponentIncludingDisabled(projectile, "ProjectileComponent")
+
+  if happiness <= -100 and projComp then
     EntitySetValue(projectile, "ProjectileComponent", "friendly_fire", true)
 
     -- Everyone can self-damage, why not?
