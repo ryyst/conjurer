@@ -14,13 +14,24 @@ mod_settings =
         id = "zoom_level",
         ui_name = "Zoom level",
         ui_description = [[How much do you want to see? Heavily affects performance.
-WARNING: Big resolutions are glitchy, and probably not useful
-for anything but screenshots.]],
+WARNING:
+Big resolutions are glitchy, and probably not useful for anything but screenshots.]],
         value_default = "conjurer",
         values = {
           {"conjurer", "Conjurer"}, {"noita", "Noita"},
           {"huge", "Big (2x Noita)"}, {"fullhd", "Full HD (4.5x Noita)"}
         },
+        scope = MOD_SETTING_SCOPE_RUNTIME_RESTART,
+      },
+      {
+        id = "progression",
+        ui_name = "Global progression",
+        ui_description = [[Do you want to enable global Noita progression?
+WARNING:
+When this is enabled spawning any creatures, spells or perks will count towards
+your global progress screen, which can ruin a lot of the fun. Be absolutely sure
+before enabling this. [Reset all progress] is the only undo there is.]],
+        value_default = false,
         scope = MOD_SETTING_SCOPE_RUNTIME_RESTART,
       },
     },

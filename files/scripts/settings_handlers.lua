@@ -33,3 +33,15 @@ function handle_zoom_setting()
     ModTextFileGetContent(FOW_SHADERS[zoom])
   )
 end
+
+
+function handle_progression_setting()
+  local progression = ModSettingGet("raksa.progression")
+
+  if not progression then
+    print("Conjurer: Disabling progression logging")
+    GameAddFlagRun("no_progress_flags_perk")
+    GameAddFlagRun("no_progress_flags_animal")
+    GameAddFlagRun("no_progress_flags_action")
+  end
+end

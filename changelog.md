@@ -39,6 +39,7 @@ Items:
 
 Other:
   - Fixed: Fog of war hole around the player was off for custom zoom levels.
+  - Fixed: Global progress is disabled by default. Can be toggled via [Mod Settings]
 
 
 

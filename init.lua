@@ -7,7 +7,6 @@ dofile_once("mods/raksa/files/scripts/enums.lua")
 dofile_once("mods/raksa/files/scripts/settings_handlers.lua")
 dofile_once("mods/raksa/files/scripts/world_handlers.lua")
 
-
 -- Settings handlers
 handle_zoom_setting()
 
@@ -15,7 +14,6 @@ handle_zoom_setting()
 append_custom_biomes()
 replace_pixel_scenes()
 replace_biome_map()
-
 
 function handle_inventory(player)
   local ITEMS_QUICK = {
@@ -53,6 +51,8 @@ end
 
 
 function OnPlayerSpawned(player)
+  handle_progression_setting()
+
   -- Make real sure the global GUI container is loaded.
   if #(EntityGetWithTag("raksa_gui_container") or {}) == 0 then
     EntityLoad('mods/raksa/files/gui/gui_container.xml' );
