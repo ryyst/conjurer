@@ -31,7 +31,9 @@ function collision_trigger(entity)
 
     teleport_if_necessary(destination_world)
 
-    SetWorldSeed(GameGetFrameNum())
+    -- Mimic a "real" seeds that base worlds get. Something between 8 and 10 digits
+    local seed = Random(10000000, 9999999999)
+    SetWorldSeed(seed)
 
     -- Override all our own fun stuff with things necessary for loading NG+
     if destination_biome == BIOME_NOITA_NG then
