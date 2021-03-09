@@ -43,6 +43,11 @@ function render_entity_properties()
   local filepath = "Entity: "..(filename or "")
 
   local x, y, rot, scale_x, scale_y = EntityGetTransform(entity)
+
+  -- Snap to grid
+  x = math.floor(x)
+  y = math.floor(y)
+
   Text(name, {tooltip=filepath, tooltip_desc=tags_text, x=4})
 
   Background({margin=3, style=NPBG_DEFAULT, z_index=200, min_width=90}, function()
