@@ -12,6 +12,7 @@ Material wand:
   - New category: Solid Physics
     - Finally the ability to draw physical, moving, chunks of meat!
   - Default eraser filter changed to "All materials" from "Solids"
+  - New brush: Filler Tool
 
 Entity wand:
   - New category: Backgrounds

@@ -72,8 +72,8 @@
 <!-- =================================================================================================================  -->
 <!-- FIRE -->
   <CellData
-    name="under_construction"
-    ui_name="Under Construction"
+    name="construction_steel"
+    ui_name="Construction Steel"
     tags="[static],[corrodible],[meltable_to_lava],[alchemy],[solid]"
     burnable="0"
     density="100"
@@ -99,6 +99,38 @@
     ></Graphics>
   </CellData>
 
+  <CellData
+    name="construction_paste"
+    ui_name="Construction Paste"
+    tags="[liquid],[impure]"
+    burnable="0"
+    density="0"
+    lifetime="1350"
+    cell_type="liquid"
+    wang_color="ff111133"
+    generates_smoke="0"
+    liquid_sand="0"
+    liquid_static="0"
+    liquid_gravity="0.2"
+    liquid_flow_speed="0.2"
+    on_fire="0"
+    requires_oxygen="0"
+    temperature_of_fire="60"
+  >
+    <Graphics
+      texture_file="mods/raksa/files/gfx/materials/construction.png"
+      color="ff111133"
+    ></Graphics>
+  </CellData>
+
+  <Reaction
+    probability="100"
+    input_cell1="construction_paste"
+    input_cell2="air"
+    output_cell1="construction_paste"
+    output_cell2="construction_paste"
+  ></Reaction>
+
   <CellDataChild
     _parent="coal"
     _inherit_reactions="1"
@@ -119,4 +151,5 @@
       color="ff010102"
     ></Graphics>
   </CellDataChild>
+
 </Materials>

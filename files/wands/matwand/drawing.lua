@@ -60,7 +60,7 @@ function draw_physics(material, brush, x, y)
   EntityAddComponent2(
     reticle,
     "ParticleEmitterComponent",
-    get_draw_vars("under_construction", brush)
+    get_draw_vars("construction_steel", brush)
   )
 end
 
@@ -138,35 +138,6 @@ end
 
 
 --
--- MISC UTILITIES
---
-function get_draw_vars(material, brush)
-  return {
-    emitted_material_name=material,
-    image_animation_file=brush.brush_file,
-
-    create_real_particles=true,
-    lifetime_min=1,
-    lifetime_max=1,
-    count_min=1,
-    count_max=1,
-    render_on_grid=true,
-    fade_based_on_lifetime=true,
-    cosmetic_force_create=false,
-    emission_interval_min_frames=1,
-    emission_interval_max_frames=1,
-    emit_cosmetic_particles=false,
-    image_animation_speed=2,
-    image_animation_loop=false,
-    image_animation_raytrace_from_center=false,
-    collide_with_gas_and_fire=false,
-    set_magic_creation=true,
-    is_emitting=true
-  }
-end
-
-
---
 -- MAIN LOGIC
 --
 local x, y = DEBUG_GetMouseWorld()
@@ -197,21 +168,21 @@ end
 
 if ACTION_CLICK_DRAW then
   if is_physics then
-    GamePrint("Physics materials not supported with radial brushes")
+    GamePrint("Physics materials not supported with selected brush")
   elseif brush.action then
-    brush.action(material, brush, x, y)
+    brush.action(material, brush, x, y, get_draw_vars)
   else
     -- Default action
-    draw_filler(material, brush, x, y)
+    draw_filler(material, brush, x, y, get_draw_vars)
   end
 end
 
 
 if ACTION_RELEASE_DRAW then
   if is_physics then
-    draw_physics_release(material, brush, x, y)
+    draw_physics_release(material, brush, x, y, get_draw_vars)
   elseif brush.release_action then
-    brush.release_action(material, brush, x, y)
+    brush.release_action(material, brush, x, y, get_draw_vars)
   end
 end
 

@@ -11,7 +11,7 @@ function convert_material()
   ConvertMaterialOnAreaInstantly(
     x-1000, y-1000,
     2000, 2000,
-    CellFactory_GetType("under_construction"), CellFactory_GetType(material),
+    CellFactory_GetType("construction_steel"), CellFactory_GetType(material),
     true,
     false
   )

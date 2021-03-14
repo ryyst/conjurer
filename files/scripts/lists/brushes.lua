@@ -186,4 +186,35 @@ BRUSHES = {
     icon_file="mods/raksa/files/wands/matwand/brushes/radial_l_icon.png",
     click_to_use=true,
   },
+  {
+    name="Filler Tool",
+    desc="---\n[HOLD] to fill and [RELEASE] to apply\nWARNING: Can leak from edges if held too long!\nApply in small doses.",
+    offset_x=5,
+    offset_y=5,
+    reticle_file="mods/raksa/files/wands/matwand/brushes/filler_reticle.png",
+    brush_file="mods/raksa/files/wands/matwand/brushes/filler_brush.png",
+    icon_file="mods/raksa/files/wands/matwand/brushes/filler_icon.png",
+    click_to_use=true,
+    action=function(material, brush, x, y, get_draw_vars)
+      local filler = EntityCreateNew()
+
+      EntityAddComponent2(filler, "LifetimeComponent", { lifetime=2 })
+      EntityAddComponent2(
+        filler,
+        "ParticleEmitterComponent",
+        get_draw_vars("construction_paste", brush)
+      )
+
+      EntitySetTransform(filler, x, y)
+    end,
+    release_action=function(material, brush, x, y)
+      ConvertMaterialOnAreaInstantly(
+        x-1000, y-1000,
+        2000, 2000,
+        CellFactory_GetType("construction_paste"), CellFactory_GetType(material),
+        true,
+        false
+      )
+    end
+  },
 }

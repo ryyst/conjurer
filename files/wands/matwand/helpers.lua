@@ -128,3 +128,29 @@ function get_active_eraser_image()
   end
   return ERASER_ICONS[current_eraser]
 end
+
+
+function get_draw_vars(material, brush)
+  return {
+    emitted_material_name=material,
+    image_animation_file=brush.brush_file,
+
+    create_real_particles=true,
+    lifetime_min=1,
+    lifetime_max=1,
+    count_min=1,
+    count_max=1,
+    render_on_grid=true,
+    fade_based_on_lifetime=true,
+    cosmetic_force_create=false,
+    emission_interval_min_frames=1,
+    emission_interval_max_frames=1,
+    emit_cosmetic_particles=false,
+    image_animation_speed=2,
+    image_animation_loop=false,
+    image_animation_raytrace_from_center=false,
+    collide_with_gas_and_fire=false,
+    set_magic_creation=true,
+    is_emitting=true
+  }
+end
