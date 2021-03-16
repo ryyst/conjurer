@@ -11,8 +11,12 @@ Map changes:
 Material wand:
   - New category: Solid Physics
     - Finally the ability to draw physical, moving, chunks of meat!
-  - Default eraser filter changed to "All materials" from "Solids"
-  - New brush: Filler Tool
+  - Changed: Default eraser filter from "Solids" to "All materials"
+  - Fixed: Brush reticle now updates instantly when swapping brushes
+  - Fixed: Eraser reticle now updates correctly when toggling Replace mode
+  - Brush system overhaul:
+    - "Brush Options" have been changed to "Drawing Options", with new sub-sections
+    - Many new tools: Filler tool, Line tool, Different shapes, Tree grower...
 
 Entity wand:
   - New category: Backgrounds
@@ -41,6 +45,14 @@ Items:
 Other:
   - Fixed: Fog of war hole around the player was off for custom zoom levels.
   - Fixed: Global progress is disabled by default. Can be toggled via [Mod Settings]
+
+Mod Extensions:
+  - Material wand: Refactored huge parts of the brush system:
+    - Brushes can now be freely categorized
+    - More flags to brush controls
+    - Exposed all brush & eraser click/hold/release handlers
+    - All coordinates received by action handlers now use the correct grid settings
+
 
 
 

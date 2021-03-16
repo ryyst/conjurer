@@ -78,31 +78,37 @@ end
 
 function render_brush_picker()
   Horizontal(1, 1, function()
-    Text("Brush Options")
+    Text("Drawing Options")
   end)
 
   -- Render brushes
   Background({margin=3, style=NPBG_BROWN, z_index=200}, function()
-    Grid({items=BRUSHES, x=1, y=2, size=7}, function(brush, i)
-      local vars = {image=brush.icon_file, tooltip=brush.name, tooltip_desc=brush.desc}
-      local click = function() change_active_brush(brush, i) end
-      local right_click = add_mat_to_favorites(vars, click)
-      Button(vars, click, right_click)
-    end)
+    Vertical(1, 2, function()
+      for i, category in ipairs(ALL_DRAWING_TOOLS) do
+        Text(category.name, {tooltip=category.tooltip})
+        Grid({items=category.brushes, size=7}, function(brush, j)
+          local vars = {image=brush.icon_file, tooltip=brush.name, tooltip_desc=brush.desc}
+          local click = function() change_active_brush(brush, i, j) end
+          local right_click = add_mat_to_favorites(vars, click)
+          Button(vars, click, right_click)
+        end)
+        VerticalSpacing(3)
+      end
 
-    Horizontal(1, 3, function()
-      local vars = {
-        text="Grid",
-        value=get_brush_grid_size(),
-        default=float(DEFAULTS[BRUSH_GRID_SIZE]),
-        min=1,
-        max=100,
-        width=100,
-        tooltip="Brush grid snapping size"
-      }
+      Horizontal(0, 1, function()
+        local vars = {
+          text="Grid",
+          value=get_brush_grid_size(),
+          default=float(DEFAULTS[BRUSH_GRID_SIZE]),
+          min=1,
+          max=100,
+          width=100,
+          tooltip="Brush grid snapping size"
+        }
 
-      Slider(vars, function(new_value)
-        GlobalsSetValue(BRUSH_GRID_SIZE, math.ceil(new_value))
+        Slider(vars, function(new_value)
+          GlobalsSetValue(BRUSH_GRID_SIZE, math.ceil(new_value))
+        end)
       end)
     end)
   end)
@@ -145,8 +151,7 @@ function render_eraser_picker()
   Background({margin=3, style=NPBG_BROWN, z_index=200}, function()
     Vertical(1, 2, function()
 
-      Text("Material filters")
-      Tooltip("Choose which material types to erase/replace", "")
+      Text("Material filters", {tooltip="Choose which material types to erase/replace"})
 
       -- Render eraser filters
       for r, row in ipairs(eraser_categories) do
@@ -178,6 +183,7 @@ function render_eraser_picker()
       }
       Checkbox(replacer_vars, function ()
         GlobalsSetValue(ERASER_REPLACE, toggle_global(is_replacer_active))
+        change_eraser_reticle()
       end)
 
       -- GRID SELECTION TOGGLE
@@ -270,8 +276,10 @@ function render_matwand_buttons()
   end)
 
   VerticalSpacing(2)
-  Text("fav.", {x=1})
-  Tooltip("Add favorites with [RIGHT-CLICK]\non individual mat/brush/eraser icons", "")
+  Text("fav.", {
+    tooltip="Add favorites with [RIGHT-CLICK]\non individual mat/brush/eraser icons",
+    x=1,
+  })
   VerticalSpacing(1)
 
   Background({margin=1, style=NPBG_BROWN, z_index=200}, function()

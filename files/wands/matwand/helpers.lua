@@ -1,4 +1,3 @@
-dofile_once("mods/raksa/files/scripts/lists/brushes.lua");
 
 dofile_once("mods/raksa/files/scripts/utilities.lua")
 dofile_once("mods/raksa/files/scripts/enums.lua")
@@ -64,6 +63,20 @@ function get_brush_grid_size()
 end
 
 
+function grid_snap(x, y, grid_size)
+  -- Snap to given grid
+  x = x - x % grid_size
+  y = y - y % grid_size
+
+  -- Center-align around the cursor
+  x = x + grid_size/2
+  y = y + grid_size/2
+
+  -- Finally, snap to Noita's pixel grid
+  return math.floor(x), math.floor(y)
+end
+
+
 function change_eraser_reticle()
   local chunk_count, chunk_size, total_size = get_eraser_size()
   local reticle = EntityGetWithName("eraser_reticle")
@@ -98,10 +111,13 @@ function change_eraser_reticle()
     ComponentSetValue2(SpriteComponent, "offset_x", corner[1] + offset)
     ComponentSetValue2(SpriteComponent, "offset_y", corner[2] + offset)
     ComponentSetValue2(SpriteComponent, "image_file", image)
+
+    EntityRefreshSprite(reticle, SpriteComponent)
   end
 end
 
-function change_active_brush(brush, brush_index)
+
+function change_active_brush(brush, brush_category_index, brush_index)
   -- Change reticle
   local brush_reticle = EntityGetWithName("brush_reticle")
   EntitySetValues(brush_reticle, "SpriteComponent", {
@@ -110,14 +126,24 @@ function change_active_brush(brush, brush_index)
     offset_y = brush.offset_y,
   })
 
+  EntityRefreshSprite(brush_reticle, EntityFirstComponent(brush_reticle, "SpriteComponent"))
+
   -- Change drawing brush shape
   GlobalsSetValue(SELECTED_BRUSH, tostring(brush_index))
+  GlobalsSetValue(SELECTED_BRUSH_CATEGORY, tostring(brush_category_index))
 end
 
 
 function get_active_brush()
+  -- Avoid circular imports
+  local ALL_DRAWING_TOOLS = dofile("mods/raksa/files/scripts/lists/brushes.lua")
+
   local brush_index = GlobalsGetNumber(SELECTED_BRUSH)
-  return BRUSHES[brush_index], brush_index
+  local brush_category_index = GlobalsGetNumber(SELECTED_BRUSH_CATEGORY)
+
+  local brushes = ALL_DRAWING_TOOLS[brush_category_index].brushes
+
+  return brushes[brush_index], brush_category_index, brush_index
 end
 
 

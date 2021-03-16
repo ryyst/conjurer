@@ -11,10 +11,7 @@ dofile_once("mods/raksa/files/scripts/enums.lua")
 function eraser_reticle_follow_mouse(x, y)
   local eraser_reticle = EntityGetWithName("eraser_reticle")
   if eraser_reticle then
-    local grid_size = eraser_use_brush_grid() and get_brush_grid_size() or get_eraser_grid_size()
-    x = x - x % grid_size + grid_size/2
-    y = y - y % grid_size + grid_size/2
-    EntitySetTransform(eraser_reticle, math.floor(x), math.floor(y))
+    EntitySetTransform(eraser_reticle, x, y)
   end
 end
 
@@ -22,11 +19,7 @@ end
 function brush_reticle_follow_mouse(x, y)
   local brush_reticle = EntityGetWithName("brush_reticle")
   if brush_reticle then
-    local grid_size = get_brush_grid_size()
-    -- Calculate offset for cursor to always be in the middle.
-    x = x - x % grid_size + grid_size/2
-    y = y - y % grid_size + grid_size/2
-    EntitySetTransform(brush_reticle, math.floor(x), math.floor(y))
+    EntitySetTransform(brush_reticle, x, y)
   end
 end
 
@@ -34,7 +27,26 @@ end
 --
 -- DRAWING HANDLERS
 --
-function draw(material, brush)
+function handle_draw(material, brush, x, y, is_physics_material)
+  if is_physics_material and not brush.physics_supported then
+    return GamePrint("Physics materials not supported with selected brush")
+  end
+
+  if brush.action then
+    return brush.action(material, brush, x, y)
+  end
+
+  if is_physics_material then
+    draw_physics(material, brush, x, y)
+  elseif brush.raytrace_from_center then
+    draw_grower(material, brush, x, y)
+  else
+    draw_normal(material, brush)
+  end
+end
+
+
+function draw_normal(material, brush)
   local reticle = EntityGetWithName("brush_reticle")
   local x, y = EntityGetTransform(reticle)
   local draw_vars = get_draw_vars(material, brush)
@@ -43,7 +55,7 @@ function draw(material, brush)
 end
 
 
-function draw_filler(material, brush, x, y)
+function draw_grower(material, brush, x, y)
   local filler = EntityCreateNew()
   local draw_vars = get_draw_vars(material, brush)
 
@@ -65,7 +77,26 @@ function draw_physics(material, brush, x, y)
 end
 
 
-function draw_physics_release(material, brush, x, y)
+--
+-- DRAW RELEASE HANDLERS
+--
+function handle_release(material, brush, x, y, is_physics_material)
+  if is_physics_material and not brush.physics_supported then
+    return -- Do nothing, warning has already been given upon clicking.
+  end
+
+  if brush.release_action then
+    return brush.release_action(material, brush, x, y)
+  end
+
+  -- No other default release actions yet needed.
+  if is_physics_material then
+    release_physics(material, brush, x, y)
+  end
+end
+
+
+function release_physics(material, brush, x, y)
   -- Conversion delay is added because our drawing logic has a short
   -- "trailing" for a few frames upon releasing mouse (on purpose).
   local seconds = 0.33
@@ -74,6 +105,16 @@ function draw_physics_release(material, brush, x, y)
     "mods/raksa/files/wands/matwand/convert_to_box2d.lua",
     "convert_material"
   )
+end
+
+
+--
+-- EREASE HANDLERS
+--
+function handle_erase(material, brush, x, y, is_physics_material)
+  -- Nothing fancy, *yet*.
+  -- TODO: Add all the same hooks as m1 has
+  erase(material)
 end
 
 
@@ -98,7 +139,7 @@ function erase(material)
 
 
   -- Create 5x5px rectangular erasers in a grid shape.
-  -- This is done *only* because making even-sized erasers witha radius seems
+  -- This is done *only* because making even-sized erasers with a radius seems
   -- impossible.  Eg. no radius will allow for an exactly 10px eraser.
   for row=0, chunk_count-1, 1 do
     for col=0, chunk_count-1, 1 do
@@ -140,12 +181,18 @@ end
 --
 -- MAIN LOGIC
 --
-local x, y = DEBUG_GetMouseWorld()
-brush_reticle_follow_mouse(x, y)
-eraser_reticle_follow_mouse(x, y)
+local mx, my = DEBUG_GetMouseWorld()
+local brush_grid_size = get_brush_grid_size()
+local eraser_grid_size = eraser_use_brush_grid() and brush_grid_size or get_eraser_grid_size()
+
+local bx, by = grid_snap(mx, my, brush_grid_size)
+local ex, ey = grid_snap(mx, my, eraser_grid_size)
+
+brush_reticle_follow_mouse(bx, by)
+eraser_reticle_follow_mouse(ex, ey)
 
 local brush = get_active_brush()
-local material, is_physics = get_active_material()
+local material, is_physics_material = get_active_material()
 
 local holding_m1 = is_holding_m1()
 local ACTION_HOLD_DRAW = not brush.click_to_use and holding_m1
@@ -155,40 +202,19 @@ local ACTION_HOLD_ERASE = is_holding_m2()
 
 
 if ACTION_HOLD_DRAW then
-  if is_physics then
-    draw_physics(material, brush, x, y)
-  elseif brush.action then
-    brush.action(material, brush, x, y)
-  else
-    -- Default action
-    draw(material, brush)
-  end
+  handle_draw(material, brush, bx, by, is_physics_material)
 end
-
 
 if ACTION_CLICK_DRAW then
-  if is_physics then
-    GamePrint("Physics materials not supported with selected brush")
-  elseif brush.action then
-    brush.action(material, brush, x, y, get_draw_vars)
-  else
-    -- Default action
-    draw_filler(material, brush, x, y, get_draw_vars)
-  end
+  handle_draw(material, brush, bx, by, is_physics_material)
 end
-
 
 if ACTION_RELEASE_DRAW then
-  if is_physics then
-    draw_physics_release(material, brush, x, y, get_draw_vars)
-  elseif brush.release_action then
-    brush.release_action(material, brush, x, y, get_draw_vars)
-  end
+  handle_release(material, brush, bx, by, is_physics_material)
 end
 
-
 if ACTION_HOLD_ERASE then
-  erase(material)
+  handle_erase(material, brush, ex, ey, is_physics_material)
 end
 
 

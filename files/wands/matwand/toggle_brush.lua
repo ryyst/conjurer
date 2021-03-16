@@ -10,8 +10,8 @@ function enabled_changed(entity, is_enabled)
     EntityLoad("mods/raksa/files/wands/matwand/brushes/brush_reticle.xml", x, y)
     EntityLoad("mods/raksa/files/wands/matwand/brushes/eraser_reticle.xml", x, y)
 
-    local brush, index = get_active_brush()
-    change_active_brush(brush, index)
+    local brush, brush_category_index, brush_index = get_active_brush()
+    change_active_brush(brush, brush_category_index, brush_index)
     change_eraser_reticle()
     return
   end
