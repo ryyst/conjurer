@@ -55,7 +55,6 @@ function Vec2Field(field_name, min, max, default, multiplier, tooltip, text, tex
       function(new_value)
         local val = new_value / multiplier
         ComponentSetValue2(comp, field_name, val, y)
-        --EntityRefreshSprite(entity, comp)
       end
     )
     Slider({
@@ -72,7 +71,6 @@ function Vec2Field(field_name, min, max, default, multiplier, tooltip, text, tex
       function(new_value)
         local val = new_value / multiplier
         ComponentSetValue2(comp, field_name, x, val)
-        --EntityRefreshSprite(entity, comp)
       end
     )
   end
@@ -95,7 +93,6 @@ function NumberField(field_name, min, max, default, multiplier, tooltip, text, d
       function(new_value)
         local val = new_value / multiplier
         ComponentSetValue2(comp, field_name, val)
-        --EntityRefreshSprite(entity, comp)
       end
     )
   end
@@ -119,11 +116,18 @@ SUPPORTED_COMPONENTS = {
           BooleanField("emissive", "Emissive", "Emissive rendering mode"),
           BooleanField("additive", "Additive", "Additive rendering mode"),
           BooleanField("visible", "Visible"),
-          BooleanField("fog_of_war_hole", "Fog of war hole", "Should the alpha channel of this texture punctures a hole in the fog of war"),
+          BooleanField("fog_of_war_hole", "Fog of war hole", "Should the alpha channel of this texture puncture a hole in the fog of war.\nNote: doesn't work with together emissive"),
           BooleanField("smooth_filtering", "Smooth filtering"),
           Header("Offset"),
           NumberField("offset_x", -49, 50, 0, 1, "Sprite X offset", "x"),
           NumberField("offset_y", -49, 50, 0, 1, "Sprite Y offset", "y"),
+          function (comp, entity)
+            -- Required for many properties of sprites to properly update.
+            -- Run every frame the SpriteComponent settings are open; if we start seeing
+            -- problems: go through the hurdle of coding it into each property setting
+            -- individually.
+            EntityRefreshSprite(entity, comp)
+          end,
         }
       }
     }
