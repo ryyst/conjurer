@@ -10,11 +10,19 @@ function get_hitbox_transform(box)
   local max_y = ComponentGetValue2(box, "aabb_max_y")
   local offset_x, offset_y = ComponentGetValue2(box, "offset")
 
-  local width = math.abs(min_x)+math.abs(max_x) or 1
-  local height = math.abs(min_y)+math.abs(max_y) or 1
+  if (min_x > max_x) or (min_y > max_y) then
+    -- Invalid AABB. Our super-generalized calculations below were actually made to
+    -- support these, before I noticed the game itself doesn't accept such scenarios.
+    --
+    -- So we'll just handle this with a simple if clause and be done with it.
+    return 0, 0, 0, 0
+  end
 
-  local x = 0-min_x/width - offset_x/width
-  local y = 0-min_y/height - offset_y/height
+  local width  = math.abs(math.min(min_x, max_x) - math.max(min_x, max_x)) or 1
+  local height = math.abs(math.min(min_y, max_y) - math.max(min_y, max_y)) or 1
+
+  local x = 0 - math.min(min_x, max_x)/width - offset_x/width
+  local y = 0 - math.min(min_y, max_y)/height - offset_y/height
 
   local worm_hitbox = EntityGetValue(entity, "WormComponent", "hitbox_radius")
   if worm_hitbox then
