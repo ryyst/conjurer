@@ -4,7 +4,6 @@ local entity = GetUpdatedEntityID()
 
 
 function get_hitbox_transform(box)
-
   local min_x = ComponentGetValue2(box, "aabb_min_x")
   local max_x = ComponentGetValue2(box, "aabb_max_x")
   local min_y = ComponentGetValue2(box, "aabb_min_y")
@@ -39,7 +38,7 @@ end
 
 
 function update_sprites(sprites, hitboxes)
-  if #hitboxes ~= sprites then
+  if #hitboxes ~= #sprites then
     reset_sprites(sprites, hitboxes)
     return
   end
@@ -68,6 +67,7 @@ function create_sprites(hitboxes)
         has_special_scale=true,
         special_scale_x=width,
         special_scale_y=height,
+        update_transform_rotation=false,
         offset_x=x,
         offset_y=y,
         emissive=true,
