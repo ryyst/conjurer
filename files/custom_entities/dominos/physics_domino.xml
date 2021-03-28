@@ -1,0 +1,31 @@
+<Entity name="domino" tags="hittable,teleportable_NOT,prop,prop_physics" >
+  <PhysicsBodyComponent
+    allow_sleep="1"
+    angular_damping="1"
+    fixed_rotation="0"
+    is_bullet="0"
+    linear_damping="0"
+    on_death_really_leave_body="0"
+  ></PhysicsBodyComponent>
+
+  <PhysicsImageShapeComponent
+    centered="0"
+    is_root="1"
+    image_file="mods/raksa/files/custom_entities/dominos/gfx/shape.png"
+    material="rock_box2d_hard"
+  ></PhysicsImageShapeComponent>
+
+  <SpriteComponent
+    _tags="character,enabled_in_world"
+    alpha="1"
+    image_file="mods/raksa/files/custom_entities/dominos/gfx/pips$[1-28].png"
+    offset_x="0"
+    offset_y="0"
+    z_index="-1"
+  ></SpriteComponent>
+
+  <UIInfoComponent
+    _tags="enabled_in_world"
+    name="Domino piece"
+  ></UIInfoComponent>
+</Entity>

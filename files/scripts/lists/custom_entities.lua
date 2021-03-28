@@ -73,4 +73,9 @@ CUSTOM_ENTITIES = {
     path="mods/raksa/files/custom_entities/mounted_gun/hmg.xml",
     image="mods/raksa/files/custom_entities/mounted_gun/icon.png",
   },
+  {
+    name="Domino Blocks",
+    path="mods/raksa/files/custom_entities/dominos/physics_domino.xml",
+    image="mods/raksa/files/custom_entities/dominos/gfx/icon.png",
+  },
 }
