@@ -32,7 +32,7 @@ function render_entity_properties()
   if not name or #name == 0 or name == "unknown" then
     name = get_entity_name_from_file(filename)
   end
-  name = normalize_name(name)
+  local readable_name = normalize_name(name)
 
   local tags = EntityGetTags(entity)
   if not tags or #tags == 0 then
@@ -48,7 +48,7 @@ function render_entity_properties()
   x = math.floor(x)
   y = math.floor(y)
 
-  Text(name, {tooltip=filepath, tooltip_desc=tags_text, x=4})
+  Text(readable_name, {tooltip=filepath, tooltip_desc=tags_text, x=4})
 
   Background({margin=3, style=NPBG_DEFAULT, z_index=200, min_width=90}, function()
     Vertical(1, 1, function()
@@ -221,17 +221,22 @@ function render_entity_properties()
               GlobalsSetValue(SIGNAL_RESET_EDITWAND_GUI, "1")
             end
           )
-          Button(
-            {
-              tooltip="Clone entity",
-              tooltip_desc="Only a pure copy is made, no modifications are preserved.",
-              image="mods/raksa/files/gfx/editwand_icons/icon_cln.png",
-            },
-            function()
-              local x, y = EntityGetTransform(entity)
-              EntityLoadProcessed(filename, x+10, y-10)
-            end
-          )
+
+          -- TODO: Fix the bg/fg entities cloning
+          if name ~= "raksa_background" then
+            Button(
+              {
+                tooltip="Clone entity",
+                tooltip_desc="Only a pure copy is made, no modifications are preserved.",
+                image="mods/raksa/files/gfx/editwand_icons/icon_cln.png",
+              },
+              function()
+                local x, y = EntityGetTransform(entity)
+                EntityLoadProcessed(filename, x+10, y-10)
+              end
+            )
+          end
+
           if DebugGetIsDevBuild() then
             Button(
               {
