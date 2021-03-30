@@ -187,7 +187,7 @@ end
 
 
 function toggle_global(value)
-  if value == "0" or value == false then
+  if value == "0" or not value then
     return "1"
   end
   return "0"
@@ -293,24 +293,26 @@ function ComponentSetValues(component, values)
   end
 end
 
-function GlobalsGet(key)
-  local value = GlobalsGetValue(key, tostring(DEFAULTS[key]))
+function GlobalsGet(key, default)
+  default = default or tostring(DEFAULTS[key])
+
+  local value = GlobalsGetValue(key, default)
   if value == GLOBAL_UNDEFINED then
     return nil
   end
   return value
 end
 
-function GlobalsToggleBool(key)
-  GlobalsSetValue(key, toggle_global(GlobalsGetBool(key)))
+function GlobalsToggleBool(key, default)
+  GlobalsSetValue(key, toggle_global(GlobalsGetBool(key, default)))
 end
 
-function GlobalsGetBool(key)
-  return GlobalsGet(key) == "1"
+function GlobalsGetBool(key, default)
+  return GlobalsGet(key, default) == "1"
 end
 
-function GlobalsGetNumber(key)
-  return tonumber(GlobalsGet(key))
+function GlobalsGetNumber(key, default)
+  return tonumber(GlobalsGet(key, default))
 end
 
 

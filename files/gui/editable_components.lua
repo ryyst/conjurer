@@ -1,16 +1,21 @@
 dofile_once("mods/raksa/files/scripts/utilities.lua")
 
-function Header(text)
+-- Namespaced name, because this is an actual global.
+raksa_editwand_active_field = raksa_editwand_active_field or nil
+
+
+function Header(text, no_margin)
   return function()
-    Text(text, {color={red=155, green=173, blue=183}, y=3})
+    Text(text, {color={red=155, green=173, blue=183}, y=no_margin and 0 or 3})
   end
 end
 
 
-function HoverTextField(field_name, text)
+function HoverTextField(field_name, text, no_margin)
   return function (comp, entity)
+    Header(text, no_margin)()
     Text(
-      text..":  [hover]",
+      "[hover]",
       { tooltip=ComponentGetValue2(comp, field_name) }
     )
   end
@@ -76,25 +81,74 @@ function Vec2Field(field_name, min, max, default, multiplier, tooltip, text, tex
   end
 end
 
-function NumberField(field_name, min, max, default, multiplier, tooltip, text, decimals)
+function NumberField(field_name, min, max, default, multiplier, tooltip, text, comp_id, ddist, decimals)
+  local global_name = "RAKSA_NUMBERFIELD_"..field_name.."_"..ComponentGetTypeName(comp_id)
+  --print(tostring(comp_id).." "..global_name)
+
+  -- This is stored in a Global, so that the state is kept correctly *no matter what*.
+  -- Eg. changing wands, entities or reloading game
+  local use_textinput = GlobalsGetBool(global_name, false)
+
+  -- Invalid number values cannot be set into the Component, but it must be stored
+  -- somewhere so that we know what to show the next frame.
+  -- Eg. the value is "" | "-" | "," | "3-3" | "...3..."
+  local invalid_value = nil
+
   return function (comp, entity)
-    Slider({
-        text=text or "",
-        value=ComponentGetValue2(comp, field_name) * multiplier,
-        default=default,
-        min=min*multiplier,
-        max=max*multiplier,
-        width=100,
-        tooltip=tooltip,
-        --tooltip_desc="Warning: Things can quickly turn sour with high numbers",
-        formatting=formatting,
-        decimals=decimals,
-      },
-      function(new_value)
-        local val = new_value / multiplier
-        ComponentSetValue2(comp, field_name, val)
+    local value = ComponentGetValue2(comp, field_name)
+
+    Horizontal(0, 0, function()
+      Text(text, {y=-1, tooltip=tooltip})
+      local _c, _rc, _h, _x, _y, width = WidgetInfo()
+
+      local desired_distance = ddist or 20
+      local distance = desired_distance - width
+
+      Button(
+        {
+          x=distance,
+          tooltip="Toggle accurate input",
+          image="mods/raksa/files/gfx/editwand_icons/icon_number_input.png"
+        },
+        function()
+          use_textinput = not use_textinput
+          GlobalsToggleBool(global_name)
+        end
+      )
+
+      if use_textinput then
+        NumberInput({value=invalid_value or value}, function(new_value)
+          number_value = tonumber(new_value)
+          if not number_value then
+            invalid_value = new_value
+            return
+          end
+
+          ComponentSetValue2(comp, field_name, number_value)
+          invalid_value = nil
+        end)
+      else
+        Slider({
+            value=ComponentGetValue2(comp, field_name) * multiplier,
+            default=default,
+            x=-2,
+            min=min*multiplier,
+            max=max*multiplier,
+            width=100,
+            tooltip=tooltip,
+            formatting=formatting,
+            decimals=decimals,
+          },
+          function(new_value)
+            local val = new_value / multiplier
+
+            print("[DEBUG] Updating: " .. field_name .. " ".. val .. " " .. max)
+
+            ComponentSetValue2(comp, field_name, val)
+          end
+        )
       end
-    )
+    end)
   end
 end
 
@@ -108,19 +162,20 @@ SUPPORTED_COMPONENTS = {
       --special = TextField("image_file", ""),
       props = {
         component = component,
+        height=165,
         fields = {
-          HoverTextField("image_file", "Image file path"),
+          HoverTextField("image_file", "Image file path", true),
           Header("Rendering"),
-          NumberField("alpha", 0, 1, 0, 100, nil, "alpha"),
-          NumberField("z_index", -150, 150, 0, 1, "0 = world grid, -1 = enemies, -1.5 = items in world, player = 0.6", "z-index"),
+          NumberField("alpha", 0, 1, 0, 100, nil, "alpha", component, 28),
+          NumberField("z_index", -150, 150, 0, 1, "0 = world grid, -1 = enemies, -1.5 = items in world, player = 0.6", "z-index", component, 28),
           BooleanField("emissive", "Emissive", "Emissive rendering mode"),
           BooleanField("additive", "Additive", "Additive rendering mode"),
           BooleanField("visible", "Visible"),
           BooleanField("fog_of_war_hole", "Fog of war hole", "Should the alpha channel of this texture puncture a hole in the fog of war.\nNote: doesn't work with together emissive"),
           BooleanField("smooth_filtering", "Smooth filtering"),
           Header("Offset"),
-          NumberField("offset_x", -49, 50, 0, 1, "Sprite X offset", "x"),
-          NumberField("offset_y", -49, 50, 0, 1, "Sprite Y offset", "y"),
+          NumberField("offset_x", -49, 50, 0, 1, "Sprite X offset", "x", component, 5),
+          NumberField("offset_y", -49, 50, 0, 1, "Sprite Y offset", "y", component, 5),
           function (comp, entity)
             -- Required for many properties of sprites to properly update.
             -- Run every frame the SpriteComponent settings are open; if we start seeing
@@ -139,7 +194,7 @@ SUPPORTED_COMPONENTS = {
       props = {
         component = component,
         fields = {
-          Header("Settings"),
+          Header("Settings", true),
           BooleanField("is_emitting", "Is Emitting"),
           BooleanField("create_real_particles", "Create real particles", "creates these particles in the grid, if that happens velocity and lifetime are ignored"),
           BooleanField("emit_real_particles", "Emit real particles", "this creates particles that will behave like particles, but work outside of the screen"),
@@ -155,32 +210,32 @@ SUPPORTED_COMPONENTS = {
           BooleanField("draw_as_long", "Draw as long", "if set, particle will rendered as a trail along it's movement vector"),
           BooleanField("set_magic_creation", "Magic creation effect", "if set will do the white glow effect"),
           Header("Velocity"),
-          NumberField("x_vel_min", -100, 100, 0, 1, "Min X Velocity", "x min "),
-          NumberField("x_vel_max", -100, 100, 0, 1, "Max X Velocity", "x max"),
-          NumberField("y_vel_min", -100, 100, 0, 1, "Min Y Velocity", "y min "),
-          NumberField("y_vel_max", -100, 100, 0, 1, "Max Y Velocity", "y max"),
+          NumberField("x_vel_min", -100, 100, 0, 1, "Min X Velocity", "x min ", component),
+          NumberField("x_vel_max", -100, 100, 0, 1, "Max X Velocity", "x max", component),
+          NumberField("y_vel_min", -100, 100, 0, 1, "Min Y Velocity", "y min ", component),
+          NumberField("y_vel_max", -100, 100, 0, 1, "Max Y Velocity", "y max", component),
           Header("Position offset"),
-          NumberField("x_pos_offset_min", -20, 20, 0, 1, "Min X Pos Offset", "x min "),
-          NumberField("x_pos_offset_max", -20, 20, 0, 1, "Min Y Pos Offset", "x max"),
-          NumberField("y_pos_offset_min", -20, 20, 0, 1, "Max X Pos Offset", "y min "),
-          NumberField("y_pos_offset_max", -20, 20, 0, 1, "Max Y Pos Offset", "y max"),
+          NumberField("x_pos_offset_min", -20, 20, 0, 1, "Min X Pos Offset", "x min ", component),
+          NumberField("x_pos_offset_max", -20, 20, 0, 1, "Min Y Pos Offset", "x max", component),
+          NumberField("y_pos_offset_min", -20, 20, 0, 1, "Max X Pos Offset", "y min ", component),
+          NumberField("y_pos_offset_max", -20, 20, 0, 1, "Max Y Pos Offset", "y max", component),
           Header("Emission interval frames"),
-          NumberField("emission_interval_min_frames", 0, 100, 5, 1, "Emission interval min frames", "min "),
-          NumberField("emission_interval_max_frames", 0, 100, 10, 1, "Emission interval max frames", "max"),
+          NumberField("emission_interval_min_frames", 0, 100, 5, 1, "Emission interval min frames", "min ", component),
+          NumberField("emission_interval_max_frames", 0, 100, 10, 1, "Emission interval max frames", "max", component),
           Header("Count"),
-          NumberField("count_min", 0, 200, 5, 1, "Count Min", "min "),
-          NumberField("count_max", 0, 200, 5, 1, "Count Max", "max"),
+          NumberField("count_min", 0, 200, 5, 1, "Count Min", "min ", component),
+          NumberField("count_max", 0, 200, 5, 1, "Count Max", "max", component),
           Header("Lifetime"),
-          NumberField("lifetime_min", 0, 120, 5, 1, "Lifetime Min", "min "),
-          NumberField("lifetime_max", 0, 120, 5, 1, "Lifetime Max", "max"),
+          NumberField("lifetime_min", 0, 120, 5, 1, "Lifetime Min", "min ", component),
+          NumberField("lifetime_max", 0, 120, 5, 1, "Lifetime Max", "max", component),
           Header("Airflow"),
-          NumberField("airflow_force", 0, 6, 0, 100, "Airflow force", "force"),
-          NumberField("airflow_time", 1, 2, 1, 100, "Airflow time", "time "),
-          NumberField("airflow_scale", 1, 2, 1, 100, "Airflow scale", "scale"),
+          NumberField("airflow_force", 0, 6, 0, 100, "Airflow force", "force", component),
+          NumberField("airflow_time", 0, 10, 1, 100, "Airflow time", "time ", component),
+          NumberField("airflow_scale", 0, 10, 1, 100, "Airflow scale", "scale", component),
           Header("Misc."),
-          NumberField("friction", 0, 10, 0, 1, "Friction", "fric."),
-          NumberField("attractor_force", 0, 100, 0, 1, "Attractor force", "attr."),
-          NumberField("emission_chance", 0, 100, 100, 1, "Emission chance", "chance"),
+          NumberField("friction", 0, 10, 0, 1, "Friction", "fric.", component),
+          NumberField("attractor_force", 0, 100, 0, 1, "Attractor force", "attr.", component),
+          NumberField("emission_chance", 0, 100, 100, 1, "Emission chance", "chance", component),
         }
       }
     }
@@ -191,16 +246,18 @@ SUPPORTED_COMPONENTS = {
       desc = "",
       props = {
         component = component,
+        height=165,
         fields = {
+          Header("Settings", true),
           BooleanField("is_player", "Is player"),
           BooleanField("is_enemy", "Is enemy"),
           BooleanField("is_item", "Is item"),
-          NumberField("damage_multiplier", 0, 10, 1, 1, "Damage multiplier. For eg. making headshots hurt more.", "mult.", true),
+          NumberField("damage_multiplier", 0, 10, 1, 1, "Damage multiplier. For eg. making headshots hurt more.", "mult.", component, 20, true),
           Header("Hitbox aabb size"),
-          NumberField("aabb_min_x", -100, 100, -5, 1, "Hitbox min x", "min x"),
-          NumberField("aabb_max_x", -100, 100, 5, 1, "Hitbox max x", "max x"),
-          NumberField("aabb_min_y", -100, 100, -5, 1, "Hitbox min y", "min y"),
-          NumberField("aabb_max_y", -100, 100, 5, 1, "Hitbox max y", "max y"),
+          NumberField("aabb_min_x", -100, 100, -5, 1, "Hitbox min x", "min x", component),
+          NumberField("aabb_max_x", -100, 100, 5, 1, "Hitbox max x", "max x", component),
+          NumberField("aabb_min_y", -100, 100, -5, 1, "Hitbox min y", "min y", component),
+          NumberField("aabb_max_y", -100, 100, 5, 1, "Hitbox max y", "max y", component),
           Header("Hitbox aabb offset"),
           Vec2Field("offset", -50, 50, 0, 1, "Hitbox offset", "x", "y"),
         }

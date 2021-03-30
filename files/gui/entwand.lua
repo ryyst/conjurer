@@ -175,6 +175,8 @@ function render_entity_options()
         function() GlobalsToggleBool(ANIMALS_SPAWN_GOLD) end
       )
     end)
+
+    -- TODO: Auto-select the newest entity spawned with Claw
   end)
 end
 

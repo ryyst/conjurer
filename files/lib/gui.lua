@@ -195,15 +195,12 @@ end
 
 
 function Scroller(vars, callback)
-  -- local clicked, rclicked, hovered, x, y, width, height, draw_x, draw_y, draw_width, draw_height = GuiGetPreviousWidgetInfo(GUI)
-  -- [Returns the final position, size etc calculated for a widget. Some values aren't supported by all widgets.]
-
   GuiBeginScrollContainer(
     GUI, BID(),
     vars.x or 0,
     vars.y or 0,
     vars.width or 100,
-    vars.height or 100,
+    vars.height or 250,
     vars.gamepad_focusable or true,
     vars.margin_x or vars.margin or 2,
     vars.margin_y or vars.margin or 2
@@ -216,6 +213,59 @@ function Scroller(vars, callback)
   GuiEndScrollContainer(GUI)
 end
 
+
+function TextInput(vars, callback)
+  local new_text = GuiTextInput(
+    GUI, BID(),
+    vars.x or 0,
+    vars.y or 0,
+    vars.text and vars.text.." " or "",
+    vars.width or 20,
+    vars.max_length or 512
+    --vars.allowed_characters or "1234567890.",
+  )
+
+  if new_text ~= vars.value then
+    callback(new_value)
+  end
+end
+
+
+function NumberInput(vars, callback)
+  local new_value = GuiTextInput(
+    GUI, BID(),
+    vars.x or 0,
+    vars.y or 0,
+    tostring(vars.value),
+    vars.width or 100,
+    vars.max_length or 512,
+    "1234567890.-"
+  )
+
+  new_value = new_value or ""
+
+  if new_value ~= vars.value then
+    callback(new_value)
+  end
+end
+
+
+function WidgetInfo()
+  -- Returns the final position, size etc calculated for a widget.
+  -- NOTE: Some values aren't supported by all widgets.
+  -- * clicked:bool
+  -- * right_clicked:bool
+  -- * hovered:bool
+  -- * x:number
+  -- * y:number
+  -- * width:number
+  -- * height:number
+  -- * draw_x:number
+  -- * draw_y:number
+  -- * draw_width:number
+  -- * draw_height:number
+  return GuiGetPreviousWidgetInfo(GUI)
+end
 
 function Slider(vars, callback)
   local formatting = vars.decimals and string.format("%.2f", vars.value) or vars.value

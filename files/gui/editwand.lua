@@ -10,10 +10,13 @@ dofile_once("mods/raksa/files/scripts/enums.lua")
 
 
 local render_active_editwand_overlay = nil
+
 local main_menu_pos_x = 1
 local main_menu_pos_y = 18
 local sub_menu_pos_x = main_menu_pos_x+3
-local sub_menu_pos_y = main_menu_pos_y-4
+local sub_menu_pos_y = main_menu_pos_y-5.3
+local detail_menu_pos_x = sub_menu_pos_x+28
+local detail_menu_pos_y = main_menu_pos_y
 
 local active_entity = nil
 local active_component = nil
@@ -358,6 +361,7 @@ function render_editwand_buttons()
       },
       function()
         active_component = item
+        raksa_editwand_active_field = nil
         toggle_active_editwand_overlay(render_component_properties)
       end
     )
@@ -367,15 +371,14 @@ end
 
 
 function render_component_properties()
-  local props = active_component.props
-  local component = props.component
-  local fields = props.fields
-
   if not EntityGetIsAlive(active_entity) then
     return
   end
 
+  local props = active_component.props
   local name = active_component.name
+  local component = props.component
+  local fields = props.fields
   local id = tostring(component)
 
   Vertical(1, 1, function()
@@ -383,13 +386,76 @@ function render_component_properties()
   end)
 
   Vertical(1, 2, function()
-    Scroller({margin_x=0, x=-3, margin_y=2, width=160, height=200}, function()
+    Scroller({margin_x=0, x=-3, margin_y=5, width=160, height=props.height}, function()
       Vertical(1, 0, function()
         for f, field in ipairs(fields) do
           field(component, active_entity)
         end
       end)
     end)
+  end)
+end
+
+
+function render_detail_menu(active_field)
+  Background({margin=3, style=NPBG_GOLD, z_index=200, min_width=90}, function()
+    Text("Tuning " .. active_field.name)
+    NumberInput({value=active_field.value}, function(new_value)
+      active_field.value = new_value
+    end)
+
+    Horizontal(0, 1, function()
+      function value_step(incr)
+        active_field.value = active_field.value + incr
+      end
+
+      Button(
+        {tooltip="Value -100", image="mods/raksa/files/gfx/editwand_icons/icon_minus_small.png"},
+        function() value_step(-100) end
+      )
+      Button(
+        {tooltip="Value -10", image="mods/raksa/files/gfx/editwand_icons/icon_minus_small.png"},
+        function() value_step(-10) end
+      )
+      Button(
+        {tooltip="Value -1", image="mods/raksa/files/gfx/editwand_icons/icon_minus_small.png"},
+        function() value_step(-1) end
+      )
+      Button(
+        {tooltip="Value -0.1", image="mods/raksa/files/gfx/editwand_icons/icon_minus_small.png"},
+        function() value_step(-0.1) end
+      )
+      Text(",")
+      Button(
+        {tooltip="Value +0.1", image="mods/raksa/files/gfx/editwand_icons/icon_plus_small.png"},
+        function() value_step(0.1) end
+      )
+      Button(
+        {tooltip="Value +1", image="mods/raksa/files/gfx/editwand_icons/icon_plus_small.png"},
+        function() value_step(1) end
+      )
+      Button(
+        {tooltip="Value +10", image="mods/raksa/files/gfx/editwand_icons/icon_plus_small.png"},
+        function() value_step(10) end
+      )
+      Button(
+        {tooltip="Value +100", image="mods/raksa/files/gfx/editwand_icons/icon_plus_small.png"},
+        function() value_step(100) end
+      )
+    end)
+
+    Button(
+      {x=0, y=0, tooltip="Value +10", image="mods/raksa/files/gfx/editwand_icons/icon_plus.png"},
+      function()
+        local value = tonumber(active_field.value)
+        if not value then
+          GamePrint("Sorry, that's not a valid number")
+          return
+        end
+
+        ComponentSetValue2(active_field.comp, active_field.name, value)
+      end
+    )
   end)
 end
 
@@ -403,6 +469,7 @@ function render_editwand()
   if GlobalsGetBool(SIGNAL_RESET_EDITWAND_GUI) then
     active_entity = nil
     active_component = nil
+    raksa_editwand_active_field=nil
     toggle_active_editwand_overlay(render_entity_properties)
     GlobalsSetValue(SIGNAL_RESET_EDITWAND_GUI, "0")
   end
@@ -422,5 +489,13 @@ function render_editwand()
     Vertical(sub_menu_pos_x, sub_menu_pos_y, function()
       render_active_editwand_overlay()
     end)
+
+    local active_field = raksa_editwand_active_field
+    if active_field then
+      Vertical(detail_menu_pos_x, detail_menu_pos_y, function()
+        render_detail_menu(active_field)
+      end)
+    end
   end
+
 end
