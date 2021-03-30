@@ -1,0 +1,7 @@
+<Entity name="raksa_background">
+  <!--
+  Noop component to avoid any possible complications with an otherwise empty entity
+  -->
+  <NinjaRopeComponent />
+</Entity>
+

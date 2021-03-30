@@ -23,6 +23,9 @@ Entity wand:
   - New category: Foregrounds
   - New wand setting: Ignore backgrounds when removing entities
   - New wand setting: Kill instead of deleting
+  - New custom entities:
+    - Heavy Machine Gun
+    - Domino Blocks
   - Fixed: Terrible performance problem when using spawned wands/spells
 
 New wand: Chaos Claw

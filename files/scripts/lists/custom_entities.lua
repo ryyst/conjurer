@@ -1,3 +1,7 @@
+dofile_once("mods/raksa/files/scripts/utilities.lua")
+
+local spawn_img = create_image_spawner(100)
+
 CUSTOM_ENTITIES = {
   {
     name="Generator",
@@ -45,27 +49,27 @@ CUSTOM_ENTITIES = {
   },
   {
     name="Background 20px - Windowed",
-    path="mods/raksa/files/custom_entities/backgrounds/bg_20_window.xml",
+    spawn_func=spawn_img("mods/raksa/files/custom_entities/backgrounds/bg_20_window.png", 0, 0),
     image="mods/raksa/files/custom_entities/backgrounds/icon_bg_window.png",
   },
   {
     name="Background 20px",
-    path="mods/raksa/files/custom_entities/backgrounds/bg_20.xml",
+    spawn_func=spawn_img("mods/raksa/files/custom_entities/backgrounds/bg_20.png", 0, 0),
     image="mods/raksa/files/custom_entities/backgrounds/icon_bg.png",
   },
   {
     name="Background 40px",
-    path="mods/raksa/files/custom_entities/backgrounds/bg_40.xml",
+    spawn_func=spawn_img("mods/raksa/files/custom_entities/backgrounds/bg_40.png", 0, 0),
     image="mods/raksa/files/custom_entities/backgrounds/icon_bg.png",
   },
   {
     name="Background 80px",
-    path="mods/raksa/files/custom_entities/backgrounds/bg_80.xml",
+    spawn_func=spawn_img("mods/raksa/files/custom_entities/backgrounds/bg_80.png", 0, 0),
     image="mods/raksa/files/custom_entities/backgrounds/icon_bg.png",
   },
   {
     name="Background 160px",
-    path="mods/raksa/files/custom_entities/backgrounds/bg_160.xml",
+    spawn_func=spawn_img("mods/raksa/files/custom_entities/backgrounds/bg_160.png", 0, 0),
     image="mods/raksa/files/custom_entities/backgrounds/icon_bg.png",
   },
   {

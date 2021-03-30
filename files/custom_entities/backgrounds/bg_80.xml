@@ -1,7 +1,0 @@
-<Entity>
-  <Base file="mods/raksa/files/custom_entities/backgrounds/base_bg.xml">
-    <SpriteComponent
-      image_file="mods/raksa/files/custom_entities/backgrounds/bg_80.png"
-    ></SpriteComponent>
-  </Base>
-</Entity>

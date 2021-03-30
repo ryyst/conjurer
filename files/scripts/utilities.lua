@@ -426,20 +426,21 @@ function give_player_items(inventory, items)
   end
 end
 
+
 function create_image_spawner(z_index)
   return function(path, offset_x, offset_y)
     return function(x, y)
+      -- Cursor offsets can be set very accurately for backgrounds.
+      local cursor_x = 5
+      local cursor_y = 10
 
-      local bg = EntityCreateNew(BG_NAME)
-
+      local bg = EntityLoad("mods/raksa/files/custom_entities/base_bg_generated.xml", x, y)
       EntityAddComponent2(bg, "SpriteComponent", {
         image_file=path,
         z_index=z_index,
-        -- Cursor offsets can be set very accurately for backgrounds.
-        offset_x=offset_x + 5,
-        offset_y=offset_y + 10,
+        offset_x=offset_x + cursor_x,
+        offset_y=offset_y + cursor_y,
       })
-      EntitySetTransform(bg, x, y)
 
       return bg
     end
