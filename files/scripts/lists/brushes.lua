@@ -236,7 +236,7 @@ GROWERS = {
 TOOLS = {
   {
     name="Filler Tool",
-    desc="---\n[HOLD] to fill and [RELEASE] to apply\nWARNING: Can leak from edges if held too long!\nApply in small doses.",
+    desc="---\n[HOLD] to fill and [RELEASE] to apply\nWARNING: Extremely dangerous!\n- Can easily leak through edges if careless/unlucky\n- Known to destroy worlds, even spreading to other dimensions",
     offset_x=5,
     offset_y=5,
     reticle_file="mods/raksa/files/wands/matwand/brushes/filler_reticle.png",
