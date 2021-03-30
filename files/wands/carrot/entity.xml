@@ -18,7 +18,7 @@
     body_id="1"
     centered="1"
     image_file="mods/raksa/files/wands/carrot/item_gfx.png"
-    material="fungi"
+    material="carrot"
   ></PhysicsImageShapeComponent>
 
   <VelocityComponent

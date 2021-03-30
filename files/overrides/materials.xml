@@ -145,10 +145,43 @@
     hp="100000"
     liquid_stains="2"
     liquid_stains_self="1"
-    >
+  >
     <Graphics
       texture_file="mods/raksa/files/gfx/materials/ash.png"
       color="ff010102"
+    ></Graphics>
+  </CellDataChild>
+
+  <CellDataChild
+    _parent="fungi"
+    _inherit_reactions="0"
+    stickyness="0.7"
+    name="carrot"
+    ui_name="enchanted carrot"
+    wang_color="fff58718"
+    audio_physics_material_wall="organicbouncy"
+    audio_physics_material_solid="organicbouncy"
+    show_in_creative_mode="1"
+  >
+    <StatusEffects>
+      <Ingestion>
+        <StatusEffect type="POISONED" amount="616" />
+        <StatusEffect type="FOOD_POISONING" amount="521" />
+        <StatusEffect type="RAINBOW_FARTS" amount="638" />
+        <StatusEffect type="CONFUSION" amount="395" />
+        <StatusEffect type="INGESTION_DRUNK" amount="676" />
+        <StatusEffect type="INGESTION_ON_FIRE" amount="399" />
+        <StatusEffect type="INGESTION_FREEZING" amount="592" />
+        <StatusEffect type="UNSTABLE_TELEPORTATION" amount="215" />
+        <StatusEffect type="TRIP" amount="800" />
+        <StatusEffect type="RADIOACTIVE" amount="349" />
+        <StatusEffect type="OILED" amount="442" />
+        <StatusEffect type="SLIMY" amount="719" />
+      </Ingestion>
+    </StatusEffects>
+    <Graphics
+      texture_file="mods/raksa/files/gfx/materials/carrot.png"
+      color="fff58718"
     ></Graphics>
   </CellDataChild>
 

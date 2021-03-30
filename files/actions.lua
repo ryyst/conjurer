@@ -42,7 +42,7 @@ table.insert( actions,
 {
   id                = "EDITWAND",
   name              = "CHAOS CLAW",
-  description       = "Twist the core of any entity into your will.",
+  description       = "Twist & corrupt the core of any entity",
   sprite            = MOD_PATH .. "wands/editwand/spell.png",
   type              = ACTION_TYPE_PROJECTILE,
   spawn_level       = "",
