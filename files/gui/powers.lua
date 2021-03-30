@@ -124,50 +124,50 @@ local render_active_powers_overlay = nil
 function render_world_menu()
   local conjurer_dimensions = {
     {
-      name="Strange Flats",
+      name="Tasamaa",
       image="mods/raksa/files/gfx/power_icons/worlds/flat.png",
       action=create_dimensional_portal(BIOME_CONJURER, WORLD_CONJURER, BIOME_MAP_CONJURER),
     },
     {
-      name="Green Eden",
+      name="Kukkulat",
       image="mods/raksa/files/gfx/power_icons/worlds/grass.png",
       action=create_dimensional_portal(BIOME_FOREST, WORLD_CONJURER, "mods/raksa/files/biomes/biome_map_green.png"),
     },
     {
-      name="Desert",
+      name="Aavikko",
       image="mods/raksa/files/gfx/power_icons/worlds/sand.png",
       action=create_dimensional_portal(BIOME_DESERT, WORLD_CONJURER, BIOME_MAP_CONJURER_GENERATED),
     },
     {
-      name="Everfrost",
+      name="Lumi",
       image="mods/raksa/files/gfx/power_icons/worlds/snow.png",
       action=create_dimensional_portal(BIOME_WINTER, WORLD_CONJURER, BIOME_MAP_CONJURER_GENERATED),
     },
     {
-      name="Aquavesi",
+      name="Märkämeri",
       image="mods/raksa/files/gfx/power_icons/worlds/water.png",
       action=create_dimensional_portal(BIOME_WATER, WORLD_CONJURER, BIOME_MAP_CONJURER_GENERATED),
     },
     {
-      name="Hellscape",
+      name="Pahamaa",
       image="mods/raksa/files/gfx/power_icons/worlds/hell.png",
       action=create_dimensional_portal(BIOME_HELL, WORLD_CONJURER, "mods/raksa/files/biomes/biome_map_hellscape.png"),
     },
   }
   local noita_worlds = {
-    -- Demo, trailer, lab, niilo, newgame_plus, metagame
     {
       name="Peculiar Mountainside",
       image="mods/raksa/files/gfx/power_icons/worlds/noita.png",
       action=create_dimensional_portal(BIOME_NOITA, WORLD_NOITA, BIOME_MAP_NOITA, PIXEL_SCENES_NOITA)
     },
     {
-      name='The Cursed Realms of "NG" the Plus',
+      name='Cursed Realms of "NG the Plus"',
       image="mods/raksa/files/gfx/power_icons/worlds/noita_ng.png",
       action=create_dimensional_portal(BIOME_NOITA_NG, WORLD_NOITA, BIOME_MAP_NOITA_NG, PIXEL_SCENES_NOITA_NG),
     },
     {
-      name="Metapelium",
+      -- Yeah, I think that should be descriptive enough.
+      name="???????",
       image="mods/raksa/files/gfx/power_icons/worlds/noita_metapeli.png",
       action=create_dimensional_portal(BIOME_NOITA, WORLD_NOITA, "data/scripts/biomes/biome_map_gen.lua", ""),
     },
