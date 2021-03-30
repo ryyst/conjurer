@@ -272,14 +272,25 @@ function Tooltip(text, desc)
   GuiTooltip(GUI, text, desc)
 end
 
+function Layer(callback)
+  GuiLayoutBeginLayer(GUI)
+    callback()
+  GuiLayoutEndLayer(GUI)
+end
 
 function Checkbox(vars, callback)
-  local button_vars = {
-    text=vars.is_active and "[*] "..vars.text or "[ ] "..vars.text,
-    tooltip=vars.tooltip or nil,
-    tooltip_desc=vars.tooltip_desc or nil,
-  }
-  Button(button_vars, callback)
+  local choice = vars.is_active and "full" or "empty"
+  local sprite = "mods/raksa/files/gfx/checkbox_"..choice..".png"
+
+  Horizontal(0, 0, function()
+    Image({ sprite=sprite, y=2 })
+    Button({
+      text=vars.text,
+      tooltip=vars.tooltip or nil,
+      tooltip_desc=vars.tooltip_desc or nil,
+      x=1.5
+    }, callback)
+  end)
 end
 
 
