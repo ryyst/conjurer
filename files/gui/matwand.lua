@@ -103,6 +103,7 @@ function render_brush_picker()
           min=1,
           max=100,
           width=100,
+          padding=15,
           tooltip="Brush grid snapping size"
         }
 
@@ -226,6 +227,7 @@ function render_eraser_picker()
         default=tonumber(DEFAULTS[ERASER_SIZE]),
         min=1,
         max=20,
+        padding=15,
         width=60,
       }
 

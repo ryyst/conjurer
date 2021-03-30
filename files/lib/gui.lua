@@ -267,7 +267,27 @@ function WidgetInfo()
   return GuiGetPreviousWidgetInfo(GUI)
 end
 
+
 function Slider(vars, callback)
+  Horizontal(0, 0, function()
+    Text(vars.text, {y=-1, tooltip=vars.tooltip})
+    local _c, _rc, _h, _x, _y, width = WidgetInfo()
+
+    local desired_distance = vars.padding or 25
+
+    -- Modify the vars we pass to the bare slider
+    vars.x = desired_distance - width
+    vars.text = nil
+
+    if vars.disabled then
+      Text(vars.value, {y=-1, x=vars.x+2, color={red=155, green=173, blue=183}})
+    else
+      SliderBare(vars, callback)
+    end
+  end)
+end
+
+function SliderBare(vars, callback)
   local formatting = vars.decimals and string.format("%.2f", vars.value) or vars.value
 
   -- The display value of GuiSlider component itself seems to use rounding,

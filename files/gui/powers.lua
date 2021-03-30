@@ -22,7 +22,7 @@ end
 
 
 function activate_weather_menu()
-  toggle_active_overlay(render_weather_menu, 11, -38)
+  toggle_active_overlay(render_weather_menu, 14, -44)
 end
 
 function create_dimensional_portal(biome, world, biome_file, scene_file)
@@ -53,7 +53,12 @@ local main_menu_items = {
   {
     name="Trans-Dimensional Travel",
     image="mods/raksa/files/gfx/power_icons/dimension_portal.png",
-    action = function() toggle_active_overlay(render_world_menu) end,
+    action = function() toggle_active_overlay(render_world_menu, 0, 4) end,
+  },
+  {
+    name="Arcane Mind",
+    image = "mods/raksa/files/gfx/power_icons/memorize.png",
+    action = function() toggle_active_overlay(render_teleport_menu, 0, 8) end,
   },
   {
     name="Toggle Conscious Eye of Glass",
@@ -67,11 +72,6 @@ local main_menu_items = {
     action = toggle_binoculars,
   },
   {
-    name="Arcane Mind",
-    image = "mods/raksa/files/gfx/power_icons/memorize.png",
-    action = function() toggle_active_overlay(render_teleport_menu, 0, 8) end,
-  },
-  {
     name="Toggle Gridular Monocle",
     image="mods/raksa/files/gfx/power_icons/grid.png",
     action = toggle_grid,
@@ -79,12 +79,12 @@ local main_menu_items = {
   {
     name="Control World Happiness",
     image_func = function() return get_happiness_icon(ACTIVE_HAPPINESS_LEVEL) end,
-    action = function() toggle_active_overlay(render_happiness_menu) end,
+    action = function() toggle_active_overlay(render_happiness_menu, 11, 0) end,
   },
   {
     name="Change Herd",
     image_func = function() return ACTIVE_HERD.image end,
-    action = function() toggle_active_overlay(render_herd_menu) end,
+    action = function() toggle_active_overlay(render_herd_menu, 11, 0) end,
   },
   {
     name="Toggle Kalma's Call",
@@ -104,7 +104,7 @@ local main_menu_items = {
   {
     name="Control Planetary Rotation",
     image = "mods/raksa/files/gfx/power_icons/planetary_controls.png",
-    action = function() toggle_active_overlay(render_time_menu) end,
+    action = function() toggle_active_overlay(render_time_menu, 17, -9) end,
   },
 };
 
@@ -195,7 +195,7 @@ function render_world_menu()
     )
   end)
 
-  Grid({items=noita_worlds, size=6, y=1}, function(dimension)
+  Grid({items=noita_worlds, size=6, y=0.5}, function(dimension)
     Button(
       {style=NPBG_BLACK, tooltip=dimension.name, image=dimension.image},
       dimension.action
@@ -335,7 +335,7 @@ function render_weather_menu()
           tooltip="Select rain material",
           tooltip_desc="["..GlobalsGet(RAIN_MATERIAL).."]",
         },
-        function() toggle_active_overlay(render_rain_material_picker, 4, -55) end
+        function() toggle_active_overlay(render_rain_material_picker, 6, -55) end
       )
 
       local icon = "mods/raksa/files/gfx/icon_power_on.png"
@@ -351,6 +351,7 @@ function render_weather_menu()
     end)
 
     Slider({
+        padding=32,
         min=1,
         max=200,
         default=DEFAULTS[RAIN_COUNT],
@@ -363,19 +364,20 @@ function render_weather_menu()
     )
 
     Slider({
-        min=128,
-        max=2048,
-        default=DEFAULTS[RAIN_WIDTH],
-        value=GlobalsGetNumber(RAIN_WIDTH),
-        text="Extra width",
-        tooltip="How far to rain outside the camera. Might help with performance."
+        padding=32,
+        min=1,
+        max=100,
+        default=DEFAULTS[RAIN_GRAVITY],
+        value=GlobalsGetNumber(RAIN_GRAVITY),
+        text="Gravity",
       },
       function(new_value)
-        GlobalsSetValue(RAIN_WIDTH, str(new_value))
+        GlobalsSetValue(RAIN_GRAVITY, str(new_value))
       end
     )
 
     Slider({
+        padding=47,
         min=0,
         max=300,
         default=DEFAULTS[RAIN_VELOCITY_MIN],
@@ -388,6 +390,7 @@ function render_weather_menu()
     )
 
     Slider({
+        padding=47,
         min=0,
         max=300,
         default=DEFAULTS[RAIN_VELOCITY_MAX],
@@ -400,16 +403,19 @@ function render_weather_menu()
     )
 
     Slider({
-        min=1,
-        max=100,
-        default=DEFAULTS[RAIN_GRAVITY],
-        value=GlobalsGetNumber(RAIN_GRAVITY),
-        text="Gravity",
+        padding=47,
+        min=128,
+        max=2048,
+        default=DEFAULTS[RAIN_WIDTH],
+        value=GlobalsGetNumber(RAIN_WIDTH),
+        text="Extra width",
+        tooltip="How far to rain outside the camera. Might help with performance."
       },
       function(new_value)
-        GlobalsSetValue(RAIN_GRAVITY, str(new_value))
+        GlobalsSetValue(RAIN_WIDTH, str(new_value))
       end
     )
+
 
     Checkbox({
         is_active=GlobalsGetBool(RAIN_BOUNCE),
@@ -447,48 +453,52 @@ function render_weather_menu()
       },
       function() GlobalsToggleBool(WIND_OVERRIDE_ENABLED) end
     )
-    if wind_override then
-      Slider({
-          value=GlobalsGetNumber(WIND_SPEED),
-          default=0,
-          min=-499,  -- Exclusive, actually goes to -500
-          max=500,
-          text="Wind",
-        },
-        function(new_value)
-          GlobalsSetValue(WIND_SPEED, tostring(new_value))
-        end
-      )
+    Slider({
+        value=GlobalsGetNumber(WIND_SPEED),
+        disabled=not wind_override,
+        default=0,
+        min=-499,  -- Exclusive, actually goes to -500
+        max=500,
+        width=60,
+        text="Wind",
+      },
+      function(new_value)
+        GlobalsSetValue(WIND_SPEED, tostring(new_value))
+      end
+    )
 
-      local value_multiplier = 100
-      Slider({
-          value=GlobalsGetNumber(CLOUD_AMOUNT) * value_multiplier,
-          default=0,
-          min=0,
-          max=100,
-          text="Clouds",
-        },
-        function(new_value)
-          -- The target animation is kinda cool, but is it really worth it? Think not for now.
-          GlobalsSetValue(CLOUD_AMOUNT, tostring(new_value / value_multiplier))
-        end
-      )
+    local value_multiplier = 100
+    Slider({
+        value=GlobalsGetNumber(CLOUD_AMOUNT) * value_multiplier,
+        disabled=not wind_override,
+        default=0,
+        min=0,
+        max=100,
+        width=60,
+        text="Clouds",
+      },
+      function(new_value)
+        -- The target animation is kinda cool, but is it really worth it? Think not for now.
+        GlobalsSetValue(CLOUD_AMOUNT, tostring(new_value / value_multiplier))
+      end
+    )
 
-      -- NOTE: Lightning did not work nicely with sliders, due to automatically going to 0.
-      -- See if you can figure any sort of fun UI for it.
+    -- NOTE: Lightning did not work nicely with sliders, due to automatically going to 0.
+    -- See if you can figure any sort of fun UI for it.
 
-      Slider({
-          value=GlobalsGetNumber(FOG_AMOUNT) * value_multiplier,
-          default=0,
-          min=0,
-          max=100,
-          text="Fog",
-        },
-        function(new_value)
-          GlobalsSetValue(FOG_AMOUNT, tostring(new_value / value_multiplier))
-        end
-      )
-    end
+    Slider({
+        value=GlobalsGetNumber(FOG_AMOUNT) * value_multiplier,
+        disabled=not wind_override,
+        default=0,
+        min=0,
+        max=100,
+        width=60,
+        text="Fog",
+      },
+      function(new_value)
+        GlobalsSetValue(FOG_AMOUNT, tostring(new_value / value_multiplier))
+      end
+    )
   end)
 end
 
@@ -517,70 +527,77 @@ function render_time_menu()
     },
   };
 
-  Grid({items=time_of_day_buttons, size=4}, function(item)
-    Button(
-      {image=item.image, tooltip=item.name},
-      item.action
+  local npbg_color = {red=14, green=13, blue=12, alpha=242}
+  Text("Planetary Adjustments", {color=npbg_color, x=-3})
+  VerticalSpacing(4)
+
+  Background({margin=5}, function()
+    Grid({items=time_of_day_buttons, padding_x=1, size=4, x=-0.5}, function(item)
+      Button(
+        {image=item.image, tooltip=item.name},
+        item.action
+      )
+    end)
+
+    VerticalSpacing(4)
+
+    -- time_dt slider
+    local MULTIPLIER = 10
+
+    function to_worldstate_value(val)
+      if val <= 0.1 then return 0 end
+      return math.max(10 ^ val / MULTIPLIER)
+    end
+
+    function to_slider_log_value(val)
+      return math.max(math.log10(val*MULTIPLIER), 0)
+    end
+
+    local world = GameGetWorldStateEntity()
+    local time_dt = to_slider_log_value(EntityGetValue(world, "WorldStateComponent", "time_dt"))
+
+    Slider({
+        max=3.5,
+        decimals=true,
+        default=to_slider_log_value(1),
+        value=time_dt,
+        formatting=string.format("%.2f", time_dt),
+        text="Torque",
+        tooltip="Right-click to bring back the natural order.",
+        tooltip_desc="Note: This also acts as a multiplier to wind speeds.",
+      },
+      function(new_value)
+        EntitySetValue(world, "WorldStateComponent", "time_dt", to_worldstate_value(new_value))
+      end
+    )
+
+    Slider({
+        value=EntityGetValue(world, "WorldStateComponent", "gradient_sky_alpha_target") * 100,
+        default=0,
+        min=0,
+        max=100,
+        text="Skytop",
+        tooltip="Adjust the topmost sky gradient",
+        decimals=false,
+      },
+      function(new_value)
+        EntitySetValue(world, "WorldStateComponent", "gradient_sky_alpha_target", new_value/100)
+      end
+    )
+    Slider({
+        value=EntityGetValue(world, "WorldStateComponent", "sky_sunset_alpha_target") * 100,
+        default=100,
+        min=0,
+        max=100,
+        text="Sunset",
+        tooltip="Adjust the bottom sky gradient",
+        decimals=false,
+      },
+      function(new_value)
+        EntitySetValue(world, "WorldStateComponent", "sky_sunset_alpha_target", new_value/100)
+      end
     )
   end)
-
-  -- time_dt slider
-  local MULTIPLIER = 10
-
-  function to_worldstate_value(val)
-    if val <= 0.1 then return 0 end
-    return math.max(10 ^ val / MULTIPLIER)
-  end
-
-  function to_slider_log_value(val)
-    return math.max(math.log10(val*MULTIPLIER), 0)
-  end
-
-  local world = GameGetWorldStateEntity()
-  local time_dt = to_slider_log_value(EntityGetValue(world, "WorldStateComponent", "time_dt"))
-
-  Slider({
-      x=-2,
-      max=3.5,
-      decimals=true,
-      default=to_slider_log_value(1),
-      value=time_dt,
-      formatting=string.format("%.2f", time_dt),
-      text="Torque",
-      tooltip="Right-click to bring back the natural order.",
-      tooltip_desc="Note: This also acts as a multiplier to wind speeds.",
-    },
-    function(new_value)
-      EntitySetValue(world, "WorldStateComponent", "time_dt", to_worldstate_value(new_value))
-    end
-  )
-
-  Slider({
-      value=EntityGetValue(world, "WorldStateComponent", "gradient_sky_alpha_target") * 100,
-      default=0,
-      min=0,
-      max=100,
-      text="Skytop",
-      tooltip="Adjust the topmost sky gradient",
-      decimals=false,
-    },
-    function(new_value)
-      EntitySetValue(world, "WorldStateComponent", "gradient_sky_alpha_target", new_value/100)
-    end
-  )
-  Slider({
-      value=EntityGetValue(world, "WorldStateComponent", "sky_sunset_alpha_target") * 100,
-      default=100,
-      min=0,
-      max=100,
-      text="Sunset",
-      tooltip="Adjust the bottom sky gradient",
-      decimals=false,
-    },
-    function(new_value)
-      EntitySetValue(world, "WorldStateComponent", "sky_sunset_alpha_target", new_value/100)
-    end
-  )
 
 end
 

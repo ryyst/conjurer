@@ -42,14 +42,18 @@ Powers:
   - New power: Trans-dimensional traveling; Change maps/biomes while in-game!
     - Includes 6 new custom areas and 6 basegame worlds
     - The "map selection" Mod Setting is removed along this new power
-  - Nightfall Nakkikiska will now also enable self-damage for any enemies
+  - Changed: Weather overrides are now enabled by default
+  - Experimental: Nightfall Nakkikiska now also enables self-damage for any enemies
 
 Items:
   - Fixed: You will no longer suffocate inside materials when using the enchanted carrot
 
 Other:
-  - Fixed: Fog of war hole around the player was off for custom zoom levels.
+  - Fixed: Fog of war hole around the player was off for custom zoom levels
   - Fixed: Global progress is disabled by default. Can be toggled via [Mod Settings]
+  - Bunch of minor UI changes:
+    - Nicer checkboxes
+    - Fine-tuning of probably most menus
 
 Mod Extensions:
   - Material wand: Refactored huge parts of the brush system:

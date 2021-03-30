@@ -128,7 +128,7 @@ function NumberField(field_name, min, max, default, multiplier, tooltip, text, c
           invalid_value = nil
         end)
       else
-        Slider({
+        SliderBare({
             value=ComponentGetValue2(comp, field_name) * multiplier,
             default=default,
             x=-2,

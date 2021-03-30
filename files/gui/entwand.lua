@@ -94,6 +94,7 @@ function render_entity_options()
           min=1,
           max=50,
           width=100,
+          padding=18,
           tooltip="How many rows to spawn entities",
           tooltip_desc="Warning: Things can quickly turn sour with high numbers",
         },
@@ -109,6 +110,7 @@ function render_entity_options()
           min=1,
           max=50,
           width=100,
+          padding=18,
           tooltip="How many columns to spawn entities",
           tooltip_desc="Warning: Things can quickly turn sour with high numbers",
         },
@@ -124,6 +126,7 @@ function render_entity_options()
           min=1,
           max=100,
           width=100,
+          padding=18,
           tooltip="Entity spawner grid snapping size"
         },
         function(new_value)
