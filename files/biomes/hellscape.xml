@@ -25,7 +25,7 @@
     mMultiplierGradient="0.6"
     >
 
-    <BitmapCaves 
+    <BitmapCaves
       name="bitmap_hellhills"
       size_x="512"
       size_y="256"
@@ -48,8 +48,8 @@
       mountain_size_max="10"
       surface_cave_childs_min="2"
       surface_cave_childs_max="7"
-      surface_caves_count_min="7" 
-      surface_caves_count_max="12" 
+      surface_caves_count_min="7"
+      surface_caves_count_max="12"
       DEBUG_output_image="temptemp/debug_hills.png"
       >
       <structures>
@@ -112,7 +112,7 @@
           strength_max="0.65"
           >
         </CaveStructure>
-		<CaveStructure
+        <CaveStructure
           image_file="data/biome_impl/caves/deep_pit.png"
           aabb_min_x="5"
           aabb_max_x="507"
@@ -186,7 +186,7 @@
         </CaveStructure>
       </structures>
     </BitmapCaves>
-</Topology>
+  </Topology>
   <!--
     rock_hard_border
   rock_static_purple

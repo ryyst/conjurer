@@ -6,11 +6,12 @@ Map changes:
   - Spruced up all backgrounds & visuals for the whole spawn tower area
   - Fixed: The fireplace should be generally less hazardous
   - Fixed: The lake leaking into teleportatium
+  - Fixed: Default flat world now has more uniform terrain generation
   - *Secrets*
 
 Material wand:
   - New category: Solid Physics
-    - Finally the ability to draw physical, moving, chunks of meat!
+    - Finally the ability to draw physical & kickable chunks of meat!
   - Changed: Default eraser filter from "Solids" to "All materials"
   - Fixed: Brush reticle now updates instantly when swapping brushes
   - Fixed: Eraser reticle now updates correctly when toggling Replace mode
@@ -23,6 +24,7 @@ Entity wand:
   - New category: Foregrounds
   - New wand setting: Ignore backgrounds when removing entities
   - New wand setting: Kill instead of deleting
+  - New wand setting: Toggle enemy gold drop
   - New custom entities:
     - Heavy Machine Gun
     - Domino Blocks
