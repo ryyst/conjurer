@@ -659,9 +659,9 @@ BACKGROUNDS = {
     spawn_func=spawn_img("data/biome_impl/tank_liquid_4_background.png", 1, 33),
   },
   {
-    name="1 visual",
+    name="Skull in desert",
     image="mods/raksa/files/gfx/bg_icons/135_1_visual.png",
-    spawn_func=spawn_img("data/biome_impl/spliced/skull_in_desert/1_visual.png", 0, 0),
+    spawn_func=spawn_img("mods/raksa/files/custom_entities/backgrounds/skull_in_desert.png", 0, 0),
   },
   {
     name="Background cave 01",
