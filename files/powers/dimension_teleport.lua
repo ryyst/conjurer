@@ -3,6 +3,8 @@ dofile_once("data/scripts/newgame_plus.lua")
 dofile_once("mods/raksa/files/scripts/utilities.lua")
 dofile_once("mods/raksa/files/scripts/enums.lua")
 
+dofile_once("mods/raksa/files/wands/matwand/toggle_brush.lua")
+
 
 -- Teleport player to spawn locations only when changing between Noita's
 -- and our Conjurer's own worlds, not just different biomes.
@@ -50,6 +52,11 @@ function collision_trigger(entity)
     -- Update current location
     GlobalsSetValue(BIOME_CURRENT, destination_biome)
     GlobalsSetValue(WORLD_CURRENT, destination_world)
+
+    -- Fix a case where you couldn't draw after a teleport, before swapping wands.
+    if EntityGetName(get_active_wand()) == "matwand" then
+      create_brush()
+    end
     return
   end
 
