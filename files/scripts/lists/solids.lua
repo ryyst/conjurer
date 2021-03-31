@@ -25,6 +25,12 @@ SOLIDS = {
     ["id"] = "concrete_static"
   },
   {
+    image="mods/raksa/files/gfx/material_icons/construction.png",
+    name="Construction Steel",
+    desc="Custom material from Conjurer\nNote: Will get converted as usual, if any box2d materials are used",
+    id="construction_steel",
+  },
+  {
     ["image"] = "mods/raksa/files/gfx/material_icons/corruption.png",
     ["name"] = "Corruption Static",
     ["id"] = "corruption_static"
@@ -103,6 +109,21 @@ SOLIDS = {
     ["image"] = "mods/raksa/files/gfx/material_icons/nest.png",
     ["name"] = "Nest Static",
     ["id"] = "nest_static"
+  },
+  {
+    name="Rock Static Fungal",
+    id="rock_static_fungal",
+    image="mods/raksa/files/gfx/material_icons/fun.png",
+  },
+  {
+    name="Rock Static Trip Secret",
+    id="rock_static_trip_secret",
+    image="mods/raksa/files/gfx/material_icons/rock.png",
+  },
+  {
+    name="Rock Static Trip Secret2",
+    id="rock_static_trip_secret2",
+    image="mods/raksa/files/gfx/material_icons/rock.png",
   },
   {
     ["image"] = "mods/raksa/files/gfx/material_icons/rock.png",
@@ -218,7 +239,6 @@ SOLIDS = {
     name="Sand Static Rainforest Dark",
     image="mods/raksa/files/gfx/material_icons/earth_rainforest_dark.png",
     id="sand_static_rainforest_dark",
-    is_beta=true,
   },
   {
     ["image"] = "mods/raksa/files/gfx/material_icons/earth_bright_red.png",
@@ -239,6 +259,11 @@ SOLIDS = {
     ["image"] = "mods/raksa/files/gfx/material_icons/steelpanel.png",
     ["name"] = "Steel Static",
     ["id"] = "steel_static"
+  },
+  {
+    name="Steel Grey Static",
+    id="steel_grey_static",
+    image="mods/raksa/files/gfx/material_icons/steelpanel_grey.png",
   },
   {
     ["image"] = "mods/raksa/files/gfx/material_icons/steelpanel.png",
@@ -274,6 +299,11 @@ SOLIDS = {
     ["image"] = "mods/raksa/files/gfx/material_icons/steelpanelmoss.png",
     ["name"] = "Steelmoss Slanted",
     ["id"] = "steelmoss_slanted"
+  },
+  {
+    name="Steel Rusted No Holes",
+    id="steel_rusted_no_holes",
+    image="mods/raksa/files/gfx/material_icons/steelpanelmoss.png",
   },
   {
     ["image"] = "mods/raksa/files/gfx/material_icons/templebrick_diamond.png",

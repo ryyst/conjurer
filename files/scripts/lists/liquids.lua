@@ -151,9 +151,13 @@ LIQUIDS = {
   },
   {
     name="Material Darkness",
-    image="mods/raksa/files/gfx/material_icons/darkness.png",
     id="material_darkness",
-    is_beta=true,
+    image="mods/raksa/files/gfx/material_icons/darkness.png",
+  },
+  {
+    name="Material Rainbow",
+    id="material_rainbow",
+    image="mods/raksa/files/gfx/material_icons/rainbow.png",
   },
   {
     ["image"] = "mods/raksa/files/gfx/material_icons/honey.png",
@@ -169,6 +173,11 @@ LIQUIDS = {
     ["image"] = "mods/raksa/files/gfx/material_icons/oil_colorgen.png",
     ["name"] = "Oil",
     ["id"] = "oil"
+  },
+  {
+    name="Porridge",
+    id="porridge",
+    image="mods/raksa/files/gfx/material_icons/porridge.png",
   },
   {
     ["image"] = "mods/raksa/files/gfx/material_icons/slime_green.png",
@@ -209,6 +218,11 @@ LIQUIDS = {
     ["image"] = "mods/raksa/files/gfx/material_icons/slime_green.png",
     ["name"] = "Slime Green",
     ["id"] = "slime_green"
+  },
+  {
+    name="Slime Yellow",
+    id="slime_yellow",
+    image="mods/raksa/files/gfx/material_icons/yellowblood.png",
   },
   {
     ["image"] = "mods/raksa/files/gfx/material_icons/slush.png",

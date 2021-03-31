@@ -1,5 +1,11 @@
 SANDS = {
   {
+    image="mods/raksa/files/gfx/material_icons/ash.png",
+    name="Ash",
+    desc="Custom material from Conjurer",
+    id="ash",
+  },
+  {
     ["image"] = "mods/raksa/files/gfx/material_icons/bone.png",
     ["name"] = "Bone",
     ["id"] = "bone"
@@ -80,6 +86,11 @@ SANDS = {
     ["id"] = "fungisoil"
   },
   {
+    name="Glue",
+    id="glue",
+    image="mods/raksa/files/gfx/material_icons/glue_colorgen.png",
+  },
+  {
     ["image"] = "mods/raksa/files/gfx/material_icons/glass.png",
     ["name"] = "Glass Broken",
     ["id"] = "glass_broken"
@@ -108,7 +119,6 @@ SANDS = {
     name="Grass Dark",
     image="mods/raksa/files/gfx/material_icons/moss.png",
     id="grass_dark",
-    is_beta=true,
   },
   {
     ["image"] = "mods/raksa/files/gfx/material_icons/grass_dry.png",
@@ -159,7 +169,6 @@ SANDS = {
     name="Metal Sand",
     image="mods/raksa/files/gfx/material_icons/steel.png",
     id="metal_sand",
-    is_beta=true,
   },
   {
     ["image"] = "mods/raksa/files/gfx/material_icons/moss.png",
@@ -227,12 +236,6 @@ SANDS = {
     ["id"] = "purifying_powder"
   },
   {
-    name="Rat Powder",
-    image="mods/raksa/files/gfx/material_icons/meat_rotten.png",
-    id="rat_powder",
-    is_beta=true,
-  },
-  {
     ["image"] = "mods/raksa/files/gfx/material_icons/meat_rotten.png",
     ["name"] = "Rotten Meat",
     ["id"] = "rotten_meat"
@@ -261,6 +264,11 @@ SANDS = {
     ["image"] = "mods/raksa/files/gfx/material_icons/moss.png",
     ["name"] = "Sand Herb",
     ["id"] = "sand_herb"
+  },
+  {
+    name="Sand Petrify",
+    id="sand_petrify",
+    image="mods/raksa/files/gfx/material_icons/sand_petrify.png",
   },
   {
     ["image"] = "mods/raksa/files/gfx/material_icons/sand_surface.png",
@@ -311,13 +319,11 @@ SANDS = {
     name="Soil Dark",
     image="mods/raksa/files/gfx/material_icons/soil_lush_dark.png",
     id="soil_dark",
-    is_beta=true,
   },
   {
     name="Soil Lush Dark",
     image="mods/raksa/files/gfx/material_icons/soil_lush_dark.png",
     id="soil_lush_dark",
-    is_beta=true,
   },
   {
     ["image"] = "mods/raksa/files/gfx/material_icons/soil_dead.png",

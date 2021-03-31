@@ -5,12 +5,13 @@ dofile_once("mods/raksa/files/scripts/lists/sands.lua");
 dofile_once("mods/raksa/files/scripts/lists/liquids.lua");
 dofile_once("mods/raksa/files/scripts/lists/gases.lua");
 dofile_once("mods/raksa/files/scripts/lists/fires.lua");
+dofile_once("mods/raksa/files/scripts/lists/ignored_materials.lua");
 dofile_once("mods/raksa/files/scripts/lists/box2d_solids.lua");
 dofile_once("mods/raksa/files/scripts/lists/dangerous_materials.lua");
 
 
 local _all_defined_materials = {
-  SOLIDS, LIQUIDS, SANDS, GASES, FIRES, DANGEROUS, BOX2D_SOLIDS
+  SOLIDS, LIQUIDS, SANDS, GASES, FIRES, DANGEROUS, BOX2D_SOLIDS, IGNORED,
 }
 
 

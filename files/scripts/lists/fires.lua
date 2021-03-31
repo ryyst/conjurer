@@ -140,7 +140,6 @@ FIRES = {
     name="Gunpowder Unstable Big",
     image="mods/raksa/files/gfx/material_icons/gunpowder.png",
     id="gunpowder_unstable_big",
-    is_beta=true,
   },
   {
     ["image"] = "mods/raksa/files/gfx/material_icons/moss.png",
@@ -171,7 +170,6 @@ FIRES = {
     name="Metal Sand Molten",
     image="mods/raksa/files/gfx/material_icons/steel.png",
     id="metal_sand_molten",
-    is_beta=true,
   },
   {
     ["image"] = "mods/raksa/files/gfx/material_icons/steel.png",
@@ -278,6 +276,11 @@ FIRES = {
     ["image"] = "mods/raksa/files/gfx/material_icons/rocket_particles_colorgen.png",
     ["name"] = "Rocket Particles",
     ["id"] = "rocket_particles"
+  },
+  {
+    name="Shock Powder",
+    id="shock_powder",
+    image="mods/raksa/files/gfx/material_icons/shock_powder_colorgen.png",
   },
 }
 

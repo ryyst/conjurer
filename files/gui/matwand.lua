@@ -57,7 +57,8 @@ function render_material_picker()
 
   -- Render material buttons
   Background({margin=3, style=NPBG_BROWN, z_index=200}, function()
-    Grid({items=active_category.materials, x=1, y=2, size=8}, function(material)
+    local size = active_category.grid_size or 8
+    Grid({items=active_category.materials, x=1, y=2, size=size}, function(material)
       local vars = {
         image=material.image,
         image_letter_text=material.name,

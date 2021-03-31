@@ -18,9 +18,10 @@ ALL_MATERIALS = {
   {
     name="Solid Physics",
     desc="NOTICE:\nConjurer discretion is advised when summoning physical elements.\nRecklessness may cause total dimensional obliteration.",
-    icon="mods/raksa/files/gfx/matwand_icons/icon_solid.png",
-    icon_off="mods/raksa/files/gfx/matwand_icons/icon_solid_off.png",
+    icon="mods/raksa/files/gfx/matwand_icons/icon_box2d.png",
+    icon_off="mods/raksa/files/gfx/matwand_icons/icon_box2d_off.png",
     materials=enable_physics(BOX2D_SOLIDS),
+    grid_size=10,
   },
   {
     name="Liquids",

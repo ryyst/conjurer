@@ -41,9 +41,13 @@ GASES = {
   },
   {
     name="Poo Gas",
-    image="mods/raksa/files/gfx/material_icons/poo_gas_colorgen.png",
     id="poo_gas",
-    is_beta=true,
+    image="mods/raksa/files/gfx/material_icons/poo_gas_colorgen.png",
+  },
+  {
+    name="Rainbow Gas",
+    id="rainbow_gas",
+    image="mods/raksa/files/gfx/material_icons/rainbow_gas.png",
   },
   {
     ["image"] = "mods/raksa/files/gfx/material_icons/radioactive_gas_colorgen.png",
