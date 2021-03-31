@@ -15,6 +15,14 @@ local function building(file, name, image)
 end
 
 ANIMALS = {
+  animal("basebot_hidden", "Basebot hidden"),
+  animal("basebot_neutralizer", "Basebot neutralizer"),
+  animal("basebot_sentry", "Basebot sentry"),
+  animal("basebot_soldier", "Basebot soldier"),
+  animal("boss_robot/boss_robot", "Boss robot", "boss_robot"),
+  animal("fungus_giga", "Fungus giga"),
+  animal("miner_chef", "Miner chef"),
+  animal("roboguard_big", "Roboguard big"),
   animal("boss_ghost/boss_ghost", "Boss ghost", "boss_ghost"),
   animal("boss_ghost/polyp_shot", "Boss ghost polyp", "boss_ghost_polyp"),
   animal("boss_wizard/boss_wizard", "Boss wizard", "boss_wizard"),
