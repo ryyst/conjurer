@@ -10,6 +10,12 @@ function get_hitbox_transform(box)
   local max_y = ComponentGetValue2(box, "aabb_max_y")
   local offset_x, offset_y = ComponentGetValue2(box, "offset")
 
+  -- Animals turning around flips the scale, thus also flipping the X offset.
+  local _, _, _, scale_x = EntityGetTransform(entity)
+  local sign = scale_x < 0 and -1 or 1
+  offset_x = offset_x * sign
+
+  -- Worm-like creatures get special treatment.
   local worm_hitbox = EntityGetValue(entity, "WormComponent", "hitbox_radius")
   if worm_hitbox then
     local size = worm_hitbox * 2
