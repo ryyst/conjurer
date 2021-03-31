@@ -70,7 +70,7 @@ function create_sprites(hitboxes)
     local x, y, width, height = get_hitbox_transform(box)
 
     -- Silly boolean conversion
-    local is_worm = true and EntityGetValue(entity, "WormComponent", "hitbox_radius")
+    local is_worm = not not EntityGetValue(entity, "WormComponent", "hitbox_radius")
 
     EntityAddComponent2(entity, "SpriteComponent", {
         _tags="raksa_hitbox_display",
