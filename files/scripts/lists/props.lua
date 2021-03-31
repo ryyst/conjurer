@@ -143,6 +143,46 @@ PROPS = {
     desc="Note: Aim at ground!",
   },
   {
+    name="Physics fungus acid",
+    path="data/entities/props/physics_fungus_acid.xml",
+    image="mods/raksa/files/gfx/prop_icons/physics_fungus_acid_cap_01.png",
+  },
+  {
+    name="Physics fungus acid big",
+    path="data/entities/props/physics_fungus_acid_big.xml",
+    image="mods/raksa/files/gfx/prop_icons/physics_fungus_acid_cap_03.png",
+  },
+  {
+    name="Physics fungus acid huge",
+    path="data/entities/props/physics_fungus_acid_huge.xml",
+    image="mods/raksa/files/gfx/prop_icons/physics_fungus_acid_cap_04.png",
+  },
+  {
+    name="Physics fungus acid hugeish",
+    path="data/entities/props/physics_fungus_acid_hugeish.xml",
+    image="mods/raksa/files/gfx/prop_icons/physics_fungus_acid_cap_04.png",
+  },
+  {
+    name="Physics fungus acid small",
+    path="data/entities/props/physics_fungus_acid_small.xml",
+    image="mods/raksa/files/gfx/prop_icons/physics_fungus_acid_cap_02.png",
+  },
+  {
+    name="Physics fungus huge",
+    path="data/entities/props/physics_fungus_huge.xml",
+    image="mods/raksa/files/gfx/prop_icons/physics_fungus_cap_04.png",
+  },
+  {
+    name="Physics fungus hugeish",
+    path="data/entities/props/physics_fungus_hugeish.xml",
+    image="mods/raksa/files/gfx/prop_icons/physics_fungus_cap_04.png",
+  },
+  {
+    name="Physics fungus trap",
+    path="data/entities/props/physics_fungus_trap.xml",
+    image="mods/raksa/files/gfx/prop_icons/physics_fungus_trap_cap_02.png",
+  },
+  {
     name="Furniture bed",
     path="data/entities/props/furniture_bed.xml",
     image="mods/raksa/files/gfx/prop_icons/furniture_bed.png",
@@ -674,6 +714,11 @@ PROPS = {
     name="Temple Statue 2",
     path="data/entities/props/temple_statue_02.xml",
     image="mods/raksa/files/gfx/prop_icons/temple_statue_02.png",
+  },
+  {
+    name="Trap electricity suspended",
+    path="data/entities/props/physics/trap_electricity_suspended.xml",
+    image="mods/raksa/files/gfx/prop_icons/trap_electricity.png",
   },
   {
     name="Trap laser",

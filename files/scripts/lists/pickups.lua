@@ -1,5 +1,85 @@
 PICKUPS = {
   {
+    name="Beamstone",
+    path="data/entities/items/pickup/beamstone.xml",
+    image="mods/raksa/files/gfx/pickup_icons/beamstone.png",
+  },
+  {
+    name="Evil eye",
+    path="data/entities/items/pickup/evil_eye.xml",
+    image="mods/raksa/files/gfx/pickup_icons/orb_red.png",
+  },
+  {
+    name="Musicstone",
+    path="data/entities/items/pickup/musicstone.xml",
+    image="mods/raksa/files/gfx/pickup_icons/musicstone.png",
+  },
+  {
+    name="Physics gold orb",
+    path="data/entities/items/pickup/physics_gold_orb.xml",
+    image="mods/raksa/files/gfx/pickup_icons/orb.png",
+  },
+  {
+    name="Physics gold orb greed",
+    path="data/entities/items/pickup/physics_gold_orb_greed.xml",
+    image="mods/raksa/files/gfx/pickup_icons/orb_greed.png",
+  },
+  {
+    name="Physics greed die",
+    path="data/entities/items/pickup/physics_greed_die.xml",
+    image="mods/raksa/files/gfx/pickup_icons/greed_die_pips.png",
+  },
+  {
+    name="Runestone metal",
+    path="data/entities/items/pickup/runestones/runestone_metal.xml",
+    image="mods/raksa/files/gfx/pickup_icons/runestone_metal.png",
+  },
+  {
+    name="Stonestone",
+    path="data/entities/items/pickup/stonestone.xml",
+    image="mods/raksa/files/gfx/pickup_icons/stonestone.png",
+  },
+  {
+    name="Newsun",
+    path="data/entities/items/pickup/sun/newsun.xml",
+    image="mods/raksa/files/gfx/pickup_icons/fog_of_war_hole_huge.png",
+  },
+  {
+    name="Newsun dark",
+    path="data/entities/items/pickup/sun/newsun_dark.xml",
+    image="mods/raksa/files/gfx/pickup_icons/sun_big_dark.png",
+  },
+  {
+    name="Sunbaby",
+    path="data/entities/items/pickup/sun/sunbaby.xml",
+    image="mods/raksa/files/gfx/pickup_icons/fog_of_war_hole_huge.png",
+  },
+  {
+    name="Sunegg",
+    path="data/entities/items/pickup/sun/sunegg.xml",
+    image="mods/raksa/files/gfx/pickup_icons/fog_of_war_hole_huge.png",
+  },
+  {
+    name="Sunseed",
+    path="data/entities/items/pickup/sun/sunseed.xml",
+    image="mods/raksa/files/gfx/pickup_icons/sunseed.png",
+  },
+  {
+    name="Sunstone",
+    path="data/entities/items/pickup/sun/sunstone.xml",
+    image="mods/raksa/files/gfx/pickup_icons/sunseed_2.png",
+  },
+  {
+    name="Sunseed",
+    path="data/entities/items/pickup/sunseed.xml",
+    image="mods/raksa/files/gfx/pickup_icons/sunseed.png",
+  },
+  {
+    name="Wandstone",
+    path="data/entities/items/pickup/wandstone.xml",
+    image="mods/raksa/files/gfx/pickup_icons/wandstone.png",
+  },
+  {
     name="Bloodmoney 10",
     path="data/entities/items/pickup/bloodmoney_10.xml",
     image="mods/raksa/files/gfx/pickup_icons/bloodnugget_6px.png",
@@ -25,6 +105,11 @@ PICKUPS = {
     image="mods/raksa/files/gfx/pickup_icons/blood_idol.png",
   },
   {
+    name="Bloodmoney 200000",
+    path="data/entities/items/pickup/bloodmoney_200000.xml",
+    image="mods/raksa/files/gfx/pickup_icons/blood_idol.png",
+  },
+  {
     name="Goldnugget 10",
     path="data/entities/items/pickup/goldnugget_10.xml",
     image="mods/raksa/files/gfx/pickup_icons/goldnugget_6px.png",
@@ -47,6 +132,11 @@ PICKUPS = {
   {
     name="Goldnugget 10000",
     path="data/entities/items/pickup/goldnugget_10000.xml",
+    image="mods/raksa/files/gfx/pickup_icons/golden_idol.png",
+  },
+  {
+    name="Goldnugget 200000",
+    path="data/entities/items/pickup/goldnugget_200000.xml",
     image="mods/raksa/files/gfx/pickup_icons/golden_idol.png",
   },
   {
@@ -215,8 +305,28 @@ PICKUPS = {
     image="mods/raksa/files/gfx/pickup_icons/die_pips.png",
   },
   {
+    name="Powder stash",
+    path="data/entities/items/pickup/powder_stash.xml",
+    image="mods/raksa/files/gfx/pickup_icons/powder_stash.png",
+  },
+  {
     name="Potion",
     path="data/entities/items/pickup/potion.xml",
+    image="mods/raksa/files/gfx/pickup_icons/potion.png",
+  },
+  {
+    name="Potion empty",
+    path="data/entities/items/pickup/potion_empty.xml",
+    image="mods/raksa/files/gfx/pickup_icons/potion.png",
+  },
+  {
+    name="Potion porridge",
+    path="data/entities/items/pickup/potion_porridge.xml",
+    image="mods/raksa/files/gfx/pickup_icons/potion.png",
+  },
+  {
+    name="Potion slime",
+    path="data/entities/items/pickup/potion_slime.xml",
     image="mods/raksa/files/gfx/pickup_icons/potion.png",
   },
   {
@@ -565,6 +675,31 @@ PICKUPS = {
     image="mods/raksa/files/gfx/pickup_icons/vihta.png",
   },
   {
+    name="Wand arpaluu",
+    path="data/entities/items/wand_arpaluu.xml",
+    image="mods/raksa/files/gfx/pickup_icons/skull_01.png",
+  },
+  {
+    name="Wand kiekurakeppi",
+    path="data/entities/items/wand_kiekurakeppi.xml",
+    image="mods/raksa/files/gfx/pickup_icons/wood_01.png",
+  },
+  {
+    name="Wand ruusu",
+    path="data/entities/items/wand_ruusu.xml",
+    image="mods/raksa/files/gfx/pickup_icons/plant_01.png",
+  },
+  {
+    name="Wand valtikka",
+    path="data/entities/items/wand_valtikka.xml",
+    image="mods/raksa/files/gfx/pickup_icons/scepter_01.png",
+  },
+  {
+    name="Wand varpuluuta",
+    path="data/entities/items/wand_varpuluuta.xml",
+    image="mods/raksa/files/gfx/pickup_icons/plant_02.png",
+  },
+  {
     name="Experimental wand 1",
     path="data/entities/items/wands/experimental/experimental_wand_1.xml",
     image="mods/raksa/files/gfx/pickup_icons/experimental_wand_1.png",
@@ -573,6 +708,11 @@ PICKUPS = {
     name="Experimental wand 2",
     path="data/entities/items/wands/experimental/experimental_wand_2.xml",
     image="mods/raksa/files/gfx/pickup_icons/experimental_wand_2.png",
+  },
+  {
+    name="Experimental wand 3",
+    path="data/entities/items/wands/experimental/experimental_wand_3.xml",
+    image="mods/raksa/files/gfx/pickup_icons/actual_wand_honest.png",
   },
   {
     name="Base wand level 1",
