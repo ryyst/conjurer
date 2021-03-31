@@ -39,11 +39,11 @@ function render_entity_properties()
 
   local tags = EntityGetTags(entity)
   if not tags or #tags == 0 then
-    tags = "-"
+    tags = "No tags found"
   end
 
   local tags_text = "Tags: "..tags
-  local filepath = "Entity: "..(filename or "")
+  local filepath = "Entity: "..(filename or "No XML found")
 
   local x, y, rot, scale_x, scale_y = EntityGetTransform(entity)
 
@@ -51,13 +51,13 @@ function render_entity_properties()
   x = math.floor(x)
   y = math.floor(y)
 
-  Text(readable_name, {tooltip=filepath, tooltip_desc=tags_text, x=4})
+  Text(readable_name, {x=4})
 
   Background({margin=3, style=NPBG_DEFAULT, z_index=200, min_width=90}, function()
     Vertical(1, 1, function()
       Horizontal(0, 0, function()
         Image({sprite="mods/raksa/files/gfx/editwand_icons/info_position.png", tooltip="Position"})
-        Text(math.floor(x)..", "..math.floor(y), {tooltip="Position", x=4})
+        Text(math.floor(x)..", "..math.floor(y), {tooltip="Position", x=2})
       end)
       Horizontal(0, 0, function()
         Image({sprite="mods/raksa/files/gfx/editwand_icons/info_rotation.png", tooltip="Rotation"})
@@ -68,6 +68,11 @@ function render_entity_properties()
         Text(string.format("%.2f", scale_x)..", "..string.format("%.2f", scale_y), {tooltip="Scale", x=2})
       end)
 
+      Horizontal(0, 0, function()
+        Image({sprite="mods/raksa/files/gfx/editwand_icons/info_xml.png", tooltip="Tags & XML"})
+        HoverText(filepath .."\n"..tags_text, {x=2})
+      end)
+
       VerticalSpacing(2)
       Text("Fine-tuning:", {color=COLOR_TEXT_TITLE})
 
@@ -75,7 +80,7 @@ function render_entity_properties()
         Text("[not supported]", {
           tooltip="Physical entities don't like micro adjustments.",
           tooltip_desc="Try animals or backgrounds!",
-          color={red=183, green=146, blue=110},
+          color={red=180, green=159, blue=129},
         })
       else
         Horizontal(0, -2, function()
@@ -244,7 +249,7 @@ function render_entity_properties()
             Button(
               {
                 tooltip="Save entity",
-                tooltip_desc="Saves the whole entity in your Noita base directory",
+                tooltip_desc="Dumps the whole entity XML into your Noita base directory",
                 image="mods/raksa/files/gfx/editwand_icons/icon_sav.png",
               },
               function()

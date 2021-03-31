@@ -11,13 +11,12 @@ function Header(text, no_margin)
 end
 
 
-function HoverTextField(field_name, text, no_margin)
+function HoverTextField(field_name, text)
   return function (comp, entity)
-    Header(text, no_margin)()
-    Text(
-      "[hover]",
-      { tooltip=ComponentGetValue2(comp, field_name) }
-    )
+    Horizontal(0, 0, function()
+      Text(text..":")
+      HoverText(tostring(ComponentGetValue2(comp, field_name)), {x=2})
+    end)
   end
 end
 
@@ -43,46 +42,18 @@ function BooleanField(field_name, text, tooltip)
   end
 end
 
-function Vec2Field(field_name, min, max, default, multiplier, tooltip, text, text2, decimals)
-  return function (comp, entity)
-    local x, y = ComponentGetValue2(comp, field_name)
-    Slider({
-        text=text or "",
-        value=x * multiplier,
-        default=default,
-        min=min*multiplier,
-        max=max*multiplier,
-        width=100,
-        tooltip=tooltip,
-        formatting=formatting,
-        decimals=decimals,
-      },
-      function(new_value)
-        local val = new_value / multiplier
-        ComponentSetValue2(comp, field_name, val, y)
-      end
-    )
-    Slider({
-        text=text2 or "",
-        value=y * multiplier,
-        default=default,
-        min=min*multiplier,
-        max=max*multiplier,
-        width=100,
-        tooltip=tooltip,
-        formatting=formatting,
-        decimals=decimals,
-      },
-      function(new_value)
-        local val = new_value / multiplier
-        ComponentSetValue2(comp, field_name, x, val)
-      end
-    )
+function ComponentSetValueOrVec(comp, field_name, value, other, vec2_index)
+  if vec2_index == 1 then
+    ComponentSetValue2(comp, field_name, value, other)
+  elseif vec2_index == 2 then
+    ComponentSetValue2(comp, field_name, other, value)
+  else
+    ComponentSetValue2(comp, field_name, value)
   end
 end
 
-function NumberField(field_name, min, max, default, multiplier, tooltip, text, comp_id, ddist, decimals)
-  local global_name = "RAKSA_NUMBERFIELD_"..field_name.."_"..ComponentGetTypeName(comp_id)
+function NumberField(field_name, min, max, default, multiplier, tooltip, text, comp_id, ddist, decimals, vec2_index)
+  local global_name = "RAKSA_NUMBERFIELD_"..field_name.."_"..tostring(vec2_index).."_"..ComponentGetTypeName(comp_id)
   --print(tostring(comp_id).." "..global_name)
 
   -- This is stored in a Global, so that the state is kept correctly *no matter what*.
@@ -91,17 +62,21 @@ function NumberField(field_name, min, max, default, multiplier, tooltip, text, c
 
   -- Invalid number values cannot be set into the Component, but it must be stored
   -- somewhere so that we know what to show the next frame.
-  -- Eg. the value is "" | "-" | "," | "3-3" | "...3..."
+  -- Eg. when the value is "" | "-" | "," | "3-3" | "...3..."
   local invalid_value = nil
 
   return function (comp, entity)
-    local value = ComponentGetValue2(comp, field_name)
+    local value, other = ComponentGetValue2(comp, field_name)
+
+    if vec2_index == 2 then
+      value, other = other, value
+    end
 
     Horizontal(0, 0, function()
       Text(text, {y=-1, tooltip=tooltip})
       local _c, _rc, _h, _x, _y, width = WidgetInfo()
 
-      local desired_distance = ddist or 20
+      local desired_distance = ddist or 25
       local distance = desired_distance - width
 
       Button(
@@ -124,12 +99,12 @@ function NumberField(field_name, min, max, default, multiplier, tooltip, text, c
             return
           end
 
-          ComponentSetValue2(comp, field_name, number_value)
+          ComponentSetValueOrVec(comp, field_name, number_value, other, vec2_index)
           invalid_value = nil
         end)
       else
         SliderBare({
-            value=ComponentGetValue2(comp, field_name) * multiplier,
+            value=value * multiplier,
             default=default,
             x=-2,
             min=min*multiplier,
@@ -141,10 +116,7 @@ function NumberField(field_name, min, max, default, multiplier, tooltip, text, c
           },
           function(new_value)
             local val = new_value / multiplier
-
-            print("[DEBUG] Updating: " .. field_name .. " ".. val .. " " .. max)
-
-            ComponentSetValue2(comp, field_name, val)
+            ComponentSetValueOrVec(comp, field_name, val, other, vec2_index)
           end
         )
       end
@@ -162,10 +134,10 @@ SUPPORTED_COMPONENTS = {
       --special = TextField("image_file", ""),
       props = {
         component = component,
-        height=165,
+        height=150,
         fields = {
-          HoverTextField("image_file", "Image file path", true),
-          Header("Rendering"),
+          Header("Rendering", true),
+          HoverTextField("image_file", "Image file path"),
           NumberField("alpha", 0, 1, 0, 100, nil, "alpha", component, 28),
           NumberField("z_index", -150, 150, 0, 1, "0 = world grid, -1 = enemies, -1.5 = items in world, player = 0.6", "z-index", component, 28),
           BooleanField("emissive", "Emissive", "Emissive rendering mode"),
@@ -174,8 +146,8 @@ SUPPORTED_COMPONENTS = {
           BooleanField("fog_of_war_hole", "Fog of war hole", "Should the alpha channel of this texture puncture a hole in the fog of war.\nNote: doesn't work with together emissive"),
           BooleanField("smooth_filtering", "Smooth filtering"),
           Header("Offset"),
-          NumberField("offset_x", -49, 50, 0, 1, "Sprite X offset", "x", component, 5),
-          NumberField("offset_y", -49, 50, 0, 1, "Sprite Y offset", "y", component, 5),
+          NumberField("offset_x", -49, 50, 0, 1, "Sprite X offset", "x", component, 10),
+          NumberField("offset_y", -49, 50, 0, 1, "Sprite Y offset", "y", component, 10),
           function (comp, entity)
             -- Required for many properties of sprites to properly update.
             -- Run every frame the SpriteComponent settings are open; if we start seeing
@@ -259,7 +231,8 @@ SUPPORTED_COMPONENTS = {
           NumberField("aabb_min_y", -100, 100, -5, 1, "Hitbox min y", "min y", component),
           NumberField("aabb_max_y", -100, 100, 5, 1, "Hitbox max y", "max y", component),
           Header("Hitbox aabb offset"),
-          Vec2Field("offset", -50, 50, 0, 1, "Hitbox offset", "x", "y"),
+          NumberField("offset", -50, 50, 0, 1, "Hitbox offset", "x", component, 10, false, 1),
+          NumberField("offset", -50, 50, 0, 1, "Hitbox offset", "y", component, 10, false, 2),
         }
       }
     }

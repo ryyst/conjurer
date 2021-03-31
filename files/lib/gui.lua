@@ -338,9 +338,18 @@ function Text(text, vars)
 end
 
 
+function HoverText(text, vars)
+  vars = vars or {}
+  vars.color = {red=180, green=159, blue=129}
+  vars.tooltip = text
+  Text(vars.hover or "[hover]", vars)
+end
+
+
 function Tooltip(text, desc)
   GuiTooltip(GUI, text, desc)
 end
+
 
 function Layer(callback)
   GuiLayoutBeginLayer(GUI)
