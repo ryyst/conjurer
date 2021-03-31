@@ -69,11 +69,12 @@ PICKUPS = {
     path="data/entities/items/pickup/sun/sunstone.xml",
     image="mods/raksa/files/gfx/pickup_icons/sunseed_2.png",
   },
-  {
-    name="Sunseed",
-    path="data/entities/items/pickup/sunseed.xml",
-    image="mods/raksa/files/gfx/pickup_icons/sunseed.png",
-  },
+  -- This is a weird data duplicate & subsequently a generation error
+  --{
+  --  name="Sunseed",
+  --  path="data/entities/items/pickup/sunseed.xml",
+  --  image="mods/raksa/files/gfx/pickup_icons/sunseed.png",
+  --},
   {
     name="Wandstone",
     path="data/entities/items/pickup/wandstone.xml",
