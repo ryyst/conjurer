@@ -10,6 +10,14 @@ function get_hitbox_transform(box)
   local max_y = ComponentGetValue2(box, "aabb_max_y")
   local offset_x, offset_y = ComponentGetValue2(box, "offset")
 
+  local worm_hitbox = EntityGetValue(entity, "WormComponent", "hitbox_radius")
+  if worm_hitbox then
+    local size = worm_hitbox * 2
+    local x = 0-min_x/size - offset_x/size
+    local y = 0-min_y/size - offset_y/size
+    return x, y, size, size
+  end
+
   if (min_x > max_x) or (min_y > max_y) then
     -- Invalid AABB. Our super-generalized calculations below were actually made to
     -- support these, before I noticed the game itself doesn't accept such scenarios.
@@ -23,14 +31,6 @@ function get_hitbox_transform(box)
 
   local x = 0 - math.min(min_x, max_x)/width - offset_x/width
   local y = 0 - math.min(min_y, max_y)/height - offset_y/height
-
-  local worm_hitbox = EntityGetValue(entity, "WormComponent", "hitbox_radius")
-  if worm_hitbox then
-    local size = worm_hitbox * 2
-    x = 0-min_x/size - offset_x/size
-    y = 0-min_y/size - offset_y/size
-    return x, y, size, size
-  end
 
   return x, y, width, height
 end
@@ -69,13 +69,16 @@ function create_sprites(hitboxes)
   for i, box in ipairs(hitboxes) do
     local x, y, width, height = get_hitbox_transform(box)
 
+    -- Silly boolean conversion
+    local is_worm = true and EntityGetValue(entity, "WormComponent", "hitbox_radius")
+
     EntityAddComponent2(entity, "SpriteComponent", {
         _tags="raksa_hitbox_display",
         image_file="mods/raksa/files/gfx/eraser_pixel.png",
         has_special_scale=true,
         special_scale_x=width,
         special_scale_y=height,
-        update_transform_rotation=false,
+        update_transform_rotation=is_worm,
         offset_x=x,
         offset_y=y,
         emissive=true,
