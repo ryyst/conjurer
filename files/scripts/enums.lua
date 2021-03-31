@@ -185,7 +185,7 @@ DEFAULTS = {
   [ERASER_GRID_SIZE] = "1",
   [ERASER_SIZE] = "2",
   -- Entwand
-  [SELECTED_ENTITY_INDEX] = "93",  -- Sheep.
+  [SELECTED_ENTITY_INDEX] = "120",  -- Sheep.
   [SELECTED_ENTITY_TYPE] = 1, -- Animals / Creatures
   [ENTWAND_GRID_SIZE] = 1,
   [ENTWAND_ROWS] = 1,
