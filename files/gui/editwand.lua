@@ -402,9 +402,21 @@ function render_component_selection_menu()
 
   Text(name.." - Components", {x=4, y=3})
 
-  Scroller({margin_x=4, x=3.5, y=3, width=160, height=180}, function()
+  Scroller({margin_x=4, x=3.5, y=3, width=160, height=200}, function()
     Vertical(0, 0, function()
+      local show_all_components = GlobalsGetBool(EDITWAND_SHOW_ALL_COMPS)
+
       Text("Click to edit & right-click to favorite!", {color={red=155, green=173, blue=183}, y=0})
+      Checkbox({
+          is_active=show_all_components,
+          text="Show all components",
+          tooltip="Toggles the display for non-editable components.",
+          tooltip_desc="More components will likely be supported as I get the time. :)",
+        },
+        function()
+          GlobalsToggleBool(EDITWAND_SHOW_ALL_COMPS)
+        end
+      )
       Text("-----", {})
 
       if not valid_comps or #valid_comps == 0 then
@@ -415,10 +427,12 @@ function render_component_selection_menu()
       end
       for i, item in ipairs(valid_comps) do
         if item.not_supported then
-          Text(item.name, {
-            color={red=130, green=130, blue=130},
-            tooltip="Editing component of this type is not supported ...yet!",
-          })
+          if show_all_components then
+            Text(item.name, {
+              color={red=130, green=130, blue=130},
+              tooltip="Editing component of this type is not supported ...yet!",
+            })
+          end
         else
           local text = "["..tostring(item.props.component).."] ".. item.name
           local vars = { text=text, tooltip=item.name, tooltip_desc=item.desc }
