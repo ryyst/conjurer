@@ -3,21 +3,21 @@
 ***************************
 
 Map changes:
-  - Spruced up all backgrounds & visuals for the whole spawn tower area
+  - Spruced up all backgrounds & visuals for the whole spawn area
   - Fixed: The fireplace should be generally less hazardous
   - Fixed: The lake leaking into teleportatium
-  - Fixed: Default flat world now has more uniform terrain generation
+  - Fixed: The default flat world has more uniform terrain generation now
   - *Secrets*
 
 Material wand:
   - New category: Solid Physics
-    - Finally the ability to draw physical & kickable chunks of meat!
+    - Finally the ability to draw physical, movable & kickable chunks of meat!
   - Changed: Default eraser filter from "Solids" to "All materials"
   - Fixed: Brush reticle now updates instantly when swapping brushes
   - Fixed: Eraser reticle now updates correctly when toggling Replace mode
   - Brush system overhaul:
     - "Brush Options" have been changed to "Drawing Options", with new sub-sections
-    - Many new tools: Filler tool, Line tool, Different shapes, Tree grower...
+    - New tools: Filler tool, Line tool, Different shapes, Tree grower...
 
 Entity wand:
   - New category: Backgrounds
@@ -26,24 +26,26 @@ Entity wand:
   - New wand setting: Kill instead of deleting
   - New wand setting: Toggle enemy gold drop
   - New custom entities:
-    - Heavy Machine Gun
+    - Mounted Heavy Machine Gun
     - Domino Blocks
   - Fixed: Terrible performance problem when using spawned wands/spells
+  - Added: All enemies/pickups/props from the Epilogue update
+    - Let me know if I missed something!
 
 New wand: Chaos Claw
-  - Move, rotate & scale any entities
+  - Move, rotate & scale entities freely
   - Inspect entities via [use]:
-    - List the entity name, tags & other properties
-    - Micro-adjust the entity position
+    - List the entity name, tags, components & other properties
+    - List and change internal component values
+    - Controls to micro-adjust the entity properties
     - Display animal hitboxes
-    - Change internal component values
 
 Powers:
   - New power: Trans-dimensional traveling; Change maps/biomes while in-game!
     - Includes 6 new custom areas and 6 basegame worlds
     - The "map selection" Mod Setting is removed along this new power
   - Changed: Weather overrides are now enabled by default
-  - Experimental: Nightfall Nakkikiska now also enables self-damage for any enemies
+  - Experimental: Nightfall Nakkikiska now also enables self-damage for enemies
 
 Items:
   - Fixed: You will no longer suffocate inside materials when using the enchanted carrot
@@ -61,7 +63,7 @@ Mod Extensions:
   - Material wand: Refactored huge parts of the brush system:
     - Brushes can now be freely categorized
     - More flags to brush controls
-    - Exposed all brush & eraser click/hold/release handlers
+    - Exposed all brush & eraser click/hold/release handlers (custom_tools.lua for examples)
     - All coordinates received by action handlers now use the correct grid settings
 
 
