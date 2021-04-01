@@ -20,6 +20,7 @@ function HoverTextField(field_name, text)
   end
 end
 
+
 function TextField(field_name, text, tooltip)
   return function (comp, entity)
     Text(
@@ -42,6 +43,7 @@ function BooleanField(field_name, text, tooltip)
   end
 end
 
+
 function ComponentSetValueOrVec(comp, field_name, value, other, vec2_index)
   if vec2_index == 1 then
     ComponentSetValue2(comp, field_name, value, other)
@@ -52,9 +54,9 @@ function ComponentSetValueOrVec(comp, field_name, value, other, vec2_index)
   end
 end
 
+
 function NumberField(field_name, min, max, default, multiplier, tooltip, text, comp_id, ddist, decimals, vec2_index)
   local global_name = "RAKSA_NUMBERFIELD_"..field_name.."_"..tostring(vec2_index).."_"..ComponentGetTypeName(comp_id)
-  --print(tostring(comp_id).." "..global_name)
 
   -- This is stored in a Global, so that the state is kept correctly *no matter what*.
   -- Eg. changing wands, entities or reloading game
@@ -104,18 +106,19 @@ function NumberField(field_name, min, max, default, multiplier, tooltip, text, c
         end)
       else
         SliderBare({
-            value=value * multiplier,
+            value=value,
             default=default,
             x=-2,
-            min=min*multiplier,
-            max=max*multiplier,
+            min=min,
+            max=max,
             width=100,
             tooltip=tooltip,
             formatting=formatting,
             decimals=decimals,
+            display_multiplier=multiplier or 1,
           },
           function(new_value)
-            local val = new_value / multiplier
+            local val = new_value
             ComponentSetValueOrVec(comp, field_name, val, other, vec2_index)
           end
         )
@@ -201,9 +204,9 @@ SUPPORTED_COMPONENTS = {
           NumberField("lifetime_min", 0, 120, 5, 1, "Lifetime Min", "min ", component),
           NumberField("lifetime_max", 0, 120, 5, 1, "Lifetime Max", "max", component),
           Header("Airflow"),
-          NumberField("airflow_force", 0, 6, 0, 100, "Airflow force", "force", component),
-          NumberField("airflow_time", 0, 10, 1, 100, "Airflow time", "time ", component),
-          NumberField("airflow_scale", 0, 10, 1, 100, "Airflow scale", "scale", component),
+          NumberField("airflow_force", 0, 6, 0, 1, "Airflow force", "force", component, nil, true),
+          NumberField("airflow_time", 0, 10, 1, 1, "Airflow time", "time ", component, nil, true),
+          NumberField("airflow_scale", 0, 10, 1, 1, "Airflow scale", "scale", component, nil, true),
           Header("Misc."),
           NumberField("friction", 0, 10, 0, 1, "Friction", "fric.", component),
           NumberField("attractor_force", 0, 100, 0, 1, "Attractor force", "attr.", component),
