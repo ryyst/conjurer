@@ -137,11 +137,11 @@ SUPPORTED_COMPONENTS = {
       --special = TextField("image_file", ""),
       props = {
         component = component,
-        height=150,
+        height=155,
         fields = {
           Header("Rendering", true),
           HoverTextField("image_file", "Image file path"),
-          NumberField("alpha", 0, 1, 0, 100, nil, "alpha", component, 28),
+          NumberField("alpha", 0, 1, 0, 100, nil, "alpha", component, 28, true),
           NumberField("z_index", -150, 150, 0, 1, "0 = world grid, -1 = enemies, -1.5 = items in world, player = 0.6", "z-index", component, 28),
           BooleanField("emissive", "Emissive", "Emissive rendering mode"),
           BooleanField("additive", "Additive", "Additive rendering mode"),
@@ -221,7 +221,7 @@ SUPPORTED_COMPONENTS = {
       desc = "",
       props = {
         component = component,
-        height=165,
+        height=170,
         fields = {
           Header("Settings", true),
           BooleanField("is_player", "Is player"),
