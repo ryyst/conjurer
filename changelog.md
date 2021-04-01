@@ -49,6 +49,8 @@ Items:
   - Fixed: You will no longer suffocate inside materials when using the enchanted carrot
 
 Other:
+  - Support for save slots
+    - Currently only available in Noita beta branch
   - Fixed: Fog of war hole around the player was off for custom zoom levels
   - Fixed: Global progress is disabled by default. Can be toggled via [Mod Settings]
   - Bunch of minor UI changes:
