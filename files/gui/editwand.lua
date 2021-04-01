@@ -406,6 +406,12 @@ function render_component_selection_menu()
     Vertical(0, 0, function()
       Text("Click to edit & right-click to favorite!", {color={red=155, green=173, blue=183}, y=0})
 
+      if not valid_comps or #valid_comps == 0 then
+        HoverText("How strange!", {
+          x=2, y=2,
+          hover="No components found for this entity"
+        })
+      end
       for i, item in ipairs(valid_comps) do
         local text = "["..tostring(item.props.component).."] ".. item.name
         local vars = { text=text, tooltip=item.name, tooltip_desc=item.desc }
