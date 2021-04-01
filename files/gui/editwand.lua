@@ -20,6 +20,7 @@ local detail_menu_pos_y = main_menu_pos_y
 
 local active_entity = nil
 local active_component = nil
+local valid_comps = {}
 
 
 function render_entity_properties()
@@ -299,17 +300,17 @@ function render_editwand_buttons()
     {
       name = "[LEFT-CLICK] to move entities",
       image = "mods/raksa/files/gfx/editwand_icons/icon_m1.png",
-      desc="[RIGHT-CLICK] while moving to freeze."
+      desc="[RIGHT-CLICK] while moving to freeze"
     },
     {
       name = "[RIGHT-CLICK] to rotate entities",
       image = "mods/raksa/files/gfx/editwand_icons/icon_m2.png",
-      desc="Note: physics entities have no free rotation, only torque."
+      desc="[LEFT-CLICK] to unfreeze rotated entities\nNote: physics entities have no free rotation, only torque."
     },
     {
-      name = "[INTERACT] to inspect entities",
+      name = "[INTERACT] to inspect & edit hovered entities",
       image = "mods/raksa/files/gfx/editwand_icons/icon_use.png",
-      desc="Below this button will appear different properties\nof an entity, which you can edit freely."
+      desc="[INTERACT] again in empty space to deselect entities"
     },
   };
 
@@ -346,17 +347,6 @@ function render_editwand_buttons()
     end
   )
   VerticalSpacing(4)
-
-  -- TODO: Run this code only once, then load from globals
-  local valid_comps = {}
-  local comps = EntityGetAllComponents(active_entity)
-  for c, comp in ipairs(comps) do
-    local name = ComponentGetTypeName(comp)
-    if SUPPORTED_COMPONENTS[name] and not ComponentHasTag(comp, "raksa_hitbox_display") then
-      table.insert(valid_comps, SUPPORTED_COMPONENTS[name](comp))
-    end
-  end
-  ------
 
   for i, item in ipairs(valid_comps) do
     Button(
@@ -471,20 +461,32 @@ end
 
 
 function render_editwand()
+  -- RUN ONCE AND ONLY ONCE ANY TIME ENTITY SELECTION CHANGES
   if GlobalsGetBool(SIGNAL_RESET_EDITWAND_GUI) then
     active_entity = nil
     active_component = nil
-    raksa_editwand_active_field=nil
-    toggle_active_editwand_overlay(render_entity_properties)
+    raksa_editwand_active_field = nil
+    valid_comps = {}
+    toggle_active_editwand_overlay(nil)
     GlobalsSetValue(SIGNAL_RESET_EDITWAND_GUI, "0")
   end
+  --
 
   active_entity = GlobalsGetNumber(ENTITY_TO_INSPECT)
 
-  -- Should run only the first time an entity is selected for inspection
+  -- RUN ONCE AND ONLY ONCE WHEN AN ENTITY IS SELECTED
   if active_entity and EntityGetIsAlive(active_entity) and render_active_editwand_overlay == nil then
+    local comps = EntityGetAllComponents(active_entity)
+    for c, comp in ipairs(comps) do
+      local name = ComponentGetTypeName(comp)
+      if SUPPORTED_COMPONENTS[name] and not ComponentHasTag(comp, "raksa_hitbox_display") then
+        table.insert(valid_comps, SUPPORTED_COMPONENTS[name](comp))
+      end
+    end
+
     toggle_active_editwand_overlay(render_entity_properties)
   end
+  --
 
   Vertical(main_menu_pos_x, main_menu_pos_y, function()
     render_editwand_buttons()
@@ -495,10 +497,10 @@ function render_editwand()
       render_active_editwand_overlay()
     end)
 
-    local active_field = raksa_editwand_active_field
-    if active_field then
+    -- TODO: Remember to get rid of this, if never utilized
+    if raksa_editwand_active_field then
       Vertical(detail_menu_pos_x, detail_menu_pos_y, function()
-        render_detail_menu(active_field)
+        render_detail_menu(raksa_editwand_active_field)
       end)
     end
   end
