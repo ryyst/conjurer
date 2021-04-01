@@ -193,6 +193,12 @@ function Background(vars, callback)
   )
 end
 
+function NextZIndex(z_index)
+  GuiZSetForNextWidget(GUI, z_index)
+end
+function SetZIndex(z_index)
+  GuiZSet(GUI, z_index)
+end
 
 function Scroller(vars, callback)
   GuiBeginScrollContainer(

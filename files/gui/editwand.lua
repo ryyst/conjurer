@@ -21,22 +21,45 @@ local detail_menu_pos_y = main_menu_pos_y
 local active_entity = nil
 local active_component = nil
 local valid_comps = {}
+local favorites = {}
+
+
+function remove_comp_from_favorites(i)
+  return function()
+    local entity_favorites = favorites[active_entity]
+    table.remove(entity_favorites, i)
+  end
+end
+
+
+function add_comp_to_favorites(vars, click)
+  local entity_favorites = favorites[active_entity] or {}
+  table.insert(entity_favorites, { vars=vars, click=click })
+  favorites[active_entity] = entity_favorites
+end
+
+
+function get_active_entity_names()
+  local filename = EntityGetFilename(active_entity)
+  local name = GameTextGetTranslatedOrNot(EntityGetName(active_entity))
+  if not name or #name == 0 or name == "unknown" then
+    name = get_entity_name_from_file(filename)
+  end
+  local readable_name = normalize_name(name)
+
+  return readable_name, filename
+end
 
 
 function render_entity_properties()
   local entity = active_entity
-  local filename = EntityGetFilename(entity)
 
   if not EntityGetIsAlive(entity) then
     render_active_editwand_overlay = nil
     return
   end
 
-  local name = GameTextGetTranslatedOrNot(EntityGetName(entity))
-  if not name or #name == 0 or name == "unknown" then
-    name = get_entity_name_from_file(filename)
-  end
-  local readable_name = normalize_name(name)
+  local name, filename = get_active_entity_names()
 
   local tags = EntityGetTags(entity)
   if not tags or #tags == 0 then
@@ -52,7 +75,8 @@ function render_entity_properties()
   x = math.floor(x)
   y = math.floor(y)
 
-  Text(readable_name, {x=4})
+  Text(name, {x=4, y=3})
+  VerticalSpacing(2.5)
 
   Background({margin=3, style=NPBG_DEFAULT, z_index=200, min_width=90}, function()
     Vertical(1, 1, function()
@@ -335,33 +359,71 @@ function render_editwand_buttons()
   end
 
   -- Always show entity properties
-  Button(
-    {
-      tooltip="Entity properties",
-      image="mods/raksa/files/gfx/editwand_icons/icon_entity_properties.png",
-      style=NPBG_DEFAULT,
-      padding=0,
-    },
-    function()
-      toggle_active_editwand_overlay(render_entity_properties)
-    end
-  )
-  VerticalSpacing(4)
-
-  for i, item in ipairs(valid_comps) do
+  Background({margin=1, z_index=200}, function()
     Button(
       {
-        tooltip=item.name, tooltip_desc=item.desc,
-        image_letter_text=item.name
+        tooltip="Entity properties",
+        image="mods/raksa/files/gfx/editwand_icons/icon_entity_properties.png",
+        padding=0,
       },
       function()
-        active_component = item
-        raksa_editwand_active_field = nil
-        toggle_active_editwand_overlay(render_component_properties)
+        toggle_active_editwand_overlay(render_entity_properties)
       end
     )
-    VerticalSpacing(2)
+    Button(
+      {
+        tooltip="Components",
+        image="mods/raksa/files/gfx/editwand_icons/icon_component_list.png",
+        padding=0,
+      },
+      function()
+        toggle_active_editwand_overlay(render_component_selection_menu)
+      end
+    )
+  end)
+
+  VerticalSpacing(7)
+
+  local entity_favorites = favorites[active_entity]
+  --print(str(entity_favorites))
+  if entity_favorites then
+    Background({margin=1, style=NPBG_GOLD, z_index=200}, function()
+      for i, item in ipairs(entity_favorites) do
+        Button(item.vars, item.click, remove_comp_from_favorites(i))
+        VerticalSpacing(2)
+      end
+    end)
   end
+end
+
+
+function render_component_selection_menu()
+  local name = get_active_entity_names()
+
+  Text(name.." - Components", {x=4, y=3})
+
+  Scroller({margin_x=4, x=3.5, y=3, width=160, height=170}, function()
+    Vertical(0, 0, function()
+      Text("Click to edit & right-click to favorite!", {color={red=155, green=173, blue=183}, y=0})
+
+      for i, item in ipairs(valid_comps) do
+        local text = "["..tostring(item.props.component).."] ".. item.name
+        local vars = { text=text, tooltip=item.name, tooltip_desc=item.desc }
+
+        local click = function()
+          active_component = item
+          raksa_editwand_active_field = nil
+          toggle_active_editwand_overlay(render_component_properties)
+        end
+        Button(vars, click, function()
+          vars.image_letter_text = item.name
+          vars.tooltip = text
+          vars.text = nil
+          add_comp_to_favorites(vars, click)
+        end)
+      end
+    end)
+  end)
 end
 
 
@@ -370,88 +432,27 @@ function render_component_properties()
     return
   end
 
+  local entity_name = get_active_entity_names()
+
   local props = active_component.props
   local name = active_component.name
   local component = props.component
   local fields = props.fields
   local id = tostring(component)
 
-  Vertical(1, 1, function()
-    Text(name.." properties ".." ["..id.."]")
-  end)
-
-  Vertical(1, 2, function()
-    Scroller({margin_x=0, x=-3, margin_y=5, width=160, height=props.height}, function()
-      Vertical(1, 0, function()
-        for f, field in ipairs(fields) do
-          field(component, active_entity)
-        end
-      end)
+  Text(entity_name .. " - ["..id.."] "..name, {x=4, y=3})
+  Scroller({margin_x=4, x=3.5, y=3, width=160, height=props.height}, function()
+    Vertical(0, 0, function()
+      for f, field in ipairs(fields) do
+        field(component, active_entity)
+      end
     end)
   end)
 end
 
 
 function render_detail_menu(active_field)
-  Background({margin=3, style=NPBG_GOLD, z_index=200, min_width=90}, function()
-    Text("Tuning " .. active_field.name)
-    NumberInput({value=active_field.value}, function(new_value)
-      active_field.value = new_value
-    end)
-
-    Horizontal(0, 1, function()
-      function value_step(incr)
-        active_field.value = active_field.value + incr
-      end
-
-      Button(
-        {tooltip="Value -100", image="mods/raksa/files/gfx/editwand_icons/icon_minus_small.png"},
-        function() value_step(-100) end
-      )
-      Button(
-        {tooltip="Value -10", image="mods/raksa/files/gfx/editwand_icons/icon_minus_small.png"},
-        function() value_step(-10) end
-      )
-      Button(
-        {tooltip="Value -1", image="mods/raksa/files/gfx/editwand_icons/icon_minus_small.png"},
-        function() value_step(-1) end
-      )
-      Button(
-        {tooltip="Value -0.1", image="mods/raksa/files/gfx/editwand_icons/icon_minus_small.png"},
-        function() value_step(-0.1) end
-      )
-      Text(",")
-      Button(
-        {tooltip="Value +0.1", image="mods/raksa/files/gfx/editwand_icons/icon_plus_small.png"},
-        function() value_step(0.1) end
-      )
-      Button(
-        {tooltip="Value +1", image="mods/raksa/files/gfx/editwand_icons/icon_plus_small.png"},
-        function() value_step(1) end
-      )
-      Button(
-        {tooltip="Value +10", image="mods/raksa/files/gfx/editwand_icons/icon_plus_small.png"},
-        function() value_step(10) end
-      )
-      Button(
-        {tooltip="Value +100", image="mods/raksa/files/gfx/editwand_icons/icon_plus_small.png"},
-        function() value_step(100) end
-      )
-    end)
-
-    Button(
-      {x=0, y=0, tooltip="Value +10", image="mods/raksa/files/gfx/editwand_icons/icon_plus.png"},
-      function()
-        local value = tonumber(active_field.value)
-        if not value then
-          GamePrint("Sorry, that's not a valid number")
-          return
-        end
-
-        ComponentSetValue2(active_field.comp, active_field.name, value)
-      end
-    )
-  end)
+  -- snip
 end
 
 
@@ -504,5 +505,4 @@ function render_editwand()
       end)
     end
   end
-
 end
