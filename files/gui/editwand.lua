@@ -402,9 +402,10 @@ function render_component_selection_menu()
 
   Text(name.." - Components", {x=4, y=3})
 
-  Scroller({margin_x=4, x=3.5, y=3, width=160, height=170}, function()
+  Scroller({margin_x=4, x=3.5, y=3, width=160, height=180}, function()
     Vertical(0, 0, function()
       Text("Click to edit & right-click to favorite!", {color={red=155, green=173, blue=183}, y=0})
+      Text("-----", {})
 
       if not valid_comps or #valid_comps == 0 then
         HoverText("How strange!", {
@@ -413,20 +414,27 @@ function render_component_selection_menu()
         })
       end
       for i, item in ipairs(valid_comps) do
-        local text = "["..tostring(item.props.component).."] ".. item.name
-        local vars = { text=text, tooltip=item.name, tooltip_desc=item.desc }
+        if item.not_supported then
+          Text(item.name, {
+            color={red=130, green=130, blue=130},
+            tooltip="Editing component of this type is not supported ...yet!",
+          })
+        else
+          local text = "["..tostring(item.props.component).."] ".. item.name
+          local vars = { text=text, tooltip=item.name, tooltip_desc=item.desc }
 
-        local click = function()
-          active_component = item
-          raksa_editwand_active_field = nil
-          toggle_active_editwand_overlay(render_component_properties)
+          local click = function()
+            active_component = item
+            raksa_editwand_active_field = nil
+            toggle_active_editwand_overlay(render_component_properties)
+          end
+          Button(vars, click, function()
+            vars.image_letter_text = item.name
+            vars.tooltip = text
+            vars.text = nil
+            add_comp_to_favorites(vars, click)
+          end)
         end
-        Button(vars, click, function()
-          vars.image_letter_text = item.name
-          vars.tooltip = text
-          vars.text = nil
-          add_comp_to_favorites(vars, click)
-        end)
       end
     end)
   end)
@@ -485,9 +493,17 @@ function render_editwand()
   if active_entity and EntityGetIsAlive(active_entity) and render_active_editwand_overlay == nil then
     local comps = EntityGetAllComponents(active_entity)
     for c, comp in ipairs(comps) do
-      local name = ComponentGetTypeName(comp)
-      if SUPPORTED_COMPONENTS[name] and not ComponentHasTag(comp, "raksa_hitbox_display") then
-        table.insert(valid_comps, SUPPORTED_COMPONENTS[name](comp))
+      if not ComponentHasTag(comp, "raksa_hitbox_display") then
+        local name = ComponentGetTypeName(comp)
+        local supported_comp = SUPPORTED_COMPONENTS[name]
+        if supported_comp then
+          table.insert(valid_comps, supported_comp(comp))
+        else
+          table.insert(valid_comps, {
+              name="["..tostring(comp) .. "] " .. name,
+              not_supported=true,
+          })
+        end
       end
     end
 
