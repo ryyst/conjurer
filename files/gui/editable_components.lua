@@ -95,7 +95,7 @@ function NumberField(field_name, min, max, default, multiplier, tooltip, text, c
 
       if use_textinput then
         NumberInput({value=invalid_value or value}, function(new_value)
-          number_value = tonumber(new_value)
+          local number_value = tonumber(new_value)
           if not number_value then
             invalid_value = new_value
             return
@@ -113,7 +113,7 @@ function NumberField(field_name, min, max, default, multiplier, tooltip, text, c
             max=max,
             width=100,
             tooltip=tooltip,
-            formatting=formatting,
+            --formatting=formatting,
             decimals=decimals,
             display_multiplier=multiplier or 1,
           },
@@ -236,6 +236,27 @@ SUPPORTED_COMPONENTS = {
           Header("Hitbox aabb offset"),
           NumberField("offset", -50, 50, 0, 1, "Hitbox offset", "x", component, 10, false, 1),
           NumberField("offset", -50, 50, 0, 1, "Hitbox offset", "y", component, 10, false, 2),
+        }
+      }
+    }
+  end,
+  DamageModelComponent = function(component)
+    return {
+      name = "Damage Model",
+      desc = "",
+      props = {
+        component = component,
+        height=170,
+        fields = {
+          Header("Settings", true),
+          BooleanField("materials_damage", "Materials damage", "Should physical material damage or not? Eg. acid."),
+          NumberField("blood_multiplier", 0, 20, 1, 1, "Blood multiplier", "Blood mult.", component, 42),
+          Header("Health", true),
+          NumberField("hp", 0, 10, 1, 1, "Current health value\nNote: Actual value when multiplied by 25", "hp", component, 20, true),
+          NumberField("max_hp", 0, 10, 1, 1, "Maximum health value\nNote: Actual value when multiplied by 25", "max", component, 20, true),
+          Header("Ragdoll offset"),
+          NumberField("ragdoll_offset_x", -20, 20, 0, 1, "Ragdoll spawn X offset", "x", component, 10),
+          NumberField("ragdoll_offset_y", -20, 20, 0, 1, "Ragdoll spawn Y offset", "y", component, 10),
         }
       }
     }
